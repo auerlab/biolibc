@@ -43,7 +43,7 @@
 ############################################################################
 # Installed targets
 
-LIB     = vcfio.a
+LIB     = libvcfio.a
 # MAN     = vcf-split.1
 
 ############################################################################
@@ -145,7 +145,7 @@ depend:
 # Remove generated files (objs and nroff output from man pages)
 
 clean:
-	rm -f ${OBJS} ${BIN} *.nr
+	rm -f ${OBJS} ${LIB} *.nr
 
 # Keep backup files during normal clean, but provide an option to remove them
 realclean: clean
@@ -155,8 +155,9 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 install: all
-	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/man/man1
-	${INSTALL} -s -m 0555 ${LIB} ${DESTDIR}${PREFIX}/lib
+	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include
+	${INSTALL} ${LIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} *.h ${DESTDIR}${PREFIX}/include
 
 #        ${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
 
@@ -165,7 +166,8 @@ install: all
 
 uninstall:
 	${RM} ${PREFIX}/bin/${BIN}
-	${RM} ${MANPREFIX}/man/man1/${MAN}
+	${RM} ${PREFIX}/lib/libvcfio.a
+	# Add includes
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"
