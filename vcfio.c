@@ -202,7 +202,7 @@ size_t  vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream,
 
 
 #ifdef __linux__
-size_t  strlcpy(char * restrict dest, const char * restrictsrc, size_t len)
+size_t  strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len)
 
 {
     char   *save_dest, *end;

@@ -24,8 +24,15 @@ typedef struct
     vcf_call_t  vcf_call[10];   // FIXME: What's the real maximum?
 }   vcf_duplicate_call_t;
 
+// CentOS 7 gcc does not support restrict
 #ifdef __linux__
-size_t strlcpy(char *restrict dest, const char *restrict src, size_t len);
+#define _RESTRICT
+#else
+#define _RESTRICT   restrict
+#endif
+
+#ifdef __linux__
+size_t strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len);
 #endif
 
 #include "vcfio-protos.h"
