@@ -1,0 +1,6 @@
+tsvio.o: tsvio.c tsvio.h tsvio-protos.h
+	${CC} -c ${CFLAGS} tsvio.c
+
+vcfio.o: vcfio.c tsvio.h tsvio-protos.h vcfio.h vcfio-protos.h
+	${CC} -c ${CFLAGS} vcfio.c
+
