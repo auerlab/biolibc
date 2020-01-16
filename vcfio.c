@@ -83,7 +83,8 @@ int     vcf_read_static_fields(const char *argv[],
 {
     char    temp_chromosome[VCF_CHROMOSOME_NAME_MAX + 1],
 	    *end;
-    
+
+    vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
     if ( tsv_read_field(argv, vcf_stream, temp_chromosome, VCF_CHROMOSOME_NAME_MAX) )
     {
 	strlcpy(vcf_call->chromosome, temp_chromosome, VCF_CHROMOSOME_NAME_MAX);
@@ -189,12 +190,12 @@ size_t  vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream,
     c = 0;
     do
     {
-	vcf_duplicate_calls->vcf_call[c++] = vcf_call;
+	vcf_duplicate_calls->call[c++] = vcf_call;
 	buffered_calls = vcf_read_ss_call(argv, vcf_stream, &vcf_call);
     }   while ( (buffered_calls == 1) &&
-		(vcf_call.pos == vcf_duplicate_calls->vcf_call[c-1].pos) &&
+		(vcf_call.pos == vcf_duplicate_calls->call[c-1].pos) &&
 		(strcmp(vcf_call.chromosome,
-			vcf_duplicate_calls->vcf_call[c-1].chromosome) == 0) );
+			vcf_duplicate_calls->call[c-1].chromosome) == 0) );
 
     // Return the number of calls with the same position
     return vcf_duplicate_calls->count = c;
