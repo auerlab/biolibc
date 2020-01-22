@@ -48,7 +48,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *infile,
 
 {
     size_t  c;
-    char    temp_id[VCF_ID_MAX_LEN + 1];
+    char    temp_id[VCF_ID_MAX_CHARS + 1];
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
@@ -59,7 +59,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *infile,
 	tsv_skip_field(argv, infile);
     
     for (; (c <= last_col) &&
-	   tsv_read_field(argv, infile, temp_id, VCF_ID_MAX_LEN) != 0; ++c)
+	   tsv_read_field(argv, infile, temp_id, VCF_ID_MAX_CHARS) != 0; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_id);
 	// fprintf(stderr, "'%s'\n", temp_id);
@@ -81,15 +81,15 @@ int     vcf_read_static_fields(const char *argv[],
 		      FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
-    char    temp_chromosome[VCF_CHROMOSOME_NAME_MAX + 1],
+    char    temp_chromosome[VCF_CHROMOSOME_MAX_CHARS + 1],
 	    *end;
 
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
-    if ( tsv_read_field(argv, vcf_stream, temp_chromosome, VCF_CHROMOSOME_NAME_MAX) )
+    if ( tsv_read_field(argv, vcf_stream, temp_chromosome, VCF_CHROMOSOME_MAX_CHARS) )
     {
-	strlcpy(vcf_call->chromosome, temp_chromosome, VCF_CHROMOSOME_NAME_MAX);
+	strlcpy(vcf_call->chromosome, temp_chromosome, VCF_CHROMOSOME_MAX_CHARS);
 	// Call position
-	tsv_read_field(argv, vcf_stream, vcf_call->pos_str, VCF_POSITION_MAX_DIGITS);
+	tsv_read_field(argv, vcf_stream, vcf_call->pos_str, VCF_POSITION_MAX_CHARS);
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
@@ -102,10 +102,10 @@ int     vcf_read_static_fields(const char *argv[],
 	tsv_skip_field(argv, vcf_stream);
 	
 	// Ref
-	tsv_read_field(argv, vcf_stream, vcf_call->ref, VCF_REF_NAME_MAX);
+	tsv_read_field(argv, vcf_stream, vcf_call->ref, VCF_REF_MAX_CHARS);
 	
 	// Alt
-	tsv_read_field(argv, vcf_stream, vcf_call->alt, VCF_ALT_NAME_MAX);
+	tsv_read_field(argv, vcf_stream, vcf_call->alt, VCF_ALT_MAX_CHARS);
 
 	// Qual
 	tsv_skip_field(argv, vcf_stream);
@@ -117,7 +117,7 @@ int     vcf_read_static_fields(const char *argv[],
 	tsv_skip_field(argv, vcf_stream);
 	
 	// Format
-	tsv_read_field(argv, vcf_stream, vcf_call->format, VCF_FORMAT_MAX);
+	tsv_read_field(argv, vcf_stream, vcf_call->format, VCF_FORMAT_MAX_CHARS);
 
 #if 0
 	fprintf(stderr, "%s %s %s %s %s %s\n",
@@ -136,7 +136,7 @@ int     vcf_read_static_fields(const char *argv[],
 
 /***************************************************************************
  *  Description:
- *      Read a single-sample VCF call including genotype.
+ *      Read a single-sample VCF call.
  *
  *  History: 
  *  Date        Name        Modification
@@ -147,12 +147,51 @@ int     vcf_read_ss_call(const char *argv[],
 		      FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
-    if ( vcf_read_static_fields(argv, vcf_stream, vcf_call) &&
-	 tsv_read_field(argv, vcf_stream,
-			vcf_call->genotype, VCF_GENOTYPE_NAME_MAX) )
-	return 1;
+    if ( vcf_read_static_fields(argv, vcf_stream, vcf_call) )
+    {
+	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
+	    return tsv_read_field(argv, vcf_stream,
+				  vcf_call->samples[0], VCF_SAMPLE_MAX_CHARS);
+	else
+	    return 0;
+    }
     else
 	return 0;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Write static fields from one line of a single-entry VCF file.
+ *      Does not write sample data.
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
+int     vcf_write_static_fields(const char *argv[],
+		      FILE *vcf_stream, vcf_call_t *vcf_call)
+
+{
+	return 0;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Write a single-sample VCF call to vcf_stream.
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
+int     vcf_write_ss_call(const char *argv[],
+		      FILE *vcf_stream, vcf_call_t *vcf_call)
+
+{
+    return 0;
 }
 
 
@@ -173,7 +212,7 @@ size_t  vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream,
 
 {
     // Cache the next VCF call after the last one returned
-    static vcf_call_t   vcf_call;
+    static vcf_call_t   vcf_call = VCF_CALL_INIT;
     static size_t       buffered_calls = 0; // 0 or 1
     size_t              c;
     
@@ -199,6 +238,25 @@ size_t  vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream,
 
     // Return the number of calls with the same position
     return vcf_duplicate_calls->count = c;
+}
+
+
+char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
+
+{
+    size_t  c;
+    
+    if ( (vcf_call->samples =
+	 (char **)malloc(samples * sizeof(char *))) != NULL )
+    {
+	for (c = 0; c < samples; ++c)
+	{
+	    if ( (vcf_call->samples[c] =
+		 (char *)malloc(VCF_SAMPLE_MAX_CHARS + 1)) == NULL )
+		return NULL;
+	}
+    }
+    return vcf_call->samples;
 }
 
 
