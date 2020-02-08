@@ -27,7 +27,7 @@ void    vcf_skip_header(const char *argv[], FILE *infile)
     // puts(start);
     if ( count == 0 )
     {
-	fprintf(stderr, "%s: Error: No #CHROM header found.\n", argv[0]);
+	fprintf(stderr, "%s: vcf_skip_header(): No #CHROM header found.\n", argv[0]);
 	exit(EX_DATAERR);
     }
 }
@@ -93,7 +93,7 @@ int     vcf_read_static_fields(const char *argv[],
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "%s: Invalid call position: %s\n",
+	    fprintf(stderr, "%s: vcf_read_static_fields(): Invalid call position: %s\n",
 		    argv[0], vcf_call->pos_str);
 	    exit(EX_DATAERR);
 	}
