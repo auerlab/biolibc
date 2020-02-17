@@ -6,6 +6,7 @@
 /***************************************************************************
  *  Description:
  *      Read next tab-separated field
+ *      Return delimiter ending the field (should be tab or newline)
  *
  *  History: 
  *  Date        Name        Modification
@@ -13,16 +14,16 @@
  ***************************************************************************/
 
 int     tsv_read_field(const char *argv[], FILE *infile,
-		       char buff[], size_t buff_size)
+		       char buff[], size_t buff_size, size_t *len)
 
 {
     size_t  c;
     char    *p;
+    int     ch;
     
-    c = 0, p = buff;
-    while ( (c < buff_size) && ((*p = getc(infile)) != '\t') &&
-	    (*p != '\n') && (*p != EOF) )
-	++c, ++p;
+    for (c = 0, p = buff; (c < buff_size) && ((ch = getc(infile)) != '\t') &&
+			  (ch != '\n') && (ch != EOF); ++c, ++p )
+	*p = ch;
     
     if ( c == buff_size )
     {
@@ -31,13 +32,15 @@ int     tsv_read_field(const char *argv[], FILE *infile,
 	exit(EX_DATAERR);
     }
     
-    if ( *p == EOF )
-	return 0;
-    else
+    if ( ch == EOF )
     {
-	*p = '\0';
-	return c;
+	fprintf(stderr, "%s: tsv_read_field(): Encountered EOF.  This should not happen.\n", argv[0]);
+	fprintf(stderr, "Either there's a program bug or your VCF input is corrupt.\n");
     }
+    
+    *p = '\0';
+    *len = c;
+    return ch;
 }
 
 
@@ -82,5 +85,5 @@ int     tsv_skip_rest_of_line(const char *argv[], FILE *infile)
     
     while ( ((ch = getc(infile)) != EOF) && (ch != '\n') )
 	;
-    return ch != EOF;
+    return ch;
 }

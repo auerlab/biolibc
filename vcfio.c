@@ -14,15 +14,15 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_skip_header(const char *argv[], FILE *infile)
+void    vcf_skip_header(const char *argv[], FILE *vcf_stream)
 
 {
     char    start[7] = "xxxxxx";
     size_t  count;
 
-    while ( ((count=fread(start, 6, 1, infile)) == 1) && 
+    while ( ((count=fread(start, 6, 1, vcf_stream)) == 1) && 
 	    (memcmp(start, "#CHROM", 6) != 0) )
-	tsv_skip_rest_of_line(argv, infile);
+	tsv_skip_rest_of_line(argv, vcf_stream);
     
     // puts(start);
     if ( count == 0 )
@@ -42,28 +42,35 @@ void    vcf_skip_header(const char *argv[], FILE *infile)
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_get_sample_ids(const char *argv[], FILE *infile,
+void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
 			   char *sample_ids[],
 			   size_t first_col, size_t last_col)
 
 {
-    size_t  c;
-    char    temp_id[VCF_ID_MAX_CHARS + 1];
+    size_t  c,
+	    len;
+    char    temp_sample_id[VCF_ID_MAX_CHARS + 1];
+    int     end_of_field;
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
-	tsv_skip_field(argv, infile);
+	tsv_skip_field(argv, vcf_stream);
     
     // Skip sample IDs before first_col
     for (c = 1; c < first_col; ++c)
-	tsv_skip_field(argv, infile);
+	tsv_skip_field(argv, vcf_stream);
     
     for (; (c <= last_col) &&
-	   tsv_read_field(argv, infile, temp_id, VCF_ID_MAX_CHARS) != 0; ++c)
+	   (end_of_field = tsv_read_field(argv, vcf_stream, temp_sample_id,
+				     VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
-	sample_ids[c - first_col] = strdup(temp_id);
-	// fprintf(stderr, "'%s'\n", temp_id);
+	sample_ids[c - first_col] = strdup(temp_sample_id);
+	// fprintf(stderr, "'%s'\n", temp_sample_id);
     }
+    
+    // Skip any remaining fields after last_col
+    if ( end_of_field != '\n' )
+	tsv_skip_rest_of_line(argv, vcf_stream);
 }
 
 
@@ -83,13 +90,17 @@ int     vcf_read_static_fields(const char *argv[],
 {
     char    temp_chromosome[VCF_CHROMOSOME_MAX_CHARS + 1],
 	    *end;
-
+    size_t  len;
+    
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
-    if ( tsv_read_field(argv, vcf_stream, temp_chromosome, VCF_CHROMOSOME_MAX_CHARS) )
+    if ( tsv_read_field(argv, vcf_stream, temp_chromosome,
+			VCF_CHROMOSOME_MAX_CHARS, &len) != EOF )
     {
 	strlcpy(vcf_call->chromosome, temp_chromosome, VCF_CHROMOSOME_MAX_CHARS);
+	
+	// FIXME: Check for EOF on tsv_read_field() calls
 	// Call position
-	tsv_read_field(argv, vcf_stream, vcf_call->pos_str, VCF_POSITION_MAX_CHARS);
+	tsv_read_field(argv, vcf_stream, vcf_call->pos_str, VCF_POSITION_MAX_CHARS, &len);
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
@@ -102,10 +113,10 @@ int     vcf_read_static_fields(const char *argv[],
 	tsv_skip_field(argv, vcf_stream);
 	
 	// Ref
-	tsv_read_field(argv, vcf_stream, vcf_call->ref, VCF_REF_MAX_CHARS);
+	tsv_read_field(argv, vcf_stream, vcf_call->ref, VCF_REF_MAX_CHARS, &len);
 	
 	// Alt
-	tsv_read_field(argv, vcf_stream, vcf_call->alt, VCF_ALT_MAX_CHARS);
+	tsv_read_field(argv, vcf_stream, vcf_call->alt, VCF_ALT_MAX_CHARS, &len);
 
 	// Qual
 	tsv_skip_field(argv, vcf_stream);
@@ -117,7 +128,8 @@ int     vcf_read_static_fields(const char *argv[],
 	tsv_skip_field(argv, vcf_stream);
 	
 	// Format
-	tsv_read_field(argv, vcf_stream, vcf_call->format, VCF_FORMAT_MAX_CHARS);
+	tsv_read_field(argv, vcf_stream, vcf_call->format,
+		       VCF_FORMAT_MAX_CHARS, &len);
 
 #if 0
 	fprintf(stderr, "%s %s %s %s %s %s\n",
@@ -147,11 +159,18 @@ int     vcf_read_ss_call(const char *argv[],
 		      FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
+    size_t  len;
+    
     if ( vcf_read_static_fields(argv, vcf_stream, vcf_call) )
     {
 	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
-	    return tsv_read_field(argv, vcf_stream,
-				  vcf_call->samples[0], VCF_SAMPLE_MAX_CHARS);
+	{
+	    if ( tsv_read_field(argv, vcf_stream, vcf_call->samples[0],
+			    VCF_SAMPLE_MAX_CHARS, &len) != EOF )
+		return 1;
+	    else
+		return 0;
+	}
 	else
 	    return 0;
     }
