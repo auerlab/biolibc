@@ -24,16 +24,18 @@ int     tsv_read_field(const char *argv[], FILE *infile,
     for (c = 0, p = buff; (c < buff_size) && ((ch = getc(infile)) != '\t') &&
 			  (ch != '\n') && (ch != EOF); ++c, ++p )
 	*p = ch;
+    *p = '\0';
     
     if ( c == buff_size )
     {
 	fprintf(stderr, "%s: tsv_read_field(): Buffer overflow reading field.\n", argv[0]);
 	fprintf(stderr, "Buffer size = %zu\n", buff_size);
 	fputs(buff, stderr);
-	exit(EX_DATAERR);
+	// FIXME: Replace this with another sentinal value?
+	// Would require all callers to handle both EOF and overflow
+	return EOF;
     }
     
-    *p = '\0';
     *len = c;
     return ch;
 }

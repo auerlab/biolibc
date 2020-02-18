@@ -50,7 +50,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     size_t  c,
 	    len;
     char    temp_sample_id[VCF_ID_MAX_CHARS + 1];
-    int     end_of_field;
+    int     delimiter;
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
@@ -61,7 +61,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
 	tsv_skip_field(argv, vcf_stream);
     
     for (; (c <= last_col) &&
-	   (end_of_field = tsv_read_field(argv, vcf_stream, temp_sample_id,
+	   (delimiter = tsv_read_field(argv, vcf_stream, temp_sample_id,
 				     VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
@@ -69,7 +69,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     }
     
     // Skip any remaining fields after last_col
-    if ( end_of_field != '\n' )
+    if ( delimiter != '\n' )
 	tsv_skip_rest_of_line(argv, vcf_stream);
 }
 
@@ -98,9 +98,9 @@ int     vcf_read_static_fields(const char *argv[],
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading CHROM: %s.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading CHROM: %s.\n",
 		argv[0], vcf_call->chromosome);
-	fputs("This is normal.\n", stderr);
+	fputs("This is where we should reach EOF.\n", stderr);
 	return 0;
     }
     
@@ -109,7 +109,7 @@ int     vcf_read_static_fields(const char *argv[],
 			VCF_POSITION_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading POS: %s.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		argv[0], vcf_call->pos_str);
 	return 0;
     }
@@ -129,7 +129,7 @@ int     vcf_read_static_fields(const char *argv[],
 			VCF_ID_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading ID.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading ID.\n",
 		argv[0]);
 	return 0;
     }
@@ -139,7 +139,7 @@ int     vcf_read_static_fields(const char *argv[],
 			VCF_REF_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading REF.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading REF.\n",
 		argv[0]);
 	return 0;
     }
@@ -149,7 +149,7 @@ int     vcf_read_static_fields(const char *argv[],
 		   VCF_ALT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading ALT.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading ALT.\n",
 		argv[0]);
 	return 0;
     }
@@ -159,7 +159,7 @@ int     vcf_read_static_fields(const char *argv[],
 		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading QUAL.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading QUAL.\n",
 		argv[0]);
 	return 0;
     }
@@ -169,7 +169,7 @@ int     vcf_read_static_fields(const char *argv[],
 		   VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading FILTER.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading FILTER.\n",
 		argv[0]);
 	return 0;
     }
@@ -179,7 +179,7 @@ int     vcf_read_static_fields(const char *argv[],
 		   VCF_INFO_MAX_CHARS, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading INFO.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading INFO.\n",
 		argv[0]);
 	return 0;
     }
@@ -189,7 +189,7 @@ int     vcf_read_static_fields(const char *argv[],
 		   VCF_FORMAT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Hit EOF reading FORMAT.\n",
+		"%s: vcf_read_static_fields(): Got EOF reading FORMAT.\n",
 		argv[0]);
 	return 0;
     }
@@ -231,7 +231,7 @@ int     vcf_read_ss_call(const char *argv[],
 	    else
 	    {
 		fprintf(stderr,
-			"%s: vcf_read_ss_call(): Hit EOF reading sample.\n",
+			"%s: vcf_read_ss_call(): Got EOF reading sample.\n",
 			argv[0]);
 		return 0;
 	    }
