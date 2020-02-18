@@ -46,8 +46,8 @@ typedef struct
 	    id[VCF_ID_MAX_CHARS + 1],
 	    ref[VCF_REF_MAX_CHARS + 1],
 	    alt[VCF_ALT_MAX_CHARS + 1],
-	    quality_str[VCF_QUALITY_MAX_CHARS + 1],
-	    filter_str[VCF_FILTER_MAX_CHARS + 1],
+	    quality[VCF_QUALITY_MAX_CHARS + 1],
+	    filter[VCF_FILTER_MAX_CHARS + 1],
 	    info[VCF_INFO_MAX_CHARS + 1],
 	    format[VCF_FORMAT_MAX_CHARS + 1],
 	    **samples;
@@ -63,7 +63,9 @@ typedef struct
     vcf_call_t  call[VCF_DUP_CALL_MAX];
 }   vcf_duplicate_call_t;
 
-// CentOS 7 gcc does not support restrict
+// CentOS 7 gcc does not support restrict, which helps the optimizer produce
+// faster code.  Keep _RESTRICT def separate from strlcpy() prototype in case
+// other platforms are missing one but not the other.
 #ifdef __linux__
 #define _RESTRICT
 #else

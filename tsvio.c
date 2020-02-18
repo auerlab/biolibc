@@ -28,14 +28,9 @@ int     tsv_read_field(const char *argv[], FILE *infile,
     if ( c == buff_size )
     {
 	fprintf(stderr, "%s: tsv_read_field(): Buffer overflow reading field.\n", argv[0]);
+	fprintf(stderr, "Buffer size = %zu\n", buff_size);
 	fputs(buff, stderr);
 	exit(EX_DATAERR);
-    }
-    
-    if ( ch == EOF )
-    {
-	fprintf(stderr, "%s: tsv_read_field(): Encountered EOF.  This should not happen.\n", argv[0]);
-	fprintf(stderr, "Either there's a program bug or your VCF input is corrupt.\n");
     }
     
     *p = '\0';
@@ -53,7 +48,7 @@ int     tsv_read_field(const char *argv[], FILE *infile,
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    tsv_skip_field(const char *argv[], FILE *infile)
+int     tsv_skip_field(const char *argv[], FILE *infile)
 
 {
     int     ch;
@@ -61,11 +56,7 @@ void    tsv_skip_field(const char *argv[], FILE *infile)
     while ( ((ch = getc(infile)) != '\t') && (ch != '\n') && (ch != EOF) )
 	;
     
-    if ( ch == EOF )
-    {
-	fprintf(stderr, "%s: tsv_skip_field(): EOF encounterd unexpectedly.\n", argv[0]);
-	exit(EX_DATAERR);
-    }
+    return ch;
 }
 
 

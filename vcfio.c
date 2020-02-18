@@ -88,61 +88,121 @@ int     vcf_read_static_fields(const char *argv[],
 		      FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
-    char    temp_chromosome[VCF_CHROMOSOME_MAX_CHARS + 1],
-	    *end;
+    char    *end;
     size_t  len;
     
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
-    if ( tsv_read_field(argv, vcf_stream, temp_chromosome,
-			VCF_CHROMOSOME_MAX_CHARS, &len) != EOF )
+    
+    // Chromosome
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->chromosome,
+			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	strlcpy(vcf_call->chromosome, temp_chromosome, VCF_CHROMOSOME_MAX_CHARS);
-	
-	// FIXME: Check for EOF on tsv_read_field() calls
-	// Call position
-	tsv_read_field(argv, vcf_stream, vcf_call->pos_str, VCF_POSITION_MAX_CHARS, &len);
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading CHROM: %s.\n",
+		argv[0], vcf_call->chromosome);
+	fputs("This is normal.\n", stderr);
+	return 0;
+    }
+    
+    // Call position
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->pos_str,
+			VCF_POSITION_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading POS: %s.\n",
+		argv[0], vcf_call->pos_str);
+	return 0;
+    }
+    else
+    {
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "%s: vcf_read_static_fields(): Invalid call position: %s\n",
 		    argv[0], vcf_call->pos_str);
-	    exit(EX_DATAERR);
+	    return 0;
 	}
-	
-	// ID
-	tsv_skip_field(argv, vcf_stream);
-	
-	// Ref
-	tsv_read_field(argv, vcf_stream, vcf_call->ref, VCF_REF_MAX_CHARS, &len);
-	
-	// Alt
-	tsv_read_field(argv, vcf_stream, vcf_call->alt, VCF_ALT_MAX_CHARS, &len);
+    }
+    
+    // ID
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->id,
+			VCF_ID_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading ID.\n",
+		argv[0]);
+	return 0;
+    }
+    
+    // Ref
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->ref,
+			VCF_REF_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading REF.\n",
+		argv[0]);
+	return 0;
+    }
+    
+    // Alt
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->alt,
+		   VCF_ALT_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading ALT.\n",
+		argv[0]);
+	return 0;
+    }
 
-	// Qual
-	tsv_skip_field(argv, vcf_stream);
-	
-	// Filter
-	tsv_skip_field(argv, vcf_stream);
-	
-	// Info
-	tsv_skip_field(argv, vcf_stream);
-	
-	// Format
-	tsv_read_field(argv, vcf_stream, vcf_call->format,
-		       VCF_FORMAT_MAX_CHARS, &len);
+    // Qual
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->quality,
+		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading QUAL.\n",
+		argv[0]);
+	return 0;
+    }
+    
+    // Filter
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->filter,
+		   VCF_FILTER_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading FILTER.\n",
+		argv[0]);
+	return 0;
+    }
+    
+    // Info
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->info,
+		   VCF_INFO_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading INFO.\n",
+		argv[0]);
+	return 0;
+    }
+    
+    // Format
+    if ( tsv_read_field(argv, vcf_stream, vcf_call->format,
+		   VCF_FORMAT_MAX_CHARS, &len) == EOF )
+    {
+	fprintf(stderr,
+		"%s: vcf_read_static_fields(): Hit EOF reading FORMAT.\n",
+		argv[0]);
+	return 0;
+    }
 
 #if 0
-	fprintf(stderr, "%s %s %s %s %s %s\n",
-	    vcf_call->chromosome,
-	    vcf_call->pos_str,
-	    vcf_call->ref,
-	    vcf_call->alt,
-	    vcf_call->format);
+    fprintf(stderr, "%s %s %s %s %s %s\n",
+	vcf_call->chromosome,
+	vcf_call->pos_str,
+	vcf_call->ref,
+	vcf_call->alt,
+	vcf_call->format);
 #endif
-	return 1;
-    }
-    else
-	return 0;
+    return 1;
 }
 
 
@@ -169,10 +229,19 @@ int     vcf_read_ss_call(const char *argv[],
 			    VCF_SAMPLE_MAX_CHARS, &len) != EOF )
 		return 1;
 	    else
+	    {
+		fprintf(stderr,
+			"%s: vcf_read_ss_call(): Hit EOF reading sample.\n",
+			argv[0]);
 		return 0;
+	    }
 	}
 	else
+	{
+	    fprintf(stderr, "%s: vcf_read_ss_call(): malloc() failed.\n",
+		    argv[0]);
 	    return 0;
+	}
     }
     else
 	return 0;
@@ -193,7 +262,7 @@ int     vcf_write_static_fields(const char *argv[],
 		      FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
-	return 0;
+    return 0;
 }
 
 
