@@ -176,7 +176,7 @@ int     vcf_read_static_fields(const char *argv[],
     
     // Info
     if ( tsv_read_field(argv, vcf_stream, vcf_call->info,
-		   VCF_INFO_MAX_CHARS, &len) == EOF )
+		   VCF_INFO_MAX_CHARS, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Hit EOF reading INFO.\n",

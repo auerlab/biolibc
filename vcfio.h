@@ -17,9 +17,9 @@
 #define VCF_ALT_MAX_CHARS           32
 #define VCF_QUALITY_MAX_CHARS       32
 #define VCF_FILTER_MAX_CHARS        64
-#define VCF_INFO_MAX_CHARS          4096
+#define VCF_INFO_MAX_CHARS          65536
 #define VCF_FORMAT_MAX_CHARS        4096
-#define VCF_SAMPLE_MAX_CHARS        256
+#define VCF_SAMPLE_MAX_CHARS        1024
 
 #define VCF_CALL_INIT \
 	{ \
@@ -51,7 +51,8 @@ typedef struct
 	    info[VCF_INFO_MAX_CHARS + 1],
 	    format[VCF_FORMAT_MAX_CHARS + 1],
 	    **samples;
-    size_t  pos;
+    size_t  pos,
+	    info_len;
     int     ref_count,
 	    alt_count,
 	    other_count;
