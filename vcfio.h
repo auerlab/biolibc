@@ -17,8 +17,8 @@
 #define VCF_ALT_MAX_CHARS           32
 #define VCF_QUALITY_MAX_CHARS       32
 #define VCF_FILTER_MAX_CHARS        64
-// Yes, we actually saw INFO fields up to 109k in some dbGap BCFs
-#define VCF_INFO_MAX_CHARS          131072
+// Yes, we actually saw INFO fields over 128k in some dbGap BCFs
+#define VCF_INFO_MAX_CHARS          1048576
 #define VCF_FORMAT_MAX_CHARS        4096
 #define VCF_SAMPLE_MAX_CHARS        1024
 
