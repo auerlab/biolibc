@@ -98,8 +98,8 @@ int     vcf_read_static_fields(const char *argv[],
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading CHROM: %s.\n",
-		argv[0], vcf_call->chromosome);
+		"%s: vcf_read_static_fields(): Got EOF reading CHROM.\n",
+		argv[0]);
 	fputs("This is where we should reach EOF.\n", stderr);
 	return 0;
     }
