@@ -11,11 +11,14 @@
  *  is not for you.
  */
 
+// Use different sizes for each so tsv_read_field() buffer overflow errors
+// will point to a specific field.  Eventually should have tsv_read_field()
+// return an error code rather than exit with an error message
 #define VCF_CHROMOSOME_MAX_CHARS    256
 #define VCF_POSITION_MAX_CHARS      32
-#define VCF_REF_MAX_CHARS           32
-#define VCF_ALT_MAX_CHARS           32
-#define VCF_QUALITY_MAX_CHARS       32
+#define VCF_REF_MAX_CHARS           34
+#define VCF_ALT_MAX_CHARS           36
+#define VCF_QUALITY_MAX_CHARS       38
 #define VCF_FILTER_MAX_CHARS        64
 // Yes, we actually saw INFO fields over 128k in some dbGap BCFs
 #define VCF_INFO_MAX_CHARS          1048576
