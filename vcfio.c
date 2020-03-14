@@ -50,7 +50,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     size_t  c,
 	    len;
     char    temp_sample_id[VCF_ID_MAX_CHARS + 1];
-    int     delimiter;
+    int     delimiter = 0;
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
@@ -66,6 +66,14 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
 	// fprintf(stderr, "'%s'\n", temp_sample_id);
+    }
+    
+    if ( delimiter == 0 )
+    {
+	fprintf(stderr, "%s: Reached last_col before reading any sample IDs.\n",
+		argv[0]);
+	fprintf(stderr, "Check your first_col and last_col values.\n");
+	exit(EX_DATAERR);
     }
     
     // Skip any remaining fields after last_col
