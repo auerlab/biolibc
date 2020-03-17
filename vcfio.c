@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sysexits.h>
+#include <stdbool.h>
 #include "tsvio.h"
 #include "vcfio.h"
 
@@ -109,7 +110,7 @@ int     vcf_read_static_fields(const char *argv[],
 		"%s: vcf_read_static_fields(): Got EOF reading CHROM.\n",
 		argv[0]);
 	fputs("This is where we should reach EOF.\n", stderr);
-	return 0;
+	return VCF_READ_EOF;
     }
     
     // Call position
@@ -119,7 +120,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		argv[0], vcf_call->pos_str);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     else
     {
@@ -128,7 +129,7 @@ int     vcf_read_static_fields(const char *argv[],
 	{
 	    fprintf(stderr, "%s: vcf_read_static_fields(): Invalid call position: %s\n",
 		    argv[0], vcf_call->pos_str);
-	    return 0;
+	    return VCF_READ_TRUNCATED;
 	}
     }
     
@@ -139,7 +140,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading ID.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     
     // Ref
@@ -149,7 +150,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading REF.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     
     // Alt
@@ -159,7 +160,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading ALT.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
 
     // Qual
@@ -169,7 +170,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading QUAL.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     
     // Filter
@@ -179,7 +180,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading FILTER.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     
     // Info
@@ -189,7 +190,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading INFO.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
     
     // Format
@@ -199,7 +200,7 @@ int     vcf_read_static_fields(const char *argv[],
 	fprintf(stderr,
 		"%s: vcf_read_static_fields(): Got EOF reading FORMAT.\n",
 		argv[0]);
-	return 0;
+	return VCF_READ_TRUNCATED;
     }
 
 #if 0
@@ -210,7 +211,7 @@ int     vcf_read_static_fields(const char *argv[],
 	vcf_call->alt,
 	vcf_call->format);
 #endif
-    return 1;
+    return VCF_READ_OK;
 }
 
 
@@ -228,31 +229,33 @@ int     vcf_read_ss_call(const char *argv[],
 
 {
     size_t  len;
+    int     status;
     
-    if ( vcf_read_static_fields(argv, vcf_stream, vcf_call) )
+    status = vcf_read_static_fields(argv, vcf_stream, vcf_call);
+    if ( status == VCF_READ_OK )
     {
 	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
 	{
 	    if ( tsv_read_field(argv, vcf_stream, vcf_call->samples[0],
 			    VCF_SAMPLE_MAX_CHARS, &len) != EOF )
-		return 1;
+		return VCF_READ_OK;
 	    else
 	    {
 		fprintf(stderr,
 			"%s: vcf_read_ss_call(): Got EOF reading sample.\n",
 			argv[0]);
-		return 0;
+		return VCF_READ_TRUNCATED;
 	    }
 	}
 	else
 	{
 	    fprintf(stderr, "%s: vcf_read_ss_call(): malloc() failed.\n",
 		    argv[0]);
-	    return 0;
+	    return VCF_READ_TRUNCATED;
 	}
     }
     else
-	return 0;
+	return status;
 }
 
 
@@ -296,44 +299,62 @@ int     vcf_write_ss_call(const char *argv[],
  *      Read in all consecutive calls with the same position.
  *
  *  Returns:
- *      Array of calls and number of calls.
+ *      Array of calls and number of calls or negative error code.
  *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream,
-				 vcf_duplicate_call_t *vcf_duplicate_calls)
+size_t  vcf_read_calls_for_position(const char *argv[], FILE *vcf_stream,
+				 vcf_calls_for_position_t *vcf_calls_for_position)
 
 {
     // Cache the next VCF call after the last one returned
-    static vcf_call_t   vcf_call = VCF_CALL_INIT;
+    static vcf_call_t   vcf_call_buff = VCF_CALL_INIT;
     static size_t       buffered_calls = 0; // 0 or 1
+    static bool         more_calls = true;
     size_t              c;
+    int                 status;
     
-    // Prime cache with the first call
+    vcf_calls_for_position->count = 0;
+    
+    // This function gets called once more after hitting EOF
+    if ( ! more_calls )
+	return 0;
+
+    // Prime the VCF call cache.  buffered_calls should only be 0 on the
+    // first read.
     if ( buffered_calls == 0 )
-	if ( (buffered_calls = vcf_read_ss_call(argv, vcf_stream, &vcf_call)) == 0 )
-	    return 0;
-    
+    {
+	status = vcf_read_ss_call(argv, vcf_stream, &vcf_call_buff);
+	if ( status != VCF_READ_OK )
+	    return status;
+	else
+	    buffered_calls = 1;
+    }
+
     /*
      *  Read all VCF calls with the same position.  The first one with a
-     *  different position is not added to vcf_duplicate_calls and is left in
+     *  different position is not added to vcf_calls_for_position and is left in
      *  the static vcf_call for the next invocation of this function.
      */
     c = 0;
     do
     {
-	vcf_duplicate_calls->call[c++] = vcf_call;
-	buffered_calls = vcf_read_ss_call(argv, vcf_stream, &vcf_call);
-    }   while ( (buffered_calls == 1) &&
-		(vcf_call.pos == vcf_duplicate_calls->call[c-1].pos) &&
-		(strcmp(vcf_call.chromosome,
-			vcf_duplicate_calls->call[c-1].chromosome) == 0) );
-
+	// Add buffered call from above or previous function call to array
+	vcf_calls_for_position->call[c++] = vcf_call_buff;
+	
+	// See if there's another call in the VCF stream
+	status = vcf_read_ss_call(argv, vcf_stream, &vcf_call_buff);
+    }   while ( (status == VCF_READ_OK) &&
+		(vcf_call_buff.pos == vcf_calls_for_position->call[c-1].pos) &&
+		(strcmp(vcf_call_buff.chromosome,
+		    vcf_calls_for_position->call[c-1].chromosome) == 0) );
+    more_calls = (status == VCF_READ_OK);
+    
     // Return the number of calls with the same position
-    return vcf_duplicate_calls->count = c;
+    return vcf_calls_for_position->count += c;
 }
 
 

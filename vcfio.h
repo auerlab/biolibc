@@ -1,6 +1,15 @@
 // FIXME: Are there limits defined by the VCF format?
 #define VCF_ID_MAX_CHARS            256
-#define VCF_DUP_CALL_MAX            10  // FIXME: What's the real maximum?
+// FIXME: What's the real maximum?  Maybe 3 since there are only 3 alternate
+// alleles possible with standard bases?
+#define VCF_DUP_CALL_MAX            10
+
+// Error codes should be negative so vcf_read_calls_for_position() can
+// return a positive call count
+#define VCF_READ_OK                 0
+#define VCF_READ_EOF                -1
+#define VCF_READ_OVERFLOW           -2
+#define VCF_READ_TRUNCATED          -3
 
 /*
  *  vcfio is meant to provide a very simple and fast method for processing
@@ -66,7 +75,7 @@ typedef struct
 {
     size_t      count;
     vcf_call_t  call[VCF_DUP_CALL_MAX];
-}   vcf_duplicate_call_t;
+}   vcf_calls_for_position_t;
 
 // CentOS 7 gcc does not support restrict, which helps the optimizer produce
 // faster code.  Keep _RESTRICT def separate from strlcpy() prototype in case

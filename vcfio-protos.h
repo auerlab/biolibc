@@ -5,5 +5,5 @@ int vcf_read_static_fields(const char *argv[], FILE *vcf_stream, vcf_call_t *vcf
 int vcf_read_ss_call(const char *argv[], FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_static_fields(const char *argv[], FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_ss_call(const char *argv[], FILE *vcf_stream, vcf_call_t *vcf_call);
-size_t vcf_read_duplicate_calls(const char *argv[], FILE *vcf_stream, vcf_duplicate_call_t *vcf_duplicate_calls);
+size_t vcf_read_calls_for_position(const char *argv[], FILE *vcf_stream, vcf_calls_for_position_t *vcf_calls_for_position);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
