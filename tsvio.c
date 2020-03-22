@@ -13,8 +13,8 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_read_field(const char *argv[], FILE *infile,
-		       char buff[], size_t buff_size, size_t *len)
+int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
+		       size_t *len)
 
 {
     size_t  c;
@@ -28,7 +28,7 @@ int     tsv_read_field(const char *argv[], FILE *infile,
     
     if ( c == buff_size )
     {
-	fprintf(stderr, "%s: tsv_read_field(): Buffer overflow reading field.\n", argv[0]);
+	fprintf(stderr, "tsv_read_field(): Buffer overflow reading field.\n");
 	fprintf(stderr, "Buffer size = %zu\n", buff_size);
 	fputs(buff, stderr);
 	// FIXME: Replace this with another sentinal value?
@@ -50,7 +50,7 @@ int     tsv_read_field(const char *argv[], FILE *infile,
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_skip_field(const char *argv[], FILE *infile)
+int     tsv_skip_field(FILE *infile)
 
 {
     int     ch;
@@ -71,7 +71,7 @@ int     tsv_skip_field(const char *argv[], FILE *infile)
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_skip_rest_of_line(const char *argv[], FILE *infile)
+int     tsv_skip_rest_of_line(FILE *infile)
 
 {
     int     ch;

@@ -23,7 +23,7 @@ void    vcf_skip_header(const char *argv[], FILE *vcf_stream)
 
     while ( ((count=fread(start, 6, 1, vcf_stream)) == 1) && 
 	    (memcmp(start, "#CHROM", 6) != 0) )
-	tsv_skip_rest_of_line(argv, vcf_stream);
+	tsv_skip_rest_of_line(vcf_stream);
     
     // puts(start);
     if ( count == 0 )
@@ -55,14 +55,14 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
-	tsv_skip_field(argv, vcf_stream);
+	tsv_skip_field(vcf_stream);
     
     // Skip sample IDs before first_col
     for (c = 1; c < first_col; ++c)
-	tsv_skip_field(argv, vcf_stream);
+	tsv_skip_field(vcf_stream);
     
     for (; (c <= last_col) &&
-	   (delimiter = tsv_read_field(argv, vcf_stream, temp_sample_id,
+	   (delimiter = tsv_read_field(vcf_stream, temp_sample_id,
 				     VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
@@ -79,7 +79,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     
     // Skip any remaining fields after last_col
     if ( delimiter != '\n' )
-	tsv_skip_rest_of_line(argv, vcf_stream);
+	tsv_skip_rest_of_line(vcf_stream);
 }
 
 
@@ -103,7 +103,7 @@ int     vcf_read_static_fields(const char *argv[],
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
     
     // Chromosome
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->chromosome,
+    if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -114,7 +114,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Call position
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->pos_str,
+    if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
 			VCF_POSITION_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -134,7 +134,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // ID
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->id,
+    if ( tsv_read_field(vcf_stream, vcf_call->id,
 			VCF_ID_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -144,7 +144,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Ref
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->ref,
+    if ( tsv_read_field(vcf_stream, vcf_call->ref,
 			VCF_REF_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -154,7 +154,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Alt
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->alt,
+    if ( tsv_read_field(vcf_stream, vcf_call->alt,
 		   VCF_ALT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -164,7 +164,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
 
     // Qual
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->quality,
+    if ( tsv_read_field(vcf_stream, vcf_call->quality,
 		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -174,7 +174,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Filter
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->filter,
+    if ( tsv_read_field(vcf_stream, vcf_call->filter,
 		   VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -184,7 +184,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Info
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->info,
+    if ( tsv_read_field(vcf_stream, vcf_call->info,
 		   VCF_INFO_MAX_CHARS, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr,
@@ -194,7 +194,7 @@ int     vcf_read_static_fields(const char *argv[],
     }
     
     // Format
-    if ( tsv_read_field(argv, vcf_stream, vcf_call->format,
+    if ( tsv_read_field(vcf_stream, vcf_call->format,
 		   VCF_FORMAT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr,
@@ -236,7 +236,7 @@ int     vcf_read_ss_call(const char *argv[],
     {
 	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
 	{
-	    if ( tsv_read_field(argv, vcf_stream, vcf_call->samples[0],
+	    if ( tsv_read_field(vcf_stream, vcf_call->samples[0],
 			    VCF_SAMPLE_MAX_CHARS, &len) != EOF )
 		return VCF_READ_OK;
 	    else
