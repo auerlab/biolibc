@@ -91,3 +91,4 @@ size_t strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len);
 #endif
 
 #include "vcfio-protos.h"
+#include "chromosome-name-cmp-protos.h"

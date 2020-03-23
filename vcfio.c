@@ -206,7 +206,8 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
+			 char *vcf_sample, size_t max_sample_len)
 
 {
     size_t  len;
@@ -215,20 +216,12 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
     status = vcf_read_static_fields(vcf_stream, vcf_call);
     if ( status == VCF_READ_OK )
     {
-	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
-	{
-	    if ( tsv_read_field(vcf_stream, vcf_call->samples[0],
-			    VCF_SAMPLE_MAX_CHARS, &len) != EOF )
-		return VCF_READ_OK;
-	    else
-	    {
-		fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
-		return VCF_READ_TRUNCATED;
-	    }
-	}
+	if ( tsv_read_field(vcf_stream, vcf_sample,
+			max_sample_len, &len) != EOF )
+	    return VCF_READ_OK;
 	else
 	{
-	    fprintf(stderr, "vcf_read_ss_call(): malloc() failed.\n");
+	    fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
 	    return VCF_READ_TRUNCATED;
 	}
     }
@@ -288,6 +281,7 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
 {
     // Cache the next VCF call after the last one returned
     static vcf_call_t   vcf_call_buff = VCF_CALL_INIT;
+    static char         vcf_sample[VCF_SAMPLE_MAX_CHARS + 1];
     static size_t       buffered_calls = 0; // 0 or 1
     static bool         more_calls = true;
     size_t              c;
@@ -303,7 +297,8 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
     // first read.
     if ( buffered_calls == 0 )
     {
-	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff);
+	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff,
+				  vcf_sample, VCF_SAMPLE_MAX_CHARS);
 	if ( status != VCF_READ_OK )
 	    return status;
 	else
@@ -322,7 +317,8 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
 	vcf_calls_for_position->call[c++] = vcf_call_buff;
 	
 	// See if there's another call in the VCF stream
-	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff);
+	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff,
+				  vcf_sample, VCF_SAMPLE_MAX_CHARS);
     }   while ( (status == VCF_READ_OK) &&
 		(vcf_call_buff.pos == vcf_calls_for_position->call[c-1].pos) &&
 		(strcmp(vcf_call_buff.chromosome,

@@ -49,7 +49,7 @@ LIB     = libvcfio.a
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = vcfio.o tsvio.o
+OBJS    = vcfio.o tsvio.o chromosome-name-cmp.o
 
 ############################################################################
 # Compile, link, and install options
