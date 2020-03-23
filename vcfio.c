@@ -15,7 +15,7 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_skip_header(const char *argv[], FILE *vcf_stream)
+void    vcf_skip_header(FILE *vcf_stream)
 
 {
     char    start[7] = "xxxxxx";
@@ -28,7 +28,7 @@ void    vcf_skip_header(const char *argv[], FILE *vcf_stream)
     // puts(start);
     if ( count == 0 )
     {
-	fprintf(stderr, "%s: vcf_skip_header(): No #CHROM header found.\n", argv[0]);
+	fprintf(stderr, "vcf_skip_header(): No #CHROM header found.\n");
 	exit(EX_DATAERR);
     }
 }
@@ -43,7 +43,7 @@ void    vcf_skip_header(const char *argv[], FILE *vcf_stream)
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
+void    vcf_get_sample_ids(FILE *vcf_stream,
 			   char *sample_ids[],
 			   size_t first_col, size_t last_col)
 
@@ -71,8 +71,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
     
     if ( delimiter == 0 )
     {
-	fprintf(stderr, "%s: Reached last_col before reading any sample IDs.\n",
-		argv[0]);
+	fprintf(stderr, "Reached last_col before reading any sample IDs.\n");
 	fprintf(stderr, "Check your first_col and last_col values.\n");
 	exit(EX_DATAERR);
     }
@@ -93,8 +92,7 @@ void    vcf_get_sample_ids(const char *argv[], FILE *vcf_stream,
  *  2019-12-08  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_static_fields(const char *argv[],
-		      FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     char    *end;
@@ -106,9 +104,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading CHROM.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading CHROM.\n");
 	fputs("This is where we should reach EOF.\n", stderr);
 	return VCF_READ_EOF;
     }
@@ -117,9 +113,8 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
 			VCF_POSITION_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading POS: %s.\n",
-		argv[0], vcf_call->pos_str);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading POS: %s.\n",
+		vcf_call->pos_str);
 	return VCF_READ_TRUNCATED;
     }
     else
@@ -127,8 +122,9 @@ int     vcf_read_static_fields(const char *argv[],
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "%s: vcf_read_static_fields(): Invalid call position: %s\n",
-		    argv[0], vcf_call->pos_str);
+	    fprintf(stderr,
+		    "vcf_read_static_fields(): Invalid call position: %s\n",
+		    vcf_call->pos_str);
 	    return VCF_READ_TRUNCATED;
 	}
     }
@@ -137,9 +133,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->id,
 			VCF_ID_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading ID.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
 	return VCF_READ_TRUNCATED;
     }
     
@@ -147,9 +141,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->ref,
 			VCF_REF_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading REF.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
 	return VCF_READ_TRUNCATED;
     }
     
@@ -157,9 +149,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->alt,
 		   VCF_ALT_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading ALT.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
 	return VCF_READ_TRUNCATED;
     }
 
@@ -167,9 +157,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->quality,
 		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading QUAL.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return VCF_READ_TRUNCATED;
     }
     
@@ -177,9 +165,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->filter,
 		   VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading FILTER.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
 	return VCF_READ_TRUNCATED;
     }
     
@@ -187,9 +173,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->info,
 		   VCF_INFO_MAX_CHARS, &vcf_call->info_len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading INFO.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading INFO.\n");
 	return VCF_READ_TRUNCATED;
     }
     
@@ -197,9 +181,7 @@ int     vcf_read_static_fields(const char *argv[],
     if ( tsv_read_field(vcf_stream, vcf_call->format,
 		   VCF_FORMAT_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr,
-		"%s: vcf_read_static_fields(): Got EOF reading FORMAT.\n",
-		argv[0]);
+	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FORMAT.\n");
 	return VCF_READ_TRUNCATED;
     }
 
@@ -224,14 +206,13 @@ int     vcf_read_static_fields(const char *argv[],
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_ss_call(const char *argv[],
-		      FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     size_t  len;
     int     status;
     
-    status = vcf_read_static_fields(argv, vcf_stream, vcf_call);
+    status = vcf_read_static_fields(vcf_stream, vcf_call);
     if ( status == VCF_READ_OK )
     {
 	if ( vcf_sample_alloc(vcf_call, 1) != NULL )
@@ -241,16 +222,13 @@ int     vcf_read_ss_call(const char *argv[],
 		return VCF_READ_OK;
 	    else
 	    {
-		fprintf(stderr,
-			"%s: vcf_read_ss_call(): Got EOF reading sample.\n",
-			argv[0]);
+		fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
 		return VCF_READ_TRUNCATED;
 	    }
 	}
 	else
 	{
-	    fprintf(stderr, "%s: vcf_read_ss_call(): malloc() failed.\n",
-		    argv[0]);
+	    fprintf(stderr, "vcf_read_ss_call(): malloc() failed.\n");
 	    return VCF_READ_TRUNCATED;
 	}
     }
@@ -269,8 +247,7 @@ int     vcf_read_ss_call(const char *argv[],
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_static_fields(const char *argv[],
-		      FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     return 0;
@@ -286,8 +263,7 @@ int     vcf_write_static_fields(const char *argv[],
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_ss_call(const char *argv[],
-		      FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     return 0;
@@ -306,8 +282,8 @@ int     vcf_write_ss_call(const char *argv[],
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  vcf_read_calls_for_position(const char *argv[], FILE *vcf_stream,
-				 vcf_calls_for_position_t *vcf_calls_for_position)
+size_t  vcf_read_calls_for_position(FILE *vcf_stream,
+	    vcf_calls_for_position_t *vcf_calls_for_position)
 
 {
     // Cache the next VCF call after the last one returned
@@ -327,7 +303,7 @@ size_t  vcf_read_calls_for_position(const char *argv[], FILE *vcf_stream,
     // first read.
     if ( buffered_calls == 0 )
     {
-	status = vcf_read_ss_call(argv, vcf_stream, &vcf_call_buff);
+	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff);
 	if ( status != VCF_READ_OK )
 	    return status;
 	else
@@ -346,7 +322,7 @@ size_t  vcf_read_calls_for_position(const char *argv[], FILE *vcf_stream,
 	vcf_calls_for_position->call[c++] = vcf_call_buff;
 	
 	// See if there's another call in the VCF stream
-	status = vcf_read_ss_call(argv, vcf_stream, &vcf_call_buff);
+	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff);
     }   while ( (status == VCF_READ_OK) &&
 		(vcf_call_buff.pos == vcf_calls_for_position->call[c-1].pos) &&
 		(strcmp(vcf_call_buff.chromosome,
