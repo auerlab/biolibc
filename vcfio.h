@@ -53,6 +53,9 @@
 #define VCF_FORMAT(vcf_call)        ((vcf_call)->format)
 #define VCF_SAMPLE(vcf_call, index) ((vcf_call)->samples[index])
 #define VCF_INFO_LEN(vcf_call)      ((vcf_call)->info_len)
+#define VCF_REF_COUNT(vcf_call)     ((vcf_call)->ref_count)
+#define VCF_ALT_COUNT(vcf_call)     ((vcf_call)->alt_count)
+#define VCF_OTHER_COUNT(vcf_call)   ((vcf_call)->other_count)
 
 typedef struct
 {
@@ -68,9 +71,9 @@ typedef struct
 	    **samples;
     size_t  pos,
 	    info_len;
-    //int     ref_count,
-    //        alt_count,
-    //        other_count;
+    int     ref_count,
+	    alt_count,
+	    other_count;
 }   vcf_call_t;
 
 typedef struct
