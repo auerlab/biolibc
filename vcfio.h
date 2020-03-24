@@ -36,21 +36,23 @@
 
 #define VCF_CALL_INIT \
 	{ \
-	    "", "", "", "", "", "", "", "", "", NULL, 0, 0, 0, 0 \
+	    "", "", "", "", "", "", "", "", "", NULL, 0 \
 	}
 
 // Access macros.  Separate interface from implementation, so client programs
 // don't reference structure members explicitly.
-#define VCF_GET_CHROMOSOME(call)    ((call).chromosome)
-#define VCF_GET_POS_STR(call)       ((call).pos_str)
-#define VCF_GET_ID(call)            ((call).id)
-#define VCF_GET_REF(call)           ((call).ref)
-#define VCF_GET_ALT(call)           ((call).alt)
-#define VCF_GET_QUALITY_STR(call)   ((call).quality_str)
-#define VCF_GET_FILTER_STR(call)    ((call).filter_str)
-#define VCF_GET_INFO(call)          ((call).info)
-#define VCF_GET_FORMAT(call)        ((call).format)
-#define VCF_GET_SAMPLE(call, index) ((call).samples)[index])
+#define VCF_CHROMOSOME(vcf_call)    ((vcf_call)->chromosome)
+#define VCF_POS(vcf_call)           ((vcf_call)->pos)
+#define VCF_POS_STR(vcf_call)       ((vcf_call)->pos_str)
+#define VCF_ID(vcf_call)            ((vcf_call)->id)
+#define VCF_REF(vcf_call)           ((vcf_call)->ref)
+#define VCF_ALT(vcf_call)           ((vcf_call)->alt)
+#define VCF_QUAL(vcf_call)          ((vcf_call)->quality)
+#define VCF_FILTER(vcf_call)        ((vcf_call)->filter)
+#define VCF_INFO(vcf_call)          ((vcf_call)->info)
+#define VCF_FORMAT(vcf_call)        ((vcf_call)->format)
+#define VCF_SAMPLE(vcf_call, index) ((vcf_call)->samples[index])
+#define VCF_INFO_LEN(vcf_call)      ((vcf_call)->info_len)
 
 typedef struct
 {
@@ -66,9 +68,9 @@ typedef struct
 	    **samples;
     size_t  pos,
 	    info_len;
-    int     ref_count,
-	    alt_count,
-	    other_count;
+    //int     ref_count,
+    //        alt_count,
+    //        other_count;
 }   vcf_call_t;
 
 typedef struct

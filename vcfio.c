@@ -98,7 +98,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     char    *end;
     size_t  len;
     
-    vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
+    // vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
     
     // Chromosome
     if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
@@ -243,7 +243,11 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
 int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
-    return 0;
+    return fprintf(vcf_stream,
+	    "%s\t%s\t.\t%s\t%s\t.\t.\t.\t%s\t%s\n",
+	    vcf_call->chromosome, vcf_call->pos_str,
+	    vcf_call->ref, vcf_call->alt, 
+	    vcf_call->format, vcf_call->samples[0]);
 }
 
 
