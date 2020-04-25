@@ -1,7 +1,7 @@
-# ad2vcf
+# biolibc
 
-vcfio is a small library of fast VCF input/output functions for processing
-streaming data.
+biolibc is a library of fast, memory-efficient, low-level functions for
+processing biological data.
 
 Building and installing:
 
