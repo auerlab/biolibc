@@ -1,3 +1,10 @@
+#ifndef __vcfio_h__
+#define __vcfio_h__
+
+#ifndef __tsvio_h__
+#include "tsvio.h"
+#endif
+
 // FIXME: Are there limits defined by the VCF format?
 #define VCF_ID_MAX_CHARS            256
 // FIXME: What's the real maximum?  Maybe 3 since there are only 3 alternate
@@ -95,5 +102,14 @@ typedef struct
 size_t strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len);
 #endif
 
-#include "vcfio-protos.h"
-#include "chromosome-name-cmp-protos.h"
+/* vcfio.c */
+void vcf_skip_header(FILE *vcf_stream);
+void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
+int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
+int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, char *vcf_sample, size_t max_sample_len);
+int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
+int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
+size_t vcf_read_calls_for_position(FILE *vcf_stream, vcf_calls_for_position_t *vcf_calls_for_position);
+char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
+
+#endif // __vcfio_h__

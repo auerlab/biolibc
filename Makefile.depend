@@ -1,9 +1,12 @@
-chromosome-name-cmp.o: chromosome-name-cmp.c
+chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
-tsvio.o: tsvio.c tsvio.h tsvio-protos.h
+samio.o: samio.c samio.h tsvio.h
+	${CC} -c ${CFLAGS} samio.c
+
+tsvio.o: tsvio.c tsvio.h
 	${CC} -c ${CFLAGS} tsvio.c
 
-vcfio.o: vcfio.c tsvio.h tsvio-protos.h vcfio.h vcfio-protos.h
+vcfio.o: vcfio.c vcfio.h tsvio.h
 	${CC} -c ${CFLAGS} vcfio.c
 

@@ -3,12 +3,13 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
+#include "biostring.h"
 
 /*
  *  Perform a numeric comparison of two chromosome names.
  *  The names must contain the chromosome number in the first digits present.
  *  Use this only if you need to know which string is < or >.
- *  If only checking for equality/inequality, use strcmp().
+ *  If only checking for equality/inequality, strcmp() will be faster.
  */
 
 int     chromosome_name_cmp(const char *n1, const char *n2)
