@@ -43,7 +43,7 @@
 ############################################################################
 # Installed targets
 
-LIB     = libvcfio.a
+LIB     = libbiolibc.a
 # MAN     = vcf-split.1
 
 ############################################################################
@@ -166,7 +166,7 @@ install: all
 
 uninstall:
 	${RM} ${PREFIX}/bin/${BIN}
-	${RM} ${PREFIX}/lib/libvcfio.a
+	${RM} ${PREFIX}/lib/libbiolibc.a
 	# Add includes
 
 help:
