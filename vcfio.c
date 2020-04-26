@@ -206,7 +206,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  ***************************************************************************/
 
 int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
-			 char *vcf_sample, size_t max_sample_len)
+			 size_t max_sample_len)
 
 {
     size_t  len;
@@ -215,7 +215,7 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
     status = vcf_read_static_fields(vcf_stream, vcf_call);
     if ( status == VCF_READ_OK )
     {
-	if ( tsv_read_field(vcf_stream, vcf_sample,
+	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
 			max_sample_len, &len) != EOF )
 	    return VCF_READ_OK;
 	else
@@ -243,10 +243,10 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     return fprintf(vcf_stream,
-	    "%s\t%s\t.\t%s\t%s\t.\t.\t.\t%s\t%s\n",
+	    "%s\t%s\t.\t%s\t%s\t.\t.\t.\t%s\n",
 	    vcf_call->chromosome, vcf_call->pos_str,
 	    vcf_call->ref, vcf_call->alt, 
-	    vcf_call->format, vcf_call->samples[0]);
+	    vcf_call->format);
 }
 
 
@@ -284,7 +284,6 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
 {
     // Cache the next VCF call after the last one returned
     static vcf_call_t   vcf_call_buff = VCF_CALL_INIT;
-    static char         vcf_sample[VCF_SAMPLE_MAX_CHARS + 1];
     static size_t       buffered_calls = 0; // 0 or 1
     static bool         more_calls = true;
     size_t              c;
@@ -301,7 +300,7 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
     if ( buffered_calls == 0 )
     {
 	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff,
-				  vcf_sample, VCF_SAMPLE_MAX_CHARS);
+				  VCF_SAMPLE_MAX_CHARS);
 	if ( status != VCF_READ_OK )
 	    return status;
 	else
@@ -321,7 +320,7 @@ size_t  vcf_read_calls_for_position(FILE *vcf_stream,
 	
 	// See if there's another call in the VCF stream
 	status = vcf_read_ss_call(vcf_stream, &vcf_call_buff,
-				  vcf_sample, VCF_SAMPLE_MAX_CHARS);
+				  VCF_SAMPLE_MAX_CHARS);
     }   while ( (status == VCF_READ_OK) &&
 		(vcf_call_buff.pos == vcf_calls_for_position->call[c-1].pos) &&
 		(strcmp(vcf_call_buff.chromosome,
@@ -338,17 +337,17 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 {
     size_t  c;
     
-    if ( (vcf_call->samples =
+    if ( (vcf_call->multi_samples =
 	 (char **)malloc(samples * sizeof(char *))) != NULL )
     {
 	for (c = 0; c < samples; ++c)
 	{
-	    if ( (vcf_call->samples[c] =
+	    if ( (vcf_call->multi_samples[c] =
 		 (char *)malloc(VCF_SAMPLE_MAX_CHARS + 1)) == NULL )
 		return NULL;
 	}
     }
-    return vcf_call->samples;
+    return vcf_call->multi_samples;
 }
 
 
