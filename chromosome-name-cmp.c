@@ -7,22 +7,39 @@
 
 /*
  *  Perform a numeric comparison of two chromosome names.
- *  The names must contain the chromosome number in the first digits present.
+ *
+ *  The names may contain a prefix of length "start".
+ *  Characters that follow must be a chromosome number or letter.
+ *  Numbers come before letters (e.g. 22 before X).  As such, if either
+ *  is a letter, they are compared lexically.  If both are numbers, they
+ *  are converted to integers and compared numerically.
+ *
  *  Use this only if you need to know which string is < or >.
  *  If only checking for equality/inequality, strcmp() will be faster.
+ *
+ *  FIXME: Do some sort of input validation and designate an error code
+ *         such as MAXINT
  */
 
-int     chromosome_name_cmp(const char *n1, const char *n2)
+int     chromosome_name_cmp(const char *n1, const char *n2, size_t start)
 
 {
-    const char      *p1, *p2;
+    const char      *p1 = n1 + start, *p2 = n2 + start;
     char            *end;
     unsigned long   c1, c2;
     
-    for (p1 = n1; !isdigit(*p1) && (*p1 != '\0'); ++p1)
-	;
-    for (p2 = n2; !isdigit(*p2) && (*p2 != '\0'); ++p2)
-	;
+    /* 
+     *  Compare letters or letters to numbers lexically.  ISO character order
+     *  will take care of it.
+     */
+    if ( !isdigit(*p1) || !isdigit(*p2) )
+	return *p1 - *p2;
+    
+    /* If both are numeric, compares as integers so '12' is > '2' */
+    while ( !isdigit(*p1) && (*p1 != '\0') )
+	++p1;
+    while ( !isdigit(*p2) && (*p2 != '\0') )
+	++p2;
     
     if ( (*p1 == '\0') || (*p2 == '\0') )
     {
