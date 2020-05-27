@@ -18,6 +18,11 @@
 #define SAM_POS(s)          ((s)->pos)
 #define SAM_SEQ_LEN(s)      ((s)->seq_len)
 
+#define SAM_READ_OK                 0
+#define SAM_READ_EOF                -1
+#define SAM_READ_OVERFLOW           -2
+#define SAM_READ_TRUNCATED          -3
+
 typedef struct
 {
     char    qname[SAM_QNAME_MAX + 1],
@@ -28,6 +33,6 @@ typedef struct
 }   sam_alignment_t;
 
 /* samio.c */
-int sam_read_alignment(const char *argv[], FILE *sam_stream, sam_alignment_t *sam_alignment);
+int sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment);
 
 #endif // __samio_h__

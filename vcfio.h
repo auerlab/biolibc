@@ -11,8 +11,6 @@
 // alleles possible with standard bases?
 #define VCF_DUP_CALL_MAX            10
 
-// Error codes should be negative so vcf_read_calls_for_position() can
-// return a positive call count
 #define VCF_READ_OK                 0
 #define VCF_READ_EOF                -1
 #define VCF_READ_OVERFLOW           -2
@@ -87,12 +85,6 @@ typedef struct
     char    **multi_samples;
 }   vcf_call_t;
 
-typedef struct
-{
-    size_t      count;
-    vcf_call_t  call[VCF_DUP_CALL_MAX];
-}   vcf_calls_for_position_t;
-
 // CentOS 7 gcc does not support restrict, which helps the optimizer produce
 // faster code.  Keep _RESTRICT def separate from strlcpy() prototype in case
 // other platforms are missing one but not the other.
@@ -113,7 +105,6 @@ int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, size_t max_sample_len);
 int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
-size_t vcf_read_calls_for_position(FILE *vcf_stream, vcf_calls_for_position_t *vcf_calls_for_position);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
 
 #endif // __vcfio_h__

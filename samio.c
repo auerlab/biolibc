@@ -5,18 +5,14 @@
 
 /***************************************************************************
  *  Description:
- *  
- *  Arguments:
- *
- *  Returns:
+ *      Read next alignment from a SAM stream
  *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     sam_read_alignment(const char *argv[],
-			   FILE *sam_stream, sam_alignment_t *sam_alignment)
+int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment)
 
 {
     char    pos_str[SAM_POS_MAX_DIGITS + 1],
@@ -37,8 +33,8 @@ int     sam_read_alignment(const char *argv[],
 	sam_alignment->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "%s: Invalid alignment position: %s\n",
-		    argv[0], pos_str);
+	    fprintf(stderr, "sam_read_alignment(): Invalid alignment position: %s\n",
+		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
 	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
@@ -75,3 +71,4 @@ int     sam_read_alignment(const char *argv[],
     else
 	return 0;
 }
+
