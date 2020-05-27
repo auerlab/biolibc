@@ -5,12 +5,12 @@
 #include "tsvio.h"
 #endif
 
-#define SAM_QNAME_MAX       4096
-#define SAM_FLAG_MAX        4096
-#define SAM_RNAME_MAX       4096
+#define SAM_QNAME_MAX_CHARS 4096
+#define SAM_FLAG_MAX_CHARS  4096
+#define SAM_RNAME_MAX_CHARS 4096
 #define SAM_POS_MAX_DIGITS  4096
-#define SAM_CIGAR_MAX       4096
-#define SAM_SEQ_MAX         1024*1024
+#define SAM_CIGAR_MAX_CHARS 4096
+#define SAM_SEQ_MAX_CHARS   1024*1024
 
 #define SAM_QNAME(s)        ((s)->qname)
 #define SAM_RNAME(s)        ((s)->rname)
@@ -25,9 +25,9 @@
 
 typedef struct
 {
-    char    qname[SAM_QNAME_MAX + 1],
-	    rname[SAM_RNAME_MAX + 1],
-	    seq[SAM_SEQ_MAX + 1];
+    char    qname[SAM_QNAME_MAX_CHARS + 1],
+	    rname[SAM_RNAME_MAX_CHARS + 1],
+	    seq[SAM_SEQ_MAX_CHARS + 1];
     size_t  pos;
     size_t  seq_len;
 }   sam_alignment_t;

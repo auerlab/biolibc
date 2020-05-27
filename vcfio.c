@@ -103,8 +103,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading CHROM.\n");
-	fputs("This is where we should reach EOF.\n", stderr);
+	fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return VCF_READ_EOF;
     }
     

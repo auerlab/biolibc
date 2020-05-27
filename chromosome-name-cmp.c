@@ -21,25 +21,23 @@
  *         such as MAXINT
  */
 
-int     chromosome_name_cmp(const char *n1, const char *n2, size_t start)
+int     chromosome_name_cmp(const char *n1, const char *n2)
 
 {
-    const char      *p1 = n1 + start, *p2 = n2 + start;
+    const char      *p1 = n1, *p2 = n2;
     char            *end;
     unsigned long   c1, c2;
     
+    /* Skip identical portions of strings */
+    while ( (*p1 == *p2) && (*p1 != '\0') )
+	++p1, ++p2;
+    
     /* 
-     *  Compare letters or letters to numbers lexically.  ISO character order
-     *  will take care of it.
+     *  Compare letters, letters to numbers, or letters to null lexically.
+     *  ISO character order will take care of it.
      */
     if ( !isdigit(*p1) || !isdigit(*p2) )
 	return *p1 - *p2;
-    
-    /* If both are numeric, compares as integers so '12' is > '2' */
-    while ( !isdigit(*p1) && (*p1 != '\0') )
-	++p1;
-    while ( !isdigit(*p2) && (*p2 != '\0') )
-	++p2;
     
     if ( (*p1 == '\0') || (*p2 == '\0') )
     {
