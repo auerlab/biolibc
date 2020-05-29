@@ -27,12 +27,14 @@ typedef struct
 {
     char    qname[SAM_QNAME_MAX_CHARS + 1],
 	    rname[SAM_RNAME_MAX_CHARS + 1],
-	    seq[SAM_SEQ_MAX_CHARS + 1];
+	    *seq;
     size_t  pos;
     size_t  seq_len;
 }   sam_alignment_t;
 
 /* samio.c */
-int sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment);
+int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment);
+void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src);
+void    sam_alignment_free(sam_alignment_t *sam_alignment);
 
 #endif // __samio_h__
