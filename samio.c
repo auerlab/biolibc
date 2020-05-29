@@ -62,11 +62,16 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	// SEQ
 	tsv_read_field(sam_stream, temp_seq, SAM_SEQ_MAX_CHARS,
 	    &sam_alignment->seq_len);
-	if ( (sam_alignment->seq = strdup(temp_seq)) == NULL )
+	if ( sam_alignment->seq == NULL )
 	{
-	    fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
-	    exit(EX_UNAVAILABLE);
+	    //fprintf(stderr, "sam_alignment_read() allocating seq...\n");
+	    if ( (sam_alignment->seq = malloc(sam_alignment->seq_len + 1)) == NULL )
+	    {
+		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
+	memcpy(sam_alignment->seq, temp_seq, sam_alignment->seq_len + 1);
 	
 	// QUAL
 	// Some SRA CRAMs have 11 fields, most have 12
@@ -94,7 +99,12 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
 {
     strlcpy(dest->qname, src->qname, SAM_QNAME_MAX_CHARS);
     strlcpy(dest->rname, src->rname, SAM_RNAME_MAX_CHARS);
-    dest->seq = src->seq;
+    if ( (dest->seq = malloc(src->seq_len + 1)) == NULL )
+    {
+	fprintf(stderr, "sam_alignment_copy(): malloc() failed.\n");
+	exit(EX_UNAVAILABLE);
+    }
+    memcpy(dest->seq, src->seq, src->seq_len + 1);
     dest->pos = src->pos;
     dest->seq_len = src->seq_len;
 }
@@ -112,8 +122,8 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
 void    sam_alignment_free(sam_alignment_t *sam_alignment)
 
 {
-    free(sam_alignment->seq);
-    sam_alignment_init(sam_alignment);
+    if ( sam_alignment->seq != NULL )
+	free(sam_alignment->seq);
 }
 
 
@@ -126,12 +136,21 @@ void    sam_alignment_free(sam_alignment_t *sam_alignment)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_alignment_init(sam_alignment_t *sam_alignment)
+void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len)
 
 {
     *sam_alignment->qname = '\0';
     *sam_alignment->rname = '\0';
-    sam_alignment->seq = NULL;
+    if ( seq_len == 0 )
+	sam_alignment->seq = NULL;
+    else
+    {
+	if ( (sam_alignment->seq = malloc(seq_len + 1)) == NULL )
+	{
+	    fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+    }
     sam_alignment->pos = 0;
     sam_alignment->seq_len = 0;
 }

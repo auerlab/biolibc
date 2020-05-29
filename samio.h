@@ -23,6 +23,9 @@
 #define SAM_READ_OVERFLOW           -2
 #define SAM_READ_TRUNCATED          -3
 
+// Use this or the function for every new object
+#define SAM_ALIGNMENT_INIT  { "", "", NULL, 0, 0 }
+
 typedef struct
 {
     char    qname[SAM_QNAME_MAX_CHARS + 1],
@@ -36,6 +39,6 @@ typedef struct
 int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment);
 void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src);
 void    sam_alignment_free(sam_alignment_t *sam_alignment);
-void    sam_alignment_init(sam_alignment_t *sam_alignment);
+void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len);
 
 #endif // __samio_h__
