@@ -113,4 +113,26 @@ void    sam_alignment_free(sam_alignment_t *sam_alignment)
 
 {
     free(sam_alignment->seq);
+    sam_alignment_init(sam_alignment);
 }
+
+
+/***************************************************************************
+ *  Description:
+ *      Initialize a sam_alignment_t structure
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-05-29  Jason Bacon Begin
+ ***************************************************************************/
+
+void    sam_alignment_init(sam_alignment_t *sam_alignment)
+
+{
+    *sam_alignment->qname = '\0';
+    *sam_alignment->rname = '\0';
+    sam_alignment->seq = NULL;
+    sam_alignment->pos = 0;
+    sam_alignment->seq_len = 0;
+}
+
