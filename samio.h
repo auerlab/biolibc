@@ -5,6 +5,7 @@
 #include "tsvio.h"
 #endif
 
+#define SAM_MAPQ_MAX_CHARS  3
 #define SAM_QNAME_MAX_CHARS 4096
 #define SAM_FLAG_MAX_CHARS  4096
 #define SAM_RNAME_MAX_CHARS 4096
@@ -24,15 +25,25 @@
 #define SAM_READ_TRUNCATED          -3
 
 // Use this or the function for every new object
-#define SAM_ALIGNMENT_INIT  { "", "", NULL, 0, 0 }
+#define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, NULL, NULL, 0, 0, NULL, NULL, 0 }
 
 typedef struct
 {
-    char    qname[SAM_QNAME_MAX_CHARS + 1],
-	    rname[SAM_RNAME_MAX_CHARS + 1],
-	    *seq;   // This can be large, so malloc() it
-    size_t  pos;
-    size_t  seq_len;
+    /* SAM fields */
+    char            qname[SAM_QNAME_MAX_CHARS + 1];
+    unsigned        flag;
+    char            rname[SAM_RNAME_MAX_CHARS + 1];
+    size_t          pos;
+    unsigned char   mapq;
+    char            *cigar; // FIXME: Should cigar and rnext be static size?
+    char            *rnext; // [SAM_RNAME_MAX_CHARS + 1];
+    size_t          pnext;
+    size_t          tlen;   // Max size?
+    char            *seq;   // This can be large, so malloc() it
+    char            *qual;  // PHRED scores, same length as seq
+    
+    /* Additional data */
+    size_t  seq_len;        // Qual len must be the same
 }   sam_alignment_t;
 
 /* samio.c */
