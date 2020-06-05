@@ -106,6 +106,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return VCF_READ_EOF;
     }
+    // assert(len < VCF_CHROMOSOME_MAX_CHARS);
     
     // Call position
     if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
@@ -117,6 +118,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     }
     else
     {
+	// assert(len < VCF_POSITION_MAX_CHARS);
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
@@ -134,6 +136,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_ID_MAX_CHARS);
     
     // Ref
     if ( tsv_read_field(vcf_stream, vcf_call->ref,
@@ -142,6 +145,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_REF_MAX_CHARS);
     
     // Alt
     if ( tsv_read_field(vcf_stream, vcf_call->alt,
@@ -150,6 +154,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_ALT_MAX_CHARS);
 
     // Qual
     if ( tsv_read_field(vcf_stream, vcf_call->quality,
@@ -158,6 +163,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_QUALITY_MAX_CHARS);
     
     // Filter
     if ( tsv_read_field(vcf_stream, vcf_call->filter,
@@ -166,6 +172,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_FILTER_MAX_CHARS);
     
     // Info
     if ( tsv_read_field(vcf_stream, vcf_call->info,
@@ -174,6 +181,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading INFO.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_INFO_MAX_CHARS);
     
     // Format
     if ( tsv_read_field(vcf_stream, vcf_call->format,
@@ -182,15 +190,8 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FORMAT.\n");
 	return VCF_READ_TRUNCATED;
     }
+    // assert(len < VCF_FORMAT_MAX_CHARS);
 
-#if 0
-    fprintf(stderr, "%s %s %s %s %s %s\n",
-	vcf_call->chromosome,
-	vcf_call->pos_str,
-	vcf_call->ref,
-	vcf_call->alt,
-	vcf_call->format);
-#endif
     return VCF_READ_OK;
 }
 
@@ -242,10 +243,11 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     return fprintf(vcf_stream,
-	    "%s\t%s\t.\t%s\t%s\t.\t.\t.\t%s\n",
-	    vcf_call->chromosome, vcf_call->pos_str,
-	    vcf_call->ref, vcf_call->alt, 
-	    vcf_call->format);
+	    "%s\t%s/%zu\t%s\t%s\t%s\t%s\t%s\t%s/%zu\t%s\n",
+	    vcf_call->chromosome, vcf_call->pos_str, vcf_call->pos,
+	    vcf_call->id, vcf_call->ref, vcf_call->alt, 
+	    vcf_call->quality, vcf_call->filter, vcf_call->info,
+	    vcf_call->info_len, vcf_call->format);
 }
 
 
@@ -261,6 +263,8 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
+    vcf_write_static_fields(vcf_stream, vcf_call);
+    fprintf(vcf_stream, "%s\n", vcf_call->single_sample);
     return 0;
 }
 
