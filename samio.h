@@ -43,7 +43,8 @@ typedef struct
     char            *qual;  // PHRED scores, same length as seq
     
     /* Additional data */
-    size_t  seq_len;        // Qual len must be the same
+    size_t  seq_len;        // Qual len should be the same
+    size_t  qual_len;
 }   sam_alignment_t;
 
 /* samio.c */

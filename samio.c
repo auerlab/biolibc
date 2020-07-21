@@ -22,6 +22,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	    *end;
     size_t  len;
     static size_t   previous_pos = 0;
+    int     last_ch;
     
     if ( tsv_read_field(sam_stream, sam_alignment->qname, SAM_QNAME_MAX_CHARS, &len) != EOF )
     {
@@ -84,9 +85,9 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	}
 	memcpy(sam_alignment->seq, temp_seq_or_qual, sam_alignment->seq_len + 1);
 	
-	// 11 QUAL
-	tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
-	    &sam_alignment->seq_len);
+	// 11 QUAL, should be last field
+	last_ch = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
+	    &sam_alignment->qual_len);
 	if ( sam_alignment->qual == NULL )
 	{
 	    //fprintf(stderr, "sam_alignment_read() allocating seq...\n");
@@ -96,12 +97,18 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	memcpy(sam_alignment->qual, temp_seq_or_qual, sam_alignment->seq_len + 1);
+	memcpy(sam_alignment->qual, temp_seq_or_qual,
+	       sam_alignment->seq_len + 1);
 
 	// Some SRA CRAMs have 11 fields, most have 12
-	if ( tsv_skip_field(sam_stream) == '\t' )
+	if ( last_ch == '\t' )
 	    while ( getc(sam_stream) != '\n' )
 		;
+
+	/*fprintf(stderr,"sam_alignment_read(): %s,%zu,%zu\n",
+		SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
+		SAM_SEQ_LEN(sam_alignment));*/
+	
 	return 1;
     }
     else
