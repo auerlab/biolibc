@@ -91,15 +91,20 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	if ( sam_alignment->qual == NULL )
 	{
 	    //fprintf(stderr, "sam_alignment_read() allocating seq...\n");
-	    if ( (sam_alignment->qual = malloc(sam_alignment->seq_len + 1)) == NULL )
+	    if ( (sam_alignment->qual = malloc(sam_alignment->qual_len + 1)) == NULL )
 	    {
 		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
 	memcpy(sam_alignment->qual, temp_seq_or_qual,
-	       sam_alignment->seq_len + 1);
+	       sam_alignment->qual_len + 1);
 
+	if ( (sam_alignment->qual_len != 1) &&
+	     (sam_alignment->seq_len != sam_alignment->qual_len) )
+	    fprintf(stderr, "sam_alignment_read(): Warning: qual_len != seq_len for %s,%zu\n",
+		    sam_alignment->rname, sam_alignment->pos);
+	
 	// Some SRA CRAMs have 11 fields, most have 12
 	if ( last_ch == '\t' )
 	    while ( getc(sam_stream) != '\n' )
@@ -136,20 +141,23 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
     // FIXME: Add cigar and RNEXT
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
+    
     if ( (dest->seq = malloc(src->seq_len + 1)) == NULL )
     {
 	fprintf(stderr, "sam_alignment_copy(): malloc() failed.\n");
 	exit(EX_UNAVAILABLE);
     }
     memcpy(dest->seq, src->seq, src->seq_len + 1);
+    
     if ( (dest->qual = malloc(src->seq_len + 1)) == NULL )
     {
 	fprintf(stderr, "sam_alignment_copy(): malloc() failed.\n");
 	exit(EX_UNAVAILABLE);
     }
-    memcpy(dest->qual, src->qual, src->seq_len + 1);
+    memcpy(dest->qual, src->qual, src->qual_len + 1);
     
     dest->seq_len = src->seq_len;
+    dest->qual_len = src->qual_len;
 }
 
 

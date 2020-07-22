@@ -11,13 +11,17 @@
 #define SAM_RNAME_MAX_CHARS 4096
 #define SAM_POS_MAX_DIGITS  4096
 #define SAM_CIGAR_MAX_CHARS 4096
+// Usually < 200 for Illumina data, but a few oddballs in SRA CRAMs
 #define SAM_SEQ_MAX_CHARS   1024*1024
 
 #define SAM_QNAME(s)        ((s)->qname)
 #define SAM_RNAME(s)        ((s)->rname)
-#define SAM_SEQ(s)          ((s)->seq)
 #define SAM_POS(s)          ((s)->pos)
+#define SAM_MAPQ(s)         ((s)->mapq)
+#define SAM_SEQ(s)          ((s)->seq)
+#define SAM_QUAL(s)         ((s)->qual)
 #define SAM_SEQ_LEN(s)      ((s)->seq_len)
+#define SAM_QUAL_LEN(s)     ((s)->qual_len)
 
 #define SAM_READ_OK                 0
 #define SAM_READ_EOF                -1
