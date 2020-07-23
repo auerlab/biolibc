@@ -83,6 +83,9 @@ typedef struct
     char    single_sample[VCF_SAMPLE_MAX_CHARS + 1];
     // Use vcf_sample_alloc() to initialize this for multi-sample VCFs
     char    **multi_samples;
+    // Apps can buffer phred scores from reads to collect stats
+    unsigned char   *phreds;
+    size_t  phred_count;
 }   vcf_call_t;
 
 // CentOS 7 gcc does not support restrict, which helps the optimizer produce

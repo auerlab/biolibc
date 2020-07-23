@@ -288,6 +288,7 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 }
 
 
+
 #ifdef __linux__
 size_t  strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len)
 
