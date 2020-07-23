@@ -192,7 +192,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     }
     // assert(len < VCF_FORMAT_MAX_CHARS);
 
-    return VCF_READ_OK;
+    return VCF_OK;
 }
 
 
@@ -213,11 +213,11 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
     int     status;
     
     status = vcf_read_static_fields(vcf_stream, vcf_call);
-    if ( status == VCF_READ_OK )
+    if ( status == VCF_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
 			max_sample_len, &len) != EOF )
-	    return VCF_READ_OK;
+	    return VCF_OK;
 	else
 	{
 	    fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
@@ -287,6 +287,48 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
     return vcf_call->multi_samples;
 }
 
+
+int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
+
+{
+    if ( vcf_call->phreds == NULL )
+    {
+	//fprintf(stderr, "vcf_phred_add(): Allocating initial buffer.\n");
+	if ( (vcf_call->phreds = malloc(vcf_call->phred_buff_size)) == NULL )
+	{
+	    fprintf(stderr, "vcf_phred_add(): malloc() failure.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+    }
+    
+    //fprintf(stderr, "vcf_phred_add(): Adding '%c' at %zu\n", score, vcf_call->phred_count);
+    vcf_call->phreds[vcf_call->phred_count++] = score;
+    vcf_call->phreds[vcf_call->phred_count] = '\0';
+    
+    if ( vcf_call->phred_count == vcf_call->phred_buff_size )
+    {
+	vcf_call->phred_buff_size *= 2;
+	if ( (vcf_call->phreds = realloc(vcf_call->phreds, vcf_call->phred_buff_size)) == NULL )
+	{
+	    fprintf(stderr, "vcf_phred_add(): realloc() failure.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+    }
+    return VCF_OK;
+}
+
+
+void    vcf_phred_free(vcf_call_t *vcf_call)
+
+{
+    if ( vcf_call->phreds != NULL )
+    {
+	free(vcf_call->phreds);
+	vcf_call->phreds = NULL;
+	vcf_call->phred_count = 0;
+	vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
+    }
+}
 
 
 #ifdef __linux__

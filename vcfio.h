@@ -11,7 +11,7 @@
 // alleles possible with standard bases?
 #define VCF_DUP_CALL_MAX            10
 
-#define VCF_READ_OK                 0
+#define VCF_OK                       0
 #define VCF_READ_EOF                -1
 #define VCF_READ_OVERFLOW           -2
 #define VCF_READ_TRUNCATED          -3
@@ -39,11 +39,6 @@
 #define VCF_FORMAT_MAX_CHARS        4096
 #define VCF_SAMPLE_MAX_CHARS        2048
 
-#define VCF_CALL_INIT \
-	{ \
-	    "", "", "", "", "", "", "", "", "", 0, 0, 0, 0, 0, "", NULL \
-	}
-
 // Access macros.  Separate interface from implementation, so client programs
 // don't reference structure members explicitly.
 #define VCF_CHROMOSOME(vcf_call)    ((vcf_call)->chromosome)
@@ -62,6 +57,16 @@
 #define VCF_OTHER_COUNT(vcf_call)   ((vcf_call)->other_count)
 #define VCF_SINGLE_SAMPLE(vcf_call) ((vcf_call)->single_sample)
 #define VCF_MULTI_SAMPLE(vcf_call,i) ((vcf_call)->multi_samples, (i))
+#define VCF_PHREDS(vcf_call)        ((vcf_call)->phreds)
+#define VCF_PHRED_COUNT(vcf_call)   ((vcf_call)->phred_count)
+
+#define VCF_PHRED_BUFF_SIZE         256
+
+#define VCF_CALL_INIT \
+	{ \
+	    "", "", "", "", "", "", "", "", "", 0, 0, 0, 0, 0, "", NULL, \
+	    NULL, 0, VCF_PHRED_BUFF_SIZE \
+	}
 
 typedef struct
 {
@@ -86,6 +91,7 @@ typedef struct
     // Apps can buffer phred scores from reads to collect stats
     unsigned char   *phreds;
     size_t  phred_count;
+    size_t  phred_buff_size;
 }   vcf_call_t;
 
 // CentOS 7 gcc does not support restrict, which helps the optimizer produce
@@ -109,5 +115,7 @@ int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, size_t max_sample_l
 int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
+int vcf_phred_add(vcf_call_t *vcf_call, unsigned char score);
+void vcf_phred_free(vcf_call_t *vcf_call);
 
 #endif // __vcfio_h__
