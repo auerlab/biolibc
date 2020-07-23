@@ -293,7 +293,7 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 {
     if ( vcf_call->phreds == NULL )
     {
-	//fprintf(stderr, "vcf_phred_add(): Allocating initial buffer.\n");
+	// fprintf(stderr, "vcf_phred_add(): Allocating initial buffer.\n");
 	if ( (vcf_call->phreds = malloc(vcf_call->phred_buff_size)) == NULL )
 	{
 	    fprintf(stderr, "vcf_phred_add(): malloc() failure.\n");
@@ -301,7 +301,7 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 	}
     }
     
-    //fprintf(stderr, "vcf_phred_add(): Adding '%c' at %zu\n", score, vcf_call->phred_count);
+    // fprintf(stderr, "vcf_phred_add(): Adding '%c' at %zu\n", score, vcf_call->phred_count);
     vcf_call->phreds[vcf_call->phred_count++] = score;
     vcf_call->phreds[vcf_call->phred_count] = '\0';
     
@@ -318,6 +318,14 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 }
 
 
+void    vcf_phred_blank(vcf_call_t *vcf_call)
+
+{
+    memcpy(vcf_call->phreds, "z", 2);
+    vcf_call->phred_count = 0;
+}
+
+    
 void    vcf_phred_free(vcf_call_t *vcf_call)
 
 {
@@ -325,9 +333,38 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
     {
 	free(vcf_call->phreds);
 	vcf_call->phreds = NULL;
-	vcf_call->phred_count = 0;
 	vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
     }
+    vcf_phred_blank(vcf_call);
+}
+
+
+void    vcf_call_init(vcf_call_t *vcf_call)
+
+{
+    vcf_call->chromosome[0] = '\0';
+    vcf_call->pos_str[0] = '\0';
+    vcf_call->id[0] = '\0';
+    vcf_call->ref[0] = '\0';
+    vcf_call->alt[0] = '\0';
+    vcf_call->quality[0] = '\0';
+    vcf_call->filter[0] = '\0';
+    vcf_call->info[0] = '\0';
+    vcf_call->format[0] = '\0';
+    vcf_call->pos = 0;
+    vcf_call->info_len = 0;
+    vcf_call->ref_count = 0;
+    vcf_call->alt_count = 0;
+    vcf_call->other_count = 0;
+    vcf_call->single_sample[0] = '\0';
+    vcf_call->multi_samples = NULL;
+    vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
+    if ( (vcf_call->phreds = malloc(VCF_PHRED_BUFF_SIZE)) == NULL )
+    {
+	fprintf(stderr, "vcf_init(): phreds malloc() failure.\n");
+	exit(EX_UNAVAILABLE);
+    }
+    vcf_phred_blank(vcf_call);
 }
 
 

@@ -90,7 +90,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	    &sam_alignment->qual_len);
 	if ( sam_alignment->qual == NULL )
 	{
-	    //fprintf(stderr, "sam_alignment_read() allocating seq...\n");
+	    //fprintf(stderr, "sam_alignment_read() allocating qual...\n");
 	    if ( (sam_alignment->qual = malloc(sam_alignment->qual_len + 1)) == NULL )
 	    {
 		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");

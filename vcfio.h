@@ -58,15 +58,10 @@
 #define VCF_SINGLE_SAMPLE(vcf_call) ((vcf_call)->single_sample)
 #define VCF_MULTI_SAMPLE(vcf_call,i) ((vcf_call)->multi_samples, (i))
 #define VCF_PHREDS(vcf_call)        ((vcf_call)->phreds)
+#define VCF_PHRED_VAL(vcf_call,i)   ((vcf_call)->phreds[i])
 #define VCF_PHRED_COUNT(vcf_call)   ((vcf_call)->phred_count)
 
 #define VCF_PHRED_BUFF_SIZE         256
-
-#define VCF_CALL_INIT \
-	{ \
-	    "", "", "", "", "", "", "", "", "", 0, 0, 0, 0, 0, "", NULL, \
-	    NULL, 0, VCF_PHRED_BUFF_SIZE \
-	}
 
 typedef struct
 {
@@ -116,6 +111,8 @@ int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
 int vcf_phred_add(vcf_call_t *vcf_call, unsigned char score);
+void vcf_phred_blank(vcf_call_t *vcf_call);
 void vcf_phred_free(vcf_call_t *vcf_call);
+void vcf_call_init(vcf_call_t *vcf_call);
 
 #endif // __vcfio_h__
