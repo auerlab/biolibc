@@ -288,6 +288,7 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 }
 
 
+#if 0
 int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 
 {
@@ -337,7 +338,7 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
     }
     vcf_phred_blank(vcf_call);
 }
-
+#endif
 
 void    vcf_call_init(vcf_call_t *vcf_call)
 
@@ -358,6 +359,8 @@ void    vcf_call_init(vcf_call_t *vcf_call)
     vcf_call->other_count = 0;
     vcf_call->single_sample[0] = '\0';
     vcf_call->multi_samples = NULL;
+    
+#if 0
     vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
     if ( (vcf_call->phreds = malloc(VCF_PHRED_BUFF_SIZE)) == NULL )
     {
@@ -365,6 +368,7 @@ void    vcf_call_init(vcf_call_t *vcf_call)
 	exit(EX_UNAVAILABLE);
     }
     vcf_phred_blank(vcf_call);
+#endif
 }
 
 

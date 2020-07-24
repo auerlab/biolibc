@@ -44,7 +44,7 @@ typedef struct
     size_t          pnext;
     size_t          tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it
-    char            *qual;  // PHRED scores, same length as seq
+    char            *qual;  // PHRED scores, same length as seq if present
     
     /* Additional data */
     size_t  seq_len;        // Qual len should be the same

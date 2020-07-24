@@ -106,6 +106,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 		    sam_alignment->rname, sam_alignment->pos);
 	
 	// Some SRA CRAMs have 11 fields, most have 12
+	// Discard everything after the 11th
 	if ( last_ch == '\t' )
 	    while ( getc(sam_stream) != '\n' )
 		;
