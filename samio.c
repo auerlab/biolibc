@@ -140,6 +140,8 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
     dest->pos = src->pos;
     dest->mapq = src->mapq;
     // FIXME: Add cigar and RNEXT
+    dest->cigar = NULL;
+    dest->rnext = NULL;
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
     
