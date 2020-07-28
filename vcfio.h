@@ -89,19 +89,6 @@ typedef struct
     size_t  phred_buff_size;
 }   vcf_call_t;
 
-// CentOS 7 gcc does not support restrict, which helps the optimizer produce
-// faster code.  Keep _RESTRICT def separate from strlcpy() prototype in case
-// other platforms are missing one but not the other.
-#ifdef __linux__
-#define _RESTRICT
-#else
-#define _RESTRICT   restrict
-#endif
-
-#ifdef __linux__
-size_t strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len);
-#endif
-
 /* vcfio.c */
 void vcf_skip_header(FILE *vcf_stream);
 void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);

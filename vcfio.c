@@ -373,7 +373,7 @@ void    vcf_call_init(vcf_call_t *vcf_call)
 
 
 #ifdef __linux__
-size_t  strlcpy(char * _RESTRICT dest, const char * _RESTRICT src, size_t len)
+size_t  strlcpy(char *dest, const char *src, size_t len)
 
 {
     char   *save_dest, *end;

@@ -5,6 +5,10 @@
 #include "tsvio.h"
 #endif
 
+#ifndef __biostring_h__
+#include "biostring.h"
+#endif
+
 #define SAM_MAPQ_MAX_CHARS  3
 #define SAM_QNAME_MAX_CHARS 4096
 #define SAM_FLAG_MAX_CHARS  4096
