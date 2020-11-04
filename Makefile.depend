@@ -1,7 +1,7 @@
 chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
-samio.o: samio.c samio.h tsvio.h
+samio.o: samio.c samio.h tsvio.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
 
 strptrcmp.o: strptrcmp.c biostring.h

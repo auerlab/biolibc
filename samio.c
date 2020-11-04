@@ -19,6 +19,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
     char    mapq_str[SAM_MAPQ_MAX_CHARS + 1],
 	    temp_seq_or_qual[SAM_SEQ_MAX_CHARS + 1],
 	    pos_str[SAM_POS_MAX_DIGITS + 1],
+	    flag_str[SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
     size_t  len;
     static size_t   previous_pos = 0;
@@ -27,7 +28,17 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
     if ( tsv_read_field(sam_stream, sam_alignment->qname, SAM_QNAME_MAX_CHARS, &len) != EOF )
     {
 	// 2 Flag
-	tsv_skip_field(sam_stream);
+	tsv_read_field(sam_stream, flag_str, SAM_FLAG_MAX_DIGITS, &len);
+	sam_alignment->flag = strtoul(flag_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_read_alignment(): Invalid alignment position: %s\n",
+		    flag_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
 	
 	// 3 RNAME
 	tsv_read_field(sam_stream, sam_alignment->rname, SAM_RNAME_MAX_CHARS, &len);
