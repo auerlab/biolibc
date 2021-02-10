@@ -8,7 +8,7 @@
 /*
  *  Perform a numeric comparison of two chromosome names.
  *
- *  The names may contain a prefix of length "start".
+ *  The names may contain a prefix of non-digits, such as "chr".
  *  Characters that follow must be a chromosome number or letter.
  *  Numbers come before letters (e.g. 22 before X).  As such, if either
  *  is a letter, they are compared lexically.  If both are numbers, they
@@ -34,7 +34,9 @@ int     chromosome_name_cmp(const char *n1, const char *n2)
     
     /* 
      *  Compare letters, letters to numbers, or letters to null lexically.
-     *  ISO character order will take care of it.
+     *  ISO character order will take care of it since letters come after
+     *  digits (chrX > chr22) and everything comes after null
+     *  (chr22 > chr2).
      */
     if ( !isdigit(*p1) || !isdigit(*p2) )
 	return *p1 - *p2;

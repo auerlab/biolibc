@@ -106,7 +106,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return VCF_READ_EOF;
     }
-    // assert(len < VCF_CHROMOSOME_MAX_CHARS);
     
     // Call position
     if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
@@ -118,7 +117,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     }
     else
     {
-	// assert(len < VCF_POSITION_MAX_CHARS);
 	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
@@ -136,7 +134,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_ID_MAX_CHARS);
     
     // Ref
     if ( tsv_read_field(vcf_stream, vcf_call->ref,
@@ -145,7 +142,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_REF_MAX_CHARS);
     
     // Alt
     if ( tsv_read_field(vcf_stream, vcf_call->alt,
@@ -154,7 +150,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_ALT_MAX_CHARS);
 
     // Qual
     if ( tsv_read_field(vcf_stream, vcf_call->quality,
@@ -163,7 +158,6 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_QUALITY_MAX_CHARS);
     
     // Filter
     if ( tsv_read_field(vcf_stream, vcf_call->filter,
@@ -172,25 +166,22 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_FILTER_MAX_CHARS);
     
     // Info
     if ( tsv_read_field(vcf_stream, vcf_call->info,
-		   VCF_INFO_MAX_CHARS, &vcf_call->info_len) == EOF )
+		   vcf_call->info_max, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading INFO.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_INFO_MAX_CHARS);
     
     // Format
     if ( tsv_read_field(vcf_stream, vcf_call->format,
-		   VCF_FORMAT_MAX_CHARS, &len) == EOF )
+		   vcf_call->format_max, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FORMAT.\n");
 	return VCF_READ_TRUNCATED;
     }
-    // assert(len < VCF_FORMAT_MAX_CHARS);
 
     return VCF_OK;
 }
@@ -205,8 +196,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
-			 size_t max_sample_len)
+int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 {
     size_t  len;
@@ -216,7 +206,7 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
     if ( status == VCF_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
-			max_sample_len, &len) != EOF )
+			vcf_call->sample_max, &len) != EOF )
 	    return VCF_OK;
 	else
 	{
@@ -280,7 +270,7 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 	for (c = 0; c < samples; ++c)
 	{
 	    if ( (vcf_call->multi_samples[c] =
-		 (char *)malloc(VCF_SAMPLE_MAX_CHARS + 1)) == NULL )
+		 (char *)malloc(vcf_call->sample_max + 1)) == NULL )
 		return NULL;
 	}
     }
@@ -340,7 +330,18 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
 }
 #endif
 
-void    vcf_call_init(vcf_call_t *vcf_call)
+
+void    vcf_call_free(vcf_call_t *vcf_call)
+
+{
+    free(vcf_call->info);
+    free(vcf_call->format);
+    free(vcf_call->single_sample);
+}
+
+
+void    vcf_call_init(vcf_call_t *vcf_call,
+		      size_t info_max, size_t format_max, size_t sample_max)
 
 {
     vcf_call->chromosome[0] = '\0';
@@ -350,25 +351,36 @@ void    vcf_call_init(vcf_call_t *vcf_call)
     vcf_call->alt[0] = '\0';
     vcf_call->quality[0] = '\0';
     vcf_call->filter[0] = '\0';
-    vcf_call->info[0] = '\0';
-    vcf_call->format[0] = '\0';
     vcf_call->pos = 0;
     vcf_call->info_len = 0;
     vcf_call->ref_count = 0;
     vcf_call->alt_count = 0;
     vcf_call->other_count = 0;
-    vcf_call->single_sample[0] = '\0';
-    vcf_call->multi_samples = NULL;
-    
-#if 0
-    vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
-    if ( (vcf_call->phreds = malloc(VCF_PHRED_BUFF_SIZE)) == NULL )
+
+    if ( (vcf_call->info = malloc(info_max)) == NULL )
     {
-	fprintf(stderr, "vcf_init(): phreds malloc() failure.\n");
+	fprintf(stderr, "vcf_call_init(): Could not allocate info field.\n");
 	exit(EX_UNAVAILABLE);
     }
-    vcf_phred_blank(vcf_call);
-#endif
+    if ( (vcf_call->format = malloc(format_max)) == NULL )
+    {
+	fprintf(stderr, "vcf_call_init(): Could not allocate format field.\n");
+	exit(EX_UNAVAILABLE);
+    }
+    if ( (vcf_call->single_sample = malloc(sample_max)) == NULL )
+    {
+	fprintf(stderr, "vcf_call_init(): Could not allocate sample field.\n");
+	exit(EX_UNAVAILABLE);
+    }
+    
+    vcf_call->info_max = info_max;
+    vcf_call->format_max = format_max;
+    vcf_call->sample_max = sample_max;
+    
+    vcf_call->info[0] = '\0';
+    vcf_call->format[0] = '\0';
+    vcf_call->single_sample[0] = '\0';
+    vcf_call->multi_samples = NULL;
 }
 
 

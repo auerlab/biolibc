@@ -34,10 +34,10 @@
 #define VCF_ALT_MAX_CHARS           36
 #define VCF_QUALITY_MAX_CHARS       38
 #define VCF_FILTER_MAX_CHARS        64
-// Yes, we actually saw INFO fields over 128k in some dbGap BCFs
-#define VCF_INFO_MAX_CHARS          1048576
-#define VCF_FORMAT_MAX_CHARS        4096
-#define VCF_SAMPLE_MAX_CHARS        2048
+// Yes, we actually saw INFO fields over 512k in some dbGap BCFs
+//#define VCF_INFO_MAX_CHARS          1048576
+//#define VCF_FORMAT_MAX_CHARS        4096
+//#define VCF_SAMPLE_MAX_CHARS        2048
 
 // Access macros.  Separate interface from implementation, so client programs
 // don't reference structure members explicitly.
@@ -72,15 +72,17 @@ typedef struct
 	    alt[VCF_ALT_MAX_CHARS + 1],
 	    quality[VCF_QUALITY_MAX_CHARS + 1],
 	    filter[VCF_FILTER_MAX_CHARS + 1],
-	    info[VCF_INFO_MAX_CHARS + 1],
-	    format[VCF_FORMAT_MAX_CHARS + 1];
+	    *info,
+	    *format,
+	    *single_sample; // Avoid using multi_samples
     size_t  pos,
-	    info_len;
+	    info_len,
+	    info_max,
+	    format_max,
+	    sample_max;
     int     ref_count,
 	    alt_count,
 	    other_count;
-    // Avoid the need for malloc() when using single-sample VCFs
-    char    single_sample[VCF_SAMPLE_MAX_CHARS + 1];
     // Use vcf_sample_alloc() to initialize this for multi-sample VCFs
     char    **multi_samples;
     // Apps can buffer phred scores from reads to collect stats
@@ -93,13 +95,15 @@ typedef struct
 void vcf_skip_header(FILE *vcf_stream);
 void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
 int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
-int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, size_t max_sample_len);
+int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
 int vcf_phred_add(vcf_call_t *vcf_call, unsigned char score);
 void vcf_phred_blank(vcf_call_t *vcf_call);
 void vcf_phred_free(vcf_call_t *vcf_call);
-void vcf_call_init(vcf_call_t *vcf_call);
+void vcf_call_free(vcf_call_t *vcf_call);
+void vcf_call_init(vcf_call_t *vcf_call,
+		   size_t info_max, size_t format_max, size_t sample_max);
 
 #endif // __vcfio_h__
