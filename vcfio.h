@@ -1,8 +1,8 @@
 #ifndef __vcfio_h__
 #define __vcfio_h__
 
-#ifndef __tsvio_h__
-#include "tsvio.h"
+#ifndef __dsvio_h__
+#include "dsvio.h"
 #endif
 
 // FIXME: Are there limits defined by the VCF format?
@@ -25,8 +25,8 @@
  *  is not for you.
  */
 
-// Use different sizes for each so tsv_read_field() buffer overflow errors
-// will point to a specific field.  Eventually should have tsv_read_field()
+// Use different sizes for each so dsv_read_field() buffer overflow errors
+// will point to a specific field.  Eventually should have dsv_read_field()
 // return an error code rather than exit with an error message
 #define VCF_CHROMOSOME_MAX_CHARS    256
 #define VCF_POSITION_MAX_CHARS      32

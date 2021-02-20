@@ -49,7 +49,7 @@ LIB     = libbiolibc.a
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = vcfio.o samio.o tsvio.o chromosome-name-cmp.o strptrcmp.o
+OBJS    = vcfio.o samio.o dsvio.o chromosome-name-cmp.o strptrcmp.o
 
 ############################################################################
 # Compile, link, and install options

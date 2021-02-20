@@ -1,8 +1,8 @@
 #ifndef __samio_h__
 #define __samio_h__
 
-#ifndef __tsvio_h__
-#include "tsvio.h"
+#ifndef __dsvio_h__
+#include "dsvio.h"
 #endif
 
 #ifndef __biostring_h__

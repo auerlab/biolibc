@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sysexits.h>
-#include "tsvio.h"
+#include "dsvio.h"
 
 /***************************************************************************
  *  Description:
@@ -13,22 +13,22 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
-		       size_t *len)
+int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
+		       int delim, size_t *len)
 
 {
     size_t  c;
     char    *p;
     int     ch;
     
-    for (c = 0, p = buff; (c < buff_size) && ((ch = getc(infile)) != '\t') &&
+    for (c = 0, p = buff; (c < buff_size) && ((ch = getc(infile)) != delim) &&
 			  (ch != '\n') && (ch != EOF); ++c, ++p )
 	*p = ch;
     *p = '\0';
     
     if ( c == buff_size )
     {
-	fprintf(stderr, "tsv_read_field(): Buffer overflow reading field.\n");
+	fprintf(stderr, "dsv_read_field(): Buffer overflow reading field.\n");
 	fprintf(stderr, "Buffer size = %zu\n", buff_size);
 	fputs(buff, stderr);
 	// FIXME: Replace this with another sentinal value?
@@ -50,12 +50,12 @@ int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_skip_field(FILE *infile)
+int     dsv_skip_field(FILE *infile, int delim)
 
 {
     int     ch;
     
-    while ( ((ch = getc(infile)) != '\t') && (ch != '\n') && (ch != EOF) )
+    while ( ((ch = getc(infile)) != delim) && (ch != '\n') && (ch != EOF) )
 	;
     
     return ch;
@@ -71,7 +71,7 @@ int     tsv_skip_field(FILE *infile)
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     tsv_skip_rest_of_line(FILE *infile)
+int     dsv_skip_rest_of_line(FILE *infile)
 
 {
     int     ch;
@@ -79,4 +79,48 @@ int     tsv_skip_rest_of_line(FILE *infile)
     while ( ((ch = getc(infile)) != EOF) && (ch != '\n') )
 	;
     return ch;
+}
+
+
+int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
+		       size_t *len)
+
+{
+    return dsv_read_field(infile, buff, buff_size, '\t', len);
+}
+
+
+int     tsv_skip_field(FILE *infile)
+
+{
+    return dsv_skip_field(infile, '\t');
+}
+
+
+int     tsv_skip_rest_of_line(FILE *infile)
+
+{
+    return dsv_skip_rest_of_line(infile);
+}
+
+
+int     csv_read_field(FILE *infile, char buff[], size_t buff_size,
+		       size_t *len)
+
+{
+    return dsv_read_field(infile, buff, buff_size, ',', len);
+}
+
+
+int     csv_skip_field(FILE *infile)
+
+{
+    return dsv_skip_field(infile, ',');
+}
+
+
+int     csv_skip_rest_of_line(FILE *infile)
+
+{
+    return dsv_skip_rest_of_line(infile);
 }
