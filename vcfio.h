@@ -63,6 +63,10 @@
 
 #define VCF_PHRED_BUFF_SIZE         256
 
+#define VCF_CALL_INIT   { "", "", "", "", "", "", "", NULL, NULL, NULL, \
+			    0, 0, 0, 0, 0, 0, 0, 0, \
+			    NULL, NULL, 0, 0 \
+			}
 typedef struct
 {
     char    chromosome[VCF_CHROMOSOME_MAX_CHARS + 1],
