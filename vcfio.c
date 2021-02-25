@@ -14,15 +14,30 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_skip_header(FILE *vcf_stream)
+FILE    *vcf_skip_header(FILE *vcf_stream)
 
 {
     char    start[7] = "xxxxxx";
     size_t  count;
+    int     ch;
+    FILE    *header_stream = tmpfile();
 
+    /*
+     *  Copy header to a nameless temp file and return the FILE *.
+     *  This can be used by tools like vcf-split to replicate the
+     *  header in output files.
+     */
+    
     while ( ((count=fread(start, 6, 1, vcf_stream)) == 1) && 
 	    (memcmp(start, "#CHROM", 6) != 0) )
-	tsv_skip_rest_of_line(vcf_stream);
+    {
+	fwrite(start, 6, 1, header_stream);
+	do
+	{
+	    ch = getc(vcf_stream);
+	    putc(ch, header_stream);
+	}   while ( ch != '\n' );
+    }
     
     // puts(start);
     if ( count == 0 )
@@ -30,6 +45,7 @@ void    vcf_skip_header(FILE *vcf_stream)
 	fprintf(stderr, "vcf_skip_header(): No #CHROM header found.\n");
 	exit(EX_DATAERR);
     }
+    return header_stream;
 }
 
 
@@ -229,15 +245,45 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
+				vcf_field_mask_t field_mask)
 
 {
+    char    *chromosome = ".",
+	    *pos_str = ".",
+	    *id = ".",
+	    *ref = ".",
+	    *alt = ".",
+	    *quality = ".",
+	    *filter = ".",
+	    *info = ".",
+	    *format = ".";
+    
+    if ( field_mask & VCF_FIELD_CHROM )
+	chromosome = vcf_call->chromosome;
+    if ( field_mask & VCF_FIELD_POS )
+	pos_str = vcf_call->pos_str;
+    if ( field_mask & VCF_FIELD_ID )
+	id = vcf_call->id;
+    if ( field_mask & VCF_FIELD_REF )
+	ref = vcf_call->ref;
+    if ( field_mask & VCF_FIELD_ALT )
+	alt = vcf_call->alt;
+    if ( field_mask & VCF_FIELD_QUAL )
+	quality = vcf_call->quality;
+    if ( field_mask & VCF_FIELD_FILTER )
+	filter = vcf_call->filter;
+    if ( field_mask & VCF_FIELD_INFO )
+	info = vcf_call->info;
+    if ( field_mask & VCF_FIELD_FORMAT )
+	format = vcf_call->format;
+    
     return fprintf(vcf_stream,
-	    "%s\t%s/%zu\t%s\t%s\t%s\t%s\t%s\t%s/%zu\t%s\n",
-	    vcf_call->chromosome, vcf_call->pos_str, vcf_call->pos,
-	    vcf_call->id, vcf_call->ref, vcf_call->alt, 
-	    vcf_call->quality, vcf_call->filter, vcf_call->info,
-	    vcf_call->info_len, vcf_call->format);
+	    "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+	    chromosome, pos_str,
+	    id, ref, alt, 
+	    quality, filter, info,
+	    format);
 }
 
 
@@ -250,10 +296,11 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
+			  vcf_field_mask_t field_mask)
 
 {
-    vcf_write_static_fields(vcf_stream, vcf_call);
+    vcf_write_static_fields(vcf_stream, vcf_call, field_mask);
     fprintf(vcf_stream, "%s\n", vcf_call->single_sample);
     return 0;
 }
@@ -357,17 +404,17 @@ void    vcf_call_init(vcf_call_t *vcf_call,
     vcf_call->alt_count = 0;
     vcf_call->other_count = 0;
 
-    if ( (vcf_call->info = malloc(info_max)) == NULL )
+    if ( (vcf_call->info = malloc(info_max + 1)) == NULL )
     {
 	fprintf(stderr, "vcf_call_init(): Could not allocate info field.\n");
 	exit(EX_UNAVAILABLE);
     }
-    if ( (vcf_call->format = malloc(format_max)) == NULL )
+    if ( (vcf_call->format = malloc(format_max + 1)) == NULL )
     {
 	fprintf(stderr, "vcf_call_init(): Could not allocate format field.\n");
 	exit(EX_UNAVAILABLE);
     }
-    if ( (vcf_call->single_sample = malloc(sample_max)) == NULL )
+    if ( (vcf_call->single_sample = malloc(sample_max + 1)) == NULL )
     {
 	fprintf(stderr, "vcf_call_init(): Could not allocate sample field.\n");
 	exit(EX_UNAVAILABLE);
@@ -381,6 +428,42 @@ void    vcf_call_init(vcf_call_t *vcf_call,
     vcf_call->format[0] = '\0';
     vcf_call->single_sample[0] = '\0';
     vcf_call->multi_samples = NULL;
+}
+
+
+vcf_field_mask_t    vcf_parse_field_spec(char *spec)
+
+{
+    vcf_field_mask_t    field_mask = VCF_FIELD_ALL;
+    char            *field_name;
+    
+    if ( strcmp("spec", "all") != 0 )
+    {
+	while ((field_name = strsep(&spec, ",")) != NULL)
+	{
+	    if ( strcmp(field_name, "chrom") == 0 )
+		field_mask |= VCF_FIELD_CHROM;
+	    else if ( strcmp(field_name, "pos") == 0 )
+		field_mask |= VCF_FIELD_POS;
+	    else if ( strcmp(field_name, "id") == 0 )
+		field_mask |= VCF_FIELD_ID;
+	    else if ( strcmp(field_name, "ref") == 0 )
+		field_mask |= VCF_FIELD_REF;
+	    else if ( strcmp(field_name, "alt") == 0 )
+		field_mask |= VCF_FIELD_ALT;
+	    else if ( strcmp(field_name, "qual") == 0 )
+		field_mask |= VCF_FIELD_QUAL;
+	    else if ( strcmp(field_name, "filter") == 0 )
+		field_mask |= VCF_FIELD_FILTER;
+	    else if ( strcmp(field_name, "info") == 0 )
+		field_mask |= VCF_FIELD_INFO;
+	    else if ( strcmp(field_name, "format") == 0 )
+		field_mask |= VCF_FIELD_FORMAT;
+	    else
+		field_mask = VCF_FIELD_ERROR;
+	}
+    }
+    return field_mask;
 }
 
 

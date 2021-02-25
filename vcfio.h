@@ -91,13 +91,34 @@ typedef struct
     size_t  phred_buff_size;
 }   vcf_call_t;
 
+typedef unsigned int        vcf_field_mask_t;
+
+#define VCF_FIELD_ALL       0x0
+#define VCF_FIELD_CHROM     0x1
+#define VCF_FIELD_POS       0x2
+#define VCF_FIELD_ID        0x4
+#define VCF_FIELD_REF       0x8
+#define VCF_FIELD_ALT       0x10
+#define VCF_FIELD_QUAL      0x20
+#define VCF_FIELD_FILTER    0x40
+#define VCF_FIELD_INFO      0x80
+#define VCF_FIELD_FORMAT    0x100
+#define VCF_FIELD_ERROR     0xffffffff
+
+// Future expansion: Copy all or part of header
+typedef unsigned int        vcf_header_t;
+
+#define VCF_HEADER_NONE     0x0
+#define VCF_HEADER_FORMAT   0x1
+#define VCF_HEADER_ALL      0x1
+
 /* vcfio.c */
-void vcf_skip_header(FILE *vcf_stream);
+FILE *vcf_skip_header(FILE *vcf_stream);
 void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
 int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
 int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
-int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
-int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
+int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
+int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
 int vcf_phred_add(vcf_call_t *vcf_call, unsigned char score);
 void vcf_phred_blank(vcf_call_t *vcf_call);
@@ -105,5 +126,6 @@ void vcf_phred_free(vcf_call_t *vcf_call);
 void vcf_call_free(vcf_call_t *vcf_call);
 void vcf_call_init(vcf_call_t *vcf_call,
 		   size_t info_max, size_t format_max, size_t sample_max);
+vcf_field_mask_t vcf_parse_field_spec(char *spec);
 
 #endif // __vcfio_h__
