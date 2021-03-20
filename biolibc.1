@@ -1,0 +1,44 @@
+.TH BIOLIBC 3
+.SH NAME
+.PP
+
+BIOLIBC \- Library of high-performance low-level functions for
+bioinformatics programming
+
+.SH SYNOPSIS
+.PP
+.nf 
+.na
+#include <samio.h>
+#include <vcfio.h>
+#include <dsviol.h>
+#include <biostring.h>
+
+cc program.c -lbiolibc
+.ad
+.fi
+
+.SH "PURPOSE"
+
+Biolibc is a library of fast, memory-efficient, low-level functions for
+processing biological data.
+
+Like libc, it consists of numerous disparate, general-purpose functions
+which could be used by a wide variety of applications.
+
+These include functions for streaming common file formats such as SAM and
+VCF, string functions specific to bioinformatics, etc.
+
+Documentation on individual functions should be available soon.
+
+.SH "SEE ALSO"
+vcf-split, ad2vcf, vcf2hap
+
+.SH BUGS
+Please report bugs to the author and send patches in unified diff format.
+(man diff for more information)
+
+.SH AUTHOR
+.nf
+.na
+J. Bacon

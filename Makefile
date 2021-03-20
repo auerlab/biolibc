@@ -44,7 +44,7 @@
 # Installed targets
 
 LIB     = libbiolibc.a
-# MAN     = vcf-split.1
+MAN     = vcf-split.1
 
 ############################################################################
 # List object files that comprise BIN.
@@ -155,29 +155,15 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 install: all
-	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include
+	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
+		    ${DESTDIR}${MANPREFIX}/man/man1
 	${INSTALL} ${LIB} ${DESTDIR}${PREFIX}/lib
 	${INSTALL} *.h ${DESTDIR}${PREFIX}/include
-
-#        ${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
-
-############################################################################
-# Remove all installed files
-
-uninstall:
-	${RM} ${PREFIX}/bin/${BIN}
-	${RM} ${PREFIX}/lib/libbiolibc.a
-	# Add includes
+	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"
 	@printf "Some common tunable variables:\n\n"
 	@printf "\tCC        [currently ${CC}]\n"
 	@printf "\tCFLAGS    [currently ${CFLAGS}]\n"
-	@printf "\tCXX       [currently ${CXX}]\n"
-	@printf "\tCXXFLAGS  [currently ${CXXFLAGS}]\n"
-	@printf "\tF77       [currently ${F77}]\n"
-	@printf "\tFC        [currently ${FC}]\n"
-	@printf "\tFFLAGS    [currently ${FFLAGS}]\n\n"
 	@printf "View Makefile for more tunable variables.\n\n"
-
