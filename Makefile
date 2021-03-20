@@ -44,7 +44,7 @@
 # Installed targets
 
 LIB     = libbiolibc.a
-MAN     = vcf-split.1
+MAN     = biolibc.1
 
 ############################################################################
 # List object files that comprise BIN.
