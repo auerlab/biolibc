@@ -68,7 +68,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     
     // Chromosome
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
-			BED_CHROMOSOME_MAX_CHARS, &len) == EOF )
+			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fputs("bed_read_feature(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BIO_READ_EOF;
@@ -76,7 +76,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     
     // Feature start position
     if ( tsv_read_field(bed_stream, bed_feature->start_pos_str,
-			BED_POSITION_MAX_CHARS, &len) == EOF )
+			BIO_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bed_read_feature(): Got EOF reading start POS: %s.\n",
 		bed_feature->start_pos_str);
@@ -96,7 +96,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     
     // Feature end position
     if ( (delim = tsv_read_field(bed_stream, bed_feature->end_pos_str,
-			BED_POSITION_MAX_CHARS, &len)) == EOF )
+			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "bed_read_feature(): Got EOF reading end POS: %s.\n",
 		bed_feature->end_pos_str);
@@ -131,7 +131,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->score_str,
-			    BED_POSITION_MAX_CHARS, &len)) == EOF )
+			    BIO_POSITION_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading end SCORE: %s.\n",
 		    bed_feature->score_str);

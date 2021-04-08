@@ -18,7 +18,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 {
     char    mapq_str[SAM_MAPQ_MAX_CHARS + 1],
 	    temp_seq_or_qual[SAM_SEQ_MAX_CHARS + 1],
-	    pos_str[SAM_POS_MAX_DIGITS + 1],
+	    pos_str[BIO_POSITION_MAX_DIGITS + 1],
 	    flag_str[SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
     size_t  len;
@@ -44,7 +44,7 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
 	tsv_read_field(sam_stream, sam_alignment->rname, SAM_RNAME_MAX_CHARS, &len);
 	
 	// 4 POS
-	tsv_read_field(sam_stream, pos_str, SAM_POS_MAX_DIGITS, &len);
+	tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS, &len);
 	sam_alignment->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{

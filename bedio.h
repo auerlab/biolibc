@@ -8,11 +8,8 @@
 #include "biolibc.h"
 #endif
 
-// FIXME: Merge these with VCF_*_MAX_CHARS?
-#define BED_CHROMOSOME_MAX_CHARS    256
-#define BED_POSITION_MAX_CHARS      32
 #define BED_NAME_MAX_CHARS          256
-#define BED_SCORE_MAX_CHARS         4   // 0 to 1000
+#define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
 
 typedef unsigned int        bed_field_mask_t;
 
@@ -24,7 +21,7 @@ typedef unsigned int        bed_field_mask_t;
 typedef struct
 {
     unsigned short  fields;
-    char            chromosome[BED_CHROMOSOME_MAX_CHARS + 1];
+    char            chromosome[BIO_CHROMOSOME_MAX_CHARS + 1];
     /*
      *      12345
      *      ACCGT
@@ -32,12 +29,12 @@ typedef struct
      *
      *      chr1 0 5
      */
-    char            start_pos_str[BED_POSITION_MAX_CHARS + 1],  // 0-based
-		    end_pos_str[BED_POSITION_MAX_CHARS + 1];   
+    char            start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
+		    end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
     uint64_t        start_pos,
 		    end_pos;
     char            name[BED_NAME_MAX_CHARS + 1];
-    char            score_str[BED_SCORE_MAX_CHARS + 1];
+    char            score_str[BED_SCORE_MAX_DIGITS + 1];
     unsigned short  score; // 0 to 1000
     
     // char strand; '+' or '-'

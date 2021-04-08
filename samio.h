@@ -11,9 +11,7 @@
 
 #define SAM_MAPQ_MAX_CHARS  3
 #define SAM_QNAME_MAX_CHARS 4096
-#define SAM_FLAG_MAX_CHARS  4096
 #define SAM_RNAME_MAX_CHARS 4096
-#define SAM_POS_MAX_DIGITS  4096    // What should this really be?
 #define SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
 #define SAM_CIGAR_MAX_CHARS 4096
 // Usually < 200 for Illumina data, but a few oddballs in SRA CRAMs

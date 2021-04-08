@@ -1,6 +1,10 @@
 #ifndef __dsvio_h__
 #define __dsvio_h__
 
+#ifndef __biolibc_h__
+#include "biolibc.h"
+#endif
+
 /* dsvio.c */
 int dsv_read_field(FILE *infile, char buff[], size_t buff_size,
 		   int delim, size_t *len);

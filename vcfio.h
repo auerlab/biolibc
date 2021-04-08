@@ -28,11 +28,9 @@
 // Use different sizes for each so dsv_read_field() buffer overflow errors
 // will point to a specific field.  Eventually should have dsv_read_field()
 // return an error code rather than exit with an error message
-#define VCF_CHROMOSOME_MAX_CHARS    256
-#define VCF_POSITION_MAX_CHARS      32
-#define VCF_REF_MAX_CHARS           34
-#define VCF_ALT_MAX_CHARS           36
-#define VCF_QUALITY_MAX_CHARS       38
+#define VCF_REF_MAX_CHARS           32
+#define VCF_ALT_MAX_CHARS           33
+#define VCF_QUALITY_MAX_CHARS       34
 #define VCF_FILTER_MAX_CHARS        64
 // Yes, we actually saw INFO fields over 512k in some dbGap BCFs
 //#define VCF_INFO_MAX_CHARS          1048576
@@ -69,8 +67,8 @@
 			}
 typedef struct
 {
-    char    chromosome[VCF_CHROMOSOME_MAX_CHARS + 1],
-	    pos_str[VCF_POSITION_MAX_CHARS + 1],
+    char    chromosome[BIO_CHROMOSOME_MAX_CHARS + 1],
+	    pos_str[BIO_POSITION_MAX_DIGITS + 1],
 	    id[VCF_ID_MAX_CHARS + 1],
 	    ref[VCF_REF_MAX_CHARS + 1],
 	    alt[VCF_ALT_MAX_CHARS + 1],

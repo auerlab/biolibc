@@ -117,7 +117,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     
     // Chromosome
     if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
-			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
+			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BIO_READ_EOF;
@@ -125,7 +125,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     
     // Call position
     if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
-			VCF_POSITION_MAX_CHARS, &len) == EOF )
+			BIO_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		vcf_call->pos_str);

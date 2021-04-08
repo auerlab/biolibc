@@ -6,4 +6,7 @@
 #define BIO_READ_OVERFLOW           -2
 #define BIO_READ_TRUNCATED          -3
 
+#define BIO_CHROMOSOME_MAX_CHARS    256
+#define BIO_POSITION_MAX_DIGITS     32
+
 #endif  // __biolibc_h__

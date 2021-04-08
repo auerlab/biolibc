@@ -1,6 +1,10 @@
 #ifndef __biostring_h__
 #define __biostring_h__
 
+#ifndef __biolibc_h__
+#include "biolibc.h"
+#endif
+
 /* chromosome-name-cmp.c */
 int chromosome_name_cmp(const char *n1, const char *n2);
 
