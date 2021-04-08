@@ -1,3 +1,6 @@
+bedio.o: bedio.c bedio.h biolibc.h dsvio.h
+	${CC} -c ${CFLAGS} bedio.c
+
 chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
@@ -7,9 +10,12 @@ dsvio.o: dsvio.c dsvio.h
 samio.o: samio.c samio.h dsvio.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
 
+strlcpy.o: strlcpy.c
+	${CC} -c ${CFLAGS} strlcpy.c
+
 strptrcmp.o: strptrcmp.c biostring.h
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-vcfio.o: vcfio.c vcfio.h dsvio.h
+vcfio.o: vcfio.c vcfio.h dsvio.h biolibc.h
 	${CC} -c ${CFLAGS} vcfio.c
 

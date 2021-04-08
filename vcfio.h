@@ -5,16 +5,15 @@
 #include "dsvio.h"
 #endif
 
+#ifndef __biolibc_h__
+#include "biolibc.h"
+#endif
+
 // FIXME: Are there limits defined by the VCF format?
 #define VCF_ID_MAX_CHARS            256
 // FIXME: What's the real maximum?  Maybe 3 since there are only 3 alternate
 // alleles possible with standard bases?
 #define VCF_DUP_CALL_MAX            10
-
-#define VCF_OK                       0
-#define VCF_READ_EOF                -1
-#define VCF_READ_OVERFLOW           -2
-#define VCF_READ_TRUNCATED          -3
 
 /*
  *  vcfio is meant to provide a very simple and fast method for processing
@@ -25,6 +24,7 @@
  *  is not for you.
  */
 
+// Hack:
 // Use different sizes for each so dsv_read_field() buffer overflow errors
 // will point to a specific field.  Eventually should have dsv_read_field()
 // return an error code rather than exit with an error message

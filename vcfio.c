@@ -120,7 +120,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 			VCF_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
-	return VCF_READ_EOF;
+	return BIO_READ_EOF;
     }
     
     // Call position
@@ -129,7 +129,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		vcf_call->pos_str);
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     else
     {
@@ -139,7 +139,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 	    fprintf(stderr,
 		    "vcf_read_static_fields(): Invalid call position: %s\n",
 		    vcf_call->pos_str);
-	    return VCF_READ_TRUNCATED;
+	    return BIO_READ_TRUNCATED;
 	}
     }
     
@@ -148,7 +148,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 			VCF_ID_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     
     // Ref
@@ -156,7 +156,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 			VCF_REF_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     
     // Alt
@@ -164,7 +164,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 		   VCF_ALT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
 
     // Qual
@@ -172,7 +172,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     
     // Filter
@@ -180,7 +180,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 		   VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     
     // Info
@@ -188,7 +188,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 		   vcf_call->info_max, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading INFO.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
     
     // Format
@@ -196,10 +196,10 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 		   vcf_call->format_max, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FORMAT.\n");
-	return VCF_READ_TRUNCATED;
+	return BIO_READ_TRUNCATED;
     }
 
-    return VCF_OK;
+    return BIO_READ_OK;
 }
 
 
@@ -219,15 +219,15 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
     int     status;
     
     status = vcf_read_static_fields(vcf_stream, vcf_call);
-    if ( status == VCF_OK )
+    if ( status == BIO_READ_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
 			vcf_call->sample_max, &len) != EOF )
-	    return VCF_OK;
+	    return BIO_READ_OK;
 	else
 	{
 	    fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
-	    return VCF_READ_TRUNCATED;
+	    return BIO_READ_TRUNCATED;
 	}
     }
     else
@@ -352,7 +352,7 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 	    exit(EX_UNAVAILABLE);
 	}
     }
-    return VCF_OK;
+    return BIO_READ_OK;
 }
 
 
@@ -465,19 +465,3 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
     }
     return field_mask;
 }
-
-
-#ifdef __linux__
-size_t  strlcpy(char *dest, const char *src, size_t len)
-
-{
-    char   *save_dest, *end;
-
-    save_dest = dest;
-    end = (char *)src + len - 1;
-    while ((*src != '\0') && (src < end))
-	*dest++ = *src++;
-    *dest = '\0';
-    return dest - save_dest;
-}
-#endif

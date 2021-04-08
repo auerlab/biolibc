@@ -28,11 +28,6 @@
 #define SAM_SEQ_LEN(s)      ((s)->seq_len)
 #define SAM_QUAL_LEN(s)     ((s)->qual_len)
 
-#define SAM_READ_OK                 0
-#define SAM_READ_EOF                -1
-#define SAM_READ_OVERFLOW           -2
-#define SAM_READ_TRUNCATED          -3
-
 // Use this or the function for every new object
 #define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, NULL, NULL, 0, 0, NULL, NULL, 0 }
 

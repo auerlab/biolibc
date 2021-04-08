@@ -17,7 +17,8 @@ int strptrcmp(const char **p1, const char **p2);
 #endif
 
 #ifdef __linux__
-size_t strlcpy(char *dest, const char *src, size_t len);
+// size_t strlcpy(char *dest, const char *src, size_t len);
+#define strlcpy(dest,src,len)   strcpy(dest,src)
 #endif
 
 #endif // __biostring_h__
