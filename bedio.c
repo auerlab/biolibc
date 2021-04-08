@@ -51,8 +51,7 @@ FILE    *bed_skip_header(FILE *bed_stream)
 
 /***************************************************************************
  *  Description:
- *      Read static fields from one line of a single-entry BED file.
- *      Does not read sample data.
+ *      Read fields from one line of a BED file.
  *
  *  History: 
  *  Date        Name        Modification
@@ -159,8 +158,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 
 /***************************************************************************
  *  Description:
- *      Write static fields from one line of a single-entry bed file.
- *      Does not write sample data.
+ *      Write fields from one line of a bed file.
  *
  *  History: 
  *  Date        Name        Modification
