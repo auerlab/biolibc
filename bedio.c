@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
+#include <inttypes.h>   // PRIu64
 #include "bedio.h"
 #include "dsvio.h"
 
@@ -41,6 +42,9 @@ FILE    *bed_skip_header(FILE *bed_stream)
 	    putc(ch, header_stream);
 	}   while ( ch != '\n' );
     }
+    
+    // Rewind to start of first non-header line
+    fseek(bed_stream, -6, SEEK_CUR);
     return header_stream;
 }
 
@@ -109,6 +113,44 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	    return BIO_READ_TRUNCATED;
 	}
     }
+
+    bed_feature->fields = 3;
+    
+    if ( delim != '\n' )
+    {
+	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
+			    BED_NAME_MAX_CHARS, &len)) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading end NAME: %s.\n",
+		    bed_feature->name);
+	    return BIO_READ_TRUNCATED;
+	}
+	++bed_feature->fields;
+    }
+    
+    if ( delim != '\n' )
+    {
+	if ( (delim = tsv_read_field(bed_stream, bed_feature->score_str,
+			    BED_POSITION_MAX_CHARS, &len)) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading end SCORE: %s.\n",
+		    bed_feature->score_str);
+	    return BIO_READ_TRUNCATED;
+	}
+	else
+	{
+	    bed_feature->score = strtoul(bed_feature->score_str, &end, 10);
+	    if ( (*end != '\0') || (bed_feature->score > 1000) )
+	    {
+		fprintf(stderr,
+			"bed_read_feature(): Invalid feature score: %s\n",
+			bed_feature->score_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	}
+	++bed_feature->fields;
+    }
+    
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(bed_stream);
     return BIO_READ_OK;
@@ -125,9 +167,17 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
  *  2020-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bed_write_FEATURE(FILE *bed_stream, bed_feature_t *bed_feature,
+int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 				bed_field_mask_t field_mask)
 
 {
+    fprintf(bed_stream, "%s\t%" PRIu64 "\t%" PRIu64,
+	    bed_feature->chromosome,
+	    bed_feature->start_pos, bed_feature->end_pos);
+    if ( bed_feature->fields > 3 )
+	fprintf(bed_stream, "\t%s", bed_feature->name);
+    if ( bed_feature->fields > 4 )
+	fprintf(bed_stream, "\t%u", bed_feature->score);
+    putc('\n', bed_stream);
     return 0;
 }

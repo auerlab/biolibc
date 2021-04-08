@@ -11,6 +11,8 @@
 // FIXME: Merge these with VCF_*_MAX_CHARS?
 #define BED_CHROMOSOME_MAX_CHARS    256
 #define BED_POSITION_MAX_CHARS      32
+#define BED_NAME_MAX_CHARS          256
+#define BED_SCORE_MAX_CHARS         4   // 0 to 1000
 
 typedef unsigned int        bed_field_mask_t;
 
@@ -21,7 +23,8 @@ typedef unsigned int        bed_field_mask_t;
 
 typedef struct
 {
-    char    chromosome[BED_CHROMOSOME_MAX_CHARS + 1];
+    unsigned short  fields;
+    char            chromosome[BED_CHROMOSOME_MAX_CHARS + 1];
     /*
      *      12345
      *      ACCGT
@@ -29,12 +32,14 @@ typedef struct
      *
      *      chr1 0 5
      */
-    char        start_pos_str[BED_POSITION_MAX_CHARS + 1],  // 0-based
-		end_pos_str[BED_POSITION_MAX_CHARS + 1];   
-    uint64_t    start_pos,
-		end_pos;
-    // char name[];
-    // unsigned short score; // 0 to 1000
+    char            start_pos_str[BED_POSITION_MAX_CHARS + 1],  // 0-based
+		    end_pos_str[BED_POSITION_MAX_CHARS + 1];   
+    uint64_t        start_pos,
+		    end_pos;
+    char            name[BED_NAME_MAX_CHARS + 1];
+    char            score_str[BED_SCORE_MAX_CHARS + 1];
+    unsigned short  score; // 0 to 1000
+    
     // char strand; '+' or '-'
     // uint64_t     thick_start,
     //              thick_end;
@@ -46,6 +51,6 @@ typedef struct
 
 FILE *bed_skip_header(FILE *bed_stream);
 int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature);
-int bed_write_FEATURE(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
+int bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
 
 #endif  // __bedio_h__
