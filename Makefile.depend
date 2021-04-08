@@ -10,9 +10,6 @@ dsvio.o: dsvio.c dsvio.h
 samio.o: samio.c samio.h dsvio.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
 
-strlcpy.o: strlcpy.c
-	${CC} -c ${CFLAGS} strlcpy.c
-
 strptrcmp.o: strptrcmp.c biostring.h
 	${CC} -c ${CFLAGS} strptrcmp.c
 
