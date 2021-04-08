@@ -60,6 +60,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 {
     char    *end;
     size_t  len;
+    int     delim;
     
     // Chromosome
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
@@ -69,7 +70,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	return BIO_READ_EOF;
     }
     
-    // Feature position
+    // Feature start position
     if ( tsv_read_field(bed_stream, bed_feature->start_pos_str,
 			BED_POSITION_MAX_CHARS, &len) == EOF )
     {
@@ -89,9 +90,9 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	}
     }
     
-    // Feature position
-    if ( tsv_read_field(bed_stream, bed_feature->end_pos_str,
-			BED_POSITION_MAX_CHARS, &len) == EOF )
+    // Feature end position
+    if ( (delim = tsv_read_field(bed_stream, bed_feature->end_pos_str,
+			BED_POSITION_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "bed_read_feature(): Got EOF reading end POS: %s.\n",
 		bed_feature->end_pos_str);
@@ -108,7 +109,8 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	    return BIO_READ_TRUNCATED;
 	}
     }
-    
+    if ( delim != '\n' )
+	dsv_skip_rest_of_line(bed_stream);
     return BIO_READ_OK;
 }
 
