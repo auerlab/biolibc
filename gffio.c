@@ -19,8 +19,6 @@
 FILE    *gff_skip_header(FILE *gff_stream)
 
 {
-    char    start[7] = "xxxxxx";
-    size_t  count;
     int     ch;
     FILE    *header_stream = tmpfile();
 
@@ -30,21 +28,19 @@ FILE    *gff_skip_header(FILE *gff_stream)
      *  header in output files.
      */
     
-    while ( ((count=fread(start, 6, 1, gff_stream)) == 1) && 
-	    ((memcmp(start, "browser", 6) == 0) ||
-	    (memcmp(start, "track", 5) == 0) ||
-	    (*start == '#')) )
+    while ( (ch = getc(gff_stream)) == '#' )
     {
-	fwrite(start, 6, 1, header_stream);
+	putc(ch, header_stream);
 	do
 	{
 	    ch = getc(gff_stream);
 	    putc(ch, header_stream);
-	}   while ( ch != '\n' );
+	}   while ( (ch != '\n') && (ch != EOF) );
     }
     
     // Rewind to start of first non-header line
-    fseek(gff_stream, -6, SEEK_CUR);
+    if ( ch != EOF )
+	ungetc(ch, gff_stream);
     return header_stream;
 }
 

@@ -21,7 +21,7 @@ FILE    *bed_skip_header(FILE *bed_stream)
 {
     char    start[7] = "xxxxxx";
     size_t  count;
-    int     ch;
+    int     ch, c;
     FILE    *header_stream = tmpfile();
 
     /*
@@ -40,11 +40,13 @@ FILE    *bed_skip_header(FILE *bed_stream)
 	{
 	    ch = getc(bed_stream);
 	    putc(ch, header_stream);
-	}   while ( ch != '\n' );
+	}   while ( (ch != '\n') && (ch != EOF) );
     }
     
     // Rewind to start of first non-header line
-    fseek(bed_stream, -6, SEEK_CUR);
+    if ( count == 1 )
+	for (c = 5; c >= 0; --c)
+	    ungetc(start[c], bed_stream);
     return header_stream;
 }
 
