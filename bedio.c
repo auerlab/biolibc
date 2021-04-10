@@ -209,7 +209,8 @@ void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
     }
     else if ( chromosome_name_cmp(BED_CHROMOSOME(bed_feature), last_chrom) < 0 )
     {
-	fprintf(stderr, "peak-classifier: BED file not sorted by start chromosome.\n");
+	fprintf(stderr, "peak-classifier: BED file not sorted by chromosome.\n");
+	fprintf(stderr, "%s, %s\n", BED_CHROMOSOME(bed_feature), last_chrom);
 	exit(EX_DATAERR);
     }
 }

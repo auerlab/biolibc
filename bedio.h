@@ -5,6 +5,10 @@
 #include "biolibc.h"
 #endif
 
+#ifndef __gffio_h__
+#include "gffio.h"
+#endif
+
 #define BED_NAME_MAX_CHARS          256
 #define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
 
@@ -50,5 +54,9 @@ typedef struct
 FILE *bed_skip_header(FILE *bed_stream);
 int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature);
 int bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
+void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
+			uint64_t last_pos);
+int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
+		    bio_overlap_t *overlap);
 
 #endif  // __bedio_h__

@@ -21,6 +21,12 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_SEQUENCE(gff_feature)   ((gff_feature)->sequence)
 #define GFF_START_POS(gff_feature)  ((gff_feature)->start_pos)
 #define GFF_END_POS(gff_feature)    ((gff_feature)->end_pos)
+#define GFF_FEATURE(gff_feature)    ((gff_feature)->feature)
+
+#define GFF_SET_START_POS(gff_feature, p)   ((gff_feature)->start_pos = (p))
+#define GFF_SET_END_POS(gff_feature, p)     ((gff_feature)->end_pos = (p))
+#define GFF_SET_FEATURE(gff_feature, f) \
+	(strlcpy((gff_feature)->feature, (f), GFF_FEATURE_MAX_CHARS))
 
 typedef struct
 {
