@@ -49,7 +49,7 @@ MAN     = biolibc.1
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = vcfio.o samio.o bedio.o dsvio.o gffio.o \
+OBJS    = biolibc.o vcfio.o samio.o bedio.o dsvio.o gffio.o \
 	  chromosome-name-cmp.o strptrcmp.o
 
 ############################################################################

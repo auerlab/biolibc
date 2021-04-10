@@ -59,9 +59,16 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 {
     char    *end;
     size_t  len;
-    int     delim;
+    int     delim,
+	    ch;
     
-    // Chromosome
+    // Skip embedded comment lines
+    if ( (ch = getc(gff_stream)) == '#' )
+	dsv_skip_rest_of_line(gff_stream);
+    else if ( ch != EOF )
+	ungetc(ch, gff_stream);
+    
+    // 1 Chromosome
     if ( tsv_read_field(gff_stream, gff_feature->sequence,
 			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
@@ -69,7 +76,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	return BIO_READ_EOF;
     }
     
-    // Source
+    // 2 Source
     if ( (delim = tsv_read_field(gff_stream, gff_feature->source,
 			GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
@@ -78,7 +85,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	return BIO_READ_TRUNCATED;
     }
 
-    // Feature
+    // 3 Feature
     if ( (delim = tsv_read_field(gff_stream, gff_feature->feature,
 			GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
@@ -87,7 +94,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	return BIO_READ_TRUNCATED;
     }
     
-    // Feature start position
+    // 4 Feature start position
     if ( tsv_read_field(gff_stream, gff_feature->start_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len) == EOF )
     {
@@ -107,7 +114,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	}
     }
     
-    // Feature end position
+    // 5 Feature end position
     if ( (delim = tsv_read_field(gff_stream, gff_feature->end_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
     {
@@ -127,30 +134,25 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	}
     }
 
-    if ( delim != '\n' )
+    // 6 Score
+    if ( (delim = tsv_read_field(gff_stream, gff_feature->score_str,
+			GFF_SCORE_MAX_DIGITS, &len)) == EOF )
     {
-	if ( (delim = tsv_read_field(gff_stream, gff_feature->score_str,
-			    BIO_POSITION_MAX_DIGITS, &len)) == EOF )
-	{
-	    fprintf(stderr, "gff_read_feature(): Got EOF reading end SCORE: %s.\n",
-		    gff_feature->score_str);
-	    return BIO_READ_TRUNCATED;
-	}
-	else
-	{
-	    gff_feature->score = strtoul(gff_feature->score_str, &end, 10);
-	    if ( (*end != '\0') || (gff_feature->score > 1000) )
-	    {
-		fprintf(stderr,
-			"gff_read_feature(): Invalid feature score: %s\n",
-			gff_feature->score_str);
-		return BIO_READ_TRUNCATED;
-	    }
-	}
+	fprintf(stderr, "gff_read_feature(): Got EOF reading end SCORE: %s.\n",
+		gff_feature->score_str);
+	return BIO_READ_TRUNCATED;
+    }
+    else
+    {
+	gff_feature->score = strtod(gff_feature->score_str, &end);
+	if ( *end != '\0' )
+	    gff_feature->score = GFF_SCORE_UNAVAILABLE;
     }
     
+    // printf("delim = %u\n", delim);
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(gff_stream);
+
     return BIO_READ_OK;
 }
 
@@ -168,7 +170,8 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 				gff_field_mask_t field_mask)
 
 {
-    return fprintf(gff_stream, "%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t\n%u",
+    return fprintf(gff_stream, "%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%s\n",
 	    gff_feature->sequence, gff_feature->source, gff_feature->feature,
-	    gff_feature->start_pos, gff_feature->end_pos, gff_feature->score);
+	    gff_feature->start_pos, gff_feature->end_pos,
+	    gff_feature->score_str);
 }

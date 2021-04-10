@@ -1,9 +1,6 @@
 #ifndef __bedio_h__
 #define __bedio_h__
 
-#include <stdio.h>
-#include <stdint.h>
-
 #ifndef __biolibc_h__
 #include "biolibc.h"
 #endif
@@ -17,6 +14,10 @@ typedef unsigned int        bed_field_mask_t;
 #define BED_FIELD_CHROM     0x1
 #define BED_FIELD_START_POS 0x2
 #define BED_FIELD_END_POS   0x4
+
+#define BED_CHROMOSOME(bed_feature) ((bed_feature)->chromosome)
+#define BED_START_POS(bed_feature)  ((bed_feature)->start_pos)
+#define BED_END_POS(bed_feature)    ((bed_feature)->end_pos)
 
 typedef struct
 {

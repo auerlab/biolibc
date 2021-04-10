@@ -1,17 +1,15 @@
 #ifndef __gffio_h__
 #define __gffio_h__
 
-#include <stdio.h>
-#include <stdint.h>
-
 #ifndef __biolibc_h__
 #include "biolibc.h"
 #endif
 
 #define GFF_NAME_MAX_CHARS          256
-#define GFF_SCORE_MAX_DIGITS        4       // 0 to 1000
+#define GFF_SCORE_MAX_DIGITS        64      // Floating point
 #define GFF_SOURCE_MAX_CHARS        1024    // Guess
 #define GFF_FEATURE_MAX_CHARS       1024    // Guess
+#define GFF_SCORE_UNAVAILABLE       -1.0
 
 typedef unsigned int        gff_field_mask_t;
 
@@ -19,6 +17,10 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_FIELD_CHROM     0x1
 #define GFF_FIELD_START_POS 0x2
 #define GFF_FIELD_END_POS   0x4
+
+#define GFF_SEQUENCE(gff_feature)   ((gff_feature)->sequence)
+#define GFF_START_POS(gff_feature)  ((gff_feature)->start_pos)
+#define GFF_END_POS(gff_feature)    ((gff_feature)->end_pos)
 
 typedef struct
 {
@@ -30,7 +32,7 @@ typedef struct
     uint64_t        start_pos,
 		    end_pos;
     char            score_str[GFF_SCORE_MAX_DIGITS + 1];
-    unsigned short  score; // 0 to 1000
+    double          score;
     
     // char strand; '+' or '-' or '.'
     // phase 0, 1, 2 (for CDS features) or "." (for everything else)
