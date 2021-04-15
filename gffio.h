@@ -9,6 +9,8 @@
 #define GFF_SCORE_MAX_DIGITS        64      // Floating point
 #define GFF_SOURCE_MAX_CHARS        1024    // Guess
 #define GFF_FEATURE_MAX_CHARS       1024    // Guess
+#define GFF_STRAND_MAX_CHARS        2
+
 #define GFF_SCORE_UNAVAILABLE       -1.0
 
 typedef unsigned int        gff_field_mask_t;
@@ -18,15 +20,17 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_FIELD_START_POS 0x2
 #define GFF_FIELD_END_POS   0x4
 
-#define GFF_SEQUENCE(gff_feature)   ((gff_feature)->sequence)
-#define GFF_START_POS(gff_feature)  ((gff_feature)->start_pos)
-#define GFF_END_POS(gff_feature)    ((gff_feature)->end_pos)
-#define GFF_FEATURE(gff_feature)    ((gff_feature)->feature)
+#define GFF_SEQUENCE(gf)    ((gf)->sequence)
+#define GFF_START_POS(gf)   ((gf)->start_pos)
+#define GFF_END_POS(gf)     ((gf)->end_pos)
+#define GFF_FEATURE(gf)     ((gf)->feature)
+#define GFF_SCORE(gf)       ((gf)->score)
+#define GFF_STRAND(gf)      ((gf)->strand)
 
-#define GFF_SET_START_POS(gff_feature, p)   ((gff_feature)->start_pos = (p))
-#define GFF_SET_END_POS(gff_feature, p)     ((gff_feature)->end_pos = (p))
-#define GFF_SET_FEATURE(gff_feature, f) \
-	(strlcpy((gff_feature)->feature, (f), GFF_FEATURE_MAX_CHARS))
+#define GFF_SET_START_POS(gf, p)    ((gf)->start_pos = (p))
+#define GFF_SET_END_POS(gf, p)      ((gf)->end_pos = (p))
+#define GFF_SET_FEATURE(gf, f) \
+	(strlcpy((gf)->feature, (f), GFF_FEATURE_MAX_CHARS))
 
 typedef struct
 {
@@ -39,6 +43,7 @@ typedef struct
 		    end_pos;
     char            score_str[GFF_SCORE_MAX_DIGITS + 1];
     double          score;
+    char            strand[GFF_STRAND_MAX_CHARS + 1];
     
     // char strand; '+' or '-' or '.'
     // phase 0, 1, 2 (for CDS features) or "." (for everything else)

@@ -149,6 +149,16 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	    gff_feature->score = GFF_SCORE_UNAVAILABLE;
     }
     
+    
+    // 7 Strand
+    if ( (delim = tsv_read_field(gff_stream, gff_feature->strand,
+			GFF_STRAND_MAX_CHARS, &len)) == EOF )
+    {
+	fprintf(stderr, "gff_read_feature(): Got EOF reading end STRAND: %s.\n",
+		gff_feature->strand);
+	return BIO_READ_TRUNCATED;
+    }
+
     // printf("delim = %u\n", delim);
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(gff_stream);

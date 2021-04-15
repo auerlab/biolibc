@@ -1,4 +1,4 @@
-bedio.o: bedio.c bedio.h biolibc.h dsvio.h gffio.h biostring.h
+bedio.o: bedio.c bedio.h biolibc.h gffio.h dsvio.h biostring.h
 	${CC} -c ${CFLAGS} bedio.c
 
 biolibc.o: biolibc.c biolibc.h

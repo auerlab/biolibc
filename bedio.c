@@ -270,3 +270,174 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
     }
     return chromosome_cmp;
 }
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for fields
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
+
+{
+    if ( (fields < 3) || (fields > 9) )
+	return BIO_OUT_OF_RANGE;
+    else
+    {
+	bed_feature->fields = fields;
+	return BIO_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for chromosome
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
+
+{
+    if ( chromosome == NULL )
+	return BIO_INVALID_DATA;
+    else
+    {
+	strlcpy(bed_feature->chromosome, chromosome, BIO_CHROMOSOME_MAX_CHARS);
+	return BIO_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for start_pos_str
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
+
+{
+    char    *end;
+    long long   n;
+    
+    if ( start_pos_str == NULL )
+	return BIO_INVALID_DATA;
+    else
+    {
+	n = strtoull(start_pos_str, &end, 10);
+	if ( *end == '\0' )
+	{
+	    strlcpy(bed_feature->start_pos_str, start_pos_str,
+		    BIO_POSITION_MAX_DIGITS);
+	    bed_feature->start_pos = n;
+	    return BIO_DATA_OK;
+	}
+	else
+	    return BIO_INVALID_DATA;
+    }
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for start_pos
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
+
+{
+    bed_feature->start_pos = start_pos;
+    snprintf(bed_feature->start_pos_str, BIO_POSITION_MAX_DIGITS, "%" PRIu64,
+	    start_pos);
+    return BIO_DATA_OK;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for end_pos_str
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
+
+{
+    char    *end;
+    long long   n;
+    
+    if ( end_pos_str == NULL )
+	return BIO_INVALID_DATA;
+    else
+    {
+	n = strtoull(end_pos_str, &end, 10);
+	if ( *end == '\0' )
+	{
+	    strlcpy(bed_feature->end_pos_str, end_pos_str,
+		    BIO_POSITION_MAX_DIGITS);
+	    bed_feature->end_pos = n;
+	    return BIO_DATA_OK;
+	}
+	else
+	    return BIO_INVALID_DATA;
+    }
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for end_pos
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
+
+{
+    bed_feature->end_pos = end_pos;
+    snprintf(bed_feature->end_pos_str, BIO_POSITION_MAX_DIGITS, "%" PRIu64,
+	    end_pos);
+    return BIO_DATA_OK;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for name
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_name(bed_feature_t *bed_feature, char *name)
+
+{
+    if ( name == NULL )
+	return BIO_INVALID_DATA;
+    else
+    {
+	strlcpy(bed_feature->name, name, BED_NAME_MAX_CHARS);
+	return BIO_DATA_OK;
+    }
+}
+
