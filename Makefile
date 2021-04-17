@@ -50,7 +50,7 @@ MAN     = biolibc.1
 # List object files that comprise BIN.
 
 OBJS    = biolibc.o vcfio.o samio.o bedio.o dsvio.o gffio.o \
-	  chromosome-name-cmp.o strptrcmp.o
+	  chromosome-name-cmp.o strptrcmp.o plist.o
 
 ############################################################################
 # Compile, link, and install options

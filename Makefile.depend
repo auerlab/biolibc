@@ -13,6 +13,9 @@ dsvio.o: dsvio.c dsvio.h biolibc.h
 gffio.o: gffio.c gffio.h biolibc.h dsvio.h
 	${CC} -c ${CFLAGS} gffio.c
 
+plist.o: plist.c plist.h
+	${CC} -c ${CFLAGS} plist.c
+
 samio.o: samio.c samio.h dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
 
