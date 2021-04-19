@@ -17,6 +17,7 @@
 #define BIO_READ_EOF                -1
 #define BIO_READ_OVERFLOW           -2
 #define BIO_READ_TRUNCATED          -3
+#define BIO_READ_GFF_TERMINATOR     -4
 
 #define BIO_DATA_OK                 0
 #define BIO_OUT_OF_RANGE            -1

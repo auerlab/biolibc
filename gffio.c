@@ -57,14 +57,22 @@ FILE    *gff_skip_header(FILE *gff_stream)
 int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 
 {
-    char    *end;
+    char    *end,
+	    line[GFF_LINE_MAX_CHARS + 1];
     size_t  len;
     int     delim,
 	    ch;
     
-    // Skip embedded comment lines
+    // Check for group terminators (Line with just ###)
     if ( (ch = getc(gff_stream)) == '#' )
-	dsv_skip_rest_of_line(gff_stream);
+    {
+	fgets(line, GFF_LINE_MAX_CHARS, gff_stream);
+	if ( strcmp(line, "##\n") == 0 )
+	{
+	    strlcpy(gff_feature->feature, "###", GFF_FEATURE_MAX_CHARS);
+	    return BIO_READ_OK;
+	}
+    }
     else if ( ch != EOF )
 	ungetc(ch, gff_stream);
     

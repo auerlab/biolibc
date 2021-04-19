@@ -10,6 +10,7 @@
 #define GFF_SOURCE_MAX_CHARS        1024    // Guess
 #define GFF_FEATURE_MAX_CHARS       1024    // Guess
 #define GFF_STRAND_MAX_CHARS        2
+#define GFF_LINE_MAX_CHARS          4096
 
 #define GFF_SCORE_UNAVAILABLE       -1.0
 
