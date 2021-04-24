@@ -69,7 +69,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	fgets(line, GFF_LINE_MAX_CHARS, gff_stream);
 	if ( strcmp(line, "##\n") == 0 )
 	{
-	    strlcpy(gff_feature->feature, "###", GFF_FEATURE_MAX_CHARS);
+	    strlcpy(gff_feature->name, "###", GFF_NAME_MAX_CHARS);
 	    return BIO_READ_OK;
 	}
     }
@@ -94,11 +94,11 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
     }
 
     // 3 Feature
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->feature,
+    if ( (delim = tsv_read_field(gff_stream, gff_feature->name,
 			GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading feature: %s.\n",
-		gff_feature->feature);
+		gff_feature->name);
 	return BIO_READ_TRUNCATED;
     }
     
@@ -189,7 +189,7 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 
 {
     return fprintf(gff_stream, "%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%s\n",
-	    gff_feature->sequence, gff_feature->source, gff_feature->feature,
+	    gff_feature->sequence, gff_feature->source, gff_feature->name,
 	    gff_feature->start_pos, gff_feature->end_pos,
 	    gff_feature->score_str);
 }

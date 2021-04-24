@@ -5,10 +5,9 @@
 #include "biolibc.h"
 #endif
 
-#define GFF_NAME_MAX_CHARS          256
 #define GFF_SCORE_MAX_DIGITS        64      // Floating point
 #define GFF_SOURCE_MAX_CHARS        1024    // Guess
-#define GFF_FEATURE_MAX_CHARS       1024    // Guess
+#define GFF_NAME_MAX_CHARS          1024    // Guess
 #define GFF_STRAND_MAX_CHARS        2
 #define GFF_LINE_MAX_CHARS          4096
 
@@ -26,20 +25,20 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_END_POS_STR(gf)     ((gf)->end_pos_str)
 #define GFF_START_POS(gf)       ((gf)->start_pos)
 #define GFF_END_POS(gf)         ((gf)->end_pos)
-#define GFF_FEATURE(gf)         ((gf)->feature)
+#define GFF_NAME(gf)            ((gf)->name)
 #define GFF_SCORE(gf)           ((gf)->score)
 #define GFF_STRAND(gf)          ((gf)->strand)
 
 #define GFF_SET_START_POS(gf, p)    ((gf)->start_pos = (p))
 #define GFF_SET_END_POS(gf, p)      ((gf)->end_pos = (p))
-#define GFF_SET_FEATURE(gf, f) \
-	(strlcpy((gf)->feature, (f), GFF_FEATURE_MAX_CHARS))
+#define GFF_SET_NAME(gf, n) \
+	(strlcpy((gf)->name, (n), GFF_NAME_MAX_CHARS))
 
 typedef struct
 {
     char            sequence[BIO_CHROMOSOME_MAX_CHARS + 1];
     char            source[GFF_SOURCE_MAX_CHARS + 1];
-    char            feature[GFF_FEATURE_MAX_CHARS + 1];
+    char            name[GFF_NAME_MAX_CHARS + 1];
     char            start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
 		    end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
     uint64_t        start_pos,
