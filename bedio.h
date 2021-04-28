@@ -43,8 +43,11 @@ typedef struct
     char            name[BED_NAME_MAX_CHARS + 1];
     char            score_str[BED_SCORE_MAX_DIGITS + 1];
     unsigned short  score; // 0 to 1000
+    char            strand;
+    uint64_t        thick_start_pos,
+		    thick_end_pos;
     
-    // char strand; '+' or '-'
+    // char strand; '+' or '-' or '.'
     // uint64_t     thick_start,
     //              thick_end;
     // uint32_t     rgb;
@@ -66,5 +69,7 @@ int bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos);
 int bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str);
 int bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos);
 int bed_set_name(bed_feature_t *bed_feature, char *name);
+int bed_set_score(bed_feature_t *bed_feature, unsigned score);
+int bed_set_strand(bed_feature_t *bed_feature, int strand);
 
 #endif  // __bedio_h__

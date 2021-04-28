@@ -181,6 +181,8 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	fprintf(bed_stream, "\t%s", bed_feature->name);
     if ( bed_feature->fields > 4 )
 	fprintf(bed_stream, "\t%u", bed_feature->score);
+    if ( bed_feature->fields > 5 )
+	fprintf(bed_stream, "\t%c", bed_feature->strand);
     putc('\n', bed_stream);
     return 0;
 }
@@ -441,3 +443,48 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
     }
 }
 
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for score
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-28  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_score(bed_feature_t *feature, unsigned score)
+
+{
+    if ( score > 1000 )
+    {
+	fprintf(stderr, "bed_set_score(): Score must be 0 to 1000: %u\n",
+		score);
+	return BIO_INVALID_DATA;
+    }
+    feature->score = score;
+    return BIO_DATA_OK;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Mutator for strand
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-28  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_strand(bed_feature_t *feature, int strand)
+
+{
+    if ( (strand != '+') && (strand != '-') && (strand != '.') )
+    {
+	fprintf(stderr, "bed_set_strand(): Strand must be '+' or '-': %c\n",
+		strand);
+	return BIO_INVALID_DATA;
+    }
+    feature->strand = strand;
+    return BIO_DATA_OK;
+}
