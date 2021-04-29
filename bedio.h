@@ -25,6 +25,9 @@ typedef unsigned int        bed_field_mask_t;
 #define BED_START_POS(bf)  ((bf)->start_pos)
 #define BED_END_POS(bf)    ((bf)->end_pos)
 
+#define BED_INIT \
+	{ 0, "", "", "", 0, 0, "", "", 0, '.', 0, 0 }
+
 typedef struct
 {
     unsigned short  fields;     // 3 to 9

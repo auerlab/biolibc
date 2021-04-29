@@ -10,8 +10,12 @@
 #define GFF_NAME_MAX_CHARS          1024    // Guess
 #define GFF_STRAND_MAX_CHARS        2
 #define GFF_LINE_MAX_CHARS          4096
+#define GFF_PHASE_MAX_DIGITS        2
+#define GFF_ATTRIBUTES_MAX_CHARS    8192    // For temp vars only.
+					    // Structure uses malloc()
 
 #define GFF_SCORE_UNAVAILABLE       -1.0
+#define GFF_PHASE_UNAVAILABLE       '.'
 
 typedef unsigned int        gff_field_mask_t;
 
@@ -34,6 +38,9 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_SET_NAME(gf, n) \
 	(strlcpy((gf)->name, (n), GFF_NAME_MAX_CHARS))
 
+#define GFF_INIT \
+	{ "", "", "", "", "", 0, 0, "", 0.0, '.', '.', NULL, NULL, NULL }
+
 typedef struct
 {
     char            sequence[BIO_CHROMOSOME_MAX_CHARS + 1];
@@ -45,11 +52,17 @@ typedef struct
 		    end_pos;
     char            score_str[GFF_SCORE_MAX_DIGITS + 1];
     double          score;
-    char            strand[GFF_STRAND_MAX_CHARS + 1];
+    char            strand;         // '+' or '-' or '.'
+    char            phase;          // 0, 1, 2, or '.' (bases to condon start)
+    char            *attributes;    // Ensembl ID, Name, etc.
     
-    // char strand; '+' or '-' or '.'
-    // phase 0, 1, 2 (for CDS features) or "." (for everything else)
-    // char attributes[]
+    /*
+     *  Fields below are not part of GFF.  They are extracted from attributes
+     *  and may be useful.
+     */
+    char            *feature_id;    // In every feature of Ensemble GFFs
+    char            *gane_name;     // Extract from gene features and look
+				    // up using Ensemble ID for others
 }   gff_feature_t;
 
 FILE *gff_skip_header(FILE *gff_stream);

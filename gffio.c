@@ -58,7 +58,12 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 
 {
     char    *end,
-	    line[GFF_LINE_MAX_CHARS + 1];
+	    line[GFF_LINE_MAX_CHARS + 1],
+	    temp_attributes[GFF_ATTRIBUTES_MAX_CHARS + 1],
+	    strand_str[GFF_STRAND_MAX_CHARS + 1],
+	    phase_str[GFF_PHASE_MAX_DIGITS + 1],
+	    *id_start,
+	    *id_end;
     size_t  len;
     int     delim,
 	    ch;
@@ -146,7 +151,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
     if ( (delim = tsv_read_field(gff_stream, gff_feature->score_str,
 			GFF_SCORE_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "gff_read_feature(): Got EOF reading end SCORE: %s.\n",
+	fprintf(stderr, "gff_read_feature(): Got EOF reading SCORE: %s.\n",
 		gff_feature->score_str);
 	return BIO_READ_TRUNCATED;
     }
@@ -159,18 +164,57 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
     
     
     // 7 Strand
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->strand,
+    if ( (delim = tsv_read_field(gff_stream, strand_str,
 			GFF_STRAND_MAX_CHARS, &len)) == EOF )
     {
-	fprintf(stderr, "gff_read_feature(): Got EOF reading end STRAND: %s.\n",
-		gff_feature->strand);
+	fprintf(stderr, "gff_read_feature(): Got EOF reading STRAND: %s.\n",
+		strand_str);
 	return BIO_READ_TRUNCATED;
     }
+    else
+	gff_feature->strand = *strand_str;
+    
+    // 8 Phase (bases to start of next codon: 0, 1, or 2. "." if unavailable)
+    if ( (delim = tsv_read_field(gff_stream, phase_str,
+			GFF_PHASE_MAX_DIGITS, &len)) == EOF )
+    {
+	fprintf(stderr, "gff_read_feature(): Got EOF reading PHASE: %s.\n",
+		phase_str);
+	return BIO_READ_TRUNCATED;
+    }
+    else
+	gff_feature->phase = *phase_str;
 
+    // 9 Attributes
+    if ( (delim = tsv_read_field(gff_stream, temp_attributes,
+			GFF_ATTRIBUTES_MAX_CHARS, &len)) == EOF )
+    {
+	fprintf(stderr, "gff_read_feature(): Got EOF reading ATTRIBUTES: %s.\n",
+		temp_attributes);
+	return BIO_READ_TRUNCATED;
+    }
+    else if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
+    {
+	fprintf(stderr, "gff_read_feature(): malloc() failed for ATTRIBUTES: %s.\n",
+		temp_attributes);
+	return BIO_READ_TRUNCATED;
+    }
+    
     // printf("delim = %u\n", delim);
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(gff_stream);
 
+    if ( (id_start = strchr(gff_feature->attributes, ':')) != NULL )
+    {
+	++id_start; // Start is first char after ':'
+	if ( (id_end = strchr(id_start, ';')) != NULL )
+	{
+	    *id_end = '\0';
+	    gff_feature->feature_id = strdup(id_start);
+	    // FIXME: Report malloc() failure somehow
+	    *id_end = ';';
+	}
+    }
     return BIO_READ_OK;
 }
 
@@ -188,8 +232,9 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 				gff_field_mask_t field_mask)
 
 {
-    return fprintf(gff_stream, "%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%s\n",
-	    gff_feature->sequence, gff_feature->source, gff_feature->name,
-	    gff_feature->start_pos, gff_feature->end_pos,
-	    gff_feature->score_str);
+    return fprintf(gff_stream,
+	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%s\t%c\t%c\t%s\n",
+	gff_feature->sequence, gff_feature->source, gff_feature->name,
+	gff_feature->start_pos, gff_feature->end_pos, gff_feature->score_str,
+	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
 }
