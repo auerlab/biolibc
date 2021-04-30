@@ -65,8 +65,14 @@ typedef struct
 				    // up using Ensemble ID for others
 }   gff_feature_t;
 
+// After gff_feature_t for prototypes
+#ifndef __bedio_h__
+#include "bedio.h"
+#endif
+
 FILE *gff_skip_header(FILE *gff_stream);
 int gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature);
 int gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
+void gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature);
 
 #endif  // __gffio_h__

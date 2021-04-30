@@ -11,6 +11,8 @@ int chromosome_name_cmp(const char *n1, const char *n2);
 /* strptrcmp.c */
 int strptrcmp(const char **p1, const char **p2);
 
+int strisnum(const char *str);
+
 // CentOS 7 gcc does not support restrict, which helps the optimizer produce
 // faster code.  Keep _RESTRICT def separate from strlcpy() prototype in case
 // other platforms are missing one but not the other.

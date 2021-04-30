@@ -5,10 +5,6 @@
 #include "biolibc.h"
 #endif
 
-#ifndef __gffio_h__
-#include "gffio.h"
-#endif
-
 #define BED_NAME_MAX_CHARS          256
 #define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
 
@@ -58,6 +54,11 @@ typedef struct
     // uint64_t     *block_sizes;   // array
     // uint64_t     *block_starts;  // array
 }   bed_feature_t;
+
+// After bed_feature_t for prototypes
+#ifndef __gffio_h__
+#include "gffio.h"
+#endif
 
 /* bedio.c */
 FILE *bed_skip_header(FILE *bed_stream);

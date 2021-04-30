@@ -10,7 +10,7 @@ chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h biolibc.h
 dsvio.o: dsvio.c dsvio.h biolibc.h
 	${CC} -c ${CFLAGS} dsvio.c
 
-gffio.o: gffio.c gffio.h biolibc.h dsvio.h
+gffio.o: gffio.c gffio.h biolibc.h bedio.h dsvio.h
 	${CC} -c ${CFLAGS} gffio.c
 
 plist.o: plist.c plist.h biolibc.h
@@ -18,6 +18,9 @@ plist.o: plist.c plist.h biolibc.h
 
 samio.o: samio.c samio.h dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
+
+strisnum.o: strisnum.c
+	${CC} -c ${CFLAGS} strisnum.c
 
 strptrcmp.o: strptrcmp.c biostring.h biolibc.h
 	${CC} -c ${CFLAGS} strptrcmp.c

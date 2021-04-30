@@ -85,7 +85,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
     if ( tsv_read_field(gff_stream, gff_feature->sequence,
 			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	fputs("gff_read_feature(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
+	//fputs("gff_read_feature(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
 	return BIO_READ_EOF;
     }
     
@@ -238,3 +238,43 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 	gff_feature->start_pos, gff_feature->end_pos, gff_feature->score_str,
 	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
 }
+
+
+/***************************************************************************
+ *  Description:
+ *      Copy GFF fields to a BED structure
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-19  Jason Bacon Begin
+ ***************************************************************************/
+
+void    gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature)
+
+{
+    char    name[BED_NAME_MAX_CHARS + 1],
+	    strand = GFF_STRAND(gff_feature);
+    
+    bed_set_chromosome(bed_feature, GFF_SEQUENCE(gff_feature));
+    /*
+     *  BED start is 0-based and inclusive
+     *  GFF is 1-based and inclusive
+     */
+    bed_set_start_pos(bed_feature, GFF_START_POS(gff_feature) - 1);
+    /*
+     *  BED end is 0-base and inclusive (or 1-based and non-inclusive)
+     *  GFF is the same
+     */
+    bed_set_end_pos(bed_feature, GFF_END_POS(gff_feature));
+    snprintf(name, BED_NAME_MAX_CHARS, "%s", GFF_NAME(gff_feature));
+    bed_set_name(bed_feature, name);
+    bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
+    if ( bed_set_strand(bed_feature, strand) != BIO_DATA_OK )
+    {
+	fputs("gff_to_bed().\n", stderr);
+	exit(EX_DATAERR);
+    }
+}
+
+
+
