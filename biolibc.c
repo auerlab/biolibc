@@ -65,7 +65,7 @@ void    bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name)
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-FILE    *bio_fopen(char *filename, char *mode)
+FILE    *bio_fopen(const char *filename, const char *mode)
 
 {
     char    *ext = strrchr(filename, '.'),

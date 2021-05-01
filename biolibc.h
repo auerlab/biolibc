@@ -42,7 +42,7 @@ void    bio_set_overlap(bio_overlap_t *overlap,
 			uint64_t f1_len, uint64_t f2_len,
 			uint64_t ov_start, uint64_t ov_end);
 void    bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name);
-FILE    *bio_fopen(char *filename, char *mode);
+FILE    *bio_fopen(const char *filename, const char *mode);
 int     bio_fclose(FILE *stream);
 
 #endif  // __biolibc_h__

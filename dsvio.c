@@ -99,8 +99,7 @@ int     dsv_skip_rest_of_line(FILE *infile)
 int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
 
 {
-    int     ch,
-	    actual_delim;
+    int     actual_delim;
     char    field[DSV_FIELD_MAX_CHARS + 1];
     size_t  actual_len;
     
@@ -150,7 +149,7 @@ int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
 	if ( actual_delim == '\n' )
 	    break;
     }
-    return ch;
+    return actual_delim;
 }
 
 
