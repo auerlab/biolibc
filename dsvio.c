@@ -6,24 +6,25 @@
 
 /***************************************************************************
  *  Description:
- *      Read next delim-separated field
- *      Return delimiter ending the field, possibly newline or EOF
- *      This function is separate from mdsv_read_field() for performance
+ *      Read next multiple-delim-separated field
+ *      Fields may be separated by any character in the string delim
+ *      Return delimiter ending the field (member of delim or newline)
  *
  *  History: 
  *  Date        Name        Modification
- *  2019-12-06  Jason Bacon Begin
+ *  2021-02-24  Jason Bacon Begin
  ***************************************************************************/
 
 int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
-		       int delim, size_t *len)
+		       const char *delims, size_t *len)
 
 {
     size_t  c;
     char    *p;
     int     ch;
     
-    for (c = 0, p = buff; (c < buff_size) && ((ch = getc(infile)) != delim) &&
+    for (c = 0, p = buff; (c < buff_size) && 
+			  ( strchr(delims, ch = getc(infile)) == NULL) &&
 			  (ch != '\n') && (ch != EOF); ++c, ++p )
 	*p = ch;
     *p = '\0';
@@ -45,21 +46,21 @@ int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
 
 /***************************************************************************
  *  Description:
- *      Discard next field separated by the character delim
+ *      Discard next field separated by any character in the string delims
  *      Return the delimiter encountered, possibly newline or EOF
- *      This function is separate from mdsv_skip_field() for performance
  *
  *  History: 
  *  Date        Name        Modification
- *  2019-12-06  Jason Bacon Begin
+ *  2021-02-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_skip_field(FILE *infile, int delim)
+int     dsv_skip_field(FILE *infile, const char *delims)
 
 {
     int     ch;
     
-    while ( ((ch = getc(infile)) != delim) && (ch != '\n') && (ch != EOF) )
+    while ( (strchr(delims, ch = getc(infile)) == NULL) &&
+	    (ch != '\n') && (ch != EOF) )
 	;
     
     return ch;
@@ -88,64 +89,139 @@ int     dsv_skip_rest_of_line(FILE *infile)
 
 /***************************************************************************
  *  Description:
- *      Read next multiple-delim-separated field
- *      Fields may be separated by any character in the string delim
- *      Return delimiter ending the field (member of delim or newline)
+ *      Read a line of an arbitrary DSV file
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-02-24  Jason Bacon Begin
+ *  2021-04-30  Jason Bacon Begin
  ***************************************************************************/
 
-int     mdsv_read_field(FILE *infile, char buff[], size_t buff_size,
-		       char *delim, size_t *len)
+int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
 
 {
-    size_t  c;
-    char    *p;
-    int     ch;
+    int     ch,
+	    actual_delim;
+    char    field[DSV_FIELD_MAX_CHARS + 1];
+    size_t  actual_len;
     
-    for (c = 0, p = buff; (c < buff_size) && 
-			  ( strchr(delim, ch = getc(infile)) == NULL) &&
-			  (ch != '\n') && (ch != EOF); ++c, ++p )
-	*p = ch;
-    *p = '\0';
+    dsv_line->array_size = 32;
+    dsv_line->num_fields = 0;
     
-    if ( c == buff_size )
+    if ( (dsv_line->fields = malloc(dsv_line->array_size * sizeof(char *))) == NULL )
     {
-	fprintf(stderr, "dsv_read_field(): Buffer overflow reading field.\n");
-	fprintf(stderr, "Buffer size = %zu\n", buff_size);
-	fputs(buff, stderr);
-	// FIXME: Replace this with another sentinal value?
-	// Would require all callers to handle both EOF and overflow
-	return EOF;
+	fputs("dsv_read_line(): Cannot allocate fields.\n", stderr);
+	exit(EX_UNAVAILABLE);
     }
     
-    *len = c;
+    if ( (dsv_line->delims = malloc(dsv_line->array_size * sizeof(char))) == NULL )
+    {
+	fputs("dsv_read_line(): Cannot allocate delims.\n", stderr);
+	exit(EX_UNAVAILABLE);
+    }
+    
+    // FIXME: Check actual_delim and/or actual_len to detect truncation
+    while ( ((actual_delim = dsv_read_field(infile,
+		field, DSV_FIELD_MAX_CHARS, delims, &actual_len)) != EOF) )
+    {
+	if ( (dsv_line->fields[dsv_line->num_fields] = strdup(field)) == NULL )
+	{
+	    fprintf(stderr, "dsv_read_line(): Cannot strdup() field %zu.\n",
+		    dsv_line->num_fields - 1);
+	    exit(EX_UNAVAILABLE);
+	}
+	dsv_line->delims[dsv_line->num_fields++] = actual_delim;
+	if ( dsv_line->num_fields == dsv_line->array_size )
+	{
+	    dsv_line->array_size *= 2;
+	    if ( (dsv_line->fields = realloc(dsv_line->fields,
+		    dsv_line->array_size * sizeof(char *))) == NULL )
+	    {
+		fputs("dsv_read_line(): Cannot reallocate fields.\n", stderr);
+		exit(EX_UNAVAILABLE);
+	    }
+	    
+	    if ( (dsv_line->delims = realloc(dsv_line->delims,
+		    dsv_line->array_size * sizeof(char))) == NULL )
+	    {
+		fputs("dsv_read_line(): Cannot reallocate delims.\n", stderr);
+		exit(EX_UNAVAILABLE);
+	    }
+	}
+	if ( actual_delim == '\n' )
+	    break;
+    }
     return ch;
 }
 
 
 /***************************************************************************
  *  Description:
- *      Discard next field separated by any character in the string delim
- *      Return the delimiter encountered, possibly newline or EOF
+ *      Print an arbitrary DSV line
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-02-24  Jason Bacon Begin
+ *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-int     mdsv_skip_field(FILE *infile, char *delim)
+void    dsv_write_line(FILE *outfile, dsv_line_t *dsv_line)
 
 {
-    int     ch;
+    int     c;
     
-    while ( (strchr(delim, ch = getc(infile)) == NULL) &&
-	    (ch != '\n') && (ch != EOF) )
-	;
+    for (c = 0; c < dsv_line->num_fields; ++c)
+	fprintf(outfile, "%s%c", dsv_line->fields[c], dsv_line->delims[c]);
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Duplicate an arbitrary DSV line
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-05-01  Jason Bacon Begin
+ ***************************************************************************/
+
+void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
+
+{
+    size_t  c;
     
-    return ch;
+    // Prune unused pointers in src
+    dest->array_size = dest->num_fields = src->num_fields;
+    
+    dest->fields = malloc(dest->array_size * sizeof(char *));
+    dest->delims = malloc(dest->array_size * sizeof(char));
+    
+    for (c = 0; c < src->num_fields; ++c)
+    {
+	dest->fields[c] = strdup(src->fields[c]);
+	dest->delims[c] = src->delims[c];
+    }
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Free allocated memory for a DSV object
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-05-01  Jason Bacon Begin
+ ***************************************************************************/
+
+void    dsv_free_line(dsv_line_t *dsv_line)
+
+{
+    int     c;
+    
+    if ( dsv_line->fields != NULL )
+    {
+	for (c = 0; c < dsv_line->num_fields; ++c)
+	    free(dsv_line->fields[c]);
+	free(dsv_line->fields);
+    }
+    dsv_line->num_fields = 0;
 }
 
 
@@ -153,14 +229,14 @@ int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
 		       size_t *len)
 
 {
-    return dsv_read_field(infile, buff, buff_size, '\t', len);
+    return dsv_read_field(infile, buff, buff_size, "\t", len);
 }
 
 
 int     tsv_skip_field(FILE *infile)
 
 {
-    return dsv_skip_field(infile, '\t');
+    return dsv_skip_field(infile, "\t");
 }
 
 
@@ -175,14 +251,14 @@ int     csv_read_field(FILE *infile, char buff[], size_t buff_size,
 		       size_t *len)
 
 {
-    return dsv_read_field(infile, buff, buff_size, ',', len);
+    return dsv_read_field(infile, buff, buff_size, ",", len);
 }
 
 
 int     csv_skip_field(FILE *infile)
 
 {
-    return dsv_skip_field(infile, ',');
+    return dsv_skip_field(infile, ",");
 }
 
 
