@@ -1,19 +1,19 @@
-bedio.o: bedio.c bedio.h biolibc.h gffio.h biostring.h dsvio.h
+bedio.o: bedio.c bedio.h biolibc.h biostring.h gffio.h dsvio.h
 	${CC} -c ${CFLAGS} bedio.c
 
-biolibc.o: biolibc.c biolibc.h
+biolibc.o: biolibc.c biolibc.h biostring.h
 	${CC} -c ${CFLAGS} biolibc.c
 
 chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h biolibc.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
-dsvio.o: dsvio.c dsvio.h biolibc.h
+dsvio.o: dsvio.c dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} dsvio.c
 
 gffio.o: gffio.c gffio.h biolibc.h biostring.h bedio.h dsvio.h
 	${CC} -c ${CFLAGS} gffio.c
 
-plist.o: plist.c plist.h biolibc.h
+plist.o: plist.c plist.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} plist.c
 
 samio.o: samio.c samio.h dsvio.h biolibc.h biostring.h
@@ -25,6 +25,6 @@ strisnum.o: strisnum.c
 strptrcmp.o: strptrcmp.c biostring.h biolibc.h
 	${CC} -c ${CFLAGS} strptrcmp.c
 
-vcfio.o: vcfio.c vcfio.h dsvio.h biolibc.h
+vcfio.o: vcfio.c vcfio.h dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} vcfio.c
 
