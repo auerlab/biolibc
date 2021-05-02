@@ -87,7 +87,7 @@ FILE    *bio_fopen(const char *filename, const char *mode)
     {
 	if ( strcmp(ext, ".gz") == 0 )
 	{
-	    snprintf(cmd, BIO_CMD_MAX, "gzcat %s", filename);
+	    snprintf(cmd, BIO_CMD_MAX, "zcat %s", filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".bz2") == 0 )
