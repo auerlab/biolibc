@@ -1,4 +1,4 @@
-bedio.o: bedio.c bedio.h biolibc.h gffio.h dsvio.h biostring.h
+bedio.o: bedio.c bedio.h biolibc.h gffio.h biostring.h dsvio.h
 	${CC} -c ${CFLAGS} bedio.c
 
 biolibc.o: biolibc.c biolibc.h
@@ -10,7 +10,7 @@ chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h biolibc.h
 dsvio.o: dsvio.c dsvio.h biolibc.h
 	${CC} -c ${CFLAGS} dsvio.c
 
-gffio.o: gffio.c gffio.h biolibc.h bedio.h dsvio.h
+gffio.o: gffio.c gffio.h biolibc.h biostring.h bedio.h dsvio.h
 	${CC} -c ${CFLAGS} gffio.c
 
 plist.o: plist.c plist.h biolibc.h

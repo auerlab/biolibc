@@ -13,6 +13,10 @@
 #include <inttypes.h>       // PRIu64
 #endif
 
+#ifndef __biostring_h__
+#include "biostring.h"
+#endif
+
 #define BIO_READ_OK                 0
 #define BIO_READ_EOF                -1
 #define BIO_READ_OVERFLOW           -2

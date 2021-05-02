@@ -25,6 +25,7 @@ int strisnum(const char *str);
 #ifdef __linux__
 // size_t strlcpy(char *dest, const char *src, size_t len);
 #define strlcpy(dest,src,len)   strcpy(dest,src)
+#define strlcat(dest,src,len)   strcat(dest,src)
 #endif
 
 #endif // __biostring_h__
