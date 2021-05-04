@@ -19,12 +19,6 @@ plist.o: plist.c plist.h biolibc.h biostring.h
 samio.o: samio.c samio.h dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} samio.c
 
-strisnum.o: strisnum.c
-	${CC} -c ${CFLAGS} strisnum.c
-
-strptrcmp.o: strptrcmp.c biostring.h biolibc.h
-	${CC} -c ${CFLAGS} strptrcmp.c
-
 vcfio.o: vcfio.c vcfio.h dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} vcfio.c
 
