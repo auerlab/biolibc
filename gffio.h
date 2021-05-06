@@ -5,8 +5,8 @@
 #include "biolibc.h"
 #endif
 
-#ifndef __biostring_h__
-#include "biostring.h"  // strlcpy() on Linux
+#ifndef __xtendc_h__
+#include <xtendc.h>  // strlcpy() on Linux
 #endif
 
 #define GFF_SCORE_MAX_DIGITS        64      // Floating point
