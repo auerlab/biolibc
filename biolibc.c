@@ -6,6 +6,16 @@
  *  Description:
  *      Set overlap parameters
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-09  Jason Bacon Begin
@@ -27,6 +37,16 @@ void    bio_set_overlap(bio_overlap_t *overlap,
 /***************************************************************************
  *  Description:
  *      Print overlap parameters
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

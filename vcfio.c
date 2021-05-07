@@ -9,6 +9,16 @@
  *  Description:
  *      Skip over header lines in VCF input stream.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-06  Jason Bacon Begin
@@ -52,6 +62,16 @@ FILE    *vcf_skip_header(FILE *vcf_stream)
 /***************************************************************************
  *  Description:
  *      Extract sample IDs from input header line.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -101,6 +121,16 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *  Description:
  *      Read static fields from one line of a single-entry VCF file.
  *      Does not read sample data.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -207,6 +237,16 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  Description:
  *      Read a single-sample VCF call.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-11  Jason Bacon Begin
@@ -239,6 +279,16 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  Description:
  *      Write static fields from one line of a single-entry VCF file.
  *      Does not write sample data.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -290,6 +340,16 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 /***************************************************************************
  *  Description:
  *      Write a single-sample VCF call to vcf_stream.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

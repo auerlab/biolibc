@@ -9,6 +9,16 @@
  *  Description:
  *      Initialize a position list
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-17  Jason Bacon Begin
@@ -39,6 +49,16 @@ void    plist_allocate(plist_t *plist, size_t max_positions)
  *  Description:
  *      Free a position list
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-17  Jason Bacon Begin
@@ -63,6 +83,16 @@ void    plist_free(plist_t *plist)
  *  Description:
  *      Add another position to a plist
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-17  Jason Bacon Begin
@@ -84,6 +114,16 @@ int     plist_add_position(plist_t *plist, uint64_t position)
 /***************************************************************************
  *  Description:
  *      Convert command-line syntax for boundaries to an array of positions.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -122,6 +162,16 @@ int     plist_from_csv(plist_t *plist, const char *bounds_str,
  *      Compare two uint64_t values for sort functions.  Difference may
  *      exceed the range of an int, so don't just subtract.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-17  Jason Bacon Begin
@@ -148,6 +198,16 @@ int     position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2)
 /***************************************************************************
  *  Description:
  *      Sort a position list
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

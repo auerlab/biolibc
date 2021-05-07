@@ -11,8 +11,22 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Skip over header lines in bed input stream.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -55,8 +69,22 @@ FILE    *bed_skip_header(FILE *bed_stream)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Read fields from one line of a BED file.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -162,8 +190,22 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Write fields from one line of a bed file.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -189,8 +231,22 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Make sure the BED input is sorted
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -218,10 +274,24 @@ void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
 }
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Compare the position of a BED feature to that of a GFF feature.
  *      Return < 0 if the BED feature is "earlier" (lower chromosome or
  *      same chromosome and lower position), etc. much like strcmp().
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -275,8 +345,22 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for fields
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -297,8 +381,22 @@ int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for chromosome
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -319,8 +417,22 @@ int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for start_pos_str
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -352,8 +464,22 @@ int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for start_pos
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -371,8 +497,22 @@ int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for end_pos_str
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -404,8 +544,22 @@ int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for end_pos
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -423,8 +577,22 @@ int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for name
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -445,8 +613,22 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for score
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -468,8 +650,22 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Mutator for strand
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

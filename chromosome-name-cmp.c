@@ -5,21 +5,40 @@
 #include <limits.h>
 #include "biostring.h"
 
-/*
- *  Perform a numeric comparison of two chromosome names.
+/***************************************************************************
+ *  Library:
+ *      #include <>
+ *      -l
  *
- *  The names may contain a prefix of non-digits, such as "chr".
- *  Characters that follow must be a chromosome number or letter.
- *  Numbers come before letters (e.g. 22 before X).  As such, if either
- *  is a letter, they are compared lexically.  If both are numbers, they
- *  are converted to integers and compared numerically.
+ *  Description:
+ *      Perform a numeric comparison of two chromosome names.
  *
- *  Use this only if you need to know which string is < or >.
- *  If only checking for equality/inequality, strcmp() will be faster.
+ *      The names may contain a prefix of non-digits, such as "chr".
+ *      Characters that follow must be a chromosome number or letter.
+ *      Numbers come before letters (e.g. 22 before X).  As such, if either
+ *      is a letter, they are compared lexically.  If both are numbers, they
+ *      are converted to integers and compared numerically.
  *
- *  FIXME: Do some sort of input validation and designate an error code
- *         such as MAXINT
- */
+ *      Use this only if you need to know which string is < or >.
+ *      If only checking for equality/inequality, strcmp() will be faster.
+ *
+ *      FIXME: Do some sort of input validation and designate an error code
+ *             such as MAXINT
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-05-07  Jason Bacon Begin
+ ***************************************************************************/
 
 int     chromosome_name_cmp(const char *n1, const char *n2)
 

@@ -8,6 +8,16 @@
  *  Description:
  *      Read next alignment from a SAM stream
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-09  Jason Bacon Begin
@@ -137,6 +147,16 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment)
  *  Description:
  *      Copy a SAM alignment as efficiently as possible
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
@@ -179,6 +199,16 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
  *  Description:
  *      Free memory allocated by sam_alignment_read()
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
@@ -198,6 +228,16 @@ void    sam_alignment_free(sam_alignment_t *sam_alignment)
 /***************************************************************************
  *  Description:
  *      Initialize a sam_alignment_t structure
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

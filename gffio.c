@@ -11,6 +11,16 @@
  *  Description:
  *      Skip over header lines in gff input stream.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2020-04-08  Jason Bacon Begin
@@ -48,6 +58,16 @@ FILE    *gff_skip_header(FILE *gff_stream)
 /***************************************************************************
  *  Description:
  *      Read fields from one line of a GFF file.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -223,6 +243,16 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
  *  Description:
  *      Write fields from one line of a gff file.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2020-04-08  Jason Bacon Begin
@@ -243,6 +273,16 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 /***************************************************************************
  *  Description:
  *      Copy GFF fields to a BED structure
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification

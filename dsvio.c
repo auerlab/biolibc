@@ -10,6 +10,16 @@
  *      Fields may be separated by any character in the string delim
  *      Return delimiter ending the field (member of delim or newline)
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-02-24  Jason Bacon Begin
@@ -49,6 +59,16 @@ int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
  *      Discard next field separated by any character in the string delims
  *      Return the delimiter encountered, possibly newline or EOF
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-02-24  Jason Bacon Begin
@@ -71,6 +91,16 @@ int     dsv_skip_field(FILE *infile, const char *delims)
  *  Description:
  *      Discard the rest of the current input line.
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-06  Jason Bacon Begin
@@ -90,6 +120,16 @@ int     dsv_skip_rest_of_line(FILE *infile)
 /***************************************************************************
  *  Description:
  *      Read a line of an arbitrary DSV file
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -157,6 +197,16 @@ int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
  *  Description:
  *      Print an arbitrary DSV line
  *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-01  Jason Bacon Begin
@@ -175,6 +225,16 @@ void    dsv_write_line(FILE *outfile, dsv_line_t *dsv_line)
 /***************************************************************************
  *  Description:
  *      Duplicate an arbitrary DSV line
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -203,6 +263,16 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
 /***************************************************************************
  *  Description:
  *      Free allocated memory for a DSV object
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
