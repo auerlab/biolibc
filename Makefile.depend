@@ -1,4 +1,5 @@
-bedio.o: bedio.c bedio.h biolibc.h biostring.h gffio.h dsvio.h
+bedio.o: bedio.c bedio.h biolibc.h biostring.h gffio.h \
+  ../local/include/xtend.h ../local/include/xtend-protos.h dsvio.h
 	${CC} -c ${CFLAGS} bedio.c
 
 biolibc.o: biolibc.c biolibc.h biostring.h
@@ -10,7 +11,8 @@ chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h biolibc.h
 dsvio.o: dsvio.c dsvio.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} dsvio.c
 
-gffio.o: gffio.c gffio.h biolibc.h biostring.h bedio.h dsvio.h
+gffio.o: gffio.c gffio.h biolibc.h biostring.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h bedio.h dsvio.h
 	${CC} -c ${CFLAGS} gffio.c
 
 plist.o: plist.c plist.h biolibc.h biostring.h
