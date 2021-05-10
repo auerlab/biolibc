@@ -156,8 +156,8 @@ realclean: clean
 install: all
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
 		    ${DESTDIR}${MANPREFIX}/man/man1
-	${INSTALL} ${LIB} ${DESTDIR}${PREFIX}/lib
-	${INSTALL} *.h ${DESTDIR}${PREFIX}/include
+	${INSTALL} -m 0444 ${LIB} ${DESTDIR}${PREFIX}/lib
+	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include
 	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
 
 help:
