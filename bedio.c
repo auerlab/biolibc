@@ -102,7 +102,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
 			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	fputs("bed_read_feature(): Info: Got EOF reading CHROM, as expected.\n", stderr);
+	// fputs("bed_read_feature(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BIO_READ_EOF;
     }
     
