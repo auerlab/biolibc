@@ -68,7 +68,7 @@ CURRENT_VERSION = ${API_VER}.${LIB_VER}
 # Fortunately most platforms don't need this.
 DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 
-MAN     = biolibc.1
+MAN     = biolibc.3
 
 ############################################################################
 # List object files that comprise BIN.
