@@ -1,5 +1,6 @@
 #include <string.h>
 #include <sys/stat.h>
+#include <xtend.h>      // strlcpy() on Linux
 #include "biolibc.h"
 
 /***************************************************************************
