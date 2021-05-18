@@ -7,6 +7,8 @@
 
 #define BED_NAME_MAX_CHARS          256
 #define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
+#define BED_STRAND_MAX_CHARS        2
+#define BED_RGB_MAX_CHARS           11  // 255,255,255
 
 typedef unsigned int        bed_field_mask_t;
 
@@ -43,16 +45,15 @@ typedef struct
     char            score_str[BED_SCORE_MAX_DIGITS + 1];
     unsigned short  score; // 0 to 1000
     char            strand;
+    char            thick_start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
+		    thick_end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
     uint64_t        thick_start_pos,
 		    thick_end_pos;
-    
-    // char strand; '+' or '-' or '.'
-    // uint64_t     thick_start,
-    //              thick_end;
-    // uint32_t     rgb;
-    // unsigned     block_count;
-    // uint64_t     *block_sizes;   // array
-    // uint64_t     *block_starts;  // array
+    char            rgb_str[BED_RGB_MAX_CHARS+1];
+    uint32_t        rgb;
+    unsigned short  block_count;
+    uint64_t        *block_sizes;
+    uint64_t        *block_starts;
 }   bed_feature_t;
 
 // After bed_feature_t for prototypes

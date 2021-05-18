@@ -94,7 +94,8 @@ FILE    *bed_skip_header(FILE *bed_stream)
 int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 
 {
-    char    *end;
+    char    *end,
+	    strand[BED_STRAND_MAX_CHARS + 1];
     size_t  len;
     int     delim;
     
@@ -120,13 +121,14 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bed_read_feature(): Invalid feature position: %s\n",
+		    "bed_read_feature(): Invalid start position: %s\n",
 		    bed_feature->start_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
     }
     
     // Feature end position
+    // FIXME: Check for > or < start if strand + or -
     if ( (delim = tsv_read_field(bed_stream, bed_feature->end_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
     {
@@ -140,7 +142,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bed_read_feature(): Invalid feature position: %s\n",
+		    "bed_read_feature(): Invalid end position: %s\n",
 		    bed_feature->end_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -148,18 +150,20 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 
     bed_feature->fields = 3;
     
+    // Read NAME field if present
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
 			    BED_NAME_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading end NAME: %s.\n",
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
 		    bed_feature->name);
 	    return BIO_READ_TRUNCATED;
 	}
 	++bed_feature->fields;
     }
     
+    // Read SCORE if present
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->score_str,
@@ -182,6 +186,102 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	}
 	++bed_feature->fields;
     }
+    
+    // Read strand if present
+    if ( delim != '\n' )
+    {
+	if ( (delim = tsv_read_field(bed_stream, strand,
+			    BED_STRAND_MAX_CHARS, &len)) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
+		    bed_feature->name);
+	    return BIO_READ_TRUNCATED;
+	}
+	if ( (len != 1) || ((*strand != '+') && (*strand != '-')) )
+	{
+	    fprintf(stderr, "bed_read_feature(): Strand must be + or -: %s\n",
+		    strand);
+	    return BIO_READ_TRUNCATED;
+	}
+	bed_feature->strand = *strand;
+	++bed_feature->fields;
+    }
+    
+    // Read thick start position if present
+    // Must be followed by thick end position, > or < for + or - strand
+    // Feature start position
+    if ( delim != '\n' )
+    {
+	if ( tsv_read_field(bed_stream, bed_feature->thick_start_pos_str,
+			    BIO_POSITION_MAX_DIGITS, &len) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick start "
+		    "POS: %s.\n", bed_feature->thick_start_pos_str);
+	    return BIO_READ_TRUNCATED;
+	}
+	else
+	{
+	    bed_feature->thick_start_pos =
+		strtoul(bed_feature->thick_start_pos_str, &end, 10);
+	    if ( *end != '\0' )
+	    {
+		fprintf(stderr, "bed_read_feature(): Invalid thick start "
+				"position: %s\n",
+				bed_feature->thick_start_pos_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	}
+	
+	if ( delim == '\n' )
+	{
+	    fprintf(stderr, "bed_read_feature(): Found thick start, but no thick end.\n");
+	    return BIO_READ_TRUNCATED;
+	}
+    
+	if ( tsv_read_field(bed_stream, bed_feature->thick_end_pos_str,
+			    BIO_POSITION_MAX_DIGITS, &len) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick end "
+		    "POS: %s.\n", bed_feature->thick_end_pos_str);
+	    return BIO_READ_TRUNCATED;
+	}
+	else
+	{
+	    bed_feature->thick_end_pos =
+		strtoul(bed_feature->thick_end_pos_str, &end, 10);
+	    if ( *end != '\0' )
+	    {
+		fprintf(stderr, "bed_read_feature(): Invalid thick end "
+				"position: %s\n",
+				bed_feature->thick_end_pos_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	}
+    }
+
+    // Read RGB string field if present
+    if ( delim != '\n' )
+    {
+	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
+			    BED_NAME_MAX_CHARS, &len)) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
+		    bed_feature->name);
+	    return BIO_READ_TRUNCATED;
+	}
+	++bed_feature->fields;
+    }
+
+    /*
+     *  Read block count if present
+     *  Must be followed by comma-separated list of sizes
+     *  and comma-separated list of start positions
+     */
+
+    /*
+     *  There shouldn't be anything left at this point.  Once block reads
+     *  are implemented, we should error out of delim != '\n'
+     */
     
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(bed_stream);
@@ -225,6 +325,11 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	fprintf(bed_stream, "\t%u", bed_feature->score);
     if ( bed_feature->fields > 5 )
 	fprintf(bed_stream, "\t%c", bed_feature->strand);
+    if ( bed_feature->fields > 6 )
+	fprintf(bed_stream, "\t%s\t%s", bed_feature->thick_start_pos_str,
+		bed_feature->thick_end_pos_str);
+    if ( bed_feature->fields > 8 )
+	fprintf(bed_stream, "\t%s", bed_feature->rgb_str);
     putc('\n', bed_stream);
     return 0;
 }
