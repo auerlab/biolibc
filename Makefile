@@ -195,7 +195,7 @@ common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
 		    ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include
-	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man1
+	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 install: all common-install
