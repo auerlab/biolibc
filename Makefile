@@ -136,6 +136,9 @@ CHMOD   ?= chmod
 ############################################################################
 # Standard targets required by package managers
 
+.PHONY: all apple depend clean realclean
+.PHONY: common-install install install-strip apple-install test help
+
 all:    ${SLIB} ${DLIB}
 
 apple:  ${SLIB} ${DYLIB}
@@ -213,6 +216,11 @@ apple-install: apple common-install
 	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
+
+test: all
+	cc -I. ${CFLAGS} Bed-test/bed-test.c -o Bed-test/bed-test \
+	    -L. -lbiolibc -L${LOCALBASE}/lib -lxtend
+	cd Bed-test && ./run-test.sh
 
 help:
 	@printf "Usage: make [VARIABLE=value ...] all\n\n"

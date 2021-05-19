@@ -262,12 +262,13 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 		return BIO_READ_TRUNCATED;
 	    }
 	}
+	bed_feature->fields += 2;
     }
 
     // Read RGB string field if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
+	if ( (delim = tsv_read_field(bed_stream, bed_feature->rgb_str,
 			    BED_RGB_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading RGB: %s.\n",
@@ -303,7 +304,6 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	    }
 	    bed_feature->block_count = block_count;
 	}
-	++bed_feature->fields;
 	bed_feature->block_sizes = xt_malloc(bed_feature->block_count,
 					sizeof(*bed_feature->block_sizes));
 	if ( bed_feature->block_sizes == NULL )
@@ -326,17 +326,19 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	
 	// Read comma-separated sizes
 	c = 0;
-	while ( (delim = dsv_read_field(bed_stream, block_size_str,
-			    BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len)) == ',' )
+	do
 	{
+	    delim = dsv_read_field(bed_stream, block_size_str,
+			    BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_sizes[c++] = strtoul(block_size_str, &end, 10);
+	    //fprintf(stderr, "Block size[%u] = %s\n", c-1, block_size_str);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bed_read_feature(): Invalid block size: %s\n",
 			block_size_str);
 		return BIO_READ_TRUNCATED;
 	    }
-	}
+	}   while ( delim == ',' );
 	if ( c != bed_feature->block_count )
 	{
 	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
@@ -351,25 +353,29 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	
 	// Read comma-separated starts
 	c = 0;
-	while ( (delim = dsv_read_field(bed_stream, block_start_str,
-			    BED_BLOCK_START_MAX_DIGITS, ",\t", &len)) == ',' )
+	do
 	{
+	    delim = dsv_read_field(bed_stream, block_start_str,
+			    BED_BLOCK_START_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_starts[c++] = strtoul(block_start_str, &end, 10);
+	    //fprintf(stderr, "Block start[%u] = %s\n", c-1, block_start_str);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bed_read_feature(): Invalid block start: %s\n",
 			block_start_str);
 		return BIO_READ_TRUNCATED;
 	    }
-	}
+	}   while ( delim == ',' );
 	if ( c != bed_feature->block_count )
 	{
 	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
 		    bed_feature->block_count, c);
 	    return BIO_READ_MISMATCH;
 	}
+	bed_feature->fields += 3;
     }
 
+    //fprintf(stderr, "Bed fields = %u\n", bed_feature->fields);
     /*
      *  There shouldn't be anything left at this point.  Once block reads
      *  are implemented, we should error out of delim != '\n'
@@ -411,6 +417,8 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 				bed_field_mask_t field_mask)
 
 {
+    unsigned    c;
+    
     fprintf(bed_stream, "%s\t%" PRIu64 "\t%" PRIu64,
 	    bed_feature->chromosome,
 	    bed_feature->start_pos, bed_feature->end_pos);
@@ -425,6 +433,16 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 		bed_feature->thick_end_pos_str);
     if ( bed_feature->fields > 8 )
 	fprintf(bed_stream, "\t%s", bed_feature->rgb_str);
+    if ( bed_feature->fields > 9 )
+    {
+	fprintf(bed_stream, "\t%u\t", bed_feature->block_count);
+	for (c = 0; c < bed_feature->block_count - 1; ++c)
+	    fprintf(bed_stream, "%" PRIu64 ",", bed_feature->block_sizes[c]);
+	fprintf(bed_stream, "%" PRIu64 "\t", bed_feature->block_sizes[c]);
+	for (c = 0; c < bed_feature->block_count - 1; ++c)
+	    fprintf(bed_stream, "%" PRIu64 ",", bed_feature->block_starts[c]);
+	fprintf(bed_stream, "%" PRIu64, bed_feature->block_starts[c]);
+    }
     putc('\n', bed_stream);
     return 0;
 }
