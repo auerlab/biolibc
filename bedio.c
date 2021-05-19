@@ -95,9 +95,14 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 
 {
     char    *end,
-	    strand[BED_STRAND_MAX_CHARS + 1];
+	    strand[BED_STRAND_MAX_CHARS + 1],
+	    block_count_str[BED_BLOCK_COUNT_MAX_DIGITS + 1],
+	    block_size_str[BED_BLOCK_SIZE_MAX_DIGITS + 1],
+	    block_start_str[BED_BLOCK_START_MAX_DIGITS + 1];
     size_t  len;
     int     delim;
+    unsigned long   block_count;
+    unsigned    c;
     
     // Chromosome
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
@@ -111,7 +116,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     if ( tsv_read_field(bed_stream, bed_feature->start_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len) == EOF )
     {
-	fprintf(stderr, "bed_read_feature(): Got EOF reading start POS: %s.\n",
+	fprintf(stderr, "bed_read_feature(): Got EOF reading start position: %s.\n",
 		bed_feature->start_pos_str);
 	return BIO_READ_TRUNCATED;
     }
@@ -132,7 +137,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     if ( (delim = tsv_read_field(bed_stream, bed_feature->end_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "bed_read_feature(): Got EOF reading end POS: %s.\n",
+	fprintf(stderr, "bed_read_feature(): Got EOF reading end position: %s.\n",
 		bed_feature->end_pos_str);
 	return BIO_READ_TRUNCATED;
     }
@@ -156,7 +161,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
 			    BED_NAME_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading name: %s.\n",
 		    bed_feature->name);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -169,7 +174,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->score_str,
 			    BIO_POSITION_MAX_DIGITS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading end SCORE: %s.\n",
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading score: %s.\n",
 		    bed_feature->score_str);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -193,7 +198,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
 	if ( (delim = tsv_read_field(bed_stream, strand,
 			    BED_STRAND_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading strand: %s.\n",
 		    bed_feature->name);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -263,9 +268,9 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
-			    BED_NAME_MAX_CHARS, &len)) == EOF )
+			    BED_RGB_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading NAME: %s.\n",
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading RGB: %s.\n",
 		    bed_feature->name);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -277,6 +282,93 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
      *  Must be followed by comma-separated list of sizes
      *  and comma-separated list of start positions
      */
+    if ( delim != '\n' )
+    {
+	if ( (delim = tsv_read_field(bed_stream, block_count_str,
+			    BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
+	{
+	    fprintf(stderr, "bed_read_feature(): Got EOF reading block count: %s.\n",
+		    bed_feature->score_str);
+	    return BIO_READ_TRUNCATED;
+	}
+	else
+	{
+	    block_count = strtoul(block_count_str, &end, 10);
+	    if ( (*end != '\0') || (block_count > 65535) )
+	    {
+		fprintf(stderr,
+			"bed_read_feature(): Invalid block count: %s\n",
+			bed_feature->score_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	    bed_feature->block_count = block_count;
+	}
+	++bed_feature->fields;
+	bed_feature->block_sizes = xt_malloc(bed_feature->block_count,
+					sizeof(*bed_feature->block_sizes));
+	if ( bed_feature->block_sizes == NULL )
+	{
+	    fputs("bed_read_feature(): Cannot allocate block_sizes.\n", stderr);
+	    exit(EX_UNAVAILABLE);
+	}
+	bed_feature->block_starts = xt_malloc(bed_feature->block_count,
+					sizeof(*bed_feature->block_starts));
+	if ( bed_feature->block_starts == NULL )
+	{
+	    fputs("bed_read_feature(): Cannot allocate block_starts.\n", stderr);
+	    exit(EX_UNAVAILABLE);
+	}
+	if ( delim == '\n' )
+	{
+	    fputs("bed_read_feature(): Found block count, but no sizes.\n", stderr);
+	    return BIO_READ_TRUNCATED;
+	}
+	
+	// Read comma-separated sizes
+	c = 0;
+	while ( (delim = dsv_read_field(bed_stream, block_size_str,
+			    BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len)) == ',' )
+	{
+	    bed_feature->block_sizes[c++] = strtoul(block_size_str, &end, 10);
+	    if ( *end != '\0' )
+	    {
+		fprintf(stderr, "bed_read_feature(): Invalid block size: %s\n",
+			block_size_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	}
+	if ( c != bed_feature->block_count )
+	{
+	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
+		    bed_feature->block_count, c);
+	    return BIO_READ_MISMATCH;
+	}
+	if ( delim == '\n' )
+	{
+	    fputs("bed_read_feature(): Found block sizes, but no starts.\n", stderr);
+	    return BIO_READ_TRUNCATED;
+	}
+	
+	// Read comma-separated starts
+	c = 0;
+	while ( (delim = dsv_read_field(bed_stream, block_start_str,
+			    BED_BLOCK_START_MAX_DIGITS, ",\t", &len)) == ',' )
+	{
+	    bed_feature->block_starts[c++] = strtoul(block_start_str, &end, 10);
+	    if ( *end != '\0' )
+	    {
+		fprintf(stderr, "bed_read_feature(): Invalid block start: %s\n",
+			block_start_str);
+		return BIO_READ_TRUNCATED;
+	    }
+	}
+	if ( c != bed_feature->block_count )
+	{
+	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
+		    bed_feature->block_count, c);
+	    return BIO_READ_MISMATCH;
+	}
+    }
 
     /*
      *  There shouldn't be anything left at this point.  Once block reads
@@ -284,7 +376,10 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
      */
     
     if ( delim != '\n' )
-	dsv_skip_rest_of_line(bed_stream);
+    {
+	fputs("bed_read_feature(): Extra columns found.\n", stderr);
+	return BIO_READ_EXTRA_COLS;
+    }
     return BIO_READ_OK;
 }
 
@@ -637,7 +732,7 @@ int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
 	n = strtoull(end_pos_str, &end, 10);
 	if ( *end == '\0' )
 	{
-	    strlcpy(bed_feature->end_pos_str, end_pos_str,
+	    strlcpy(end_pos_str, end_pos_str,
 		    BIO_POSITION_MAX_DIGITS);
 	    bed_feature->end_pos = n;
 	    return BIO_DATA_OK;

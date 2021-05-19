@@ -9,6 +9,9 @@
 #define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
 #define BED_STRAND_MAX_CHARS        2
 #define BED_RGB_MAX_CHARS           11  // 255,255,255
+#define BED_BLOCK_COUNT_MAX_DIGITS  5
+#define BED_BLOCK_SIZE_MAX_DIGITS   20  // 2^64
+#define BED_BLOCK_START_MAX_DIGITS  20  // 2^64
 
 typedef unsigned int        bed_field_mask_t;
 
@@ -24,7 +27,7 @@ typedef unsigned int        bed_field_mask_t;
 #define BED_END_POS(bf)    ((bf)->end_pos)
 
 #define BED_INIT \
-	{ 0, "", "", "", 0, 0, "", "", 0, '.', 0, 0 }
+	{ 0, "", "", "", 0, 0, "", "", 0, '.', "", "", 0, 0, "", 0, 0, 0, 0 }
 
 typedef struct
 {
