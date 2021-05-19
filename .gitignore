@@ -3,3 +3,5 @@
 *.so*
 *.dylib
 .*.bak
+Bed-test/bed-test
+Bed-test/out.bed
