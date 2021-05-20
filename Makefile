@@ -68,8 +68,6 @@ CURRENT_VERSION = ${API_VER}.${LIB_VER}
 # Fortunately most platforms don't need this.
 DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 
-MAN     = biolibc.3
-
 ############################################################################
 # List object files that comprise BIN.
 
@@ -198,7 +196,7 @@ common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
 		    ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include
-	${INSTALL} -m 0444 ${MAN} ${DESTDIR}${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 # CentOS 7 install does not support -l, use ln -s directly

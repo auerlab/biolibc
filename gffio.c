@@ -23,7 +23,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2020-04-08  Jason Bacon Begin
+ *  2021-04-08  Jason Bacon Begin
  ***************************************************************************/
 
 FILE    *gff_skip_header(FILE *gff_stream)
@@ -71,7 +71,7 @@ FILE    *gff_skip_header(FILE *gff_stream)
  *
  *  History: 
  *  Date        Name        Modification
- *  2020-04-08  Jason Bacon Begin
+ *  2021-04-08  Jason Bacon Begin
  ***************************************************************************/
 
 int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
@@ -255,7 +255,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
  *
  *  History: 
  *  Date        Name        Modification
- *  2020-04-08  Jason Bacon Begin
+ *  2021-04-08  Jason Bacon Begin
  ***************************************************************************/
 
 int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
