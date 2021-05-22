@@ -28,6 +28,9 @@
  *      Pointer to the FILE structure of the temporary file.
  *
  *  Examples:
+ *      FILE    *header, *bed_stream;
+ *      ...
+ *      header = bed_skip_header(bed_stream);
  *
  *  See also:
  *      bed_read_feature(3), xt_fopen(3)
