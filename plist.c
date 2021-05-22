@@ -149,7 +149,7 @@ int     plist_from_csv(plist_t *plist, const char *bounds_str,
     {
 	position = strtoull(token, &end, 10);
 	if ( *end != '\0' )
-	    return BIO_INVALID_DATA;
+	    return BIO_DATA_INVALID;
 	else
 	    plist_add_position(plist, position);
     }

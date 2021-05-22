@@ -520,19 +520,19 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
  *      -lbiolibc
  *
  *  Description:
- *      Make sure the BED input is sorted
+ *      Make sure the BED input is sorted by chromosome and start position.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to the BED structure containing the current
+ *                      entry
+ *      last_chrom:     Chromosome of the previous BED entry
+ *      last_start:     Start position of the previous BED entry
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      Nothing: Terminates process if input is out of order
  *
  *  See also:
+ *      bed_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -540,21 +540,21 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
  ***************************************************************************/
 
 void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
-			uint64_t last_pos)
+			uint64_t last_start)
 
 {
-    if ( chromosome_name_cmp(BED_CHROMOSOME(bed_feature), last_chrom) == 0 )
+    if ( chromosome_name_cmp(bed_feature->chromosome, last_chrom) == 0 )
     {
-	if ( BED_START_POS(bed_feature) < last_pos )
+	if ( bed_feature->start_pos < last_start )
 	{
 	    fprintf(stderr, "peak-classifier: BED file not sorted by start position.\n");
 	    exit(EX_DATAERR);
 	}
     }
-    else if ( chromosome_name_cmp(BED_CHROMOSOME(bed_feature), last_chrom) < 0 )
+    else if ( chromosome_name_cmp(bed_feature->chromosome, last_chrom) < 0 )
     {
 	fprintf(stderr, "peak-classifier: BED file not sorted by chromosome.\n");
-	fprintf(stderr, "%s, %s\n", BED_CHROMOSOME(bed_feature), last_chrom);
+	fprintf(stderr, "%s, %s\n", bed_feature->chromosome, last_chrom);
 	exit(EX_DATAERR);
     }
 }
@@ -566,20 +566,33 @@ void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
  *
  *  Description:
  *      Compare the position of a BED feature to that of a GFF feature.
- *      Return < 0 if the BED feature is "earlier" (lower chromosome or
- *      same chromosome and lower position), etc. much like strcmp().
+ *      Return 0 if the features overlap, < 0 if the BED feature is upstream
+ *      of the GFF feature, > 0 if the BED feature is downstream of the GFF
+ *      feature.
+ *
+ *      If the features overlap, populate the bio_overlap_t structure
+ *      pointed to by overlap.  The structure contains the lengths of the
+ *      two features, the start and end positions of the overlapping region,
+ *      and the length of the overlap.  Positions in overlap are 1-based and
+ *      inclusive at both ends (like most bioinformatics formats and unlike
+ *      BED).
  *
  *  Arguments:
+ *      bed_feature:    Pointer to the bed_feature_t structure to compare
+ *      gff_feature:    Pointer to the gff_feature_t structure to compare
+ *      overlap:        Pointer to the bio_overlap_t structure to receive
+ *                      comparison results
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      A value < 0 if the BED feature is upstream of the GFF feature
+ *      A value > 0 if the BED feature is downstream of the GFF feature
+ *      0 if the BED feature overlaps the GFF feature
  *
  *  Examples:
+ *      if ( bed_gff_cmp(&bed_feature, &gff_feature, *overlap) == 0 )
  *
  *  See also:
+ *      bed_read_feature(3), gff_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -638,19 +651,24 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for fields
+ *      Mutator for fields column of a BED entry.  This value must be
+ *      between 3 and 12, since the first three columns of a BED entry
+ *      (chromosome, start, end) are required and an entry can have up to
+ *      9 additional optional columns.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to the bed_feature_t structure to set
+ *      fields:         The number of fields in the entry
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if a valid fields count is received
+ *      BIO_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
+ *      bed_set_fields($bed_feature, 4);
  *
  *  See also:
+ *      bed_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -661,7 +679,7 @@ int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
 
 {
     if ( (fields < 3) || (fields > 9) )
-	return BIO_OUT_OF_RANGE;
+	return BIO_DATA_OUT_OF_RANGE;
     else
     {
 	bed_feature->fields = fields;
@@ -699,7 +717,7 @@ int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
 
 {
     if ( chromosome == NULL )
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     else
     {
 	strlcpy(bed_feature->chromosome, chromosome, BIO_CHROMOSOME_MAX_CHARS);
@@ -740,7 +758,7 @@ int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
     long long   n;
     
     if ( start_pos_str == NULL )
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     else
     {
 	n = strtoull(start_pos_str, &end, 10);
@@ -752,7 +770,7 @@ int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
 	    return BIO_DATA_OK;
 	}
 	else
-	    return BIO_INVALID_DATA;
+	    return BIO_DATA_INVALID;
     }
 }
 
@@ -824,7 +842,7 @@ int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
     long long   n;
     
     if ( end_pos_str == NULL )
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     else
     {
 	n = strtoull(end_pos_str, &end, 10);
@@ -836,7 +854,7 @@ int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
 	    return BIO_DATA_OK;
 	}
 	else
-	    return BIO_INVALID_DATA;
+	    return BIO_DATA_INVALID;
     }
 }
 
@@ -905,7 +923,7 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
 
 {
     if ( name == NULL )
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     else
     {
 	strlcpy(bed_feature->name, name, BED_NAME_MAX_CHARS);
@@ -946,7 +964,7 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
     {
 	fprintf(stderr, "bed_set_score(): Score must be 0 to 1000: %u\n",
 		score);
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     }
     feature->score = score;
     return BIO_DATA_OK;
@@ -985,7 +1003,7 @@ int     bed_set_strand(bed_feature_t *feature, int strand)
     {
 	fprintf(stderr, "bed_set_strand(): Strand must be '+' or '-': %c\n",
 		strand);
-	return BIO_INVALID_DATA;
+	return BIO_DATA_INVALID;
     }
     feature->strand = strand;
     return BIO_DATA_OK;

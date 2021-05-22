@@ -29,8 +29,8 @@
 #define BIO_WRITE_FAILURE           -1
 
 #define BIO_DATA_OK                 0
-#define BIO_OUT_OF_RANGE            -1
-#define BIO_INVALID_DATA            -2
+#define BIO_DATA_INVALID            -1      // Catch-all for non-specific error
+#define BIO_DATA_OUT_OF_RANGE       -2
 
 #define BIO_CHROMOSOME_MAX_CHARS    256
 #define BIO_POSITION_MAX_DIGITS     32
