@@ -27,6 +27,8 @@
  *  Returns:
  *      Pointer to the FILE structure of the temporary file.
  *
+ *  Examples:
+ *
  *  See also:
  *      bed_read_feature(3), xt_fopen(3)
  *
@@ -76,24 +78,54 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      -lbiolibc
  *
  *  Description:
- *      Read fields from one line of a BED file.
+ *      Read next entry (line) from a BED file.  The line must have at
+ *      least the first 3 fields (chromosome, start, and end).  It may
+ *      have up to 12 fields, all of which must be in the correct order
+ *      according to the BED specification.
+ *
+ *      If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are discarded rather than stored in bed_feature.
+ *      Possible mask values are:
+ *
+ *      BED_FIELD_NAME
+ *      BED_FIELD_SCORE
+ *      BED_FIELD_STRAND
+ *      BED_FIELD_THICK
+ *      BED_FIELD_RGB
+ *      BED_FIELD_BLOCK
+ *
+ *      The chromosome, start, and end fields are required and therefore have
+ *      no corresponding mask bits. The thickStart and thickEnd fields must
+ *      occur together or not at all, so only a single bit BED_FIELD_THICK
+ *      selects both of them.  Likewise, blockCount, blockSizes and
+ *      blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+ *      masks all three.
  *
  *  Arguments:
+ *      bed_stream:     A FILE stream from which to read the line
+ *      bed_feature:    Pointer to a bed_feature_t structure
+ *      field_mask:     Bit mask indicating which fields to store in bed_feature
  *
  *  Returns:
+ *      BIO_READ_OK on successful read
+ *      BIO_READ_EOF if EOF is encountered at the start of a line
+ *      BIO_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
- *  Files:
- *
- *  Environment:
+ *  Examples:
+ *      bed_read_feature(stdin, &bed_feature, FIELD_MASK_ALL);
+ *      bed_read_feature(bed_stream, &bed_feature,
+ *                       FIELD_MASK_NAME|FIELD_MASK_SCORE);
  *
  *  See also:
+ *      bed_write_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
+int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
+			 bed_field_mask_t field_mask)
 
 {
     char    *end,
@@ -105,6 +137,8 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
     int     delim;
     unsigned long   block_count;
     unsigned    c;
+    
+    // FIXME: Respect field_mask
     
     // Chromosome
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
@@ -398,17 +432,45 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature)
  *      -lbiolibc
  *
  *  Description:
- *      Write fields from one line of a bed file.
+ *      Write fields from one line of a bed file to the specified FILE
+ *      stream.  If field_mask is not FIELD_MASK_ALL, only selected fields
+ *      are written.
+ *
+ *      If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are written as an appropriate marker for that field,
+ *      such as a '.', rather than writing the real data.
+ *      Possible mask values are:
+ *
+ *      BED_FIELD_NAME
+ *      BED_FIELD_SCORE
+ *      BED_FIELD_STRAND
+ *      BED_FIELD_THICK
+ *      BED_FIELD_RGB
+ *      BED_FIELD_BLOCK
+ *
+ *      The chromosome, start, and end fields are required and therefore have
+ *      no corresponding mask bits. The thickStart and thickEnd fields must
+ *      occur together or not at all, so only a single bit BED_FIELD_THICK
+ *      selects both of them.  Likewise, blockCount, blockSizes and
+ *      blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+ *      masks all three.
  *
  *  Arguments:
+ *      bed_stream:     FILE stream to which TSV bed line is written
+ *      bed_feature:    Pointer to the bed_feature_t structure to output
+ *      field_mask:     Bit mask indicating which fields to output
  *
  *  Returns:
+ *      BIO_WRITE_OK on success
+ *      BIO_WRITE_ERROR on failure
  *
- *  Files:
- *
- *  Environment:
+ *  Examples:
+ *      bed_write_feature(stdout, &bed_feature, FIELD_MASK_ALL);
+ *      bed_write_feature(bed_stream, &bed_feature,
+ *                        FIELD_MASK_NAME|FIELD_MASK_SCORE);
  *
  *  See also:
+ *      bed_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -421,6 +483,8 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 {
     unsigned    c;
     
+    // FIXME: Respect field_mask
+    // FIXME: Check fprintf() return codes
     fprintf(bed_stream, "%s\t%" PRIu64 "\t%" PRIu64,
 	    bed_feature->chromosome,
 	    bed_feature->start_pos, bed_feature->end_pos);
@@ -446,7 +510,7 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	fprintf(bed_stream, "%" PRIu64, bed_feature->block_starts[c]);
     }
     putc('\n', bed_stream);
-    return 0;
+    return BIO_WRITE_OK;
 }
 
 
@@ -465,6 +529,8 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -510,6 +576,8 @@ void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -580,6 +648,8 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -616,6 +686,8 @@ int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -651,6 +723,8 @@ int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -699,6 +773,8 @@ int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -731,6 +807,8 @@ int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -779,6 +857,8 @@ int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -811,6 +891,8 @@ int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -848,6 +930,8 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -884,6 +968,8 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *

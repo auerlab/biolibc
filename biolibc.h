@@ -25,6 +25,9 @@
 #define BIO_READ_EXTRA_COLS         -5
 #define BIO_READ_MISMATCH           -6
 
+#define BIO_WRITE_OK                0
+#define BIO_WRITE_FAILURE           -1
+
 #define BIO_DATA_OK                 0
 #define BIO_OUT_OF_RANGE            -1
 #define BIO_INVALID_DATA            -2

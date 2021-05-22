@@ -18,9 +18,13 @@ typedef unsigned int        bed_field_mask_t;
 /*
  *  Chromosome, start, and end are required so no mask bits are defined
  */
-#define BED_FIELD_ALL       0x0
-#define BED_FIELD_NAME      0x1
-#define BED_FIELD_SCORE     0x2
+#define BED_FIELD_ALL       0x00
+#define BED_FIELD_NAME      0x01
+#define BED_FIELD_SCORE     0x02
+#define BED_FIELD_STRAND    0x04
+#define BED_FIELD_THICK     0X08
+#define BED_FIELD_RGB       0x10
+#define BED_FIELD_BLOCK     0x20
 
 #define BED_CHROMOSOME(bf) ((bf)->chromosome)
 #define BED_START_POS(bf)  ((bf)->start_pos)
@@ -66,7 +70,7 @@ typedef struct
 
 /* bedio.c */
 FILE *bed_skip_header(FILE *bed_stream);
-int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature);
+int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
 int bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
 void bed_check_order(bed_feature_t *bed_feature, char last_chrom[], uint64_t last_pos);
 int bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature, bio_overlap_t *overlap);
