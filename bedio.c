@@ -246,9 +246,9 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 		    bed_feature->name);
 	    return BIO_READ_TRUNCATED;
 	}
-	if ( (len != 1) || ((*strand != '+') && (*strand != '-')) )
+	if ( (len != 1) || ((*strand != '+') && (*strand != '-') && (*strand != '.')) )
 	{
-	    fprintf(stderr, "bed_read_feature(): Strand must be + or -: %s\n",
+	    fprintf(stderr, "bed_read_feature(): Strand must be + or - or .: %s\n",
 		    strand);
 	    return BIO_READ_TRUNCATED;
 	}
@@ -906,7 +906,7 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
  *
  *  Arguments:
  *      bed_feature:    Pointer to a bed_feature_t structure to alter
- *      strand:         New strand (+ or -)
+ *      strand:         New strand (+ or - or .)
  *
  *  Returns:
  *      BIO_DATA_OK if the strand is valid, BIO_DATA_INVALID otherwise
@@ -925,9 +925,10 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
 int     bed_set_strand(bed_feature_t *feature, int strand)
 
 {
-    if ( (strand != '+') && (strand != '-') && (strand != '.') )
+    if ( (strand != '+') && (strand != '-') && (strand != '.') &&
+	 (strand != '.') )
     {
-	fprintf(stderr, "bed_set_strand(): Strand must be '+' or '-': %c\n",
+	fprintf(stderr, "bed_set_strand(): Strand must be '+' or '-' or '.': %c\n",
 		strand);
 	return BIO_DATA_INVALID;
     }

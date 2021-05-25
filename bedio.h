@@ -40,7 +40,7 @@ typedef unsigned int        bed_field_mask_t;
 #define BED_BLOCK_STARTS(bf,i)  ((bf)->block_starts[i])
 
 #define BED_INIT \
-	{ 0, "", "", "", 0, 0, "", "", 0, '.', "", "", 0, 0, "", 0, 0, 0, 0 }
+	{ 0, "", 0, 0, "", 0, '.', 0, 0, "", 0, NULL, NULL }
 
 typedef struct
 {
