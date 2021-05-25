@@ -135,7 +135,12 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	    strand[BED_STRAND_MAX_CHARS + 1],
 	    block_count_str[BED_BLOCK_COUNT_MAX_DIGITS + 1],
 	    block_size_str[BED_BLOCK_SIZE_MAX_DIGITS + 1],
-	    block_start_str[BED_BLOCK_START_MAX_DIGITS + 1];
+	    block_start_str[BED_BLOCK_START_MAX_DIGITS + 1],
+	    start_pos_str[BIO_POSITION_MAX_DIGITS + 1],
+	    end_pos_str[BIO_POSITION_MAX_DIGITS + 1],
+	    score_str[BED_SCORE_MAX_DIGITS + 1],
+	    thick_start_pos_str[BIO_POSITION_MAX_DIGITS + 1],
+	    thick_end_pos_str[BIO_POSITION_MAX_DIGITS + 1];
     size_t  len;
     int     delim;
     unsigned long   block_count;
@@ -152,42 +157,42 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
     }
     
     // Feature start position
-    if ( tsv_read_field(bed_stream, bed_feature->start_pos_str,
+    if ( tsv_read_field(bed_stream, start_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bed_read_feature(): Got EOF reading start position: %s.\n",
-		bed_feature->start_pos_str);
+		start_pos_str);
 	return BIO_READ_TRUNCATED;
     }
     else
     {
-	bed_feature->start_pos = strtoul(bed_feature->start_pos_str, &end, 10);
+	bed_feature->start_pos = strtoul(start_pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "bed_read_feature(): Invalid start position: %s\n",
-		    bed_feature->start_pos_str);
+		    start_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
     }
     
     // Feature end position
     // FIXME: Check for > or < start if strand + or -
-    if ( (delim = tsv_read_field(bed_stream, bed_feature->end_pos_str,
+    if ( (delim = tsv_read_field(bed_stream, end_pos_str,
 			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "bed_read_feature(): Got EOF reading end position: %s.\n",
-		bed_feature->end_pos_str);
+		end_pos_str);
 	return BIO_READ_TRUNCATED;
     }
     else
     {
-	bed_feature->end_pos = strtoul(bed_feature->end_pos_str, &end, 10);
+	bed_feature->end_pos = strtoul(end_pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "bed_read_feature(): Invalid end position: %s\n",
-		    bed_feature->end_pos_str);
+		    end_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
     }
@@ -210,21 +215,21 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
     // Read SCORE if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, bed_feature->score_str,
+	if ( (delim = tsv_read_field(bed_stream, score_str,
 			    BIO_POSITION_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading score: %s.\n",
-		    bed_feature->score_str);
+		    score_str);
 	    return BIO_READ_TRUNCATED;
 	}
 	else
 	{
-	    bed_feature->score = strtoul(bed_feature->score_str, &end, 10);
+	    bed_feature->score = strtoul(score_str, &end, 10);
 	    if ( (*end != '\0') || (bed_feature->score > 1000) )
 	    {
 		fprintf(stderr,
 			"bed_read_feature(): Invalid feature score: %s\n",
-			bed_feature->score_str);
+			score_str);
 		return BIO_READ_TRUNCATED;
 	    }
 	}
@@ -256,22 +261,22 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
     // Feature start position
     if ( delim != '\n' )
     {
-	if ( tsv_read_field(bed_stream, bed_feature->thick_start_pos_str,
+	if ( tsv_read_field(bed_stream, thick_start_pos_str,
 			    BIO_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick start "
-		    "POS: %s.\n", bed_feature->thick_start_pos_str);
+		    "POS: %s.\n", thick_start_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
 	else
 	{
 	    bed_feature->thick_start_pos =
-		strtoul(bed_feature->thick_start_pos_str, &end, 10);
+		strtoul(thick_start_pos_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bed_read_feature(): Invalid thick start "
 				"position: %s\n",
-				bed_feature->thick_start_pos_str);
+				thick_start_pos_str);
 		return BIO_READ_TRUNCATED;
 	    }
 	}
@@ -282,22 +287,22 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	    return BIO_READ_TRUNCATED;
 	}
     
-	if ( tsv_read_field(bed_stream, bed_feature->thick_end_pos_str,
+	if ( tsv_read_field(bed_stream, thick_end_pos_str,
 			    BIO_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick end "
-		    "POS: %s.\n", bed_feature->thick_end_pos_str);
+		    "POS: %s.\n", thick_end_pos_str);
 	    return BIO_READ_TRUNCATED;
 	}
 	else
 	{
 	    bed_feature->thick_end_pos =
-		strtoul(bed_feature->thick_end_pos_str, &end, 10);
+		strtoul(thick_end_pos_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bed_read_feature(): Invalid thick end "
 				"position: %s\n",
-				bed_feature->thick_end_pos_str);
+				thick_end_pos_str);
 		return BIO_READ_TRUNCATED;
 	    }
 	}
@@ -308,7 +313,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->rgb_str,
-			    BED_RGB_MAX_CHARS, &len)) == EOF )
+			    BED_RGB_STR_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading RGB: %s.\n",
 		    bed_feature->name);
@@ -328,7 +333,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 			    BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading block count: %s.\n",
-		    bed_feature->score_str);
+		    score_str);
 	    return BIO_READ_TRUNCATED;
 	}
 	else
@@ -338,7 +343,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 	    {
 		fprintf(stderr,
 			"bed_read_feature(): Invalid block count: %s\n",
-			bed_feature->score_str);
+			score_str);
 		return BIO_READ_TRUNCATED;
 	    }
 	    bed_feature->block_count = block_count;
@@ -498,8 +503,8 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
     if ( bed_feature->fields > 5 )
 	fprintf(bed_stream, "\t%c", bed_feature->strand);
     if ( bed_feature->fields > 6 )
-	fprintf(bed_stream, "\t%s\t%s", bed_feature->thick_start_pos_str,
-		bed_feature->thick_end_pos_str);
+	fprintf(bed_stream, "\t%" PRIu64 "\t%" PRIu64,
+		bed_feature->thick_start_pos, bed_feature->thick_end_pos);
     if ( bed_feature->fields > 8 )
 	fprintf(bed_stream, "\t%s", bed_feature->rgb_str);
     if ( bed_feature->fields > 9 )
@@ -654,7 +659,9 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for fields column of a BED entry.  This value must be
+ *      Mutator for fields column of a BED entry.  Use this function to set
+ *      the field count of a bed_feature_t structure from non-member
+ *      functions.  This value must be
  *      between 3 and 12, since the first three columns of a BED entry
  *      (chromosome, start, end) are required and an entry can have up to
  *      9 additional optional columns.
@@ -697,19 +704,22 @@ int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for chromosome
+ *      Mutator function for chromosome.  Use this function to set the
+ *      chromosome of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      chromosome:     Character array containing the chromosome name
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the chromosome is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_chromosome(&bed_feature, "chr1");
  *
  *  See also:
+ *      BED_CHROMOSOME(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -735,68 +745,22 @@ int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for start_pos_str
+ *      Mutator function for start position.  Use this function to set the
+ *      start position of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      start_pos:      0-based, inclusive start position
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the position is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_start_pos(&bed_feature, 0);
  *
  *  See also:
- *
- *  History: 
- *  Date        Name        Modification
- *  2021-04-15  Jason Bacon Begin
- ***************************************************************************/
-
-int     bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str)
-
-{
-    char    *end;
-    long long   n;
-    
-    if ( start_pos_str == NULL )
-	return BIO_DATA_INVALID;
-    else
-    {
-	n = strtoull(start_pos_str, &end, 10);
-	if ( *end == '\0' )
-	{
-	    strlcpy(bed_feature->start_pos_str, start_pos_str,
-		    BIO_POSITION_MAX_DIGITS);
-	    bed_feature->start_pos = n;
-	    return BIO_DATA_OK;
-	}
-	else
-	    return BIO_DATA_INVALID;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <bedio.h>
- *      -lbiolibc
- *
- *  Description:
- *      Mutator for start_pos
- *
- *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
- *
- *  See also:
+ *      BED_START_POS(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -807,8 +771,6 @@ int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
 
 {
     bed_feature->start_pos = start_pos;
-    snprintf(bed_feature->start_pos_str, BIO_POSITION_MAX_DIGITS, "%" PRIu64,
-	    start_pos);
     return BIO_DATA_OK;
 }
 
@@ -819,70 +781,24 @@ int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for end_pos_str
+ *      Mutator function for end position.  Use this function to set the
+ *      end position of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      end_pos:        0-based, non-inclusive end position
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the position is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_end_pos(&bed_feature, 1000);
  *
  *  See also:
+ *      BED_END_POS(3)
  *
- *  History: 
- *  Date        Name        Modification
- *  2021-04-15  Jason Bacon Begin
- ***************************************************************************/
-
-int     bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str)
-
-{
-    char    *end;
-    long long   n;
-    
-    if ( end_pos_str == NULL )
-	return BIO_DATA_INVALID;
-    else
-    {
-	n = strtoull(end_pos_str, &end, 10);
-	if ( *end == '\0' )
-	{
-	    strlcpy(end_pos_str, end_pos_str,
-		    BIO_POSITION_MAX_DIGITS);
-	    bed_feature->end_pos = n;
-	    return BIO_DATA_OK;
-	}
-	else
-	    return BIO_DATA_INVALID;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <bedio.h>
- *      -lbiolibc
- *
- *  Description:
- *      Mutator for end_pos
- *
- *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
- *
- *  See also:
- *
- *  History: 
+ *  History:
  *  Date        Name        Modification
  *  2021-04-15  Jason Bacon Begin
  ***************************************************************************/
@@ -891,8 +807,6 @@ int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
 
 {
     bed_feature->end_pos = end_pos;
-    snprintf(bed_feature->end_pos_str, BIO_POSITION_MAX_DIGITS, "%" PRIu64,
-	    end_pos);
     return BIO_DATA_OK;
 }
 
@@ -903,21 +817,24 @@ int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for name
+ *      Mutator function for feature name.  Use this function to set the
+ *      feature name of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      name:           New name for the feature
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the name is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_name(&bed_feature, "exon");
  *
  *  See also:
+ *      BED_NAME(3)
  *
- *  History: 
+ *  History:
  *  Date        Name        Modification
  *  2021-04-15  Jason Bacon Begin
  ***************************************************************************/
@@ -941,19 +858,22 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for score
+ *      Mutator function for score.  Use this function to set the
+ *      score of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      score:          New score between 0 and 1000 inclusive
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the score is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_score(&bed_feature, 20);
  *
  *  See also:
+ *      BED_SCORE(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -980,19 +900,22 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
  *      -lbiolibc
  *
  *  Description:
- *      Mutator for strand
+ *      Mutator function for strand.  Use this function to set the
+ *      strand of a bed_feature_t structure from functions that are
+ *      not members of the class.
  *
  *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      strand:         New strand (+ or -)
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      BIO_DATA_OK if the strand is valid, BIO_DATA_INVALID otherwise
  *
  *  Examples:
+ *      bed_set_strand(&bed_feature, '+');
  *
  *  See also:
+ *      BED_STRAND(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1011,3 +934,117 @@ int     bed_set_strand(bed_feature_t *feature, int strand)
     feature->strand = strand;
     return BIO_DATA_OK;
 }
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Mutator function for thick start position.  Use this function to set
+ *      the thick start position of a bed_feature_t structure from
+ *      non-member functions.
+ *
+ *  Arguments:
+ *      bed_feature:     Pointer to a bed_feature_t structure to alter
+ *      thick_start_pos: 0-based, inclusive thick start position
+ *
+ *  Returns:
+ *      BIO_DATA_OK if the position is valid, BIO_DATA_INVALID otherwise
+ *
+ *  Examples:
+ *      bed_set_thick_start_pos(&bed_feature, 100);
+ *
+ *  See also:
+ *      BED_THICK_START_POS(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-28  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start_pos)
+
+{
+    bed_feature->thick_start_pos = thick_start_pos;
+    return BIO_DATA_OK;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Mutator function for thick end position.  Use this function to set
+ *      the thick end position of a bed_feature_t structure from
+ *      non-member functions.
+ *
+ *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      thick_end_pos:  0-based, inclusive thick end position
+ *
+ *  Returns:
+ *      BIO_DATA_OK if the position is valid, BIO_DATA_INVALID otherwise
+ *
+ *  Examples:
+ *      bed_set_thick_end_pos(&bed_feature, 100);
+ *
+ *  See also:
+ *      BED_THICK_END_POS(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-04-28  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_thick_end_pos(bed_feature_t *bed_feature, uint64_t thick_end_pos)
+
+{
+    bed_feature->thick_end_pos = thick_end_pos;
+    return BIO_DATA_OK;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <bedio.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Mutator function for feature rgb_str.  Use this function to set the
+ *      feature rgb_str of a bed_feature_t structure from functions that are
+ *      not members of the class.
+ *
+ *  Arguments:
+ *      bed_feature:    Pointer to a bed_feature_t structure to alter
+ *      rgb_str:        New rgb_str for the feature
+ *
+ *  Returns:
+ *      BIO_DATA_OK if the rgb_str is valid, BIO_DATA_INVALID otherwise
+ *
+ *  Examples:
+ *      bed_set_rgb_str(&bed_feature, "exon");
+ *
+ *  See also:
+ *      BED_RGB_STR(3)
+ *
+ *  History:
+ *  Date        Name        Modification
+ *  2021-04-15  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bed_set_rgb_str(bed_feature_t *bed_feature, char *rgb_str)
+
+{
+    if ( rgb_str == NULL )
+	return BIO_DATA_INVALID;
+    else
+    {
+	strlcpy(bed_feature->rgb_str, rgb_str, BED_RGB_STR_MAX_CHARS);
+	return BIO_DATA_OK;
+    }
+}
+

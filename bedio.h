@@ -8,7 +8,7 @@
 #define BED_NAME_MAX_CHARS          256
 #define BED_SCORE_MAX_DIGITS        4   // 0 to 1000
 #define BED_STRAND_MAX_CHARS        2
-#define BED_RGB_MAX_CHARS           11  // 255,255,255
+#define BED_RGB_STR_MAX_CHARS       11  // 255,255,255
 #define BED_BLOCK_COUNT_MAX_DIGITS  5
 #define BED_BLOCK_SIZE_MAX_DIGITS   20  // 2^64
 #define BED_BLOCK_START_MAX_DIGITS  20  // 2^64
@@ -26,9 +26,18 @@ typedef unsigned int        bed_field_mask_t;
 #define BED_FIELD_RGB       0x10
 #define BED_FIELD_BLOCK     0x20
 
-#define BED_CHROMOSOME(bf) ((bf)->chromosome)
-#define BED_START_POS(bf)  ((bf)->start_pos)
-#define BED_END_POS(bf)    ((bf)->end_pos)
+// FIXME: Write man pages for accessors
+#define BED_CHROMOSOME(bf)      ((bf)->chromosome)
+#define BED_START_POS(bf)       ((bf)->start_pos)
+#define BED_END_POS(bf)         ((bf)->end_pos)
+#define BED_SCORE(bf)           ((bf)->score)
+#define BED_STRAND(bf)          ((bf)->strand)
+#define BED_THICK_START_POS(bf) ((bf)->thick_start_pos)
+#define BED_THICK_END_POS(bf)   ((bf)->thick_end_pos)
+#define BED_RGB_STR(bf)         ((bf)->rgb_str)
+#define BED_BLOCK_COUNT(bf)     ((bf)->block_count)
+#define BED_BLOCK_SIZES(bf,i)   ((bf)->block_sizes[i])
+#define BED_BLOCK_STARTS(bf,i)  ((bf)->block_starts[i])
 
 #define BED_INIT \
 	{ 0, "", "", "", 0, 0, "", "", 0, '.', "", "", 0, 0, "", 0, 0, 0, 0 }
@@ -44,20 +53,15 @@ typedef struct
      *
      *      chr1 0 5
      */
-    char            start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
-		    end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
     uint64_t        start_pos,
 		    end_pos;
     char            name[BED_NAME_MAX_CHARS + 1];
-    char            score_str[BED_SCORE_MAX_DIGITS + 1];
     unsigned short  score; // 0 to 1000
     char            strand;
-    char            thick_start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
-		    thick_end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
     uint64_t        thick_start_pos,
 		    thick_end_pos;
-    char            rgb_str[BED_RGB_MAX_CHARS+1];
-    uint32_t        rgb;
+    // FIXME: Store RGB in a more compact format
+    char            rgb_str[BED_RGB_STR_MAX_CHARS+1];
     unsigned short  block_count;
     uint64_t        *block_sizes;
     uint64_t        *block_starts;
@@ -72,16 +76,16 @@ typedef struct
 FILE *bed_skip_header(FILE *bed_stream);
 int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
 int bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
-void bed_check_order(bed_feature_t *bed_feature, char last_chrom[], uint64_t last_pos);
+void bed_check_order(bed_feature_t *bed_feature, char last_chrom[], uint64_t last_start);
 int bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature, bio_overlap_t *overlap);
 int bed_set_fields(bed_feature_t *bed_feature, unsigned fields);
 int bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome);
-int bed_set_start_pos_str(bed_feature_t *bed_feature, char *start_pos_str);
 int bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos);
-int bed_set_end_pos_str(bed_feature_t *bed_feature, char *end_pos_str);
 int bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos);
 int bed_set_name(bed_feature_t *bed_feature, char *name);
-int bed_set_score(bed_feature_t *bed_feature, unsigned score);
-int bed_set_strand(bed_feature_t *bed_feature, int strand);
-
+int bed_set_score(bed_feature_t *feature, unsigned score);
+int bed_set_strand(bed_feature_t *feature, int strand);
+int bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start_pos);
+int bed_set_thick_end_pos(bed_feature_t *bed_feature, uint64_t thick_end_pos);
+int bed_set_rgb_str(bed_feature_t *bed_feature, char *rgb_str);
 #endif  // __bedio_h__
