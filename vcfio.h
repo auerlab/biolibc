@@ -13,6 +13,10 @@
 #include "biolibc.h"
 #endif
 
+#ifndef __bool_true_false_are_defined
+#include <stdbool.h>
+#endif
+
 // FIXME: Are there limits defined by the VCF format?
 #define VCF_ID_MAX_CHARS            256
 // FIXME: What's the real maximum?  Maybe 3 since there are only 3 alternate
