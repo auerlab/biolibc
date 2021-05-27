@@ -525,3 +525,74 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
     }
     return field_mask;
 }
+
+
+/***************************************************************************
+ *  Description:
+ *      Determine whether a VCF call is within a SAM alignment.
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-05-26  Jason Bacon Begin
+ ***************************************************************************/
+
+bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignment)
+
+{
+    if ( (strcmp(VCF_CHROMOSOME(vcf_call), SAM_RNAME(sam_alignment)) == 0) &&
+	 (VCF_POS(vcf_call) >= SAM_POS(sam_alignment)) &&
+	 (VCF_POS(vcf_call) <
+	    SAM_POS(sam_alignment) + SAM_SEQ_LEN(sam_alignment)) )
+	return true;
+    else
+	return false;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Determine SAM alignment is completely upstream of a VCF call position,
+ *      i.e. not overlapping and at a lower position or chromosome.
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-05-26  Jason Bacon Begin
+ ***************************************************************************/
+
+bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *alignment)
+
+{
+    /*fprintf(stderr, "vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
+	    SAM_RNAME(sam_alignment),SAM_POS(sam_alignment),
+	    SAM_SEQ_LEN(sam_alignment),
+	    VCF_CHROMOSOME(vcf_call),VCF_POS(vcf_call));*/
+    if ( (SAM_POS(alignment) + SAM_SEQ_LEN(alignment) <= VCF_POS(vcf_call)) &&
+	  (strcmp(SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) == 0) )
+	return true;
+    else if ( chromosome_name_cmp(SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) < 0 )
+	return true;
+    else
+	return false;
+}
+
+
+/***************************************************************************
+ *  Description:
+ *      Explain VCF input sort error and exit.
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-05-27  Jason Bacon Begin
+ ***************************************************************************/
+
+void    vcf_out_of_order(vcf_call_t *vcf_call,
+			 char *previous_chromosome, size_t previous_pos)
+
+{
+    fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chromosome and then position.\n");
+    fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
+	    VCF_CHROMOSOME(vcf_call), VCF_POS(vcf_call),
+	    previous_chromosome, previous_pos);
+    exit(EX_DATAERR);
+}
+

@@ -5,6 +5,10 @@
 #include "dsvio.h"
 #endif
 
+#ifndef __samio_h__
+#include "samio.h"
+#endif
+
 #ifndef __biolibc_h__
 #include "biolibc.h"
 #endif
@@ -129,5 +133,9 @@ void vcf_call_free(vcf_call_t *vcf_call);
 void vcf_call_init(vcf_call_t *vcf_call,
 		   size_t info_max, size_t format_max, size_t sample_max);
 vcf_field_mask_t vcf_parse_field_spec(char *spec);
+bool vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignment);
+bool vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *alignment);
+void vcf_out_of_order(vcf_call_t *vcf_call,
+			 char *previous_chromosome, size_t previous_pos);
 
 #endif // __vcfio_h__
