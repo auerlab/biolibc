@@ -72,7 +72,7 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 # List object files that comprise BIN.
 
 OBJS    = biolibc.o vcfio.o samio.o bedio.o dsvio.o gffio.o \
-	  chromosome-name-cmp.o plist.o
+	  chromosome-name-cmp.o plist.o sam-buff.o
 
 ############################################################################
 # Compile, link, and install options
