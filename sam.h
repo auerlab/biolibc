@@ -1,12 +1,8 @@
-#ifndef __samio_h__
-#define __samio_h__
+#ifndef _sam_h_
+#define _sam_h_
 
-#ifndef __dsvio_h__
-#include "dsvio.h"
-#endif
-
-#ifndef __biostring_h__
-#include "biostring.h"
+#ifndef _dsv_h_
+#include "dsv.h"
 #endif
 
 #define SAM_MAPQ_MAX_CHARS  3
@@ -55,4 +51,4 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src);
 void    sam_alignment_free(sam_alignment_t *sam_alignment);
 void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len);
 
-#endif // __samio_h__
+#endif // _sam_h_

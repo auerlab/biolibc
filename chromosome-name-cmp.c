@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "biostring.h"
+#include "biolibc.h"
 
 /***************************************************************************
  *  Library:

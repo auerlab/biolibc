@@ -2,8 +2,8 @@
 #ifndef _sam_buff_h_
 #define _sam_buff_h_
 
-#ifndef _samio_h_
-#include "samio.h"
+#ifndef sam_h_
+#include "sam.h"
 #endif
 
 /*

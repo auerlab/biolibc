@@ -1,19 +1,19 @@
-#ifndef __vcfio_h__
-#define __vcfio_h__
+#ifndef _vcf_h_
+#define _vcf_h_
 
-#ifndef __dsvio_h__
-#include "dsvio.h"
+#ifndef _dsv_h_
+#include "dsv.h"
 #endif
 
-#ifndef __samio_h__
-#include "samio.h"
+#ifndef _sam_h_
+#include "sam.h"
 #endif
 
-#ifndef __biolibc_h__
+#ifndef _biolibc_h_
 #include "biolibc.h"
 #endif
 
-#ifndef __bool_true_false_are_defined
+#ifndef _bool_true_false_are_defined
 #include <stdbool.h>
 #endif
 
@@ -142,4 +142,4 @@ bool vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *ali
 void vcf_out_of_order(vcf_call_t *vcf_call,
 			 char *previous_chromosome, size_t previous_pos);
 
-#endif // __vcfio_h__
+#endif // _vcf_h_

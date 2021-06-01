@@ -1,7 +1,7 @@
-#ifndef __bedio_h__
-#define __bedio_h__
+#ifndef _bed_h_
+#define _bed_h_
 
-#ifndef __biolibc_h__
+#ifndef _biolibc_h_
 #include "biolibc.h"
 #endif
 
@@ -68,8 +68,8 @@ typedef struct
 }   bed_feature_t;
 
 // After bed_feature_t for prototypes
-#ifndef __gffio_h__
-#include "gffio.h"
+#ifndef _gff_h_
+#include "gff.h"
 #endif
 
 /* bedio.c */
@@ -88,4 +88,4 @@ int bed_set_strand(bed_feature_t *feature, int strand);
 int bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start_pos);
 int bed_set_thick_end_pos(bed_feature_t *bed_feature, uint64_t thick_end_pos);
 int bed_set_rgb_str(bed_feature_t *bed_feature, char *rgb_str);
-#endif  // __bedio_h__
+#endif  // _bed_h_

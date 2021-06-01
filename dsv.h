@@ -1,7 +1,7 @@
-#ifndef __dsvio_h__
-#define __dsvio_h__
+#ifndef _dsv_h_
+#define _dsv_h_
 
-#ifndef __biolibc_h__
+#ifndef _biolibc_h_
 #include "biolibc.h"
 #endif
 
@@ -36,4 +36,4 @@ int csv_read_field(FILE *infile, char buff[], size_t buff_size,
 int csv_skip_field(FILE *infile);
 int csv_skip_rest_of_line(FILE *infile);
 
-#endif  // __dsvio_h__
+#endif  // _dsv_h_

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
-#include "vcfio.h"
+#include "vcf.h"
 
 /***************************************************************************
  *  Description:

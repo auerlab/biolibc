@@ -1,11 +1,11 @@
-#ifndef __gffio_h__
-#define __gffio_h__
+#ifndef _gff_h_
+#define _gff_h_
 
-#ifndef __biolibc_h__
+#ifndef _biolibc_h_
 #include "biolibc.h"
 #endif
 
-#ifndef __xtend_h__
+#ifndef _xtend_h_
 #include <xtend.h>  // strlcpy() on Linux
 #endif
 
@@ -70,8 +70,8 @@ typedef struct
 }   gff_feature_t;
 
 // After gff_feature_t for prototypes
-#ifndef __bedio_h__
-#include "bedio.h"
+#ifndef _bed_h_
+#include "bed.h"
 #endif
 
 FILE *gff_skip_header(FILE *gff_stream);
@@ -79,4 +79,4 @@ int gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature);
 int gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
 void gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature);
 
-#endif  // __gffio_h__
+#endif  // _gff_h_

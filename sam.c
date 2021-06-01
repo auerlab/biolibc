@@ -3,7 +3,7 @@
 #include <string.h>
 #include <sysexits.h>
 #include <xtend.h>      // strlcpy() on Linux
-#include "samio.h"
+#include "sam.h"
 
 /***************************************************************************
  *  Description:

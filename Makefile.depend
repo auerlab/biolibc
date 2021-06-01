@@ -1,33 +1,32 @@
-bedio.o: bedio.c bedio.h biolibc.h biostring.h gffio.h \
-  ../local/include/xtend.h ../local/include/xtend-protos.h dsvio.h
-	${CC} -c ${CFLAGS} bedio.c
+bed.o: bed.c bed.h biolibc.h gff.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h dsv.h
+	${CC} -c ${CFLAGS} bed.c
 
 biolibc.o: biolibc.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h biolibc.h biostring.h
+  ../local/include/xtend-protos.h biolibc.h
 	${CC} -c ${CFLAGS} biolibc.c
 
-chromosome-name-cmp.o: chromosome-name-cmp.c biostring.h biolibc.h
+chromosome-name-cmp.o: chromosome-name-cmp.c biolibc.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
-dsvio.o: dsvio.c dsvio.h biolibc.h biostring.h
-	${CC} -c ${CFLAGS} dsvio.c
+dsv.o: dsv.c dsv.h biolibc.h
+	${CC} -c ${CFLAGS} dsv.c
 
-gffio.o: gffio.c gffio.h biolibc.h biostring.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h bedio.h dsvio.h
-	${CC} -c ${CFLAGS} gffio.c
+gff.o: gff.c gff.h biolibc.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h bed.h dsv.h
+	${CC} -c ${CFLAGS} gff.c
 
-plist.o: plist.c plist.h biolibc.h biostring.h
+plist.o: plist.c plist.h biolibc.h
 	${CC} -c ${CFLAGS} plist.c
 
 sam-buff.o: sam-buff.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam-buff.h samio.h dsvio.h biolibc.h \
-  biostring.h
+  ../local/include/xtend-protos.h sam-buff.h sam.h dsv.h biolibc.h
 	${CC} -c ${CFLAGS} sam-buff.c
 
-samio.o: samio.c ../local/include/xtend.h ../local/include/xtend-protos.h \
-  samio.h dsvio.h biolibc.h biostring.h
-	${CC} -c ${CFLAGS} samio.c
+sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+  sam.h dsv.h biolibc.h
+	${CC} -c ${CFLAGS} sam.c
 
-vcfio.o: vcfio.c vcfio.h dsvio.h biolibc.h biostring.h samio.h
-	${CC} -c ${CFLAGS} vcfio.c
+vcf.o: vcf.c vcf.h dsv.h biolibc.h sam.h
+	${CC} -c ${CFLAGS} vcf.c
 

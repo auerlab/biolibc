@@ -1,5 +1,5 @@
-#ifndef __biolibc_h__
-#define __biolibc_h__
+#ifndef _biolibc_h_
+#define _biolibc_h_
 
 #ifndef _STDIO_H_
 #include <stdio.h>          // FILE
@@ -11,10 +11,6 @@
 
 #ifndef _INTTYPES_H_
 #include <inttypes.h>       // PRIu64
-#endif
-
-#ifndef __biostring_h__
-#include "biostring.h"
 #endif
 
 #define BIO_READ_OK                 0
@@ -47,9 +43,11 @@ typedef struct
 		ov_len;
 }   bio_overlap_t;
 
-void    bio_set_overlap(bio_overlap_t *overlap,
+/* chromosome-name-cmp.c */
+int chromosome_name_cmp(const char *n1, const char *n2);
+void bio_set_overlap(bio_overlap_t *overlap,
 			uint64_t f1_len, uint64_t f2_len,
 			uint64_t ov_start, uint64_t ov_end);
-void    bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name);
+void bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name);
 
-#endif  // __biolibc_h__
+#endif  // _biolibc_h_

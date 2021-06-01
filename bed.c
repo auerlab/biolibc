@@ -5,14 +5,14 @@
 #include <stdbool.h>
 #include <inttypes.h>   // PRIu64
 #include <sys/param.h>  // MAX(), MIN()
-#include "bedio.h"
-#include "dsvio.h"
-#include "gffio.h"
-#include "biostring.h"
+#include "bed.h"
+#include "dsv.h"
+#include "gff.h"
+#include "biolibc.h"
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -77,7 +77,7 @@ FILE    *bed_skip_header(FILE *bed_stream)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -436,7 +436,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -524,7 +524,7 @@ int     bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature,
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -569,7 +569,7 @@ void    bed_check_order(bed_feature_t *bed_feature, char last_chrom[],
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -655,7 +655,7 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -700,7 +700,7 @@ int     bed_set_fields(bed_feature_t *bed_feature, unsigned fields)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -741,7 +741,7 @@ int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -777,7 +777,7 @@ int     bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -813,7 +813,7 @@ int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -854,7 +854,7 @@ int     bed_set_name(bed_feature_t *bed_feature, char *name)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -896,7 +896,7 @@ int     bed_set_score(bed_feature_t *feature, unsigned score)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -939,7 +939,7 @@ int     bed_set_strand(bed_feature_t *feature, int strand)
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -975,7 +975,7 @@ int     bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:
@@ -1011,7 +1011,7 @@ int     bed_set_thick_end_pos(bed_feature_t *bed_feature, uint64_t thick_end_pos
 
 /***************************************************************************
  *  Library:
- *      #include <bedio.h>
+ *      #include <biolibc/bed.h>
  *      -lbiolibc
  *
  *  Description:

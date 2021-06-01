@@ -4,8 +4,8 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <inttypes.h>   // PRIu64
-#include "gffio.h"
-#include "dsvio.h"
+#include "gff.h"
+#include "dsv.h"
 
 /***************************************************************************
  *  Description:

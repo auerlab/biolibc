@@ -48,7 +48,7 @@ SLIB    = lib${LIB}.a
 
 # Dynamic/shared library
 # Increment when the API changes
-API_VER = 1
+API_VER = 2
 # Increment for changes that don't affect the API
 LIB_VER = 0
 
@@ -71,7 +71,7 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = biolibc.o vcfio.o samio.o bedio.o dsvio.o gffio.o \
+OBJS    = biolibc.o vcf.o sam.o bed.o dsv.o gff.o \
 	  chromosome-name-cmp.o plist.o sam-buff.o
 
 ############################################################################
@@ -193,9 +193,10 @@ realclean: clean
 # Install all target files (binaries, libraries, docs, etc.)
 
 common-install:
-	${MKDIR} -p ${DESTDIR}${PREFIX}/lib ${DESTDIR}${PREFIX}/include \
+	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
+		    ${DESTDIR}${PREFIX}/include/biolibc \
 		    ${DESTDIR}${MANPREFIX}/man/man3
-	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include
+	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include/biolibc
 	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
