@@ -9,10 +9,14 @@ bioinformatics programming
 .PP
 .nf 
 .na
-#include <samio.h>
-#include <vcfio.h>
-#include <dsviol.h>
-#include <biostring.h>
+#include <biolibc/bed.h>
+#include <biolibc/biostring.h>
+#include <biolibc/dsv.h>
+#include <biolibc/gff.h>
+#include <biolibc/plist.h>
+#include <biolibc/sam.h>
+#include <biolibc/sam-buff.h>
+#include <biolibc/vcf.h>
 
 cc program.c -lbiolibc
 .ad
@@ -32,7 +36,7 @@ VCF, string functions specific to bioinformatics, etc.
 Documentation on individual functions should be available soon.
 
 .SH "SEE ALSO"
-vcf-split, ad2vcf, vcf2hap
+vcf-split, ad2vcf, vcf2hap, peak-classifier
 
 .SH BUGS
 Please report bugs to the author and send patches in unified diff format.
