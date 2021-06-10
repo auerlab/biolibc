@@ -40,6 +40,7 @@ I maintain a FreeBSD port and a pkgsrc package.
 
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection,
+(of more than 30,000 total),
 fully-integrated ZFS, and renowned performance and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
 and manage compared to user-friendly systems like Ubuntu.
