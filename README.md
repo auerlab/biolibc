@@ -27,10 +27,36 @@ self-discipline.
 Building and installing
 =======================
 
-Set PREFIX to the prefix where you would like to install.  Default is ../local.
+biolibc depends on [libxtend](https://github.com/outpaddling/libxtend).
+Install libxtend before attempting to build biolibc.
 
-Then simply run
+The Makefile is designed to be friendly to package managers, such as
+Debian packages, [FreeBSD ports](https://www.freebsd.org/ports/),
+[MacPorts](https://www.macports.org/), [pkgsrc](https://pkgsrc.org/), etc.
+End users should install via one of these if at all possible.
 
-```sh
-make install
+To build locally for development purposes:
+
+1. Clone the repository
+2. Run "make depend" to update Makefile.depend
+3. Run "make install"
+
+The default install prefix is ../local.  Clone libxtend and dependent apps
+into sibling directories so that ../local represents a common path to all of
+them.
+
+To facilitate easy packaging, the Makefile respects standard make/environment
+variables such as CC, CFLAGS, PREFIX, etc.  For example, to install to
+/myprefix:
+
 ```
+make PREFIX=/myprefix install
+```
+
+If libxtend is installed under /myprefix:
+
+```
+make LOCALBASE=/myprefix depend
+```
+
+View the Makefile for full details.
