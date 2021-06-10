@@ -56,7 +56,7 @@ pkg install biolibc
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to NetBSD and well-supported on Illumos, Linux, and
 MacOS.  Using pkgsrc does not require admin privileges.  The
-[auto-pkgsrc-setup](http://netbsd.org/~bacon/)
+[auto-pkgsrc-setup](http://netbsd.org/~bacon/) script
 can assist you with basic setup.
 
 To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
@@ -70,6 +70,7 @@ bmake install clean
 ```
 
 To build biolibc locally (for development purposes, not recommended for
+regular use):
 
 1. Clone the repository
 2. Run "make depend" to update Makefile.depend
