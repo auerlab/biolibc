@@ -15,14 +15,14 @@ VCF, string functions specific to bioinformatics, etc.
 Design and Implementation
 =========================
 
-The code is organized following object-oriented design principals, but
+The code is organized following basic object-oriented design principals, but
 implemented in C to minimize overhead and keep the source code accessible to
 scientists who don't have time to master the complexities of C++.
 
-Structures are treated as classes, with access functions or macros provided,
-so applications should not access data members directly.  Since the C language
-cannot enforce this, it's up to application programmers to exercise
-self-discipline.
+Structures are treated as classes, with accessor and mutator functions
+(or macros) provided, so dependent applications and libraries need not access
+structure members directly.  Since the C language cannot enforce this, it's
+up to application programmers to exercise self-discipline.
 
 Building and installing
 =======================
@@ -36,28 +36,49 @@ The Makefile is designed to be friendly to package managers, such as
 [MacPorts](https://www.macports.org/), [pkgsrc](https://pkgsrc.org/), etc.
 End users should install via one of these if at all possible.
 
-To build locally for development purposes:
+I maintain a FreeBSD port and a pkgsrc package. pkgsrc is a cross-platform
+package manager that works on any Unix-like platform.  It is native to NetBSD
+and well-supported on Illumos, Linux, and MacOS.  Using pkgsrc does not
+require admin priveleges.  The [auto-pkgsrc-setup](http://netbsd.org/~bacon/)
+can assist you with basic setup.
+
+To build locally (for development purposes, not recommended for regular use):
 
 1. Clone the repository
 2. Run "make depend" to update Makefile.depend
 3. Run "make install"
 
-The default install prefix is ../local.  Clone libxtend and dependent apps
-into sibling directories so that ../local represents a common path to all of
-them.
+The default install prefix is ../local.  Clone biolibc, libxtend and dependent
+apps into sibling directories so that ../local represents a common path to all
+of them.
 
 To facilitate easy packaging, the Makefile respects standard make/environment
-variables such as CC, CFLAGS, PREFIX, etc.  For example, to install to
-/myprefix:
+variables such as CC, CFLAGS, PREFIX, etc.  
+
+Add-on libraries required for the build, such as libxtend, should be found
+under ${LOCABASE}, which defaults to ../local.
+The library, headers, and man pages are installed under
+${DESTDIR}${PREFIX}.  DESTDIR is empty by default and is primarily used by
+package managers to stage installations.  PREFIX defaults to ${LOCALBASE}.
+
+To install directly to /myprefix, assuming libxtend is installed there as well,
+using a make variable:
 
 ```
-make PREFIX=/myprefix install
+make LOCALBASE=/myprefix clean depend install
 ```
 
-If libxtend is installed under /myprefix:
+Using an environment variable:
 
 ```
-make LOCALBASE=/myprefix depend
+# C-shell and derivatives
+setenv LOCALBASE /myprefix
+make clean depend install
+
+# Bourne shell and derivatives
+LOCALBASE=/myprefix
+export LOCALBASE
+make clean depend install
 ```
 
 View the Makefile for full details.
