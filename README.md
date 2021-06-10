@@ -52,8 +52,8 @@ The default install prefix is ../local.  Clone biolibc, libxtend and dependent
 apps into sibling directories so that ../local represents a common path to all
 of them.
 
-To facilitate easy packaging, the Makefile respects standard make/environment
-variables such as CC, CFLAGS, PREFIX, etc.  
+To facilitate incorporation into package managers, the Makefile respects
+standard make/environment variables such as CC, CFLAGS, PREFIX, etc.  
 
 Add-on libraries required for the build, such as libxtend, should be found
 under ${LOCABASE}, which defaults to ../local.
