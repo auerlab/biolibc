@@ -31,7 +31,8 @@ biolibc depends on [libxtend](https://github.com/outpaddling/libxtend).
 Install libxtend before attempting to build biolibc.
 
 The Makefile is designed to be friendly to package managers, such as
-Debian packages, [FreeBSD ports](https://www.freebsd.org/ports/),
+[Debian packages](https://www.debian.org/distrib/packages),
+[FreeBSD ports](https://www.freebsd.org/ports/),
 [MacPorts](https://www.macports.org/), [pkgsrc](https://pkgsrc.org/), etc.
 End users should install via one of these if at all possible.
 
