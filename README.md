@@ -43,10 +43,13 @@ FreeBSD is a highly underrated platform for scientific computing, with over
 (of more than 30,000 total), fully-integrated ZFS filesystem, and renowned
 security, performance, and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
-and manage compared to user-friendly systems like Ubuntu.
+and manage compared to user-friendly systems like [Ubuntu](https://ubuntu.com/).
 However, if you are a little bit Unix-savvy, you can very quickly set up a
 workstation, laptop, or VM using
-[desktop-installer](http://www.acadix.biz/desktop-installer.php).
+[desktop-installer](http://www.acadix.biz/desktop-installer.php).  If
+you're new to Unix, you can also reap the benefits of FreeBSD by running
+[GhostBSD](https://ghostbsd.org/), a FreeBSD distribution augmented with a
+graphical installer and management tools.
 
 To install biolibc on FreeBSD:
 
