@@ -44,7 +44,7 @@ FreeBSD is a highly underrated platform for scientific computing, with over
 security, performance, and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
 and manage compared to user-friendly systems like [Ubuntu](https://ubuntu.com/).
-However, if you are a little bit Unix-savvy, you can very quickly set up a
+However, if you're a little bit Unix-savvy, you can very quickly set up a
 workstation, laptop, or VM using
 [desktop-installer](http://www.acadix.biz/desktop-installer.php).  If
 you're new to Unix, you can also reap the benefits of FreeBSD by running
@@ -59,10 +59,15 @@ pkg install biolibc
 ```
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
-platform. It is native to NetBSD and well-supported on Illumos, Linux, and
-MacOS.  Using pkgsrc does not require admin privileges.  The
-[auto-pkgsrc-setup](http://netbsd.org/~bacon/) script
-can assist you with basic setup.
+platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
+on [Illumos](https://illumos.org/), [MacOS](https://www.apple.com/macos/),
+[RHEL](https://www.redhat.com)/[CentOS](https://www.centos.org/), and
+many other Linux distributions.
+Using pkgsrc does not require admin privileges.  You can install a pkgsrc
+tree in any directory to which you have write access and easily install any
+of the nearly 20,000 packages in the collection.  The
+[auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
+basic setup.
 
 To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
 other means.  Then run the following commands:
