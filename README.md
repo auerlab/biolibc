@@ -38,10 +38,12 @@ End users should install via one of these if at all possible.
 
 I maintain a FreeBSD port and a pkgsrc package.
 
+## Installing biolibc on FreeBSD:
+
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection
-(of more than 30,000 total), fully-integrated ZFS filesystem, and renowned
-security, performance, and reliability.
+(of more than 30,000 total), modern clang compiler, fully-integrated ZFS
+filesystem, and renowned security, performance, and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
 and manage compared to user-friendly systems like [Ubuntu](https://ubuntu.com/).
 However, if you're a little bit Unix-savvy, you can very quickly set up a
@@ -52,11 +54,11 @@ you're new to Unix, you can also reap the benefits of FreeBSD by running
 graphical installer and management tools.  GhostBSD does not offer as many
 options as desktop-installer, but it may be more comfortable for Unix novices.
 
-To install biolibc on FreeBSD:
-
 ```
 pkg install biolibc
 ```
+
+## Installing via pkgsrc
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
@@ -69,18 +71,28 @@ of the nearly 20,000 packages in the collection.  The
 [auto-pkgsrc-setup](http://netbsd.org/~bacon/) script can assist you with
 basic setup.
 
-To install via pkgsrc, first bootstrap pkgsrc using auto-pkgsrc-setup or any
-other means.  Then run the following commands:
+First bootstrap pkgsrc using auto-pkgsrc-setup or any
+other method.  Then run the following commands:
 
 ```
-cd pkgsrc-dir/sysutils/auto-admin
-bmake install clean
-cd pkgsrc-dir/wip/biolibc
+cd pkgsrc-dir/biology/biolibc
 bmake install clean
 ```
 
-To build biolibc locally (for development purposes, not recommended for
-regular use):
+There may also be binary packages available for your platform.  If this is
+the case, you can install by running:
+
+```
+pkgin install biolibc
+```
+
+See the [Joyent Cloud Services Site](https://pkgsrc.joyent.com/) for
+available package sets.
+
+## Building biolibc locally
+
+Below are cave-man install instructions for development purposes, not
+recommended for regular use.
 
 1. Clone the repository
 2. Run "make depend" to update Makefile.depend
