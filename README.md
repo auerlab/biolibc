@@ -27,9 +27,6 @@ up to application programmers to exercise self-discipline.
 Building and installing
 =======================
 
-biolibc depends on [libxtend](https://github.com/outpaddling/libxtend).
-Install libxtend before attempting to build biolibc.
-
 The Makefile is designed to be friendly to package managers, such as
 [Debian packages](https://www.debian.org/distrib/packages),
 [FreeBSD ports](https://www.freebsd.org/ports/),
@@ -91,8 +88,11 @@ available package sets.
 
 ## Building biolibc locally
 
-Below are cave-man install instructions for development purposes, not
+Below are cave man install instructions for development purposes, not
 recommended for regular use.
+
+biolibc depends on [libxtend](https://github.com/outpaddling/libxtend).
+Install libxtend before attempting to build biolibc.
 
 1. Clone the repository
 2. Run "make depend" to update Makefile.depend
