@@ -1,7 +1,6 @@
 # biolibc
 
-Purpose
-=======
+## Description
 
 Biolibc is a library of fast, memory-efficient, low-level functions for
 processing biological data.
@@ -12,8 +11,7 @@ could be used by a wide variety of applications.
 These include functions for streaming common file formats such as SAM and
 VCF, string functions specific to bioinformatics, etc.
 
-Design and Implementation
-=========================
+## Design and Implementation
 
 The code is organized following basic object-oriented design principals, but
 implemented in C to minimize overhead and keep the source code accessible to
@@ -24,8 +22,15 @@ Structures are treated as classes, with accessor and mutator functions
 structure members directly.  Since the C language cannot enforce this, it's
 up to application programmers to exercise self-discipline.
 
-Building and installing
-=======================
+## Building and installing
+
+biolibc is intended to build cleanly in any POSIX environment.  Please
+don't hesitate to open an issue if you encounter problems on any
+Unix-like system.
+
+Primary development is done on FreeBSD with clang, but the code is frequently
+tested on CentOS, MacOS, and NetBSD as well.  MS Windows is not supported,
+unless using a POSIX environment such as Cygwin or Windows Subsystem for Linux.
 
 The Makefile is designed to be friendly to package managers, such as
 [Debian packages](https://www.debian.org/distrib/packages),
@@ -35,7 +40,7 @@ End users should install via one of these if at all possible.
 
 I maintain a FreeBSD port and a pkgsrc package.
 
-## Installing biolibc on FreeBSD:
+### Installing biolibc on FreeBSD:
 
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,800 scientific libraries and applications in the FreeBSD ports collection
@@ -55,7 +60,7 @@ options as desktop-installer, but it may be more comfortable for Unix novices.
 pkg install biolibc
 ```
 
-## Installing via pkgsrc
+### Installing via pkgsrc
 
 pkgsrc is a cross-platform package manager that works on any Unix-like
 platform. It is native to [NetBSD](https://www.netbsd.org/) and well-supported
@@ -86,7 +91,7 @@ pkgin install biolibc
 See the [Joyent Cloud Services Site](https://pkgsrc.joyent.com/) for
 available package sets.
 
-## Building biolibc locally
+### Building biolibc locally
 
 Below are cave man install instructions for development purposes, not
 recommended for regular use.
