@@ -29,8 +29,6 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_FIELD_END_POS   0x4
 
 #define GFF_SEQUENCE(gf)        ((gf)->sequence)
-#define GFF_START_POS_STR(gf)   ((gf)->start_pos_str)
-#define GFF_END_POS_STR(gf)     ((gf)->end_pos_str)
 #define GFF_START_POS(gf)       ((gf)->start_pos)
 #define GFF_END_POS(gf)         ((gf)->end_pos)
 #define GFF_NAME(gf)            ((gf)->name)
