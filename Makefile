@@ -84,7 +84,10 @@ LOCALBASE   ?= ../local
 # Install in ../local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
 PREFIX      ?= ${LOCALBASE}
+
+# Allow caller to override either MANPREFIX or MANDIR
 MANPREFIX   ?= ${PREFIX}
+MANDIR      ?= ${MANPREFIX}/man
 
 ############################################################################
 # Build flags
@@ -196,9 +199,9 @@ realclean: clean
 common-install:
 	${MKDIR} -p ${DESTDIR}${PREFIX}/lib \
 		    ${DESTDIR}${PREFIX}/include/biolibc \
-		    ${DESTDIR}${MANPREFIX}/man/man3
+		    ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 *.h ${DESTDIR}${PREFIX}/include/biolibc
-	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANPREFIX}/man/man3
+	${INSTALL} -m 0444 Man/*.3 ${DESTDIR}${MANDIR}/man3
 	${INSTALL} -m 0444 ${SLIB} ${DESTDIR}${PREFIX}/lib
 
 # CentOS 7 install does not support -l, use ln -s directly
