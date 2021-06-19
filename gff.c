@@ -89,6 +89,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 	    ch;
     
     // Check for group terminators (Line with just ###)
+    // FIXME: Rely on parent ID instead of ###?
     if ( (ch = getc(gff_stream)) == '#' )
     {
 	fgets(line, GFF_LINE_MAX_CHARS, gff_stream);
