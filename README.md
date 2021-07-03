@@ -24,7 +24,8 @@ up to application programmers to exercise self-discipline.
 
 ## Building and installing
 
-biolibc is intended to build cleanly in any POSIX environment.  Please
+biolibc is intended to build cleanly in any POSIX environment on
+any CPU architecture.  Please
 don't hesitate to open an issue if you encounter problems on any
 Unix-like system.
 
