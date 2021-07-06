@@ -33,21 +33,6 @@
 
 #define BIO_CMD_MAX                 4096    // Arbitrary
 
-// 1-based, inclusive at both ends
-typedef struct
-{
-    uint64_t    f1_len,
-		f2_len,
-		ov_start,
-		ov_end,
-		ov_len;
-}   bio_overlap_t;
-
-/* chromosome-name-cmp.c */
-int chromosome_name_cmp(const char *n1, const char *n2);
-void bio_set_overlap(bio_overlap_t *overlap,
-			uint64_t f1_len, uint64_t f2_len,
-			uint64_t ov_start, uint64_t ov_end);
-void bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name);
+int     chromosome_name_cmp(const char *n1, const char *n2);
 
 #endif  // _biolibc_h_

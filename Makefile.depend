@@ -2,15 +2,21 @@ bed.o: bed.c bed.h biolibc.h gff.h ../local/include/xtend.h \
   ../local/include/xtend-protos.h dsv.h
 	${CC} -c ${CFLAGS} bed.c
 
-biolibc.o: biolibc.c ../local/include/xtend.h \
+bio-overlap.o: bio-overlap.c ../local/include/xtend.h \
   ../local/include/xtend-protos.h biolibc.h
-	${CC} -c ${CFLAGS} biolibc.c
+	${CC} -c ${CFLAGS} bio-overlap.c
 
 chromosome-name-cmp.o: chromosome-name-cmp.c biolibc.h
 	${CC} -c ${CFLAGS} chromosome-name-cmp.c
 
 dsv.o: dsv.c dsv.h biolibc.h
 	${CC} -c ${CFLAGS} dsv.c
+
+fasta.o: fasta.c
+	${CC} -c ${CFLAGS} fasta.c
+
+fastq.o: fastq.c
+	${CC} -c ${CFLAGS} fastq.c
 
 gff.o: gff.c gff.h biolibc.h ../local/include/xtend.h \
   ../local/include/xtend-protos.h bed.h dsv.h

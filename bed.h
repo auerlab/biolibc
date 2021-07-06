@@ -72,6 +72,10 @@ typedef struct
 #include "gff.h"
 #endif
 
+#ifndef _bio_overlap_h
+#include "bio-overlap.h"
+#endif
+
 /* bedio.c */
 FILE *bed_skip_header(FILE *bed_stream);
 int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);

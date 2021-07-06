@@ -1,7 +1,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <xtend.h>      // strlcpy() on Linux
-#include "biolibc.h"
+#include "bio-overlap.h"
 
 /***************************************************************************
  *  Description:
@@ -22,7 +22,7 @@
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-void    bio_set_overlap(bio_overlap_t *overlap,
+void    bio_overlap_set_all(bio_overlap_t *overlap,
 			uint64_t f1_len, uint64_t f2_len,
 			uint64_t ov_start, uint64_t ov_end)
 
@@ -54,7 +54,7 @@ void    bio_set_overlap(bio_overlap_t *overlap,
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-void    bio_print_overlap(bio_overlap_t *overlap, char *f1_name, char *f2_name)
+void    bio_overlap_print(bio_overlap_t *overlap, char *f1_name, char *f2_name)
 
 {
     char    f1_len[16], f2_len[16];

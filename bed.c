@@ -627,12 +627,12 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
 	
 	if ( BED_END_POS(bed_feature) < GFF_START_POS(gff_feature) )
 	{
-	    bio_set_overlap(overlap, 0, 0, 0, 0);
+	    bio_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return -1;
 	}
 	else if ( BED_START_POS(bed_feature) + 1 > GFF_END_POS(gff_feature) )
 	{
-	    bio_set_overlap(overlap, 0, 0, 0, 0);
+	    bio_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return 1;
 	}
 	else
@@ -643,7 +643,7 @@ int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
 	    gff_end = GFF_END_POS(gff_feature);
 	    bed_len = bed_end - bed_start;
 	    gff_len = gff_end - gff_start + 1;
-	    bio_set_overlap(overlap, bed_len, gff_len,
+	    bio_overlap_set_all(overlap, bed_len, gff_len,
 			    MAX(bed_start+1, gff_start),
 			    MIN(bed_end, gff_end));
 	    return 0;
