@@ -15,9 +15,10 @@ typedef struct
 }   bio_overlap_t;
 
 /* chromosome-name-cmp.c */
-void bio_overlap_set_all(bio_overlap_t *overlap,
+int bio_overlap_set_all(bio_overlap_t *overlap,
 			uint64_t f1_len, uint64_t f2_len,
 			uint64_t ov_start, uint64_t ov_end);
-void bio_overlap_print(bio_overlap_t *overlap, char *f1_name, char *f2_name);
+int bio_overlap_print(FILE *stream, bio_overlap_t *overlap,
+		      char *f1_name, char *f2_name);
 
 #endif // _bio_overlap_h_
