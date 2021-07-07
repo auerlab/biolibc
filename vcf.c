@@ -4,6 +4,7 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include "vcf.h"
+#include "biostring.h"
 
 /***************************************************************************
  *  Description:

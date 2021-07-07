@@ -33,6 +33,4 @@
 
 #define BIO_CMD_MAX                 4096    // Arbitrary
 
-int     chromosome_name_cmp(const char *n1, const char *n2);
-
 #endif  // _biolibc_h_

@@ -4,6 +4,7 @@
 #include <sys/param.h>  // MIN()
 #include <xtend.h>
 #include "sam-buff.h"
+#include "biostring.h"
 
 /***************************************************************************
  *  Description:

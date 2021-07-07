@@ -5,27 +5,33 @@
 #include "dsv.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Read next multiple-delim-separated field
- *      Fields may be separated by any character in the string delim
- *      Return delimiter ending the field (member of delim or newline)
+ *      Read next delimiter-separated field from stream. The fields may be
+ *      ended by any character in the string delims or by a newline ('\n').
  *
  *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buff into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      delims:     Array of characters that may serve as delimiters
+ *      len:        Pointer to a variable which will receive the field length
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      Delimiter ending the field (either a member of delim or newline)
  *
  *  See also:
+ *      dsv_skip_field(3), dsv_skip_rest_of_line(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-02-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
+int     dsv_read_field(FILE *stream, char buff[], size_t buff_size,
 		       const char *delims, size_t *len)
 
 {
@@ -34,7 +40,7 @@ int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
     int     ch;
     
     for (c = 0, p = buff; (c < buff_size) && 
-			  ( strchr(delims, ch = getc(infile)) == NULL) &&
+			  ( strchr(delims, ch = getc(stream)) == NULL) &&
 			  (ch != '\n') && (ch != EOF); ++c, ++p )
 	*p = ch;
     *p = '\0';
@@ -55,31 +61,36 @@ int     dsv_read_field(FILE *infile, char buff[], size_t buff_size,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Discard next field separated by any character in the string delims
- *      Return the delimiter encountered, possibly newline or EOF
+ *      Read and discard next delimiter-separated field from stream. The
+ *      fields may be ended by any character in the string delims or by a
+ *      newline ('\n').
  *
  *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      delims:     Array of characters that may serve as delimiters
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      Delimiter ending the field (either a member of delim or newline)
  *
  *  See also:
+ *      dsv_read_field(3), dsv_skip_rest_of_line(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-02-24  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_skip_field(FILE *infile, const char *delims)
+int     dsv_skip_field(FILE *stream, const char *delims)
 
 {
     int     ch;
     
-    while ( (strchr(delims, ch = getc(infile)) == NULL) &&
+    while ( (strchr(delims, ch = getc(stream)) == NULL) &&
 	    (ch != '\n') && (ch != EOF) )
 	;
     
@@ -88,62 +99,81 @@ int     dsv_skip_field(FILE *infile, const char *delims)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Discard the rest of the current input line.
+ *      Read and discard all remaining fields in a line from stream.
+ *      I.e., discard everything up to and including the next newline ('\n').
  *
  *  Arguments:
+ *      stream:     FILE stream from which field is read
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      Delimiter ending the field (should always be newline ('\n'))
  *
  *  See also:
+ *      dsv_read_field(3), dsv_skip_field(3), dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_skip_rest_of_line(FILE *infile)
+int     dsv_skip_rest_of_line(FILE *stream)
 
 {
     int     ch;
     
-    while ( ((ch = getc(infile)) != EOF) && (ch != '\n') )
+    while ( ((ch = getc(stream)) != EOF) && (ch != '\n') )
 	;
     return ch;
 }
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Read a line of an arbitrary DSV file
+ *      Read a line of an arbitrary DSV file, storing the fields in a
+ *      dsv_line_t structure, which contains an array of strings, each
+ *      holding one field from the line, and an an array of delimiters,
+ *      each holding the character that ended the corresponding field.
+ *      Note that each field could potentially end with a different
+ *      delimiter, as multiple delimiters can be specified.
+ *
+ *      This function serves a purpose similar to the split() functions
+ *      present in many languages.  However, it does not need to read an
+ *      entire line into a character array and then split the array.
+ *      Instead, it separates fields as they are read from the input stream.
  *
  *  Arguments:
+ *      stream:     FILE stream from which the line is read
+ *      dsv_line:   Pointer to a dsv_line_t structure to hold the fields
+ *      delims:     Array of acceptable delimiters
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      Actual delimiter of last field (should be newline)
  *
  *  See also:
+ *      dsv_read_field(3), dsv_skip_field(3), dsv_skip_rest_of_line(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-30  Jason Bacon Begin
  ***************************************************************************/
 
-int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
+int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
 
 {
     int     actual_delim;
     char    field[DSV_FIELD_MAX_CHARS + 1];
     size_t  actual_len;
     
-    dsv_line->array_size = 32;
+    dsv_line->array_size = 32;  // Start small and double each time we run out
     dsv_line->num_fields = 0;
     
     if ( (dsv_line->fields = malloc(dsv_line->array_size * sizeof(char *))) == NULL )
@@ -159,7 +189,7 @@ int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
     }
     
     // FIXME: Check actual_delim and/or actual_len to detect truncation
-    while ( ((actual_delim = dsv_read_field(infile,
+    while ( ((actual_delim = dsv_read_field(stream,
 		field, DSV_FIELD_MAX_CHARS, delims, &actual_len)) != EOF) )
     {
 	if ( (dsv_line->fields[dsv_line->num_fields] = strdup(field)) == NULL )
@@ -194,47 +224,50 @@ int     dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Print an arbitrary DSV line
+ *      Print an arbitrary DSV line for debugging.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      stream:     FILE stream to which fields are printed (e.g. stderr)
+ *      dsv_line:   Pointer to dsv_line_t structure holding the fields
  *
  *  See also:
+ *      dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-05-01  Jason Bacon Begin
  ***************************************************************************/
 
-void    dsv_write_line(FILE *outfile, dsv_line_t *dsv_line)
+void    dsv_write_line(FILE *stream, dsv_line_t *dsv_line)
 
 {
     int     c;
     
     for (c = 0; c < dsv_line->num_fields; ++c)
-	fprintf(outfile, "%s%c", dsv_line->fields[c], dsv_line->delims[c]);
+	fprintf(stream, "%s%c", dsv_line->fields[c], dsv_line->delims[c]);
 }
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Duplicate an arbitrary DSV line
+ *      Duplicate an arbitrary DSV line, allocating space for fields and
+ *      delimiters as needed.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      src:    Pointer to populated dsv_line_t structure to be duplicated
+ *      dest:   Pointer to empty dsv_lint_t structure to receive copy
  *
  *  See also:
+ *      dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -261,18 +294,18 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Free allocated memory for a DSV object
+ *      Free allocated memory for a DSV object.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      dsv_line:   Pointer to a populated dsv_line_t structure
  *
  *  See also:
+ *      dsv_read_line(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -294,45 +327,141 @@ void    dsv_free_line(dsv_line_t *dsv_line)
 }
 
 
-int     tsv_read_field(FILE *infile, char buff[], size_t buff_size,
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_read_field(stream, buff, buff_size, '\\\\\t', len)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buff into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  See also:
+ *      dsv_read_field(3)
+ ***************************************************************************/
+
+int     tsv_read_field(FILE *stream, char buff[], size_t buff_size,
 		       size_t *len)
 
 {
-    return dsv_read_field(infile, buff, buff_size, "\t", len);
+    return dsv_read_field(stream, buff, buff_size, "\t", len);
 }
 
 
-int     tsv_skip_field(FILE *infile)
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_skip_field(stream, '\\\\\t')
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *
+ *  See also:
+ *      dsv_skip_field(3)
+ ***************************************************************************/
+
+int     tsv_skip_field(FILE *stream)
 
 {
-    return dsv_skip_field(infile, "\t");
+    return dsv_skip_field(stream, "\t");
 }
 
 
-int     tsv_skip_rest_of_line(FILE *infile)
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_skip_rest_of_line(stream)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *
+ *  See also:
+ *      dsv_skip_rest_of_line(3)
+ ***************************************************************************/
+
+int     tsv_skip_rest_of_line(FILE *stream)
 
 {
-    return dsv_skip_rest_of_line(infile);
+    return dsv_skip_rest_of_line(stream);
 }
 
 
-int     csv_read_field(FILE *infile, char buff[], size_t buff_size,
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_read_field(stream, buff, buff_size, ',', len)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *      buff:       Character buff into which field is copied
+ *      buff_size:  Size of the array passed to buff
+ *      len:        Pointer to a variable which will receive the field length
+ *
+ *  See also:
+ *      dsv_read_field(3)
+ ***************************************************************************/
+
+int     csv_read_field(FILE *stream, char buff[], size_t buff_size,
 		       size_t *len)
 
 {
-    return dsv_read_field(infile, buff, buff_size, ",", len);
+    return dsv_read_field(stream, buff, buff_size, ",", len);
 }
 
 
-int     csv_skip_field(FILE *infile)
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_skip_field(stream, ',')
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *
+ *  See also:
+ *      dsv_skip_field(3)
+ ***************************************************************************/
+
+int     csv_skip_field(FILE *stream)
 
 {
-    return dsv_skip_field(infile, ",");
+    return dsv_skip_field(stream, ",");
 }
 
 
-int     csv_skip_rest_of_line(FILE *infile)
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/dsv.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Equivalent to dsv_skip_rest_of_line(stream)
+ *
+ *  Arguments:
+ *      stream:     FILE stream from which field is read
+ *
+ *  See also:
+ *      dsv_skip_rest_of_line(3)
+ ***************************************************************************/
+
+int     csv_skip_rest_of_line(FILE *stream)
 
 {
-    return dsv_skip_rest_of_line(infile);
+    return dsv_skip_rest_of_line(stream);
 }

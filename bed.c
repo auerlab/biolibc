@@ -8,7 +8,7 @@
 #include "bed.h"
 #include "dsv.h"
 #include "gff.h"
-#include "biolibc.h"
+#include "biostring.h"
 
 /***************************************************************************
  *  Library:

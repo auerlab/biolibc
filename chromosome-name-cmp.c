@@ -46,32 +46,36 @@ int     chromosome_name_cmp(const char *name1, const char *name2)
     char            *end;
     unsigned long   c1, c2;
 
-    /*
-     *  FIXME: Do some sort of input validation and designate an error code
-     *         such as MAXINT
-     */
- 
-    /* Skip identical portions of strings */
+    /* Skip identical portions of strings, e.g. "chr" prefix */
     while ( (*p1 == *p2) && (*p1 != '\0') )
 	++p1, ++p2;
     
-    /* 
-     *  Compare letters, letters to numbers, or letters to null lexically.
+    /*
+     *  Next should be a number or letter ID such as X or Y.  If either
+     *  ID is not a number, simply compare lexically.
      *  ISO character order will take care of it since letters come after
      *  digits (chrX > chr22) and everything comes after null
-     *  (chr22 > chr2).
+     *  (chr22 > chr2).  This also handles the case where the names are
+     *  the same (both *p1 and *p2 are '\0') or we reached the end of one
+     *  of them (chr2, chr22).
      */
     if ( !isdigit(*p1) || !isdigit(*p2) )
 	return *p1 - *p2;
-    
-    if ( (*p1 == '\0') || (*p2 == '\0') )
+
+    /* Both IDs are numeric, so perform an integer compare */
+    c1 = strtoul(p1, &end, 10);
+    if ( *end != '\0' )
     {
-	fprintf(stderr, "Invalid argument: chromosome_name_cmp(%s, %s).\n",
-		name1, name2);
+	fprintf(stderr,
+		"chromosome_name_cmp(): Invalid chromosome ID: %s\n", name1);
 	exit(EX_DATAERR);
     }
-    
-    c1 = strtoul(p1, &end, 10);
     c2 = strtoul(p2, &end, 10);
+    if ( *end != '\0' )
+    {
+	fprintf(stderr,
+		"chromosome_name_cmp(): Invalid chromosome ID: %s\n", name2);
+	exit(EX_DATAERR);
+    }
     return c1 - c2;
 }
