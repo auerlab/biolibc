@@ -71,6 +71,7 @@ FILE    *bed_skip_header(FILE *bed_stream)
     if ( count == 1 )
 	for (c = 5; c >= 0; --c)
 	    ungetc(start[c], bed_stream);
+    rewind(header_stream);
     return header_stream;
 }
 
@@ -115,9 +116,9 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      BIO_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bed_read_feature(stdin, &bed_feature, FIELD_MASK_ALL);
+ *      bed_read_feature(stdin, &bed_feature, BED_FIELD_ALL);
  *      bed_read_feature(bed_stream, &bed_feature,
- *                       FIELD_MASK_NAME|FIELD_MASK_SCORE);
+ *                       BED_FIELD_NAME|BED_FIELD_SCORE);
  *
  *  See also:
  *      bed_write_feature(3)
@@ -441,7 +442,7 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
  *
  *  Description:
  *      Write fields from one line of a bed file to the specified FILE
- *      stream.  If field_mask is not FIELD_MASK_ALL, only selected fields
+ *      stream.  If field_mask is not BED_FIELD_ALL, only selected fields
  *      are written.
  *
  *      If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
@@ -470,12 +471,12 @@ int     bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature,
  *
  *  Returns:
  *      BIO_WRITE_OK on success
- *      BIO_WRITE_ERROR on failure
+ *      BIO_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bed_write_feature(stdout, &bed_feature, FIELD_MASK_ALL);
+ *      bed_write_feature(stdout, &bed_feature, BED_FIELD_ALL);
  *      bed_write_feature(bed_stream, &bed_feature,
- *                        FIELD_MASK_NAME|FIELD_MASK_SCORE);
+ *                        BED_FIELD_NAME|BED_FIELD_SCORE);
  *
  *  See also:
  *      bed_read_feature(3)

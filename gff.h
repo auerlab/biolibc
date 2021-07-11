@@ -23,10 +23,16 @@
 
 typedef unsigned int        gff_field_mask_t;
 
-#define GFF_FIELD_ALL       0x0
-#define GFF_FIELD_CHROM     0x1
-#define GFF_FIELD_START_POS 0x2
-#define GFF_FIELD_END_POS   0x4
+#define GFF_FIELD_ALL           0x000
+#define GFF_FIELD_SEQUENCE      0x001
+#define GFF_FIELD_SOURCE        0x002
+#define GFF_FIELD_NAME          0x004
+#define GFF_FIELD_START_POS     0x008
+#define GFF_FIELD_END_POS       0x010
+#define GFF_FIELD_SCORE         0x020
+#define GFF_FIELD_STRAND        0x040
+#define GFF_FIELD_PHASE         0x080
+#define GFF_FIELD_ATTRIBUTES    0x100
 
 #define GFF_SEQUENCE(gf)        ((gf)->sequence)
 #define GFF_START_POS(gf)       ((gf)->start_pos)
@@ -73,7 +79,7 @@ typedef struct
 #endif
 
 FILE *gff_skip_header(FILE *gff_stream);
-int gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature);
+int gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
 int gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
 void gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature);
 

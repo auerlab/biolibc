@@ -33,7 +33,7 @@ field_mask:     Bit mask indicating which fields to output
 .SH DESCRIPTION
 
 Write fields from one line of a bed file to the specified FILE
-stream.  If field_mask is not FIELD_MASK_ALL, only selected fields
+stream.  If field_mask is not BED_FIELD_ALL, only selected fields
 are written.
 
 If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
@@ -59,9 +59,9 @@ masks all three.
 .nf
 .na
 
-bed_write_feature(stdout, &bed_feature, FIELD_MASK_ALL);
+bed_write_feature(stdout, &bed_feature, BED_FIELD_ALL);
 bed_write_feature(bed_stream, &bed_feature,
-FIELD_MASK_NAME|FIELD_MASK_SCORE);
+BED_FIELD_NAME|BED_FIELD_SCORE);
 .ad
 .fi
 

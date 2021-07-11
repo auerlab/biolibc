@@ -9,17 +9,19 @@
 
 /***************************************************************************
  *  Description:
- *      Skip over header lines in gff input stream.
+ *      Skip over header lines in gff input stream.  The FILE pointer
+ *      gff_stream is advanced to the first character of the first line
+ *      after the header.  The header is copied to a temporary file and and
+ *      the function returns a FILE pointer to the header stream.
  *
  *  Arguments:
+ *      gff_stream: FILE pointer to the open GFF file
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      A FILE pointer to a temporary file containing a copy of the header
  *
  *  See also:
+ *      gff_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -51,30 +53,60 @@ FILE    *gff_skip_header(FILE *gff_stream)
     // Rewind to start of first non-header line
     if ( ch != EOF )
 	ungetc(ch, gff_stream);
+    rewind(header_stream);
     return header_stream;
 }
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Read fields from one line of a GFF file.
+ *      Read next feature (line) from a GFF file.
+ *
+ *      If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are discarded rather than stored in gff_feature.
+ *      That field in the structure is then populated with an appropriate
+ *      marker, such as '.'.  Possible mask values are:
+ *
+ *      GFF_FIELD_ALL
+ *      GFF_FIELD_SEQUENCE
+ *      GFF_FIELD_SOURCE
+ *      GFF_FIELD_NAME
+ *      GFF_FIELD_START_POS
+ *      GFF_FIELD_END_POS
+ *      GFF_FIELD_SCORE
+ *      GFF_FIELD_STRAND
+ *      GFF_FIELD_PHASE
+ *      GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
+ *      gff_stream:     A FILE stream from which to read the line
+ *      gff_feature:    Pointer to a gff_feature_t structure
+ *      field_mask:     Bit mask indicating which fields to store in gff_feature
  *
  *  Returns:
+ *      BIO_READ_OK on successful read
+ *      BIO_READ_EOF if EOF is encountered after a complete feature
+ *      BIO_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
- *  Files:
- *
- *  Environment:
+ *  Examples:
+ *      gff_read_feature(stdin, &gff_feature, GFF_FIELD_ALL);
+ *      gff_read_feature(gff_stream, &gff_feature,
+ *                       GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
  *
  *  See also:
+ *      gff_write_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-04-08  Jason Bacon Begin
+ *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
+int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
+			 gff_field_mask_t field_mask)
 
 {
     char    *end,
@@ -241,22 +273,50 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Write fields from one line of a gff file.
+ *      Write fields from a GFF feature to the specified FILE
+ *      stream.
+ *
+ *      If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are written as an appropriate marker for that field,
+ *      such as a '.', rather than writing the real data.
+ *      Possible mask values are:
+ *
+ *      GFF_FIELD_ALL
+ *      GFF_FIELD_SEQUENCE
+ *      GFF_FIELD_SOURCE
+ *      GFF_FIELD_NAME
+ *      GFF_FIELD_START_POS
+ *      GFF_FIELD_END_POS
+ *      GFF_FIELD_SCORE
+ *      GFF_FIELD_STRAND
+ *      GFF_FIELD_PHASE
+ *      GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
+ *      gff_stream:     FILE stream to which TSV gff line is written
+ *      gff_feature:    Pointer to the gff_feature_t structure to output
+ *      field_mask:     Bit mask indicating which fields to output
  *
  *  Returns:
+ *      BIO_WRITE_OK on success
+ *      BIO_WRITE_ERROR on failure (errno may provide more information)
  *
- *  Files:
- *
- *  Environment:
+ *  Examples:
+ *      gff_write_feature(stdout, &gff_feature, GFF_FIELD_ALL);
+ *      gff_write_feature(gff_stream, &gff_feature,
+ *                        GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
  *
  *  See also:
+ *      gff_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-04-08  Jason Bacon Begin
+ *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
 int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
@@ -272,18 +332,21 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Copy GFF fields to a BED structure
+ *      Copy GFF fields to a BED structure to the extent possible.  Since
+ *      GFF and BED files do not necessarily contain the same information,
+ *      some information may be lost or filled in with appropriate markers.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      bed_feature: Pointer to the bed_feature_t structure to receive data
+ *      gff_feature: Pointer to the gff_feature_t structure to copy
  *
  *  See also:
+ *      bed_read_feature(3), gff_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -316,6 +379,3 @@ void    gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature)
 	exit(EX_DATAERR);
     }
 }
-
-
-

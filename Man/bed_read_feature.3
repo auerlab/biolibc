@@ -59,9 +59,9 @@ masks all three.
 .nf
 .na
 
-bed_read_feature(stdin, &bed_feature, FIELD_MASK_ALL);
+bed_read_feature(stdin, &bed_feature, BED_FIELD_ALL);
 bed_read_feature(bed_stream, &bed_feature,
-FIELD_MASK_NAME|FIELD_MASK_SCORE);
+BED_FIELD_NAME|BED_FIELD_SCORE);
 .ad
 .fi
 
