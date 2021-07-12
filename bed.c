@@ -91,6 +91,7 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      in the bit mask are discarded rather than stored in bed_feature.
  *      Possible mask values are:
  *
+ *      BED_FIELD_ALL
  *      BED_FIELD_NAME
  *      BED_FIELD_SCORE
  *      BED_FIELD_STRAND

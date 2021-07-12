@@ -25,6 +25,21 @@
 // Use this or the function for every new object
 #define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, NULL, NULL, 0, 0, NULL, NULL, 0 }
 
+typedef unsigned int    sam_field_mask_t;
+
+#define SAM_FIELD_ALL   0xfff
+#define SAM_FIELD_QNAME 0x001
+#define SAM_FIELD_FLAG  0x002
+#define SAM_FIELD_RNAME 0x004
+#define SAM_FIELD_POS   0x008
+#define SAM_FIELD_MAPQ  0x010
+#define SAM_FIELD_CIGAR 0x020
+#define SAM_FIELD_RNEXT 0x040
+#define SAM_FIELD_PNEXT 0x080
+#define SAM_FIELD_TLEN  0x100
+#define SAM_FIELD_SEQ   0x200
+#define SAM_FIELD_QUAL  0x400
+
 typedef struct
 {
     /* SAM fields */
@@ -46,7 +61,7 @@ typedef struct
 }   sam_alignment_t;
 
 /* samio.c */
-int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment);
+int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment, sam_field_mask_t field_mask);
 void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src);
 void    sam_alignment_free(sam_alignment_t *sam_alignment);
 void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len);

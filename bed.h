@@ -18,13 +18,13 @@ typedef unsigned int        bed_field_mask_t;
 /*
  *  Chromosome, start, and end are required so no mask bits are defined
  */
-#define BED_FIELD_ALL       0x00
 #define BED_FIELD_NAME      0x01
 #define BED_FIELD_SCORE     0x02
 #define BED_FIELD_STRAND    0x04
 #define BED_FIELD_THICK     0X08
 #define BED_FIELD_RGB       0x10
 #define BED_FIELD_BLOCK     0x20
+#define BED_FIELD_ALL       0xff
 
 // FIXME: Write man pages for accessors
 #define BED_CHROMOSOME(bf)      ((bf)->chromosome)

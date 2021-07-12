@@ -23,7 +23,6 @@
 
 typedef unsigned int        gff_field_mask_t;
 
-#define GFF_FIELD_ALL           0x000
 #define GFF_FIELD_SEQUENCE      0x001
 #define GFF_FIELD_SOURCE        0x002
 #define GFF_FIELD_NAME          0x004
@@ -33,6 +32,7 @@ typedef unsigned int        gff_field_mask_t;
 #define GFF_FIELD_STRAND        0x040
 #define GFF_FIELD_PHASE         0x080
 #define GFF_FIELD_ATTRIBUTES    0x100
+#define GFF_FIELD_ALL           0xfff
 
 #define GFF_SEQUENCE(gf)        ((gf)->sequence)
 #define GFF_START_POS(gf)       ((gf)->start_pos)
