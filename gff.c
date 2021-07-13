@@ -248,7 +248,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     }
     else if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
     {
-	fprintf(stderr, "gff_read_feature(): malloc() failed for ATTRIBUTES: %s.\n",
+	fprintf(stderr, "gff_read_feature(): Could not strdup attributes: %s.\n",
 		temp_attributes);
 	return BIO_READ_TRUNCATED;
     }

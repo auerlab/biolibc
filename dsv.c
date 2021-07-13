@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
+#include <xtend.h>
 #include "dsv.h"
 
 /***************************************************************************
@@ -176,15 +177,17 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
     dsv_line->array_size = 32;  // Start small and double each time we run out
     dsv_line->num_fields = 0;
     
-    if ( (dsv_line->fields = malloc(dsv_line->array_size * sizeof(char *))) == NULL )
+    if ( (dsv_line->fields = xt_malloc(dsv_line->array_size,
+				sizeof(*dsv_line->fields))) == NULL )
     {
-	fputs("dsv_read_line(): Cannot allocate fields.\n", stderr);
+	fputs("dsv_read_line(): Could not allocate fields.\n", stderr);
 	exit(EX_UNAVAILABLE);
     }
     
-    if ( (dsv_line->delims = malloc(dsv_line->array_size * sizeof(char))) == NULL )
+    if ( (dsv_line->delims = xt_malloc(dsv_line->array_size,
+				sizeof(*dsv_line->delims))) == NULL )
     {
-	fputs("dsv_read_line(): Cannot allocate delims.\n", stderr);
+	fputs("dsv_read_line(): Could not allocate delims.\n", stderr);
 	exit(EX_UNAVAILABLE);
     }
     
@@ -194,7 +197,7 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
     {
 	if ( (dsv_line->fields[dsv_line->num_fields] = strdup(field)) == NULL )
 	{
-	    fprintf(stderr, "dsv_read_line(): Cannot strdup() field %zu.\n",
+	    fprintf(stderr, "dsv_read_line(): Could not strdup() field %zu.\n",
 		    dsv_line->num_fields - 1);
 	    exit(EX_UNAVAILABLE);
 	}
@@ -202,17 +205,17 @@ int     dsv_read_line(FILE *stream, dsv_line_t *dsv_line, const char *delims)
 	if ( dsv_line->num_fields == dsv_line->array_size )
 	{
 	    dsv_line->array_size *= 2;
-	    if ( (dsv_line->fields = realloc(dsv_line->fields,
-		    dsv_line->array_size * sizeof(char *))) == NULL )
+	    if ( (dsv_line->fields = xt_realloc(dsv_line->fields,
+		    dsv_line->array_size, sizeof(*dsv_line->fields))) == NULL )
 	    {
-		fputs("dsv_read_line(): Cannot reallocate fields.\n", stderr);
+		fputs("dsv_read_line(): Could not reallocate fields.\n", stderr);
 		exit(EX_UNAVAILABLE);
 	    }
 	    
-	    if ( (dsv_line->delims = realloc(dsv_line->delims,
-		    dsv_line->array_size * sizeof(char))) == NULL )
+	    if ( (dsv_line->delims = xt_realloc(dsv_line->delims,
+		    dsv_line->array_size, sizeof(*dsv_line->delims))) == NULL )
 	    {
-		fputs("dsv_read_line(): Cannot reallocate delims.\n", stderr);
+		fputs("dsv_read_line(): Could not reallocate delims.\n", stderr);
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -282,8 +285,9 @@ void    dsv_copy_line(dsv_line_t *dest, dsv_line_t *src)
     // Prune unused pointers in src
     dest->array_size = dest->num_fields = src->num_fields;
     
-    dest->fields = malloc(dest->array_size * sizeof(char *));
-    dest->delims = malloc(dest->array_size * sizeof(char));
+    // FIXME: Check malloc() success
+    dest->fields = xt_malloc(dest->array_size, sizeof(*dest->fields));
+    dest->delims = xt_malloc(dest->array_size, sizeof(*dest->delims));
     
     for (c = 0; c < src->num_fields; ++c)
     {

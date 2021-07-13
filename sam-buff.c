@@ -121,7 +121,7 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
 	    xt_malloc(1, sizeof(sam_alignment_t));
 	if ( sam_buff->alignments[sam_buff->buffered_count] == NULL )
 	{
-	    fprintf(stderr, "sam_buff_add_alignment(): malloc() failed.\n");
+	    fprintf(stderr, "sam_buff_add_alignment(): Could not allocate alignments.\n");
 	    exit(EX_UNAVAILABLE);
 	}
 	// Redundant to sam_alignment_copy()
@@ -161,8 +161,8 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
 	old_buff_size = sam_buff->buff_size;
 	sam_buff->buff_size *= 2;
 	sam_buff->alignments =
-	    (sam_alignment_t **)realloc(sam_buff->alignments,
-					sam_buff->buff_size *
+	    (sam_alignment_t **)xt_realloc(sam_buff->alignments,
+					sam_buff->buff_size,
 					sizeof(sam_alignment_t **));
 	for (c = old_buff_size; c < sam_buff->buff_size; ++c)
 	    sam_buff->alignments[c] = NULL;

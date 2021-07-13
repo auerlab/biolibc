@@ -288,9 +288,10 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
 	// May be allocated by sam_alignment_init() or sam_alignment_copy()
 	if ( sam_alignment->seq == NULL )
 	{
-	    if ( (sam_alignment->seq = malloc(sam_alignment->seq_len + 1)) == NULL )
+	    if ( (sam_alignment->seq = xt_malloc(sam_alignment->seq_len + 1,
+		    sizeof(*sam_alignment->seq))) == NULL )
 	    {
-		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
+		fprintf(stderr, "sam_alignment_read(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -318,9 +319,10 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
 	// May be allocated by sam_alignment_init() or sam_alignment_copy()
 	if ( sam_alignment->qual == NULL )
 	{
-	    if ( (sam_alignment->qual = malloc(sam_alignment->qual_len + 1)) == NULL )
+	    if ( (sam_alignment->qual = xt_malloc(sam_alignment->qual_len + 1,
+		    sizeof(*sam_alignment->qual))) == NULL )
 	    {
-		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
+		fprintf(stderr, "sam_alignment_read(): Could not allocate qual.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -382,16 +384,18 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
     
-    if ( (dest->seq = malloc(src->seq_len + 1)) == NULL )
+    if ( (dest->seq = xt_malloc(src->seq_len + 1,
+	    sizeof(*dest->seq))) == NULL )
     {
-	fprintf(stderr, "sam_alignment_copy(): malloc() failed.\n");
+	fprintf(stderr, "sam_alignment_copy(): Could not allocate seq.\n");
 	exit(EX_UNAVAILABLE);
     }
     memcpy(dest->seq, src->seq, src->seq_len + 1);
     
-    if ( (dest->qual = malloc(src->seq_len + 1)) == NULL )
+    if ( (dest->qual = xt_malloc(src->seq_len + 1,
+	    sizeof(*dest->qual))) == NULL )
     {
-	fprintf(stderr, "sam_alignment_copy(): malloc() failed.\n");
+	fprintf(stderr, "sam_alignment_copy(): Could not allocate qual.\n");
 	exit(EX_UNAVAILABLE);
     }
     memcpy(dest->qual, src->qual, src->qual_len + 1);
@@ -482,15 +486,17 @@ void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len,
 	if ( seq_len != 0 )
 	{
 	    if ( (field_mask & SAM_FIELD_SEQ) && 
-		 ((sam_alignment->seq = malloc(seq_len + 1)) == NULL) )
+		 ((sam_alignment->seq = xt_malloc(seq_len + 1,
+			sizeof(*sam_alignment->seq))) == NULL) )
 	    {
-		fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
+		fprintf(stderr, "sam_alignment_init(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	    if ( (field_mask & SAM_FIELD_QUAL) &&
-		 ((sam_alignment->qual = malloc(seq_len + 1)) == NULL) )
+		 ((sam_alignment->qual = xt_malloc(seq_len + 1,
+			sizeof(*sam_alignment->qual))) == NULL) )
 	    {
-		fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
+		fprintf(stderr, "sam_alignment_init(): Could not allocate qual.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}

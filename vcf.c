@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
+#include <xtend.h>
 #include "vcf.h"
 #include "biostring.h"
 
@@ -373,12 +374,14 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
     size_t  c;
     
     if ( (vcf_call->multi_samples =
-	 (char **)malloc(samples * sizeof(char *))) != NULL )
+	 (char **)xt_malloc(samples,
+		    sizeof(*vcf_call->multi_samples))) != NULL )
     {
 	for (c = 0; c < samples; ++c)
 	{
 	    if ( (vcf_call->multi_samples[c] =
-		 (char *)malloc(vcf_call->sample_max + 1)) == NULL )
+		 (char *)xt_malloc(vcf_call->sample_max + 1,
+				sizeof(*vcf_call->multi_samples[c]))) == NULL )
 		return NULL;
 	}
     }
@@ -393,9 +396,10 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
     if ( vcf_call->phreds == NULL )
     {
 	// fprintf(stderr, "vcf_phred_add(): Allocating initial buffer.\n");
-	if ( (vcf_call->phreds = malloc(vcf_call->phred_buff_size)) == NULL )
+	if ( (vcf_call->phreds = xt_malloc(vcf_call->phred_buff_size,
+				    sizeof(*vcf_call->phreds))) == NULL )
 	{
-	    fprintf(stderr, "vcf_phred_add(): malloc() failure.\n");
+	    fprintf(stderr, "vcf_phred_add(): Could not allocate phreds.\n");
 	    exit(EX_UNAVAILABLE);
 	}
     }
@@ -407,9 +411,11 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
     if ( vcf_call->phred_count == vcf_call->phred_buff_size )
     {
 	vcf_call->phred_buff_size *= 2;
-	if ( (vcf_call->phreds = realloc(vcf_call->phreds, vcf_call->phred_buff_size)) == NULL )
+	if ( (vcf_call->phreds = xt_realloc(vcf_call->phreds,
+		    vcf_call->phred_buff_size,
+		    sizeof(*vcf_call->phreds))) == NULL )
 	{
-	    fprintf(stderr, "vcf_phred_add(): realloc() failure.\n");
+	    fprintf(stderr, "vcf_phred_add(): Could not reallocate phreds.\n");
 	    exit(EX_UNAVAILABLE);
 	}
     }
@@ -465,19 +471,22 @@ void    vcf_call_init(vcf_call_t *vcf_call,
     vcf_call->alt_count = 0;
     vcf_call->other_count = 0;
 
-    if ( (vcf_call->info = malloc(info_max + 1)) == NULL )
+    if ( (vcf_call->info = xt_malloc(info_max + 1,
+	    sizeof(*vcf_call->info))) == NULL )
     {
 	fprintf(stderr, "vcf_call_init(): Could not allocate info field.\n");
 	exit(EX_UNAVAILABLE);
     }
-    if ( (vcf_call->format = malloc(format_max + 1)) == NULL )
+    if ( (vcf_call->format = xt_malloc(format_max + 1,
+	    sizeof(*vcf_call->format))) == NULL )
     {
 	fprintf(stderr, "vcf_call_init(): Could not allocate format field.\n");
 	exit(EX_UNAVAILABLE);
     }
-    if ( (vcf_call->single_sample = malloc(sample_max + 1)) == NULL )
+    if ( (vcf_call->single_sample = xt_malloc(sample_max + 1,
+	    sizeof(*vcf_call->single_sample))) == NULL )
     {
-	fprintf(stderr, "vcf_call_init(): Could not allocate sample field.\n");
+	fprintf(stderr, "vcf_call_init(): Could not allocate single_sample field.\n");
 	exit(EX_UNAVAILABLE);
     }
     

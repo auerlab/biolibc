@@ -1,9 +1,9 @@
 bed.o: bed.c bed.h biolibc.h gff.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h dsv.h
+  ../local/include/xtend-protos.h bio-overlap.h dsv.h biostring.h
 	${CC} -c ${CFLAGS} bed.c
 
 bio-overlap.o: bio-overlap.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h biolibc.h
+  ../local/include/xtend-protos.h biolibc.h bio-overlap.h
 	${CC} -c ${CFLAGS} bio-overlap.c
 
 chromosome-name-cmp.o: chromosome-name-cmp.c biolibc.h
@@ -19,20 +19,21 @@ fastq.o: fastq.c
 	${CC} -c ${CFLAGS} fastq.c
 
 gff.o: gff.c gff.h biolibc.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h bed.h dsv.h
+  ../local/include/xtend-protos.h bed.h bio-overlap.h dsv.h
 	${CC} -c ${CFLAGS} gff.c
 
-plist.o: plist.c plist.h biolibc.h
-	${CC} -c ${CFLAGS} plist.c
+pos-list.o: pos-list.c pos-list.h biolibc.h
+	${CC} -c ${CFLAGS} pos-list.c
 
 sam-buff.o: sam-buff.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam-buff.h sam.h dsv.h biolibc.h
+  ../local/include/xtend-protos.h sam-buff.h sam.h dsv.h biolibc.h \
+  biostring.h
 	${CC} -c ${CFLAGS} sam-buff.c
 
 sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   sam.h dsv.h biolibc.h
 	${CC} -c ${CFLAGS} sam.c
 
-vcf.o: vcf.c vcf.h dsv.h biolibc.h sam.h
+vcf.o: vcf.c vcf.h dsv.h biolibc.h sam.h biostring.h
 	${CC} -c ${CFLAGS} vcf.c
 
