@@ -23,7 +23,7 @@
 #define SAM_QUAL_LEN(s)     ((s)->qual_len)
 
 // Use this or the function for every new object
-#define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, NULL, NULL, 0, 0, NULL, NULL, 0 }
+#define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0 }
 
 typedef unsigned int    sam_field_mask_t;
 
@@ -48,8 +48,8 @@ typedef struct
     char            rname[SAM_RNAME_MAX_CHARS + 1];
     size_t          pos;
     unsigned char   mapq;
-    char            *cigar; // FIXME: Should cigar and rnext be static size?
-    char            *rnext; // [SAM_RNAME_MAX_CHARS + 1];
+    char            cigar[SAM_CIGAR_MAX_CHARS + 1];
+    char            rnext[SAM_RNAME_MAX_CHARS + 1];
     size_t          pnext;
     size_t          tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it

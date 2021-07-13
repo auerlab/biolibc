@@ -65,33 +65,56 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
 	    *end;
     size_t  len;
     static size_t   previous_pos = 0;
-    int     last_ch;
+    int     delim;
     
-    if ( tsv_read_field(sam_stream, sam_alignment->qname, SAM_QNAME_MAX_CHARS, &len) == EOF )
+    if ( field_mask & SAM_FIELD_QNAME )
+	delim = tsv_read_field(sam_stream, sam_alignment->qname,
+			SAM_QNAME_MAX_CHARS, &len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	*sam_alignment->qname = '\0';
+    }
+    if ( delim == EOF )
 	return BIO_READ_EOF;
 
     // 2 Flag
-    if ( tsv_read_field(sam_stream, flag_str, SAM_FLAG_MAX_DIGITS,
-			&len) == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_FLAG )
+	delim = tsv_read_field(sam_stream, flag_str, SAM_FLAG_MAX_DIGITS, &len);
+    else
+	delim = tsv_skip_field(sam_stream);
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading flag: %s.\n",
 		flag_str);
 	return BIO_READ_TRUNCATED;
     }
-    sam_alignment->flag = strtoul(flag_str, &end, 10);
-    if ( *end != '\0' )
+    if ( field_mask & SAM_FIELD_FLAG )
     {
-	fprintf(stderr, "sam_alignment_read(): Invalid alignment position: %s\n",
-		flag_str);
-	fprintf(stderr, "qname = %s rname = %s\n",
-		sam_alignment->qname, sam_alignment->rname);
-	fprintf(stderr, "previous_pos = %zu\n", previous_pos);
-	exit(EX_DATAERR);
+	sam_alignment->flag = strtoul(flag_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_alignment_read(): Invalid position: %s\n",
+		    flag_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
     }
+    else
+	sam_alignment->flag = 0;    // FIXME: Is there a better choice?
     
     // 3 RNAME
-    if ( tsv_read_field(sam_stream, sam_alignment->rname, SAM_RNAME_MAX_CHARS,
-			&len) == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_RNAME )
+	delim = tsv_read_field(sam_stream, sam_alignment->rname,
+			       SAM_RNAME_MAX_CHARS, &len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	*sam_alignment->rname = '\0';
+    }
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading rname: %s.\n",
 		sam_alignment->rname);
@@ -99,107 +122,220 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
     }
     
     // 4 POS
-    if ( tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
-			&len) == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_POS )
+	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+			       &len);
+    else
+	delim = tsv_skip_field(sam_stream);
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading pos: %s.\n",
 		pos_str);
 	return BIO_READ_TRUNCATED;
     }
-    sam_alignment->pos = strtoul(pos_str, &end, 10);
-    if ( *end != '\0' )
+    if ( field_mask & SAM_FIELD_POS )
     {
-	fprintf(stderr, "sam_alignment_read(): Invalid alignment position: %s\n",
-		pos_str);
-	fprintf(stderr, "qname = %s rname = %s\n",
-		sam_alignment->qname, sam_alignment->rname);
-	fprintf(stderr, "previous_pos = %zu\n", previous_pos);
-	exit(EX_DATAERR);
+	sam_alignment->pos = strtoul(pos_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_alignment_read(): Invalid position: %s\n",
+		    pos_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
+	previous_pos = sam_alignment->pos;
     }
-    previous_pos = sam_alignment->pos;
+    else
+	sam_alignment->pos = 0;
     
     // 5 MAPQ
-    if ( tsv_read_field(sam_stream, mapq_str, SAM_MAPQ_MAX_CHARS,
-			&len) == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_MAPQ )
+	delim = tsv_read_field(sam_stream, mapq_str, SAM_MAPQ_MAX_CHARS,
+			       &len);
+    else
+	delim = tsv_skip_field(sam_stream);
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading mapq: %s.\n",
 		mapq_str);
 	return BIO_READ_TRUNCATED;
     }
 
-    sam_alignment->mapq = strtoul(mapq_str, &end, 10);
-    if ( *end != '\0' )
+    if ( field_mask & SAM_FIELD_MAPQ )
     {
-	fprintf(stderr, "sam_alignment_read(): Invalid alignment mapq: %s\n",
-		mapq_str);
-	fprintf(stderr, "qname = %s rname = %s\n",
-		sam_alignment->qname, sam_alignment->rname);
-	fprintf(stderr, "previous_pos = %zu\n", previous_pos);
-	exit(EX_DATAERR);
+	sam_alignment->mapq = strtoul(mapq_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_alignment_read(): Invalid mapq: %s\n",
+		    mapq_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
     }
+    else
+	sam_alignment->mapq = 0;
     
     // 6 CIGAR
-    tsv_skip_field(sam_stream);
+    if ( field_mask & SAM_FIELD_CIGAR )
+	delim = tsv_read_field(sam_stream, sam_alignment->cigar,
+			       SAM_CIGAR_MAX_CHARS, &len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	*sam_alignment->cigar = '\0';
+    }
+    if ( delim == EOF )
+    {
+	fprintf(stderr, "sam_alignment_read(): Got EOF reading cigar: %s.\n",
+		sam_alignment->cigar);
+	return BIO_READ_TRUNCATED;
+    }
     
     // 7 RNEXT
-    tsv_skip_field(sam_stream);
+    if ( field_mask & SAM_FIELD_RNEXT )
+	delim = tsv_read_field(sam_stream, sam_alignment->rnext,
+			       SAM_RNAME_MAX_CHARS, &len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	*sam_alignment->rnext = '\0';
+    }
+    if ( delim == EOF )
+    {
+	fprintf(stderr, "sam_alignment_read(): Got EOF reading rnext: %s.\n",
+		sam_alignment->rnext);
+	return BIO_READ_TRUNCATED;
+    }
     
     // 8 PNEXT
-    tsv_skip_field(sam_stream);
+    if ( field_mask & SAM_FIELD_PNEXT )
+	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+			       &len);
+    else
+	delim = tsv_skip_field(sam_stream);
+    if ( delim == EOF )
+    {
+	fprintf(stderr, "sam_alignment_read(): Got EOF reading pnext: %s.\n",
+		pos_str);
+	return BIO_READ_TRUNCATED;
+    }
+    if ( field_mask & SAM_FIELD_PNEXT )
+    {
+	sam_alignment->pnext = strtoul(pos_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_alignment_read(): Invalid pnext: %s\n",
+		    pos_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
+    }
+    else
+	sam_alignment->pnext = 0;
     
     // 9 TLEN
-    tsv_skip_field(sam_stream);
+    if ( field_mask & SAM_FIELD_TLEN )
+	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+			       &len);
+    else
+	delim = tsv_skip_field(sam_stream);
+    if ( delim == EOF )
+    {
+	fprintf(stderr, "sam_alignment_read(): Got EOF reading tlen: %s.\n",
+		pos_str);
+	return BIO_READ_TRUNCATED;
+    }
+    if ( field_mask & SAM_FIELD_TLEN )
+    {
+	sam_alignment->tlen = strtoul(pos_str, &end, 10);
+	if ( *end != '\0' )
+	{
+	    fprintf(stderr, "sam_alignment_read(): Invalid tlen: %s\n",
+		    pos_str);
+	    fprintf(stderr, "qname = %s rname = %s\n",
+		    sam_alignment->qname, sam_alignment->rname);
+	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    exit(EX_DATAERR);
+	}
+    }
+    else
+	sam_alignment->tlen = 0;
     
     // 10 SEQ
-    if ( tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
-			&sam_alignment->seq_len) == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_SEQ )
+	delim = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
+			       &sam_alignment->seq_len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	// sam_alignment->seq = NULL;   Mem leak if allocated elsewhere
+    }
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading seq: %s.\n",
 		temp_seq_or_qual);
 	return BIO_READ_TRUNCATED;
     }
 
-    if ( sam_alignment->seq == NULL )
+    if ( field_mask & SAM_FIELD_SEQ )
     {
-	//fprintf(stderr, "sam_alignment_read() allocating seq...\n");
-	if ( (sam_alignment->seq = malloc(sam_alignment->seq_len + 1)) == NULL )
+	// May be allocated by sam_alignment_init() or sam_alignment_copy()
+	if ( sam_alignment->seq == NULL )
 	{
-	    fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
-	    exit(EX_UNAVAILABLE);
+	    if ( (sam_alignment->seq = malloc(sam_alignment->seq_len + 1)) == NULL )
+	    {
+		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
+	memcpy(sam_alignment->seq, temp_seq_or_qual, sam_alignment->seq_len + 1);
     }
-    memcpy(sam_alignment->seq, temp_seq_or_qual, sam_alignment->seq_len + 1);
     
     // 11 QUAL, should be last field
-    last_ch = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
-	&sam_alignment->qual_len);
-    if ( last_ch == BIO_READ_EOF )
+    if ( field_mask & SAM_FIELD_QUAL )
+	delim = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
+			       &sam_alignment->qual_len);
+    else
+    {
+	delim = tsv_skip_field(sam_stream);
+	// sam_alignment->qual = NULL; Mem leak if allocated elsewhere
+    }
+    if ( delim == EOF )
     {
 	fprintf(stderr, "sam_alignment_read(): Got EOF reading qual: %s.\n",
 		temp_seq_or_qual);
 	return BIO_READ_TRUNCATED;
     }
 
-    if ( sam_alignment->qual == NULL )
+    if ( field_mask & SAM_FIELD_QUAL )
     {
-	//fprintf(stderr, "sam_alignment_read() allocating qual...\n");
-	if ( (sam_alignment->qual = malloc(sam_alignment->qual_len + 1)) == NULL )
+	// May be allocated by sam_alignment_init() or sam_alignment_copy()
+	if ( sam_alignment->qual == NULL )
 	{
-	    fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
-	    exit(EX_UNAVAILABLE);
+	    if ( (sam_alignment->qual = malloc(sam_alignment->qual_len + 1)) == NULL )
+	    {
+		fprintf(stderr, "sam_alignment_read(): malloc() failed.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
+	memcpy(sam_alignment->qual, temp_seq_or_qual,
+	       sam_alignment->qual_len + 1);
+    
+	if ( (sam_alignment->qual_len != 1) &&
+	     (sam_alignment->seq_len != sam_alignment->qual_len) )
+	    fprintf(stderr, "sam_alignment_read(): Warning: qual_len != seq_len for %s,%zu\n",
+		    sam_alignment->rname, sam_alignment->pos);
     }
-    memcpy(sam_alignment->qual, temp_seq_or_qual,
-	   sam_alignment->qual_len + 1);
-
-    if ( (sam_alignment->qual_len != 1) &&
-	 (sam_alignment->seq_len != sam_alignment->qual_len) )
-	fprintf(stderr, "sam_alignment_read(): Warning: qual_len != seq_len for %s,%zu\n",
-		sam_alignment->rname, sam_alignment->pos);
     
     // Some SRA CRAMs have 11 fields, most have 12
     // Discard everything after the 11th
-    if ( last_ch == '\t' )
+    if ( delim == '\t' )
 	while ( getc(sam_stream) != '\n' )
 	    ;
 
@@ -233,14 +369,14 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
 void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
 
 {
-    strlcpy(dest->qname, src->qname, SAM_QNAME_MAX_CHARS);
+    strlcpy(dest->qname, src->qname, SAM_QNAME_MAX_CHARS + 1);
     dest->flag = src->flag;
-    strlcpy(dest->rname, src->rname, SAM_RNAME_MAX_CHARS);
+    strlcpy(dest->rname, src->rname, SAM_RNAME_MAX_CHARS + 1);
     dest->pos = src->pos;
     dest->mapq = src->mapq;
     // FIXME: Add cigar and RNEXT
-    dest->cigar = NULL;
-    dest->rnext = NULL;
+    strlcpy(dest->cigar, src->cigar, SAM_CIGAR_MAX_CHARS + 1);
+    strlcpy(dest->rnext, src->rnext, SAM_RNAME_MAX_CHARS + 1);
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
     
@@ -321,8 +457,8 @@ void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len)
     *sam_alignment->rname = '\0';
     sam_alignment->pos = 0;
     sam_alignment->mapq = 0;
-    sam_alignment->cigar = NULL;
-    sam_alignment->rnext = NULL;
+    *sam_alignment->cigar = '\0';
+    *sam_alignment->rnext = '\0';
     sam_alignment->pnext = 0;
     sam_alignment->tlen = 0;
     if ( seq_len == 0 )
