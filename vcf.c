@@ -8,6 +8,10 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Skip over header lines in VCF input stream.
  *
@@ -62,6 +66,10 @@ FILE    *vcf_skip_header(FILE *vcf_stream)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Extract sample IDs from input header line.
  *
@@ -120,6 +128,10 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Read static fields from one line of a single-entry VCF file.
  *      Does not read sample data.
@@ -236,6 +248,10 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Read a single-sample VCF call.
  *
@@ -278,6 +294,10 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Write static fields from one line of a single-entry VCF file.
  *      Does not write sample data.
@@ -340,6 +360,10 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Write a single-sample VCF call to vcf_stream.
  *
@@ -368,6 +392,28 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
 }
 
 
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
 char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 
 {
@@ -388,6 +434,28 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
     return vcf_call->multi_samples;
 }
 
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
 
 #if 0
 int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
@@ -423,6 +491,28 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 }
 
 
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
 void    vcf_phred_blank(vcf_call_t *vcf_call)
 
 {
@@ -431,6 +521,28 @@ void    vcf_phred_blank(vcf_call_t *vcf_call)
 }
 
     
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
 void    vcf_phred_free(vcf_call_t *vcf_call)
 
 {
@@ -445,6 +557,28 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
 #endif
 
 
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
 void    vcf_call_free(vcf_call_t *vcf_call)
 
 {
@@ -453,6 +587,28 @@ void    vcf_call_free(vcf_call_t *vcf_call)
     free(vcf_call->single_sample);
 }
 
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
 
 void    vcf_call_init(vcf_call_t *vcf_call,
 		      size_t info_max, size_t format_max, size_t sample_max)
@@ -501,6 +657,28 @@ void    vcf_call_init(vcf_call_t *vcf_call,
 }
 
 
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2020-01-22  Jason Bacon Begin
+ ***************************************************************************/
+
 vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 
 {
@@ -538,13 +716,28 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Determine whether a VCF call is within a SAM alignment.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-26  Jason Bacon Begin
  ***************************************************************************/
+
 
 bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignment)
 
@@ -560,9 +753,23 @@ bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignme
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Determine SAM alignment is completely upstream of a VCF call position,
  *      i.e. not overlapping and at a lower position or chromosome.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
@@ -587,8 +794,22 @@ bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Explain VCF input sort error and exit.
+ *
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Files:
+ *
+ *  Environment:
+ *
+ *  See also:
  *
  *  History: 
  *  Date        Name        Modification
