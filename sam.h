@@ -64,6 +64,6 @@ typedef struct
 int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment, sam_field_mask_t field_mask);
 void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src);
 void    sam_alignment_free(sam_alignment_t *sam_alignment);
-void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len);
+void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
 
 #endif // _sam_h_

@@ -203,7 +203,7 @@ void    sam_buff_free_alignment(sam_buff_t *sam_buff, size_t c)
 
 {
     sam_alignment_free(sam_buff->alignments[c]);
-    sam_alignment_init(sam_buff->alignments[c], 0);
+    sam_alignment_init(sam_buff->alignments[c], 0, SAM_FIELD_ALL);
     if ( sam_buff->alignments[c] != NULL )
     {
 	free(sam_buff->alignments[c]);

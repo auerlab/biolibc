@@ -348,18 +348,20 @@ int     sam_alignment_read(FILE *sam_stream, sam_alignment_t *sam_alignment,
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Copy a SAM alignment as efficiently as possible
+ *      Copy a SAM alignment as efficiently as possible, allocating memory
+ *      as needed.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      dest:   Pointer to sam_alignment_t structure to receive copy
+ *      src:    Pointer to sam_alignment_t structure to be copied
  *
  *  See also:
+ *      sam_alignment_read(3), sam_alignment_init(3), sam_alignment_free(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -400,18 +402,19 @@ void    sam_alignment_copy(sam_alignment_t *dest, sam_alignment_t *src)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Free memory allocated by sam_alignment_read()
+ *      Free memory allocated by sam_alignment_read() or
+ *      sam_alignment_init().
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      sam_alignment:  Pointer to sam_alignment_t structure to be freed.
  *
  *  See also:
+ *      sam_alignment_read(3), sam_alignment_init(3), sam_alignment_copy(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -430,28 +433,36 @@ void    sam_alignment_free(sam_alignment_t *sam_alignment)
 
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc
+ *
  *  Description:
- *      Initialize a sam_alignment_t structure
+ *      Initialize a sam_alignment_t structure, allocating memory for
+ *      sequence and quality strings according to seq_len.  Passing a
+ *      seq_len of 0 prevents memory allocation from occurring.
+ *
+ *      Only SAM_FIELD_SEQ and SAM_FIELD_QUAL are meaningful bits in
+ *      field_mask, as they determine whether memory is allocated.  All
+ *      other fields are unconditionally initialized to 0, NULL, or blank.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      sam_alignment:  Pointer to sam_alignment_t structure to initialize
+ *      seq_len:        Length of sequence and quality strings
+ *      field_mask:     Bit mask indicating which fields will be used
  *
  *  See also:
+ *      sam_alignment_read(3), sam_alignment_free(3), sam_alignment_copy(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len)
+void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len,
+			   sam_field_mask_t field_mask)
 
 {
-    
     *sam_alignment->qname = '\0';
     sam_alignment->flag = 0;
     *sam_alignment->rname = '\0';
@@ -468,15 +479,20 @@ void    sam_alignment_init(sam_alignment_t *sam_alignment, size_t seq_len)
     }
     else
     {
-	if ( (sam_alignment->seq = malloc(seq_len + 1)) == NULL )
+	if ( seq_len != 0 )
 	{
-	    fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
-	    exit(EX_UNAVAILABLE);
-	}
-	if ( (sam_alignment->qual = malloc(seq_len + 1)) == NULL )
-	{
-	    fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
-	    exit(EX_UNAVAILABLE);
+	    if ( (field_mask & SAM_FIELD_SEQ) && 
+		 ((sam_alignment->seq = malloc(seq_len + 1)) == NULL) )
+	    {
+		fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
+		exit(EX_UNAVAILABLE);
+	    }
+	    if ( (field_mask & SAM_FIELD_QUAL) &&
+		 ((sam_alignment->qual = malloc(seq_len + 1)) == NULL) )
+	    {
+		fprintf(stderr, "sam_alignment_init(): malloc() failed.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
     }
     sam_alignment->seq_len = seq_len;
