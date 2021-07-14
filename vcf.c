@@ -149,20 +149,38 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *      -lbiolibc
  *
  *  Description:
- *      Read static fields from one line of a single-entry VCF file.
- *      Does not read sample data.
+ *      Read static fields (columns 1 to 9) from one line of a VCF file.
+ *      This function does not read any of the sample data in columns 10
+ *      and on.  Samples can be read using a loop with tsv_read_field(3).
+ *
+ *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are discarded rather than stored in bed_feature.
+ *      Possible mask values are:
+ *
+ *      VCF_FIELD_ALL
+ *      VCF_FIELD_CHROM
+ *      VCF_FIELD_POS
+ *      VCF_FIELD_ID
+ *      VCF_FIELD_REF
+ *      VCF_FIELD_ALT
+ *      VCF_FIELD_QUAL
+ *      VCF_FIELD_FILTER
+ *      VCF_FIELD_INFO
+ *      VCF_FIELD_FORMAT
  *
  *  Arguments:
+ *      vcf_stream: FILE stream for VCF input
+ *      vcf_call:   Pointer to vcf_call_t structure to receive fields
+ *      field_mask: Bit mask indicating which fields should be stored
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      BIO_READ_OK upon success
+ *      BIO_READ_TRUNCATED if EOF is encountered while reading a call
+ *      BIO_READ_EOF if EOF is encountered between calls as it should be
  *
  *  See also:
+ *      vcf_write_static_fields(3), vcf_read_ss_call(3), 
+ *      vcf_write_ss_call(3)
  *
  *  History: 
  *  Date        Name        Modification
