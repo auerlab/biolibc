@@ -103,17 +103,17 @@ typedef struct
 
 typedef unsigned int        vcf_field_mask_t;
 
-#define VCF_FIELD_ALL       0x0
-#define VCF_FIELD_CHROM     0x1
-#define VCF_FIELD_POS       0x2
-#define VCF_FIELD_ID        0x4
-#define VCF_FIELD_REF       0x8
-#define VCF_FIELD_ALT       0x10
-#define VCF_FIELD_QUAL      0x20
-#define VCF_FIELD_FILTER    0x40
-#define VCF_FIELD_INFO      0x80
+#define VCF_FIELD_ALL       0xfff
+#define VCF_FIELD_CHROM     0x001
+#define VCF_FIELD_POS       0x002
+#define VCF_FIELD_ID        0x004
+#define VCF_FIELD_REF       0x008
+#define VCF_FIELD_ALT       0x010
+#define VCF_FIELD_QUAL      0x020
+#define VCF_FIELD_FILTER    0x040
+#define VCF_FIELD_INFO      0x080
 #define VCF_FIELD_FORMAT    0x100
-#define VCF_FIELD_ERROR     0xffffffff
+#define VCF_FIELD_ERROR     0x000
 
 // Future expansion: Copy all or part of header
 typedef unsigned int        vcf_header_t;
@@ -122,11 +122,11 @@ typedef unsigned int        vcf_header_t;
 #define VCF_HEADER_FORMAT   0x1
 #define VCF_HEADER_ALL      0x1
 
-/* vcfio.c */
+/* vcf.c */
 FILE *vcf_skip_header(FILE *vcf_stream);
 void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
-int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call);
-int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call);
+int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
+int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);

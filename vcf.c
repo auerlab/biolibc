@@ -13,17 +13,21 @@
  *      -lbiolibc
  *
  *  Description:
- *      Skip over header lines in VCF input stream.
+ *      Skip over header lines in VCF input stream, leaving the FILE
+ *      structure pointing to the first character in the first line of data
+ *      or the first character of the header line starting with #CHROM if
+ *      one is present.  The header line is typically read using
+ *      vcf_get_sample_ids(3). The skipped header is copied to a temporary
+ *      file whose FILE pointer is returned.
  *
  *  Arguments:
+ *      vcf_stream: FILE pointer of VCF stream to be read
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      A FILE pointer to the temporary file with a copy of the header
  *
  *  See also:
+ *      vcf_get_sample_ids(3), vcf_read_static_fields(3), vcf_read_ss_call(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -61,6 +65,7 @@ FILE    *vcf_skip_header(FILE *vcf_stream)
 	fprintf(stderr, "vcf_skip_header(): No #CHROM header found.\n");
 	exit(EX_DATAERR);
     }
+    rewind(header_stream);
     return header_stream;
 }
 
@@ -71,17 +76,28 @@ FILE    *vcf_skip_header(FILE *vcf_stream)
  *      -lbiolibc
  *
  *  Description:
- *      Extract sample IDs from input header line.
+ *      Extract sample IDs from a VCF input header line.  This is typically
+ *      done following vcf_skip_header(3), which will leave the FILE
+ *      pointer pointing to the beginning of the header line, if one is
+ *      present.
+ *
+ *      The arguments first_col and last_col represent the first and
+ *      last sample columns, both inclusive, from which sample IDs should
+ *      be extracted.  A value of 1 represents the first sample column.
+ *      This feature allows a VCF file with many columns to be processed
+ *      in multiple stages.  For example, the vcf-split tool, based on
+ *      biolibc, cannot efficiently process more than abou1 10,000 samples
+ *      at once, since each sample requires an open output file.  A VCF
+ *      with 150,000 samples can be processed in 15 separate passes.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
+ *      vcf_stream: FILE pointer to the VCF input stream
+ *      sample_ids: Array if character pointers to receive sample IDs
+ *      first_col:  First column from which a sample ID should be saved
+ *      last_col:   Last column from which a sample ID should be saved
  *
  *  See also:
+ *      vcf_skip_header(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -144,6 +160,8 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -151,7 +169,8 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *  2019-12-08  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
+			       vcf_field_mask_t field_mask)
 
 {
     char    *end;
@@ -263,6 +282,8 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -270,13 +291,14 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
+int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
+			 vcf_field_mask_t field_mask)
 
 {
     size_t  len;
     int     status;
     
-    status = vcf_read_static_fields(vcf_stream, vcf_call);
+    status = vcf_read_static_fields(vcf_stream, vcf_call, field_mask);
     if ( status == BIO_READ_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
@@ -309,6 +331,8 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -375,6 +399,8 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -406,6 +432,8 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -449,6 +477,8 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -506,6 +536,8 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -535,6 +567,8 @@ void    vcf_phred_blank(vcf_call_t *vcf_call)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -572,6 +606,8 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -602,6 +638,8 @@ void    vcf_call_free(vcf_call_t *vcf_call)
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -672,6 +710,8 @@ void    vcf_call_init(vcf_call_t *vcf_call,
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -731,6 +771,8 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
  *
  *  Environment:
  *
+ *  Examples:
+ *
  *  See also:
  *
  *  History: 
@@ -768,6 +810,8 @@ bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignme
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
@@ -808,6 +852,8 @@ bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *
  *  Files:
  *
  *  Environment:
+ *
+ *  Examples:
  *
  *  See also:
  *
