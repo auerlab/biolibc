@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
+int     gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 gff_field_mask_t field_mask)
 .ad
 .fi
@@ -25,7 +25,7 @@ gff_field_mask_t field_mask)
 .nf
 .na
 gff_stream:     FILE stream to which TSV gff line is written
-gff_feature:    Pointer to the gff_feature_t structure to output
+gff_feature:    Pointer to the bl_gff_t structure to output
 field_mask:     Bit mask indicating which fields to output
 .ad
 .fi

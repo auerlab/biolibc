@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start_pos)
+int     bed_set_thick_start_pos(bl_bed_t *bed_feature, uint64_t thick_start_pos)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:     Pointer to a bed_feature_t structure to alter
+bed_feature:     Pointer to a bl_bed_t structure to alter
 thick_start_pos: 0-based, inclusive thick start position
 .ad
 .fi
@@ -31,7 +31,7 @@ thick_start_pos: 0-based, inclusive thick start position
 .SH DESCRIPTION
 
 Mutator function for thick start position.  Use this function to set
-the thick start position of a bed_feature_t structure from
+the thick start position of a bl_bed_t structure from
 non-member functions.
 
 .SH EXAMPLES

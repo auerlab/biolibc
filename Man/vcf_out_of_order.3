@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-void    vcf_out_of_order(vcf_call_t *vcf_call,
+void    vcf_out_of_order(bl_vcf_t *vcf_call,
 char *previous_chromosome, size_t previous_pos)
 .ad
 .fi
@@ -24,7 +24,7 @@ char *previous_chromosome, size_t previous_pos)
 .SH ARGUMENTS
 .nf
 .na
-vcf_call:   Pointer to vcf_call_t structure with latest call
+vcf_call:   Pointer to bl_vcf_t structure with latest call
 previous_chromosome:    Chromosome of previous VCF call
 previous_pos:           Position of previous VCF call
 .ad

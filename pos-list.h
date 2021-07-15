@@ -24,11 +24,11 @@ typedef struct
     size_t      array_size;
     size_t      count;
     uint64_t    *positions;
-}   pos_list_t;
+}   bl_pos_list_t;
 
 /* pos-list.c */
-void pos_list_allocate(pos_list_t *pos_list, size_t max_positions);
-void pos_list_free(pos_list_t *pos_list);
-int pos_list_add_position(pos_list_t *pos_list, uint64_t position);
-int pos_list_from_csv(pos_list_t *pos_list, const char *bounds_str, size_t max_positions);
-void pos_list_sort(pos_list_t *pos_list, pos_list_sort_order_t order);
+void pos_list_allocate(bl_pos_list_t *pos_list, size_t max_positions);
+void pos_list_free(bl_pos_list_t *pos_list);
+int pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position);
+int pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str, size_t max_positions);
+void pos_list_sort(bl_pos_list_t *pos_list, pos_list_sort_order_t order);

@@ -4,6 +4,7 @@
 #include <sysexits.h>
 #include <xtend.h>      // strlcpy() on Linux
 #include "sam.h"
+#include "biolibc.h"
 
 /***************************************************************************
  *  Library:
@@ -33,13 +34,13 @@
  *
  *  Arguments:
  *      sam_stream:     A FILE stream from which to read the line
- *      sam_alignment:  Pointer to a sam_alignment_t structure
+ *      sam_alignment:  Pointer to a bl_sam_t structure
  *      field_mask:     Bit mask indicating which fields to store in sam_alignment
  *
  *  Returns:
- *      BIO_READ_OK on successful read
- *      BIO_READ_EOF if EOF is encountered after a complete feature
- *      BIO_READ_TRUNCATED if EOF or bad data is encountered elsewhere
+ *      BL_READ_OK on successful read
+ *      BL_READ_EOF if EOF is encountered after a complete feature
+ *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
  *      sam_read_alignment(stdin, &sam_alignment, SAM_FIELD_ALL);
@@ -54,13 +55,13 @@
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
+int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 			   sam_field_mask_t field_mask)
 
 {
     char    mapq_str[SAM_MAPQ_MAX_CHARS + 1],
 	    temp_seq_or_qual[SAM_SEQ_MAX_CHARS + 1],
-	    pos_str[BIO_POSITION_MAX_DIGITS + 1],
+	    pos_str[BL_POSITION_MAX_DIGITS + 1],
 	    flag_str[SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
     size_t  len;
@@ -76,7 +77,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
 	*sam_alignment->qname = '\0';
     }
     if ( delim == EOF )
-	return BIO_READ_EOF;
+	return BL_READ_EOF;
 
     // 2 Flag
     if ( field_mask & SAM_FIELD_FLAG )
@@ -87,7 +88,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading flag: %s.\n",
 		flag_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     if ( field_mask & SAM_FIELD_FLAG )
     {
@@ -118,12 +119,12 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading rname: %s.\n",
 		sam_alignment->rname);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // 4 POS
     if ( field_mask & SAM_FIELD_POS )
-	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
 	delim = tsv_skip_field(sam_stream);
@@ -131,7 +132,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading pos: %s.\n",
 		pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     if ( field_mask & SAM_FIELD_POS )
     {
@@ -160,7 +161,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading mapq: %s.\n",
 		mapq_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & SAM_FIELD_MAPQ )
@@ -192,7 +193,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading cigar: %s.\n",
 		sam_alignment->cigar);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // 7 RNEXT
@@ -208,12 +209,12 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading rnext: %s.\n",
 		sam_alignment->rnext);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // 8 PNEXT
     if ( field_mask & SAM_FIELD_PNEXT )
-	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
 	delim = tsv_skip_field(sam_stream);
@@ -221,7 +222,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading pnext: %s.\n",
 		pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     if ( field_mask & SAM_FIELD_PNEXT )
     {
@@ -241,7 +242,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     
     // 9 TLEN
     if ( field_mask & SAM_FIELD_TLEN )
-	delim = tsv_read_field(sam_stream, pos_str, BIO_POSITION_MAX_DIGITS,
+	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
 	delim = tsv_skip_field(sam_stream);
@@ -249,7 +250,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading tlen: %s.\n",
 		pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     if ( field_mask & SAM_FIELD_TLEN )
     {
@@ -280,7 +281,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading seq: %s.\n",
 		temp_seq_or_qual);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & SAM_FIELD_SEQ )
@@ -311,7 +312,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
     {
 	fprintf(stderr, "sam_read_alignment(): Got EOF reading qual: %s.\n",
 		temp_seq_or_qual);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & SAM_FIELD_QUAL )
@@ -345,7 +346,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
 	    SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
 	    SAM_SEQ_LEN(sam_alignment));*/
     
-    return BIO_READ_OK;
+    return BL_READ_OK;
 }
 
 
@@ -359,8 +360,8 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
  *      as needed.
  *
  *  Arguments:
- *      dest:   Pointer to sam_alignment_t structure to receive copy
- *      src:    Pointer to sam_alignment_t structure to be copied
+ *      dest:   Pointer to bl_sam_t structure to receive copy
+ *      src:    Pointer to bl_sam_t structure to be copied
  *
  *  See also:
  *      sam_read_alignment(3), sam_init_alignment(3), sam_free_alignment(3)
@@ -370,7 +371,7 @@ int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_copy_alignment(sam_alignment_t *dest, sam_alignment_t *src)
+void    sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
 
 {
     strlcpy(dest->qname, src->qname, SAM_QNAME_MAX_CHARS + 1);
@@ -415,7 +416,7 @@ void    sam_copy_alignment(sam_alignment_t *dest, sam_alignment_t *src)
  *      sam_init_alignment().
  *
  *  Arguments:
- *      sam_alignment:  Pointer to sam_alignment_t structure to be freed.
+ *      sam_alignment:  Pointer to bl_sam_t structure to be freed.
  *
  *  See also:
  *      sam_read_alignment(3), sam_init_alignment(3), sam_copy_alignment(3)
@@ -425,7 +426,7 @@ void    sam_copy_alignment(sam_alignment_t *dest, sam_alignment_t *src)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_free_alignment(sam_alignment_t *sam_alignment)
+void    sam_free_alignment(bl_sam_t *sam_alignment)
 
 {
     if ( sam_alignment->seq != NULL )
@@ -442,7 +443,7 @@ void    sam_free_alignment(sam_alignment_t *sam_alignment)
  *      -lbiolibc
  *
  *  Description:
- *      Initialize a sam_alignment_t structure, allocating memory for
+ *      Initialize a bl_sam_t structure, allocating memory for
  *      sequence and quality strings according to seq_len.  Passing a
  *      seq_len of 0 prevents memory allocation from occurring.
  *
@@ -451,7 +452,7 @@ void    sam_free_alignment(sam_alignment_t *sam_alignment)
  *      other fields are unconditionally initialized to 0, NULL, or blank.
  *
  *  Arguments:
- *      sam_alignment:  Pointer to sam_alignment_t structure to initialize
+ *      sam_alignment:  Pointer to bl_sam_t structure to initialize
  *      seq_len:        Length of sequence and quality strings
  *      field_mask:     Bit mask indicating which fields will be used
  *
@@ -463,7 +464,7 @@ void    sam_free_alignment(sam_alignment_t *sam_alignment)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_init_alignment(sam_alignment_t *sam_alignment, size_t seq_len,
+void    sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
 			   sam_field_mask_t field_mask)
 
 {

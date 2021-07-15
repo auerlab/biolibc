@@ -169,17 +169,17 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *
  *  Arguments:
  *      vcf_stream: FILE stream for VCF input
- *      vcf_call:   Pointer to vcf_call_t structure to receive fields
+ *      vcf_call:   Pointer to bl_vcf_t structure to receive fields
  *      field_mask: Bit mask indicating which fields should be stored
  *
  *  Returns:
- *      BIO_READ_OK upon success
- *      BIO_READ_TRUNCATED if EOF is encountered while reading a call
- *      BIO_READ_EOF if EOF is encountered between calls as it should be
+ *      BL_READ_OK upon success
+ *      BL_READ_TRUNCATED if EOF is encountered while reading a call
+ *      BL_READ_EOF if EOF is encountered between calls as it should be
  *
  *  Examples:
  *      FILE        *stream;
- *      vcf_call_t  vcf_call;
+ *      bl_vcf_t  vcf_call;
  *      char        sample_data[MAX_CHARS + 1];
  *      size_t      len;
  *
@@ -197,7 +197,7 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *  2019-12-08  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
+int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 			       vcf_field_mask_t field_mask)
 
 {
@@ -208,19 +208,19 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
     
     // Chromosome
     if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
-			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
+			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	// fputs("vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
-	return BIO_READ_EOF;
+	return BL_READ_EOF;
     }
     
     // Call position
     if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
-			BIO_POSITION_MAX_DIGITS, &len) == EOF )
+			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		vcf_call->pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
     {
@@ -230,7 +230,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 	    fprintf(stderr,
 		    "vcf_read_static_fields(): Invalid call position: %s\n",
 		    vcf_call->pos_str);
-	    return BIO_READ_TRUNCATED;
+	    return BL_READ_TRUNCATED;
 	}
     }
     
@@ -239,7 +239,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 			VCF_ID_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // Ref
@@ -247,7 +247,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 			VCF_REF_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // Alt
@@ -255,7 +255,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 		   VCF_ALT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
     // Qual
@@ -263,7 +263,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // Filter
@@ -271,7 +271,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 		   VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // Info
@@ -279,7 +279,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 		   vcf_call->info_max, &vcf_call->info_len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading INFO.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // Format
@@ -287,10 +287,10 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
 		   vcf_call->format_max, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FORMAT.\n");
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
-    return BIO_READ_OK;
+    return BL_READ_OK;
 }
 
 
@@ -322,13 +322,13 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to VCF input stream
- *      vcf_call:   vcf_call_t structure to receive VCF data
+ *      vcf_call:   bl_vcf_t structure to receive VCF data
  *      field_mask: Bit mask to indicate which fields to store
  *
  *  Returns:
- *      BIO_READ_OK upon success
- *      BIO_READ_TRUNCATED if EOF is encountered while reading a call
- *      BIO_READ_EOF if EOF is encountered between calls as it should be
+ *      BL_READ_OK upon success
+ *      BL_READ_TRUNCATED if EOF is encountered while reading a call
+ *      BL_READ_EOF if EOF is encountered between calls as it should be
  *
  *  See also:
  *      vcf_read_static_fields(3), tsv_read_field(3)
@@ -338,7 +338,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
+int     vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
 			 vcf_field_mask_t field_mask)
 
 {
@@ -346,15 +346,15 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
     int     status;
     
     status = vcf_read_static_fields(vcf_stream, vcf_call, field_mask);
-    if ( status == BIO_READ_OK )
+    if ( status == BL_READ_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
 			vcf_call->sample_max, &len) != EOF )
-	    return BIO_READ_OK;
+	    return BL_READ_OK;
 	else
 	{
 	    fprintf(stderr, "vcf_read_ss_call(): Got EOF reading sample.\n");
-	    return BIO_READ_TRUNCATED;
+	    return BL_READ_TRUNCATED;
 	}
     }
     else
@@ -388,7 +388,7 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to the VCF output stream
- *      vcf_call:   Pointer to the vcf_call_t structure to output
+ *      vcf_call:   Pointer to the bl_vcf_t structure to output
  *      field_mask: Bit mask indicating which fields to output
  *
  *  Returns:
@@ -402,7 +402,7 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
+int     vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 				vcf_field_mask_t field_mask)
 
 {
@@ -472,7 +472,7 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to the VCF output stream
- *      vcf_call:   Pointer to the vcf_call_t structure to output
+ *      vcf_call:   Pointer to the bl_vcf_t structure to output
  *      field_mask: Bit mask indicating which fields to output
  *
  *  Returns:
@@ -486,7 +486,7 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
+int     vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
 			  vcf_field_mask_t field_mask)
 
 {
@@ -504,7 +504,7 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *      Allocate an array for multiple samples in a VCF call.
  *
  *  Arguments:
- *      vcf_call:   Pointer to a vcf_call_t structure with multiple samples
+ *      vcf_call:   Pointer to a bl_vcf_t structure with multiple samples
  *      samples:    The number of samples that must be accommodated
  *
  *  Returns:
@@ -518,7 +518,7 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
+char    **vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples)
 
 {
     size_t  c;
@@ -546,7 +546,7 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
  ***************************************************************************/
 
 #if 0
-int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
+int     vcf_phred_add(bl_vcf_t *vcf_call, unsigned char score)
 
 {
     if ( vcf_call->phreds == NULL )
@@ -575,7 +575,7 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 	    exit(EX_UNAVAILABLE);
 	}
     }
-    return BIO_READ_OK;
+    return BL_READ_OK;
 }
 
 
@@ -585,7 +585,7 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_phred_blank(vcf_call_t *vcf_call)
+void    vcf_phred_blank(bl_vcf_t *vcf_call)
 
 {
     memcpy(vcf_call->phreds, "z", 2);
@@ -599,7 +599,7 @@ void    vcf_phred_blank(vcf_call_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_phred_free(vcf_call_t *vcf_call)
+void    vcf_phred_free(bl_vcf_t *vcf_call)
 
 {
     if ( vcf_call->phreds != NULL )
@@ -622,7 +622,7 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
  *      Free all memory associated with a VCF call.
  *
  *  Arguments:
- *      vcf_call:   Pointer to the vcf_call_t structure to free.
+ *      vcf_call:   Pointer to the bl_vcf_t structure to free.
  *
  *  See also:
  *      vcf_call_init(3), vcf_sample_alloc(3)
@@ -632,7 +632,7 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_call_free(vcf_call_t *vcf_call)
+void    vcf_call_free(bl_vcf_t *vcf_call)
 
 {
     free(vcf_call->info);
@@ -647,11 +647,11 @@ void    vcf_call_free(vcf_call_t *vcf_call)
  *      -lbiolibc
  *
  *  Description:
- *      Iniitialize a vcf_call_t structure, allocating default buffer
+ *      Iniitialize a bl_vcf_t structure, allocating default buffer
  *      sizes for some fields.
  *
  *  Arguments:
- *      vcf_call:   Pointer to the vcf_call_t structure to initialize
+ *      vcf_call:   Pointer to the bl_vcf_t structure to initialize
  *
  *  See also:
  *      vcf_call_free(3), vcf_read_call(3), vcf_sample_alloc(3)
@@ -661,7 +661,7 @@ void    vcf_call_free(vcf_call_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_call_init(vcf_call_t *vcf_call,
+void    vcf_call_init(bl_vcf_t *vcf_call,
 		      size_t info_max, size_t format_max, size_t sample_max)
 
 {
@@ -777,8 +777,8 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
  *      alignment.
  *
  *  Arguments:
- *      vcf_call:   Pointer to vcf_call_t structure containing VCF call
- *      sam_alignment:  Pointer to sam_alignment_t structure containing alignment
+ *      vcf_call:   Pointer to bl_vcf_t structure containing VCF call
+ *      sam_alignment:  Pointer to bl_sam_t structure containing alignment
  *
  *  Returns:
  *      true if the call is within the alignment
@@ -793,7 +793,7 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
  ***************************************************************************/
 
 
-bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignment)
+bool    vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 {
     if ( (strcmp(VCF_CHROMOSOME(vcf_call), SAM_RNAME(sam_alignment)) == 0) &&
@@ -817,8 +817,8 @@ bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignme
  *      chromosome and higher position, or on a later chromosome.
  *
  *  Arguments:
- *      vcf_call:   Pointer to vcf_call_t structure containing VCF call
- *      sam_alignment:  Pointer to sam_alignment_t structure containing alignment
+ *      vcf_call:   Pointer to bl_vcf_t structure containing VCF call
+ *      sam_alignment:  Pointer to bl_sam_t structure containing alignment
  *
  *  Returns:
  *      true if the call is downstream of the alignment
@@ -832,8 +832,8 @@ bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignme
  *  2020-05-26  Jason Bacon Begin
  ***************************************************************************/
 
-bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call,
-					 sam_alignment_t *alignment)
+bool    vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
+					 bl_sam_t *alignment)
 
 {
     /*fprintf(stderr, "vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
@@ -859,7 +859,7 @@ bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call,
  *      Report VCF input sort error and terminate the process.
  *
  *  Arguments:
- *      vcf_call:   Pointer to vcf_call_t structure with latest call
+ *      vcf_call:   Pointer to bl_vcf_t structure with latest call
  *      previous_chromosome:    Chromosome of previous VCF call
  *      previous_pos:           Position of previous VCF call
  *
@@ -874,7 +874,7 @@ bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_out_of_order(vcf_call_t *vcf_call,
+void    vcf_out_of_order(bl_vcf_t *vcf_call,
 			 char *previous_chromosome, size_t previous_pos)
 
 {

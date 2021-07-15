@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_score(bed_feature_t *feature, unsigned score)
+int     bed_set_score(bl_bed_t *feature, unsigned score)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 score:          New score between 0 and 1000 inclusive
 .ad
 .fi
@@ -31,7 +31,7 @@ score:          New score between 0 and 1000 inclusive
 .SH DESCRIPTION
 
 Mutator function for score.  Use this function to set the
-score of a bed_feature_t structure from functions that are
+score of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

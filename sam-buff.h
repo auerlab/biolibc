@@ -39,7 +39,7 @@
 typedef struct
 {
     size_t          buff_size;;
-    sam_alignment_t **alignments;
+    bl_sam_t **alignments;
     size_t          buffered_count;
     size_t          max_count;
     size_t          previous_pos;
@@ -59,7 +59,7 @@ typedef struct
 		    min_discarded_score,
 		    max_discarded_score,
 		    unmapped_alignments;
-}   sam_buff_t;
+}   bl_sam_buff_t;
 
 // FIXME: Make sure all fields have accessors and mutators
 #define SAM_BUFF_MAPQ_MIN(b)    ((b)->mapq_min)
@@ -84,12 +84,12 @@ typedef struct
 #define SAM_BUFF_INC_DISCARDED_TRAILING(b)  (++(b)->discarded_trailing)
 
 /* sam-buff.c */
-void sam_buff_check_order(sam_buff_t *sam_buff, sam_alignment_t *sam_alignment);
-void sam_buff_init(sam_buff_t *sam_buff, unsigned int mapq_min);
-void sam_buff_add_alignment(sam_buff_t *sam_buff, sam_alignment_t *sam_alignment);
-void sam_buff_out_of_order(sam_buff_t *sam_buff, sam_alignment_t *sam_alignment);
-void sam_buff_free_alignment(sam_buff_t *sam_buff, size_t c);
-void sam_buff_shift(sam_buff_t *sam_buff, size_t c);
-_Bool sam_buff_alignment_ok(sam_buff_t *sam_buff, sam_alignment_t *sam_alignment);
+void sam_buff_check_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min);
+void sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c);
+void sam_buff_shift(bl_sam_buff_t *sam_buff, size_t c);
+_Bool sam_buff_alignment_ok(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 
 #endif  // _sam_buff_h_

@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-void    vcf_call_init(vcf_call_t *vcf_call,
+void    vcf_call_init(bl_vcf_t *vcf_call,
 size_t info_max, size_t format_max, size_t sample_max)
 .ad
 .fi
@@ -24,13 +24,13 @@ size_t info_max, size_t format_max, size_t sample_max)
 .SH ARGUMENTS
 .nf
 .na
-vcf_call:   Pointer to the vcf_call_t structure to initialize
+vcf_call:   Pointer to the bl_vcf_t structure to initialize
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Iniitialize a vcf_call_t structure, allocating default buffer
+Iniitialize a bl_vcf_t structure, allocating default buffer
 sizes for some fields.
 
 .SH SEE ALSO

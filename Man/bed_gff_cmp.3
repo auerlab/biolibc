@@ -16,17 +16,17 @@
 .PP
 .nf 
 .na
-int     bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature,
-bio_overlap_t *overlap)
+int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
+bl_overlap_t *overlap)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to the bed_feature_t structure to compare
-gff_feature:    Pointer to the gff_feature_t structure to compare
-overlap:        Pointer to the bio_overlap_t structure to receive
+bed_feature:    Pointer to the bl_bed_t structure to compare
+gff_feature:    Pointer to the bl_gff_t structure to compare
+overlap:        Pointer to the bl_overlap_t structure to receive
 comparison results
 .ad
 .fi
@@ -38,7 +38,7 @@ Return 0 if the features overlap, < 0 if the BED feature is upstream
 of the GFF feature, > 0 if the BED feature is downstream of the GFF
 feature.
 
-If the features overlap, populate the bio_overlap_t structure
+If the features overlap, populate the bl_overlap_t structure
 pointed to by overlap.  The structure contains the lengths of the
 two features, the start and end positions of the overlapping region,
 and the length of the overlap.  Positions in overlap are 1-based and

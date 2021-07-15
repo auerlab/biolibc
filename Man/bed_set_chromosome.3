@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome)
+int     bed_set_chromosome(bl_bed_t *bed_feature, char *chromosome)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 chromosome:     Character array containing the chromosome name
 .ad
 .fi
@@ -31,7 +31,7 @@ chromosome:     Character array containing the chromosome name
 .SH DESCRIPTION
 
 Mutator function for chromosome.  Use this function to set the
-chromosome of a bed_feature_t structure from functions that are
+chromosome of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

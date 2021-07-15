@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos)
+int     bed_set_end_pos(bl_bed_t *bed_feature, uint64_t end_pos)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 end_pos:        0-based, non-inclusive end position
 .ad
 .fi
@@ -31,7 +31,7 @@ end_pos:        0-based, non-inclusive end position
 .SH DESCRIPTION
 
 Mutator function for end position.  Use this function to set the
-end position of a bed_feature_t structure from functions that are
+end position of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

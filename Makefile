@@ -71,7 +71,7 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = bio-overlap.o vcf.o sam.o bed.o dsv.o gff.o \
+OBJS    = overlap.o vcf.o sam.o bed.o dsv.o gff.o \
 	  chromosome-name-cmp.o pos-list.o sam-buff.o
 
 ############################################################################

@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_name(bed_feature_t *bed_feature, char *name)
+int     bed_set_name(bl_bed_t *bed_feature, char *name)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 name:           New name for the feature
 .ad
 .fi
@@ -31,7 +31,7 @@ name:           New name for the feature
 .SH DESCRIPTION
 
 Mutator function for feature name.  Use this function to set the
-feature name of a bed_feature_t structure from functions that are
+feature name of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

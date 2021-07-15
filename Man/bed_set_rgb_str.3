@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_rgb_str(bed_feature_t *bed_feature, char *rgb_str)
+int     bed_set_rgb_str(bl_bed_t *bed_feature, char *rgb_str)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 rgb_str:        New rgb_str for the feature
 .ad
 .fi
@@ -31,7 +31,7 @@ rgb_str:        New rgb_str for the feature
 .SH DESCRIPTION
 
 Mutator function for feature rgb_str.  Use this function to set the
-feature rgb_str of a bed_feature_t structure from functions that are
+feature rgb_str of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

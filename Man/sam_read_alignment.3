@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment,
+int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 sam_field_mask_t field_mask)
 .ad
 .fi
@@ -25,7 +25,7 @@ sam_field_mask_t field_mask)
 .nf
 .na
 sam_stream:     A FILE stream from which to read the line
-sam_alignment:  Pointer to a sam_alignment_t structure
+sam_alignment:  Pointer to a bl_sam_t structure
 field_mask:     Bit mask indicating which fields to store in sam_alignment
 .ad
 .fi

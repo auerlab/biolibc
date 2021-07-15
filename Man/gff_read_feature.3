@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
+int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 gff_field_mask_t field_mask)
 .ad
 .fi
@@ -26,7 +26,7 @@ gff_field_mask_t field_mask)
 .na
 gff_stream: FILE pointer to the open GFF file
 gff_stream:     A FILE stream from which to read the line
-gff_feature:    Pointer to a gff_feature_t structure
+gff_feature:    Pointer to a bl_gff_t structure
 field_mask:     Bit mask indicating which fields to store in gff_feature
 .ad
 .fi

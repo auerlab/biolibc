@@ -58,12 +58,12 @@ typedef struct
     /* Additional data */
     size_t  seq_len;        // Qual len should be the same
     size_t  qual_len;
-}   sam_alignment_t;
+}   bl_sam_t;
 
 /* sam.c */
-int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment, sam_field_mask_t field_mask);
-void    sam_copy_alignment(sam_alignment_t *dest, sam_alignment_t *src);
-void    sam_free_alignment(sam_alignment_t *sam_alignment);
-void    sam_init_alignment(sam_alignment_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
+int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
+void    sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src);
+void    sam_free_alignment(bl_sam_t *sam_alignment);
+void    sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
 
 #endif // _sam_h_

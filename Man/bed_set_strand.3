@@ -16,14 +16,14 @@
 .PP
 .nf 
 .na
-int     bed_set_strand(bed_feature_t *feature, int strand)
+int     bed_set_strand(bl_bed_t *feature, int strand)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to a bed_feature_t structure to alter
+bed_feature:    Pointer to a bl_bed_t structure to alter
 strand:         New strand (+ or -)
 .ad
 .fi
@@ -31,7 +31,7 @@ strand:         New strand (+ or -)
 .SH DESCRIPTION
 
 Mutator function for strand.  Use this function to set the
-strand of a bed_feature_t structure from functions that are
+strand of a bl_bed_t structure from functions that are
 not members of the class.
 
 .SH EXAMPLES

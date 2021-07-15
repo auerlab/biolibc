@@ -51,11 +51,11 @@ typedef unsigned int        gff_field_mask_t;
 
 typedef struct
 {
-    char            sequence[BIO_CHROMOSOME_MAX_CHARS + 1];
+    char            sequence[BL_CHROMOSOME_MAX_CHARS + 1];
     char            source[GFF_SOURCE_MAX_CHARS + 1];
     char            name[GFF_NAME_MAX_CHARS + 1];
-    char            start_pos_str[BIO_POSITION_MAX_DIGITS + 1],  // 0-based
-		    end_pos_str[BIO_POSITION_MAX_DIGITS + 1];   
+    char            start_pos_str[BL_POSITION_MAX_DIGITS + 1],  // 0-based
+		    end_pos_str[BL_POSITION_MAX_DIGITS + 1];   
     uint64_t        start_pos,
 		    end_pos;
     char            score_str[GFF_SCORE_MAX_DIGITS + 1];
@@ -71,16 +71,16 @@ typedef struct
     char            *feature_id;    // In every feature of Ensemble GFFs
     char            *gane_name;     // Extract from gene features and look
 				    // up using Ensemble ID for others
-}   gff_feature_t;
+}   bl_gff_t;
 
-// After gff_feature_t for prototypes
+// After bl_gff_t for prototypes
 #ifndef _bed_h_
 #include "bed.h"
 #endif
 
 FILE *gff_skip_header(FILE *gff_stream);
-int gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
-int gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature, gff_field_mask_t field_mask);
-void gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature);
+int gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
+int gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
+void gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature);
 
 #endif  // _gff_h_

@@ -26,7 +26,7 @@
 /*
  *  vcfio is meant to provide a very simple and fast method for processing
  *  VCF streams one call at a time.  As such, there should generally be only
- *  one or a few vcf_call_t structures substantiated at a given moment, and
+ *  one or a few bl_vcf_t structures substantiated at a given moment, and
  *  we can afford to be generous with the max sizes.
  *  If you're writing programs that inhale many VCF calls into memory, vcfio
  *  is not for you.
@@ -75,8 +75,8 @@
 			}
 typedef struct
 {
-    char    chromosome[BIO_CHROMOSOME_MAX_CHARS + 1],
-	    pos_str[BIO_POSITION_MAX_DIGITS + 1],
+    char    chromosome[BL_CHROMOSOME_MAX_CHARS + 1],
+	    pos_str[BL_POSITION_MAX_DIGITS + 1],
 	    id[VCF_ID_MAX_CHARS + 1],
 	    ref[VCF_REF_MAX_CHARS + 1],
 	    alt[VCF_ALT_MAX_CHARS + 1],
@@ -99,7 +99,7 @@ typedef struct
     unsigned char   *phreds;
     size_t  phred_count;
     size_t  phred_buff_size;
-}   vcf_call_t;
+}   bl_vcf_t;
 
 typedef unsigned int        vcf_field_mask_t;
 
@@ -125,18 +125,18 @@ typedef unsigned int        vcf_header_t;
 /* vcf.c */
 FILE *vcf_skip_header(FILE *vcf_stream);
 void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
-int vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
-char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
-void vcf_call_free(vcf_call_t *vcf_call);
-void vcf_call_init(vcf_call_t *vcf_call,
+int vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+char **vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples);
+void vcf_call_free(bl_vcf_t *vcf_call);
+void vcf_call_init(bl_vcf_t *vcf_call,
 		   size_t info_max, size_t format_max, size_t sample_max);
 vcf_field_mask_t vcf_parse_field_spec(char *spec);
-bool vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignment);
-bool vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *alignment);
-void vcf_out_of_order(vcf_call_t *vcf_call,
+bool vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
+bool vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
+void vcf_out_of_order(bl_vcf_t *vcf_call,
 			 char *previous_chromosome, size_t previous_pos);
 
 #endif // _vcf_h_

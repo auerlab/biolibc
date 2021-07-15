@@ -45,7 +45,7 @@ typedef unsigned int        bed_field_mask_t;
 typedef struct
 {
     unsigned short  fields;     // 3 to 9
-    char            chromosome[BIO_CHROMOSOME_MAX_CHARS + 1];
+    char            chromosome[BL_CHROMOSOME_MAX_CHARS + 1];
     /*
      *      12345
      *      ACCGT
@@ -65,31 +65,31 @@ typedef struct
     unsigned short  block_count;
     uint64_t        *block_sizes;
     uint64_t        *block_starts;
-}   bed_feature_t;
+}   bl_bed_t;
 
-// After bed_feature_t for prototypes
+// After bl_bed_t for prototypes
 #ifndef _gff_h_
 #include "gff.h"
 #endif
 
-#ifndef _bio_overlap_h
-#include "bio-overlap.h"
+#ifndef _bl_overlap_h
+#include "overlap.h"
 #endif
 
 /* bed.c */
 FILE *bed_skip_header(FILE *bed_stream);
-int bed_read_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
-int bed_write_feature(FILE *bed_stream, bed_feature_t *bed_feature, bed_field_mask_t field_mask);
-void bed_check_order(bed_feature_t *bed_feature, char last_chrom[], uint64_t last_start);
-int bed_gff_cmp(bed_feature_t *bed_feature, gff_feature_t *gff_feature, bio_overlap_t *overlap);
-int bed_set_fields(bed_feature_t *bed_feature, unsigned fields);
-int bed_set_chromosome(bed_feature_t *bed_feature, char *chromosome);
-int bed_set_start_pos(bed_feature_t *bed_feature, uint64_t start_pos);
-int bed_set_end_pos(bed_feature_t *bed_feature, uint64_t end_pos);
-int bed_set_name(bed_feature_t *bed_feature, char *name);
-int bed_set_score(bed_feature_t *feature, unsigned score);
-int bed_set_strand(bed_feature_t *feature, int strand);
-int bed_set_thick_start_pos(bed_feature_t *bed_feature, uint64_t thick_start_pos);
-int bed_set_thick_end_pos(bed_feature_t *bed_feature, uint64_t thick_end_pos);
-int bed_set_rgb_str(bed_feature_t *bed_feature, char *rgb_str);
+int bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
+int bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
+void bed_check_order(bl_bed_t *bed_feature, char last_chrom[], uint64_t last_start);
+int bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
+int bed_set_fields(bl_bed_t *bed_feature, unsigned fields);
+int bed_set_chromosome(bl_bed_t *bed_feature, char *chromosome);
+int bed_set_start_pos(bl_bed_t *bed_feature, uint64_t start_pos);
+int bed_set_end_pos(bl_bed_t *bed_feature, uint64_t end_pos);
+int bed_set_name(bl_bed_t *bed_feature, char *name);
+int bed_set_score(bl_bed_t *feature, unsigned score);
+int bed_set_strand(bl_bed_t *feature, int strand);
+int bed_set_thick_start_pos(bl_bed_t *bed_feature, uint64_t thick_start_pos);
+int bed_set_thick_end_pos(bl_bed_t *bed_feature, uint64_t thick_end_pos);
+int bed_set_rgb_str(bl_bed_t *bed_feature, char *rgb_str);
 #endif  // _bed_h_

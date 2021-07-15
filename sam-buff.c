@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sys/param.h>  // MIN()
 #include <xtend.h>
+#include <inttypes.h>
 #include "sam-buff.h"
 #include "biostring.h"
 
@@ -30,8 +31,8 @@
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_check_order(sam_buff_t *sam_buff,
-			     sam_alignment_t *sam_alignment)
+void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
+			     bl_sam_t *sam_alignment)
 
 {
     /*fprintf(stderr, "Previous SAM: %s %zu, Current SAM: %s %zu\n",
@@ -68,11 +69,11 @@ void    sam_buff_check_order(sam_buff_t *sam_buff,
  *      The buffer array is set to a
  *      reasonable initial size and extended as far as SAM_BUFF_MAX_SIZE
  *      by sam_buff_add_alignment(3) if needed.  A minimum MAPQ value
- *      is stored in the sam_buff_t structure for filtering with
+ *      is stored in the bl_sam_buff_t structure for filtering with
  *      sam_buff_alignment_ok(3).
  *  
  *  Arguments:
- *      sam_buff:   Pointer to a the sam_buff_t structure to initialize
+ *      sam_buff:   Pointer to a the bl_sam_buff_t structure to initialize
  *      mapq_min:   User-selected minimum MAPQ value
  *
  *  See also:
@@ -83,7 +84,7 @@ void    sam_buff_check_order(sam_buff_t *sam_buff,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_init(sam_buff_t *sam_buff, unsigned int mapq_min)
+void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
 
 {
     size_t  c;
@@ -118,8 +119,8 @@ void    sam_buff_init(sam_buff_t *sam_buff, unsigned int mapq_min)
      *  We may save a few megabytes with this, though.
      */
     sam_buff->alignments =
-	(sam_alignment_t **)xt_malloc(sam_buff->buff_size,
-				   sizeof(sam_alignment_t **));
+	(bl_sam_t **)xt_malloc(sam_buff->buff_size,
+				   sizeof(bl_sam_t **));
     for (c = 0; c < sam_buff->buff_size; ++c)
 	sam_buff->alignments[c] = NULL;
 }
@@ -135,7 +136,7 @@ void    sam_buff_init(sam_buff_t *sam_buff, unsigned int mapq_min)
  *      up to SAM_BUFF_MAX_SIZE.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to sam_buff_t structure where alignments are buffered
+ *      sam_buff:   Pointer to bl_sam_buff_t structure where alignments are buffered
  *      sam_alignment:  New SAM alignment to add to buffer
  *
  *  See also:
@@ -146,8 +147,8 @@ void    sam_buff_init(sam_buff_t *sam_buff, unsigned int mapq_min)
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_add_alignment(sam_buff_t *sam_buff,
-			       sam_alignment_t *sam_alignment)
+void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
+			       bl_sam_t *sam_alignment)
 
 {
     size_t  old_buff_size,
@@ -165,7 +166,7 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
     {
 	//fprintf(stderr, "Allocating alignment #%zu\n", sam_buff->buffered_count);
 	sam_buff->alignments[sam_buff->buffered_count] = 
-	    xt_malloc(1, sizeof(sam_alignment_t));
+	    xt_malloc(1, sizeof(bl_sam_t));
 	if ( sam_buff->alignments[sam_buff->buffered_count] == NULL )
 	{
 	    fprintf(stderr, "sam_buff_add_alignment(): Could not allocate alignments.\n");
@@ -208,9 +209,9 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
 	old_buff_size = sam_buff->buff_size;
 	sam_buff->buff_size *= 2;
 	sam_buff->alignments =
-	    (sam_alignment_t **)xt_realloc(sam_buff->alignments,
+	    (bl_sam_t **)xt_realloc(sam_buff->alignments,
 					sam_buff->buff_size,
-					sizeof(sam_alignment_t **));
+					sizeof(bl_sam_t **));
 	for (c = old_buff_size; c < sam_buff->buff_size; ++c)
 	    sam_buff->alignments[c] = NULL;
     }
@@ -226,7 +227,7 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
  *      Report SAM input sort error and terminate process.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to sam_buff_t structure
+ *      sam_buff:   Pointer to bl_sam_buff_t structure
  *      sam_alignment:  Offending alignment out of order with previous
  *
  *  Returns:
@@ -240,7 +241,7 @@ void    sam_buff_add_alignment(sam_buff_t *sam_buff,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_out_of_order(sam_buff_t *sam_buff, sam_alignment_t *sam_alignment)
+void    sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
 
 {
     fprintf(stderr, "Error: SAM input must be sorted by chromosome and then position.\n");
@@ -258,11 +259,11 @@ void    sam_buff_out_of_order(sam_buff_t *sam_buff, sam_alignment_t *sam_alignme
  *
  *  Description:
  *      Free an element of the SAM alignment array by first freeing all
- *      memory allocated by the sam_alignment_t structure and then freeing
+ *      memory allocated by the bl_sam_t structure and then freeing
  *      memory allocated for the structure itself.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to the sam_buff_t structure holding alignments
+ *      sam_buff:   Pointer to the bl_sam_buff_t structure holding alignments
  *      c:          Index of the alignment to be freed (0-based)
  *
  *  See also:
@@ -273,7 +274,7 @@ void    sam_buff_out_of_order(sam_buff_t *sam_buff, sam_alignment_t *sam_alignme
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_free_alignment(sam_buff_t *sam_buff, size_t c)
+void    sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 {
     sam_free_alignment(sam_buff->alignments[c]);
@@ -296,7 +297,7 @@ void    sam_buff_free_alignment(sam_buff_t *sam_buff, size_t c)
  *      remaining elements forward nelem positions.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to sam_buff_t structure holding alignments
+ *      sam_buff:   Pointer to bl_sam_buff_t structure holding alignments
  *      nelem:      Number of alignments to free
  *
  *  See also:
@@ -309,7 +310,7 @@ void    sam_buff_free_alignment(sam_buff_t *sam_buff, size_t c)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_shift(sam_buff_t *sam_buff, size_t nelem)
+void    sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
 
 {
     size_t  c;
@@ -343,14 +344,14 @@ void    sam_buff_shift(sam_buff_t *sam_buff, size_t nelem)
  *
  *  Description:
  *      Verify that an alignment meets the quality requirements for the
- *      given SAM buffer.  Each sam_buff_t structure contains
+ *      given SAM buffer.  Each bl_sam_buff_t structure contains
  *      specifications for minimum quality scores as well as statistics
  *      on alignments checked, including the number of discarded alignments
  *      and a sum of the alignment scores (for calculating the average
  *      score of discarded alignments).
  *  
  *  Arguments:
- *      sam_buff:   Pointer to sam_buff_t structure with quality specs
+ *      sam_buff:   Pointer to bl_sam_buff_t structure with quality specs
  *      sam_alignment:  Pointer to new alignment
  *
  *  Returns:
@@ -365,8 +366,8 @@ void    sam_buff_shift(sam_buff_t *sam_buff, size_t nelem)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
  
-bool    sam_buff_alignment_ok(sam_buff_t *sam_buff,
-			      sam_alignment_t *sam_alignment)
+bool    sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
+			      bl_sam_t *sam_alignment)
 
 {
     if ( sam_alignment->flag & BAM_FUNMAP )

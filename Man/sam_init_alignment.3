@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-void    sam_init_alignment(sam_alignment_t *sam_alignment, size_t seq_len,
+void    sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
 sam_field_mask_t field_mask)
 .ad
 .fi
@@ -24,7 +24,7 @@ sam_field_mask_t field_mask)
 .SH ARGUMENTS
 .nf
 .na
-sam_alignment:  Pointer to sam_alignment_t structure to initialize
+sam_alignment:  Pointer to bl_sam_t structure to initialize
 seq_len:        Length of sequence and quality strings
 field_mask:     Bit mask indicating which fields will be used
 .ad
@@ -32,7 +32,7 @@ field_mask:     Bit mask indicating which fields will be used
 
 .SH DESCRIPTION
 
-Initialize a sam_alignment_t structure, allocating memory for
+Initialize a bl_sam_t structure, allocating memory for
 sequence and quality strings according to seq_len.  Passing a
 seq_len of 0 prevents memory allocation from occurring.
 

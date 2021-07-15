@@ -84,13 +84,13 @@ FILE    *gff_skip_header(FILE *gff_stream)
  *
  *  Arguments:
  *      gff_stream:     A FILE stream from which to read the line
- *      gff_feature:    Pointer to a gff_feature_t structure
+ *      gff_feature:    Pointer to a bl_gff_t structure
  *      field_mask:     Bit mask indicating which fields to store in gff_feature
  *
  *  Returns:
- *      BIO_READ_OK on successful read
- *      BIO_READ_EOF if EOF is encountered after a complete feature
- *      BIO_READ_TRUNCATED if EOF or bad data is encountered elsewhere
+ *      BL_READ_OK on successful read
+ *      BL_READ_EOF if EOF is encountered after a complete feature
+ *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
  *      gff_read_feature(stdin, &gff_feature, GFF_FIELD_ALL);
@@ -105,7 +105,7 @@ FILE    *gff_skip_header(FILE *gff_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
+int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 			 gff_field_mask_t field_mask)
 
 {
@@ -128,7 +128,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 	if ( strcmp(line, "##\n") == 0 )
 	{
 	    strlcpy(gff_feature->name, "###", GFF_NAME_MAX_CHARS);
-	    return BIO_READ_OK;
+	    return BL_READ_OK;
 	}
     }
     else if ( ch != EOF )
@@ -136,10 +136,10 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     
     // 1 Chromosome
     if ( tsv_read_field(gff_stream, gff_feature->sequence,
-			BIO_CHROMOSOME_MAX_CHARS, &len) == EOF )
+			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
 	//fputs("gff_read_feature(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
-	return BIO_READ_EOF;
+	return BL_READ_EOF;
     }
     
     // 2 Source
@@ -148,7 +148,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading SOURCE: %s.\n",
 		gff_feature->source);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
 
     // 3 Feature
@@ -157,16 +157,16 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading feature: %s.\n",
 		gff_feature->name);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // 4 Feature start position
     if ( tsv_read_field(gff_stream, gff_feature->start_pos_str,
-			BIO_POSITION_MAX_DIGITS, &len) == EOF )
+			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading start POS: %s.\n",
 		gff_feature->start_pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
     {
@@ -176,17 +176,17 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 	    fprintf(stderr,
 		    "gff_read_feature(): Invalid feature position: %s\n",
 		    gff_feature->start_pos_str);
-	    return BIO_READ_TRUNCATED;
+	    return BL_READ_TRUNCATED;
 	}
     }
     
     // 5 Feature end position
     if ( (delim = tsv_read_field(gff_stream, gff_feature->end_pos_str,
-			BIO_POSITION_MAX_DIGITS, &len)) == EOF )
+			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading end POS: %s.\n",
 		gff_feature->end_pos_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
     {
@@ -196,7 +196,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 	    fprintf(stderr,
 		    "gff_read_feature(): Invalid feature position: %s\n",
 		    gff_feature->end_pos_str);
-	    return BIO_READ_TRUNCATED;
+	    return BL_READ_TRUNCATED;
 	}
     }
 
@@ -206,7 +206,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading SCORE: %s.\n",
 		gff_feature->score_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
     {
@@ -222,7 +222,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading STRAND: %s.\n",
 		strand_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
 	gff_feature->strand = *strand_str;
@@ -233,7 +233,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading PHASE: %s.\n",
 		phase_str);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else
 	gff_feature->phase = *phase_str;
@@ -244,13 +244,13 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading ATTRIBUTES: %s.\n",
 		temp_attributes);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     else if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
     {
 	fprintf(stderr, "gff_read_feature(): Could not strdup attributes: %s.\n",
 		temp_attributes);
-	return BIO_READ_TRUNCATED;
+	return BL_READ_TRUNCATED;
     }
     
     // printf("delim = %u\n", delim);
@@ -268,7 +268,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
 	    *id_end = ';';
 	}
     }
-    return BIO_READ_OK;
+    return BL_READ_OK;
 }
 
 
@@ -299,12 +299,12 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
  *
  *  Arguments:
  *      gff_stream:     FILE stream to which TSV gff line is written
- *      gff_feature:    Pointer to the gff_feature_t structure to output
+ *      gff_feature:    Pointer to the bl_gff_t structure to output
  *      field_mask:     Bit mask indicating which fields to output
  *
  *  Returns:
- *      BIO_WRITE_OK on success
- *      BIO_WRITE_ERROR on failure (errno may provide more information)
+ *      BL_WRITE_OK on success
+ *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
  *      gff_write_feature(stdout, &gff_feature, GFF_FIELD_ALL);
@@ -319,7 +319,7 @@ int     gff_read_feature(FILE *gff_stream, gff_feature_t *gff_feature,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
+int     gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 				gff_field_mask_t field_mask)
 
 {
@@ -342,8 +342,8 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
  *      some information may be lost or filled in with appropriate markers.
  *
  *  Arguments:
- *      bed_feature: Pointer to the bed_feature_t structure to receive data
- *      gff_feature: Pointer to the gff_feature_t structure to copy
+ *      bed_feature: Pointer to the bl_bed_t structure to receive data
+ *      gff_feature: Pointer to the bl_gff_t structure to copy
  *
  *  See also:
  *      bed_read_feature(3), gff_read_feature(3)
@@ -353,7 +353,7 @@ int     gff_write_feature(FILE *gff_stream, gff_feature_t *gff_feature,
  *  2021-04-19  Jason Bacon Begin
  ***************************************************************************/
 
-void    gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature)
+void    gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
 
 {
     char    name[BED_NAME_MAX_CHARS + 1],
@@ -373,7 +373,7 @@ void    gff_to_bed(bed_feature_t *bed_feature, gff_feature_t *gff_feature)
     snprintf(name, BED_NAME_MAX_CHARS, "%s", GFF_NAME(gff_feature));
     bed_set_name(bed_feature, name);
     bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
-    if ( bed_set_strand(bed_feature, strand) != BIO_DATA_OK )
+    if ( bed_set_strand(bed_feature, strand) != BL_DATA_OK )
     {
 	fputs("gff_to_bed().\n", stderr);
 	exit(EX_DATAERR);

@@ -16,15 +16,15 @@
 .PP
 .nf 
 .na
-bool    sam_buff_alignment_ok(sam_buff_t *sam_buff,
-sam_alignment_t *sam_alignment)
+bool    sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
+bl_sam_t *sam_alignment)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_buff:   Pointer to sam_buff_t structure with quality specs
+sam_buff:   Pointer to bl_sam_buff_t structure with quality specs
 sam_alignment:  Pointer to new alignment
 .ad
 .fi
@@ -32,7 +32,7 @@ sam_alignment:  Pointer to new alignment
 .SH DESCRIPTION
 
 Verify that an alignment meets the quality requirements for the
-given SAM buffer.  Each sam_buff_t structure contains
+given SAM buffer.  Each bl_sam_buff_t structure contains
 specifications for minimum quality scores as well as statistics
 on alignments checked, including the number of discarded alignments
 and a sum of the alignment scores (for calculating the average

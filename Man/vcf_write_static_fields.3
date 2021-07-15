@@ -16,7 +16,7 @@
 .PP
 .nf 
 .na
-int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
+int     vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 vcf_field_mask_t field_mask)
 .ad
 .fi
@@ -25,7 +25,7 @@ vcf_field_mask_t field_mask)
 .nf
 .na
 vcf_stream: FILE pointer to the VCF output stream
-vcf_call:   Pointer to the vcf_call_t structure to output
+vcf_call:   Pointer to the bl_vcf_t structure to output
 field_mask: Bit mask indicating which fields to output
 .ad
 .fi

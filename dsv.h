@@ -1,10 +1,6 @@
 #ifndef _dsv_h_
 #define _dsv_h_
 
-#ifndef _biolibc_h_
-#include "biolibc.h"
-#endif
-
 #define DSV_INIT                { 0, 0, NULL, NULL }
 #define DSV_FIELD_MAX_CHARS     32767
 

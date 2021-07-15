@@ -17,7 +17,7 @@
  *      if necessary.
  *
  *  Arguments:
- *      pos_list:   Pointer to the pos_list_t structure to initialize
+ *      pos_list:   Pointer to the bl_pos_list_t structure to initialize
  *      array_size: Initial size of the array of positions
  *
  *  See also:
@@ -29,7 +29,7 @@
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-void    pos_list_allocate(pos_list_t *pos_list, size_t array_size)
+void    pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size)
 
 {
     if ( (pos_list->count != 0) || (pos_list->array_size != 0) ||
@@ -71,7 +71,7 @@ void    pos_list_allocate(pos_list_t *pos_list, size_t array_size)
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-void    pos_list_free(pos_list_t *pos_list)
+void    pos_list_free(bl_pos_list_t *pos_list)
 
 {
     if ( pos_list->positions == NULL )
@@ -96,7 +96,7 @@ void    pos_list_free(pos_list_t *pos_list)
  *      Add another position to a pos_list, expanding the array if needed.
  *
  *  Arguments:
- *      pos_list:   Pointer to the pos_list_t structure to add to
+ *      pos_list:   Pointer to the bl_pos_list_t structure to add to
  *      position:   New position to be added to the list
  *
  *  See also:
@@ -108,7 +108,7 @@ void    pos_list_free(pos_list_t *pos_list)
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-int     pos_list_add_position(pos_list_t *pos_list, uint64_t position)
+int     pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position)
 
 {
     if ( pos_list->count == pos_list->array_size )
@@ -123,7 +123,7 @@ int     pos_list_add_position(pos_list_t *pos_list, uint64_t position)
 	}
     }
     pos_list->positions[pos_list->count++] = position;
-    return BIO_DATA_OK;
+    return BL_DATA_OK;
 }
 
 
@@ -133,13 +133,13 @@ int     pos_list_add_position(pos_list_t *pos_list, uint64_t position)
  *      -lbiolibc
  *
  *  Description:
- *      Convert a comma-separated list of positions to a pos_list_t list.
+ *      Convert a comma-separated list of positions to a bl_pos_list_t list.
  *      The array_size argument should be your best guess at the final size
  *      of the list.  Choosing a large enough value is not critical since
  *      it will be extended by pos_list_add_position() if needed.
  *
  *  Arguments:
- *      pos_list:   Pointer to the pos_list_t to receive the list
+ *      pos_list:   Pointer to the bl_pos_list_t to receive the list
  *      list_str:   Character string containing comma-separated list of positions
  *      array_size: Initial array size
  *
@@ -155,7 +155,7 @@ int     pos_list_add_position(pos_list_t *pos_list, uint64_t position)
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-int     pos_list_from_csv(pos_list_t *pos_list, const char *bounds_str,
+int     pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
 		       size_t array_size)
 
 {
@@ -174,7 +174,7 @@ int     pos_list_from_csv(pos_list_t *pos_list, const char *bounds_str,
     {
 	position = strtoull(token, &end, 10);
 	if ( *end != '\0' )
-	    return BIO_DATA_INVALID;
+	    return BL_DATA_INVALID;
 	else
 	    pos_list_add_position(pos_list, position);
     }
@@ -231,7 +231,7 @@ int     position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2)
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-void    pos_list_sort(pos_list_t *pos_list, pos_list_sort_order_t order)
+void    pos_list_sort(bl_pos_list_t *pos_list, pos_list_sort_order_t order)
 
 {
     if ( order == POS_LIST_ASCENDING )
