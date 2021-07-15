@@ -178,6 +178,18 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *      BIO_READ_TRUNCATED if EOF is encountered while reading a call
  *      BIO_READ_EOF if EOF is encountered between calls as it should be
  *
+ *  Examples:
+ *      FILE        *stream;
+ *      vcf_call_t  vcf_call;
+ *      char        sample_data[MAX_CHARS + 1];
+ *      size_t      len;
+ *
+ *      vcf_read_static_fields(stream, &vcf_call, VCF_FIELD_ALL);
+ *      while ( tsv_read_field(stream, sample_data, MAX_CHARS, &len) != '\n' )
+ *      {
+ *          ...
+ *      }
+ *
  *  See also:
  *      vcf_write_static_fields(3), vcf_read_ss_call(3), 
  *      vcf_write_ss_call(3)
@@ -290,19 +302,38 @@ int     vcf_read_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *      -lbiolibc
  *
  *  Description:
- *      Read a single-sample VCF call.
+ *      Read a single-sample VCF call (static fields and one sample column).
+ *      This should only be used with VCF inputs that have exactly one
+ *      sample column.  For multisample VCFs, use vcf_read_static_fields()
+ *      followed by a loop to read the sample data.
+ *
+ *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are discarded rather than stored in bed_feature.
+ *      Possible mask values are:
+ *
+ *      VCF_FIELD_ALL
+ *      VCF_FIELD_CHROM
+ *      VCF_FIELD_POS
+ *      VCF_FIELD_ID
+ *      VCF_FIELD_REF
+ *      VCF_FIELD_ALT
+ *      VCF_FIELD_QUAL
+ *      VCF_FIELD_FILTER
+ *      VCF_FIELD_INFO
+ *      VCF_FIELD_FORMAT
  *
  *  Arguments:
+ *      vcf_stream: FILE pointer to VCF input stream
+ *      vcf_call:   vcf_call_t structure to receive VCF data
+ *      field_mask: Bit mask to indicate which fields to store
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      BIO_READ_OK upon success
+ *      BIO_READ_TRUNCATED if EOF is encountered while reading a call
+ *      BIO_READ_EOF if EOF is encountered between calls as it should be
  *
  *  See also:
+ *      vcf_read_static_fields(3), tsv_read_field(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -342,17 +373,31 @@ int     vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *      Write static fields from one line of a single-entry VCF file.
  *      Does not write sample data.
  *
+ *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are written as an appropriate placeholder such as '.'
+ *      rather than the actual data.  Possible mask values are:
+ *
+ *      VCF_FIELD_ALL
+ *      VCF_FIELD_CHROM
+ *      VCF_FIELD_POS
+ *      VCF_FIELD_ID
+ *      VCF_FIELD_REF
+ *      VCF_FIELD_ALT
+ *      VCF_FIELD_QUAL
+ *      VCF_FIELD_FILTER
+ *      VCF_FIELD_INFO
+ *      VCF_FIELD_FORMAT
+ *
  *  Arguments:
+ *      vcf_stream: FILE pointer to the VCF output stream
+ *      vcf_call:   Pointer to the vcf_call_t structure to output
+ *      field_mask: Bit mask indicating which fields to output
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      The number of items output (as returned by fprintf())
  *
  *  See also:
+ *      vcf_read_static_fields(3), vcf_write_ss_call(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -408,18 +453,35 @@ int     vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call,
  *
  *  Description:
  *      Write a single-sample VCF call to vcf_stream.
+ *      This should only be used with VCF calls that have exactly one
+ *      sample column.  For multisample VCFs, use vcf_write_static_fields()
+ *      followed by a loop to write the sample data.
+ *
+ *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are written as an appropriate placeholder such as '.'
+ *      rather than the actual data.  Possible mask values are:
+ *
+ *      VCF_FIELD_ALL
+ *      VCF_FIELD_CHROM
+ *      VCF_FIELD_POS
+ *      VCF_FIELD_ID
+ *      VCF_FIELD_REF
+ *      VCF_FIELD_ALT
+ *      VCF_FIELD_QUAL
+ *      VCF_FIELD_FILTER
+ *      VCF_FIELD_INFO
+ *      VCF_FIELD_FORMAT
  *
  *  Arguments:
+ *      vcf_stream: FILE pointer to the VCF output stream
+ *      vcf_call:   Pointer to the vcf_call_t structure to output
+ *      field_mask: Bit mask indicating which fields to output
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      The number of items output (as returned by fprintf())
  *
  *  See also:
+ *      vcf_read_ss_call(3), vcf_write_static_fields(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -431,8 +493,7 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
 
 {
     vcf_write_static_fields(vcf_stream, vcf_call, field_mask);
-    fprintf(vcf_stream, "%s\n", vcf_call->single_sample);
-    return 0;
+    return fprintf(vcf_stream, "%s\n", vcf_call->single_sample);
 }
 
 
@@ -442,18 +503,17 @@ int     vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call,
  *      -lbiolibc
  *
  *  Description:
+ *      Allocate an array for multiple samples in a VCF call.
  *
  *  Arguments:
+ *      vcf_call:   Pointer to a vcf_call_t structure with multiple samples
+ *      samples:    The number of samples that must be accommodated
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      Address of the allocated array (NULL if malloc failed)
  *
  *  See also:
+ *      vcf_call_init(3), vcf_read_static_fields(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -482,24 +542,6 @@ char    **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples)
 
 
 /***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc
- *
- *  Description:
- *
- *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
- *
- *  See also:
- *
  *  History: 
  *  Date        Name        Modification
  *  2020-01-22  Jason Bacon Begin
@@ -540,24 +582,6 @@ int     vcf_phred_add(vcf_call_t *vcf_call, unsigned char score)
 
 
 /***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc
- *
- *  Description:
- *
- *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
- *
- *  See also:
- *
  *  History: 
  *  Date        Name        Modification
  *  2020-01-22  Jason Bacon Begin
@@ -572,24 +596,6 @@ void    vcf_phred_blank(vcf_call_t *vcf_call)
 
     
 /***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc
- *
- *  Description:
- *
- *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
- *
- *  See also:
- *
  *  History: 
  *  Date        Name        Modification
  *  2020-01-22  Jason Bacon Begin
@@ -615,18 +621,13 @@ void    vcf_phred_free(vcf_call_t *vcf_call)
  *      -lbiolibc
  *
  *  Description:
+ *      Free all memory associated with a VCF call.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      vcf_call:   Pointer to the vcf_call_t structure to free.
  *
  *  See also:
+ *      vcf_call_init(3), vcf_sample_alloc(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -648,18 +649,14 @@ void    vcf_call_free(vcf_call_t *vcf_call)
  *      -lbiolibc
  *
  *  Description:
+ *      Iniitialize a vcf_call_t structure, allocating default buffer
+ *      sizes for some fields.
  *
  *  Arguments:
- *
- *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      vcf_call:   Pointer to the vcf_call_t structure to initialize
  *
  *  See also:
+ *      vcf_call_free(3), vcf_read_call(3), vcf_sample_alloc(3)
  *
  *  History: 
  *  Date        Name        Modification
