@@ -1,8 +1,8 @@
 #ifndef _sam_h_
 #define _sam_h_
 
-#ifndef _dsv_h_
-#include "dsv.h"
+#ifndef __xtend_h__
+#include <xtend.h>
 #endif
 
 #define SAM_MAPQ_MAX_CHARS  3

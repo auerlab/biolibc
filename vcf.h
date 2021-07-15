@@ -1,8 +1,8 @@
 #ifndef _vcf_h_
 #define _vcf_h_
 
-#ifndef _dsv_h_
-#include "dsv.h"
+#ifndef __xtend_h__
+#include <xtend.h>
 #endif
 
 #ifndef _sam_h_
