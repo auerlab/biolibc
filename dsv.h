@@ -18,7 +18,7 @@ typedef struct
 		*delims;
 }   dsv_line_t;
 
-/* dsvio.c */
+/* dsv.c */
 int dsv_read_line(FILE *infile, dsv_line_t *dsv_line, const char *delims);
 void dsv_write_line(FILE *outfile, dsv_line_t *dsv_line);
 void dsv_free_line(dsv_line_t *dsv_line);

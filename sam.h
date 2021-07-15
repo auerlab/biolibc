@@ -60,7 +60,7 @@ typedef struct
     size_t  qual_len;
 }   sam_alignment_t;
 
-/* samio.c */
+/* sam.c */
 int     sam_read_alignment(FILE *sam_stream, sam_alignment_t *sam_alignment, sam_field_mask_t field_mask);
 void    sam_copy_alignment(sam_alignment_t *dest, sam_alignment_t *src);
 void    sam_free_alignment(sam_alignment_t *sam_alignment);

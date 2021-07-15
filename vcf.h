@@ -130,9 +130,6 @@ int vcf_read_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t fi
 int vcf_write_static_fields(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 int vcf_write_ss_call(FILE *vcf_stream, vcf_call_t *vcf_call, vcf_field_mask_t field_mask);
 char **vcf_sample_alloc(vcf_call_t *vcf_call, size_t samples);
-int vcf_phred_add(vcf_call_t *vcf_call, unsigned char score);
-void vcf_phred_blank(vcf_call_t *vcf_call);
-void vcf_phred_free(vcf_call_t *vcf_call);
 void vcf_call_free(vcf_call_t *vcf_call);
 void vcf_call_init(vcf_call_t *vcf_call,
 		   size_t info_max, size_t format_max, size_t sample_max);

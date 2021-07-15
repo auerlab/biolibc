@@ -104,8 +104,7 @@ FILE    *vcf_skip_header(FILE *vcf_stream)
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-void    vcf_get_sample_ids(FILE *vcf_stream,
-			   char *sample_ids[],
+void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 			   size_t first_col, size_t last_col)
 
 {
@@ -191,8 +190,7 @@ void    vcf_get_sample_ids(FILE *vcf_stream,
  *      }
  *
  *  See also:
- *      vcf_write_static_fields(3), vcf_read_ss_call(3), 
- *      vcf_write_ss_call(3)
+ *      vcf_write_static_fields(3), vcf_read_ss_call(3), vcf_write_ss_call(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -716,18 +714,16 @@ void    vcf_call_init(vcf_call_t *vcf_call,
  *      -lbiolibc
  *
  *  Description:
+ *      Convert a comma-separated list of VCF fields to a field bit mask
  *
  *  Arguments:
+ *      spec:   Character string containing comma-separated field list
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      A vcf_field_mask_t value with bits set for specified fields
  *
  *  See also:
+ *      vcf_read_call(3), vcf_write_call(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -776,19 +772,20 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
  *      -lbiolibc
  *
  *  Description:
- *      Determine whether a VCF call is within a SAM alignment.
+ *      Determine if a VCF call is within a SAM alignment, i.e. on the
+ *      same chromosome and between the start and end positions of the
+ *      alignment.
  *
  *  Arguments:
+ *      vcf_call:   Pointer to vcf_call_t structure containing VCF call
+ *      sam_alignment:  Pointer to sam_alignment_t structure containing alignment
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      true if the call is within the alignment
+ *      false otherwise
  *
  *  See also:
+ *      vcf_call_downstream_of_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -815,27 +812,28 @@ bool    vcf_call_in_alignment(vcf_call_t *vcf_call, sam_alignment_t *sam_alignme
  *      -lbiolibc
  *
  *  Description:
- *      Determine SAM alignment is completely upstream of a VCF call position,
- *      i.e. not overlapping and at a lower position or chromosome.
+ *      Determine if a VCF call is downstream of a SAM alignment.
+ *      For the purpose of this function, this could mean on the same
+ *      chromosome and higher position, or on a later chromosome.
  *
  *  Arguments:
+ *      vcf_call:   Pointer to vcf_call_t structure containing VCF call
+ *      sam_alignment:  Pointer to sam_alignment_t structure containing alignment
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      true if the call is downstream of the alignment
+ *      false otherwise
  *
  *  See also:
+ *      vcf_call_in_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-26  Jason Bacon Begin
  ***************************************************************************/
 
-bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *alignment)
+bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call,
+					 sam_alignment_t *alignment)
 
 {
     /*fprintf(stderr, "vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
@@ -858,19 +856,18 @@ bool    vcf_call_downstream_of_alignment(vcf_call_t *vcf_call, sam_alignment_t *
  *      -lbiolibc
  *
  *  Description:
- *      Explain VCF input sort error and exit.
+ *      Report VCF input sort error and terminate the process.
  *
  *  Arguments:
+ *      vcf_call:   Pointer to vcf_call_t structure with latest call
+ *      previous_chromosome:    Chromosome of previous VCF call
+ *      previous_pos:           Position of previous VCF call
  *
  *  Returns:
- *
- *  Files:
- *
- *  Environment:
- *
- *  Examples:
+ *      Does not return
  *
  *  See also:
+ *      vcf_read_call(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -887,4 +884,3 @@ void    vcf_out_of_order(vcf_call_t *vcf_call,
 	    previous_chromosome, previous_pos);
     exit(EX_DATAERR);
 }
-
