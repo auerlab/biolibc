@@ -51,7 +51,7 @@ void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
 	sam_buff_out_of_order(sam_buff, sam_alignment);
     else
     {
-	strlcpy(sam_buff->previous_rname, sam_alignment->rname, SAM_RNAME_MAX_CHARS);
+	strlcpy(sam_buff->previous_rname, sam_alignment->rname, BL_SAM_RNAME_MAX_CHARS);
 	sam_buff->previous_pos = sam_alignment->pos;
     }
 }
@@ -67,7 +67,7 @@ void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
  *      alignments.  This is useful, for example, when scanning a SAM
  *      stream for alignments overlapping a certain region or position.
  *      The buffer array is set to a
- *      reasonable initial size and extended as far as SAM_BUFF_MAX_SIZE
+ *      reasonable initial size and extended as far as BL_SAM_BUFF_MAX_SIZE
  *      by sam_buff_add_alignment(3) if needed.  A minimum MAPQ value
  *      is stored in the bl_sam_buff_t structure for filtering with
  *      sam_buff_alignment_ok(3).
@@ -89,7 +89,7 @@ void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
 {
     size_t  c;
     
-    sam_buff->buff_size = SAM_BUFF_START_SIZE;
+    sam_buff->buff_size = BL_SAM_BUFF_START_SIZE;
     sam_buff->buffered_count = 0;
     sam_buff->max_count = 0;
     sam_buff->previous_pos = 0;
@@ -115,7 +115,7 @@ void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
      *  take very little space compared to the alignment data.  By the time
      *  the pointer array takes a significant amount of RAM, you're probably
      *  already thrashing to accomodate the sequence data.  The pointer array
-     *  size is capped by SAM_BUFF_MAX_SIZE to prevent memory exhaustion.
+     *  size is capped by BL_SAM_BUFF_MAX_SIZE to prevent memory exhaustion.
      *  We may save a few megabytes with this, though.
      */
     sam_buff->alignments =
@@ -133,7 +133,7 @@ void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
  *
  *  Description:
  *      Add a new alignment to the buffer, expanding the array as needed
- *      up to SAM_BUFF_MAX_SIZE.
+ *      up to BL_SAM_BUFF_MAX_SIZE.
  *  
  *  Arguments:
  *      sam_buff:   Pointer to bl_sam_buff_t structure where alignments are buffered
@@ -156,9 +156,9 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 
     sam_buff_check_order(sam_buff, sam_alignment);
     
-    sam_buff->mapq_low = MIN(sam_buff->mapq_low, SAM_MAPQ(sam_alignment));
-    sam_buff->mapq_high = MAX(sam_buff->mapq_high, SAM_MAPQ(sam_alignment));
-    sam_buff->mapq_sum += SAM_MAPQ(sam_alignment);
+    sam_buff->mapq_low = MIN(sam_buff->mapq_low, BL_SAM_MAPQ(sam_alignment));
+    sam_buff->mapq_high = MAX(sam_buff->mapq_high, BL_SAM_MAPQ(sam_alignment));
+    sam_buff->mapq_sum += BL_SAM_MAPQ(sam_alignment);
     ++sam_buff->reads_used;
 
     // Just allocate the static fields, sam_copy_alignment() does the rest
@@ -188,11 +188,11 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	// fprintf(stderr, "sam_buff->max_count = %zu\n", sam_buff->max_count);
     }
     
-    if ( sam_buff->buffered_count == SAM_BUFF_MAX_SIZE )
+    if ( sam_buff->buffered_count == BL_SAM_BUFF_MAX_SIZE )
     {
 	fprintf(stderr,
-		"sam_buff_add_alignment(): Hit SAM_BUFF_MAX_SIZE=%u.\n",
-		SAM_BUFF_MAX_SIZE);
+		"sam_buff_add_alignment(): Hit BL_SAM_BUFF_MAX_SIZE=%u.\n",
+		BL_SAM_BUFF_MAX_SIZE);
 	fprintf(stderr, "Terminating to prevent runaway memory use.\n");
 	fprintf(stderr, "Check your SAM input.\n");
 	exit(EX_DATAERR);
@@ -204,8 +204,8 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 		"sam_buff_add_alignment(): Hit buff_size=%zu, doubling buffer size.\n",
 		sam_buff->buff_size);
 	fprintf(stderr, "RNAME: %s  POS: %zu  LEN: %zu\n",
-		SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
-		SAM_SEQ_LEN(sam_alignment));
+		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
+		BL_SAM_SEQ_LEN(sam_alignment));
 	old_buff_size = sam_buff->buff_size;
 	sam_buff->buff_size *= 2;
 	sam_buff->alignments =
@@ -246,7 +246,7 @@ void    sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
 {
     fprintf(stderr, "Error: SAM input must be sorted by chromosome and then position.\n");
     fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
-	    SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
+	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 	    sam_buff->previous_rname, sam_buff->previous_pos);
     exit(EX_DATAERR);
 }
@@ -278,7 +278,7 @@ void    sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 {
     sam_free_alignment(sam_buff->alignments[c]);
-    sam_init_alignment(sam_buff->alignments[c], 0, SAM_FIELD_ALL);
+    sam_init_alignment(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
     if ( sam_buff->alignments[c] != NULL )
     {
 	free(sam_buff->alignments[c]);
@@ -375,23 +375,23 @@ bool    sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
 	++sam_buff->unmapped_alignments;
 #ifdef DEBUG
 	fprintf(stderr, "Discarding unmapped read: %s,%zu\n",
-		SAM_RNAME(sam_alignment), SAM_POS(sam_alignment));
+		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment));
 #endif
 	return false;
     }
-    else if ( SAM_MAPQ(sam_alignment) < SAM_BUFF_MAPQ_MIN(sam_buff) )
+    else if ( BL_SAM_MAPQ(sam_alignment) < BL_SAM_BUFF_MAPQ_MIN(sam_buff) )
     {
 	++sam_buff->discarded_alignments;
-	sam_buff->discarded_score_sum += SAM_MAPQ(sam_alignment);
-	if ( SAM_MAPQ(sam_alignment) < sam_buff->min_discarded_score )
-	    sam_buff->min_discarded_score = SAM_MAPQ(sam_alignment);
-	if ( SAM_MAPQ(sam_alignment) > sam_buff->max_discarded_score )
-	    sam_buff->max_discarded_score = SAM_MAPQ(sam_alignment);
+	sam_buff->discarded_score_sum += BL_SAM_MAPQ(sam_alignment);
+	if ( BL_SAM_MAPQ(sam_alignment) < sam_buff->min_discarded_score )
+	    sam_buff->min_discarded_score = BL_SAM_MAPQ(sam_alignment);
+	if ( BL_SAM_MAPQ(sam_alignment) > sam_buff->max_discarded_score )
+	    sam_buff->max_discarded_score = BL_SAM_MAPQ(sam_alignment);
 
 #ifdef DEBUG
 	fprintf(stderr, "sam_buff_alignment_ok(): Discarding low quality alignment: %s,%zu MAPQ=%u\n",
-		SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
-		SAM_MAPQ(sam_alignment));
+		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
+		BL_SAM_MAPQ(sam_alignment));
 #endif
 	return false;
     }

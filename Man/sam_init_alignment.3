@@ -36,7 +36,7 @@ Initialize a bl_sam_t structure, allocating memory for
 sequence and quality strings according to seq_len.  Passing a
 seq_len of 0 prevents memory allocation from occurring.
 
-Only SAM_FIELD_SEQ and SAM_FIELD_QUAL are meaningful bits in
+Only BL_SAM_FIELD_SEQ and BL_SAM_FIELD_QUAL are meaningful bits in
 field_mask, as they determine whether memory is allocated.  All
 other fields are unconditionally initialized to 0, NULL, or blank.
 

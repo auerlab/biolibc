@@ -796,10 +796,10 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 bool    vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 {
-    if ( (strcmp(VCF_CHROMOSOME(vcf_call), SAM_RNAME(sam_alignment)) == 0) &&
-	 (VCF_POS(vcf_call) >= SAM_POS(sam_alignment)) &&
+    if ( (strcmp(VCF_CHROMOSOME(vcf_call), BL_SAM_RNAME(sam_alignment)) == 0) &&
+	 (VCF_POS(vcf_call) >= BL_SAM_POS(sam_alignment)) &&
 	 (VCF_POS(vcf_call) <
-	    SAM_POS(sam_alignment) + SAM_SEQ_LEN(sam_alignment)) )
+	    BL_SAM_POS(sam_alignment) + BL_SAM_SEQ_LEN(sam_alignment)) )
 	return true;
     else
 	return false;
@@ -837,13 +837,13 @@ bool    vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
 
 {
     /*fprintf(stderr, "vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
-	    SAM_RNAME(sam_alignment),SAM_POS(sam_alignment),
-	    SAM_SEQ_LEN(sam_alignment),
+	    BL_SAM_RNAME(sam_alignment),BL_SAM_POS(sam_alignment),
+	    BL_SAM_SEQ_LEN(sam_alignment),
 	    VCF_CHROMOSOME(vcf_call),VCF_POS(vcf_call));*/
-    if ( (SAM_POS(alignment) + SAM_SEQ_LEN(alignment) <= VCF_POS(vcf_call)) &&
-	  (strcmp(SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) == 0) )
+    if ( (BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) <= VCF_POS(vcf_call)) &&
+	  (strcmp(BL_SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) == 0) )
 	return true;
-    else if ( chromosome_name_cmp(SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) < 0 )
+    else if ( chromosome_name_cmp(BL_SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) < 0 )
 	return true;
     else
 	return false;

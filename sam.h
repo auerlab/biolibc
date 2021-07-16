@@ -5,51 +5,70 @@
 #include <xtend.h>
 #endif
 
-#define SAM_MAPQ_MAX_CHARS  3
-#define SAM_QNAME_MAX_CHARS 4096
-#define SAM_RNAME_MAX_CHARS 4096
-#define SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
-#define SAM_CIGAR_MAX_CHARS 4096
+#define BL_SAM_MAPQ_MAX_CHARS  3
+#define BL_SAM_QNAME_MAX_CHARS 4096
+#define BL_SAM_RNAME_MAX_CHARS 4096
+#define BL_SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
+#define BL_SAM_CIGAR_MAX_CHARS 4096
 // Usually < 200 for Illumina data, but a few oddballs in SRA CRAMs
-#define SAM_SEQ_MAX_CHARS   1024*1024
+#define BL_SAM_SEQ_MAX_CHARS   1024*1024
 
-#define SAM_QNAME(s)        ((s)->qname)
-#define SAM_RNAME(s)        ((s)->rname)
-#define SAM_POS(s)          ((s)->pos)
-#define SAM_MAPQ(s)         ((s)->mapq)
-#define SAM_SEQ(s)          ((s)->seq)
-#define SAM_QUAL(s)         ((s)->qual)
-#define SAM_SEQ_LEN(s)      ((s)->seq_len)
-#define SAM_QUAL_LEN(s)     ((s)->qual_len)
+#define BL_SAM_QNAME(ptr)   ((ptr)->qname)
+#define BL_SAM_FLAG(ptr)    ((ptr)->flag)
+#define BL_SAM_RNAME(ptr)   ((ptr)->rname)
+#define BL_SAM_POS(ptr)     ((ptr)->pos)
+#define BL_SAM_MAPQ(ptr)    ((ptr)->mapq)
+#define BL_SAM_CIGAR(ptr)   ((ptr)->cigar)
+#define BL_SAM_RNEXT(ptr)   ((ptr)->rnext)
+#define BL_SAM_PNEXT(ptr)   ((ptr)->pnext)
+#define BL_SAM_TLEN(ptr)    ((ptr)->tlen)
+#define BL_SAM_SEQ(ptr)     ((ptr)->seq)
+#define BL_SAM_QUAL(ptr)    ((ptr)->qual)
+#define BL_SAM_SEQ_LEN(ptr) ((ptr)->seq_len)
+#define BL_SAM_QUAL_LEN(ptr) ((ptr)->qual_len)
+
+#define BL_SAM_SET_QNAME(ptr,qname) strlcpy((ptr)->qname,qname,BL_SAM_QNAME_MAX_CHARS+1)
+#define BL_SAM_SET_FLAG(ptr,flag)   ((ptr)->flag = (flag))
+#define BL_SAM_SET_RNAME(ptr,rname) strlcpy((ptr)->rname,rname,BL_SAM_RNAME_MAX_CHARS+1)
+#define BL_SAM_SET_POS(ptr,pos)     ((ptr)->pos = (pos))
+#define BL_SAM_SET_MAPQ(ptr,mapq)   ((ptr)->mapq = (mapq))
+#define BL_SAM_SET_CIGAR(ptr,cigar) strlcpy((ptr)->cigar,cigar,BL_SAM_CIGAR_MAX_CHARS+1)
+#define BL_SAM_SET_RNEXT(ptr,rnext) strlcpy((ptr)->rnext,rnext,BL_SAM_RNAME_MAX_CHARS+1)
+#define BL_SAM_SET_PNEXT(ptr,pnext) ((ptr)->pnext = (pnext))
+#define BL_SAM_SET_TLEN(ptr,tlen)   ((ptr)->tlen = (tlen))
+#define BL_SAM_SET_SEQ(ptr,seq)     ((ptr)->seq = (seq))
+#define BL_SAM_SET_QUAL(ptr,qual)   ((ptr)->qual = (qual))
+#define BL_SAM_SET_SEQ_LEN(ptr,seq_len)     ((ptr)->seq_len = (seq_len))
+#define BL_SAM_SET_QUAL_LEN(ptr,qual_len)   ((ptr)->qual_len = (qual_len))
 
 // Use this or the function for every new object
-#define SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0 }
+#define BL_SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0 }
 
 typedef unsigned int    sam_field_mask_t;
 
-#define SAM_FIELD_ALL   0xfff
-#define SAM_FIELD_QNAME 0x001
-#define SAM_FIELD_FLAG  0x002
-#define SAM_FIELD_RNAME 0x004
-#define SAM_FIELD_POS   0x008
-#define SAM_FIELD_MAPQ  0x010
-#define SAM_FIELD_CIGAR 0x020
-#define SAM_FIELD_RNEXT 0x040
-#define SAM_FIELD_PNEXT 0x080
-#define SAM_FIELD_TLEN  0x100
-#define SAM_FIELD_SEQ   0x200
-#define SAM_FIELD_QUAL  0x400
+#define BL_SAM_FIELD_ALL   0xfff
+#define BL_SAM_FIELD_QNAME 0x001
+#define BL_SAM_FIELD_FLAG  0x002
+#define BL_SAM_FIELD_RNAME 0x004
+#define BL_SAM_FIELD_POS   0x008
+#define BL_SAM_FIELD_MAPQ  0x010
+#define BL_SAM_FIELD_CIGAR 0x020
+#define BL_SAM_FIELD_RNEXT 0x040
+#define BL_SAM_FIELD_PNEXT 0x080
+#define BL_SAM_FIELD_TLEN  0x100
+#define BL_SAM_FIELD_SEQ   0x200
+#define BL_SAM_FIELD_QUAL  0x400
 
 typedef struct
 {
     /* SAM fields */
-    char            qname[SAM_QNAME_MAX_CHARS + 1];
+    char            qname[BL_SAM_QNAME_MAX_CHARS + 1];
     unsigned        flag;
-    char            rname[SAM_RNAME_MAX_CHARS + 1];
+    char            rname[BL_SAM_RNAME_MAX_CHARS + 1];
     size_t          pos;
     unsigned char   mapq;
-    char            cigar[SAM_CIGAR_MAX_CHARS + 1];
-    char            rnext[SAM_RNAME_MAX_CHARS + 1];
+    char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
+    char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
     size_t          pnext;
     size_t          tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it

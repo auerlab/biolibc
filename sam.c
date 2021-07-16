@@ -14,23 +14,23 @@
  *  Description:
  *      Read next alignment (line) from a SAM stream.
  *
- *      If field_mask is not SAM_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_SAM_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in sam_alignment.
  *      That field in the structure is then populated with an appropriate
  *      marker, such as '.'.  Possible mask values are:
  *
- *      SAM_FIELD_ALL
- *      SAM_FIELD_QNAME
- *      SAM_FIELD_FLAG
- *      SAM_FIELD_RNAME
- *      SAM_FIELD_POS
- *      SAM_FIELD_MAPQ
- *      SAM_FIELD_CIGAR
- *      SAM_FIELD_RNEXT
- *      SAM_FIELD_PNEXT
- *      SAM_FIELD_TLEN
- *      SAM_FIELD_SEQ
- *      SAM_FIELD_QUAL
+ *      BL_SAM_FIELD_ALL
+ *      BL_SAM_FIELD_QNAME
+ *      BL_SAM_FIELD_FLAG
+ *      BL_SAM_FIELD_RNAME
+ *      BL_SAM_FIELD_POS
+ *      BL_SAM_FIELD_MAPQ
+ *      BL_SAM_FIELD_CIGAR
+ *      BL_SAM_FIELD_RNEXT
+ *      BL_SAM_FIELD_PNEXT
+ *      BL_SAM_FIELD_TLEN
+ *      BL_SAM_FIELD_SEQ
+ *      BL_SAM_FIELD_QUAL
  *
  *  Arguments:
  *      sam_stream:     A FILE stream from which to read the line
@@ -43,9 +43,9 @@
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      sam_read_alignment(stdin, &sam_alignment, SAM_FIELD_ALL);
+ *      sam_read_alignment(stdin, &sam_alignment, BL_SAM_FIELD_ALL);
  *      sam_read_alignment(sam_stream, &sam_alignment,
- *                         SAM_FIELD_QNAME|SAM_FIELD_POS|SAM_FIELD_TLEN);
+ *                         BL_SAM_FIELD_QNAME|BL_SAM_FIELD_POS|BL_SAM_FIELD_TLEN);
  *
  *  See also:
  *      sam_alignment_write(3)
@@ -59,18 +59,18 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 			   sam_field_mask_t field_mask)
 
 {
-    char    mapq_str[SAM_MAPQ_MAX_CHARS + 1],
-	    temp_seq_or_qual[SAM_SEQ_MAX_CHARS + 1],
+    char    mapq_str[BL_SAM_MAPQ_MAX_CHARS + 1],
+	    temp_seq_or_qual[BL_SAM_SEQ_MAX_CHARS + 1],
 	    pos_str[BL_POSITION_MAX_DIGITS + 1],
-	    flag_str[SAM_FLAG_MAX_DIGITS + 1],
+	    flag_str[BL_SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
     size_t  len;
     static size_t   previous_pos = 0;
     int     delim;
     
-    if ( field_mask & SAM_FIELD_QNAME )
+    if ( field_mask & BL_SAM_FIELD_QNAME )
 	delim = tsv_read_field(sam_stream, sam_alignment->qname,
-			SAM_QNAME_MAX_CHARS, &len);
+			BL_SAM_QNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -80,8 +80,8 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	return BL_READ_EOF;
 
     // 2 Flag
-    if ( field_mask & SAM_FIELD_FLAG )
-	delim = tsv_read_field(sam_stream, flag_str, SAM_FLAG_MAX_DIGITS, &len);
+    if ( field_mask & BL_SAM_FIELD_FLAG )
+	delim = tsv_read_field(sam_stream, flag_str, BL_SAM_FLAG_MAX_DIGITS, &len);
     else
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
@@ -90,7 +90,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 		flag_str);
 	return BL_READ_TRUNCATED;
     }
-    if ( field_mask & SAM_FIELD_FLAG )
+    if ( field_mask & BL_SAM_FIELD_FLAG )
     {
 	sam_alignment->flag = strtoul(flag_str, &end, 10);
 	if ( *end != '\0' )
@@ -107,9 +107,9 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->flag = 0;    // FIXME: Is there a better choice?
     
     // 3 RNAME
-    if ( field_mask & SAM_FIELD_RNAME )
+    if ( field_mask & BL_SAM_FIELD_RNAME )
 	delim = tsv_read_field(sam_stream, sam_alignment->rname,
-			       SAM_RNAME_MAX_CHARS, &len);
+			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -123,7 +123,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     
     // 4 POS
-    if ( field_mask & SAM_FIELD_POS )
+    if ( field_mask & BL_SAM_FIELD_POS )
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
@@ -134,7 +134,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
-    if ( field_mask & SAM_FIELD_POS )
+    if ( field_mask & BL_SAM_FIELD_POS )
     {
 	sam_alignment->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
@@ -152,8 +152,8 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->pos = 0;
     
     // 5 MAPQ
-    if ( field_mask & SAM_FIELD_MAPQ )
-	delim = tsv_read_field(sam_stream, mapq_str, SAM_MAPQ_MAX_CHARS,
+    if ( field_mask & BL_SAM_FIELD_MAPQ )
+	delim = tsv_read_field(sam_stream, mapq_str, BL_SAM_MAPQ_MAX_CHARS,
 			       &len);
     else
 	delim = tsv_skip_field(sam_stream);
@@ -164,7 +164,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	return BL_READ_TRUNCATED;
     }
 
-    if ( field_mask & SAM_FIELD_MAPQ )
+    if ( field_mask & BL_SAM_FIELD_MAPQ )
     {
 	sam_alignment->mapq = strtoul(mapq_str, &end, 10);
 	if ( *end != '\0' )
@@ -181,9 +181,9 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->mapq = 0;
     
     // 6 CIGAR
-    if ( field_mask & SAM_FIELD_CIGAR )
+    if ( field_mask & BL_SAM_FIELD_CIGAR )
 	delim = tsv_read_field(sam_stream, sam_alignment->cigar,
-			       SAM_CIGAR_MAX_CHARS, &len);
+			       BL_SAM_CIGAR_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -197,9 +197,9 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     
     // 7 RNEXT
-    if ( field_mask & SAM_FIELD_RNEXT )
+    if ( field_mask & BL_SAM_FIELD_RNEXT )
 	delim = tsv_read_field(sam_stream, sam_alignment->rnext,
-			       SAM_RNAME_MAX_CHARS, &len);
+			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -213,7 +213,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     
     // 8 PNEXT
-    if ( field_mask & SAM_FIELD_PNEXT )
+    if ( field_mask & BL_SAM_FIELD_PNEXT )
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
@@ -224,7 +224,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
-    if ( field_mask & SAM_FIELD_PNEXT )
+    if ( field_mask & BL_SAM_FIELD_PNEXT )
     {
 	sam_alignment->pnext = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
@@ -241,7 +241,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->pnext = 0;
     
     // 9 TLEN
-    if ( field_mask & SAM_FIELD_TLEN )
+    if ( field_mask & BL_SAM_FIELD_TLEN )
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
@@ -252,7 +252,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
-    if ( field_mask & SAM_FIELD_TLEN )
+    if ( field_mask & BL_SAM_FIELD_TLEN )
     {
 	sam_alignment->tlen = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
@@ -269,8 +269,8 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->tlen = 0;
     
     // 10 SEQ
-    if ( field_mask & SAM_FIELD_SEQ )
-	delim = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
+    if ( field_mask & BL_SAM_FIELD_SEQ )
+	delim = tsv_read_field(sam_stream, temp_seq_or_qual, BL_SAM_SEQ_MAX_CHARS,
 			       &sam_alignment->seq_len);
     else
     {
@@ -284,7 +284,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	return BL_READ_TRUNCATED;
     }
 
-    if ( field_mask & SAM_FIELD_SEQ )
+    if ( field_mask & BL_SAM_FIELD_SEQ )
     {
 	// May be allocated by sam_init_alignment() or sam_copy_alignment()
 	if ( sam_alignment->seq == NULL )
@@ -300,8 +300,8 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     
     // 11 QUAL, should be last field
-    if ( field_mask & SAM_FIELD_QUAL )
-	delim = tsv_read_field(sam_stream, temp_seq_or_qual, SAM_SEQ_MAX_CHARS,
+    if ( field_mask & BL_SAM_FIELD_QUAL )
+	delim = tsv_read_field(sam_stream, temp_seq_or_qual, BL_SAM_SEQ_MAX_CHARS,
 			       &sam_alignment->qual_len);
     else
     {
@@ -315,7 +315,7 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	return BL_READ_TRUNCATED;
     }
 
-    if ( field_mask & SAM_FIELD_QUAL )
+    if ( field_mask & BL_SAM_FIELD_QUAL )
     {
 	// May be allocated by sam_init_alignment() or sam_copy_alignment()
 	if ( sam_alignment->qual == NULL )
@@ -343,8 +343,8 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	    ;
 
     /*fprintf(stderr,"sam_read_alignment(): %s,%zu,%zu\n",
-	    SAM_RNAME(sam_alignment), SAM_POS(sam_alignment),
-	    SAM_SEQ_LEN(sam_alignment));*/
+	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
+	    BL_SAM_SEQ_LEN(sam_alignment));*/
     
     return BL_READ_OK;
 }
@@ -374,14 +374,14 @@ int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 void    sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
 
 {
-    strlcpy(dest->qname, src->qname, SAM_QNAME_MAX_CHARS + 1);
+    strlcpy(dest->qname, src->qname, BL_SAM_QNAME_MAX_CHARS + 1);
     dest->flag = src->flag;
-    strlcpy(dest->rname, src->rname, SAM_RNAME_MAX_CHARS + 1);
+    strlcpy(dest->rname, src->rname, BL_SAM_RNAME_MAX_CHARS + 1);
     dest->pos = src->pos;
     dest->mapq = src->mapq;
     // FIXME: Add cigar and RNEXT
-    strlcpy(dest->cigar, src->cigar, SAM_CIGAR_MAX_CHARS + 1);
-    strlcpy(dest->rnext, src->rnext, SAM_RNAME_MAX_CHARS + 1);
+    strlcpy(dest->cigar, src->cigar, BL_SAM_CIGAR_MAX_CHARS + 1);
+    strlcpy(dest->rnext, src->rnext, BL_SAM_RNAME_MAX_CHARS + 1);
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
     
@@ -447,7 +447,7 @@ void    sam_free_alignment(bl_sam_t *sam_alignment)
  *      sequence and quality strings according to seq_len.  Passing a
  *      seq_len of 0 prevents memory allocation from occurring.
  *
- *      Only SAM_FIELD_SEQ and SAM_FIELD_QUAL are meaningful bits in
+ *      Only BL_SAM_FIELD_SEQ and BL_SAM_FIELD_QUAL are meaningful bits in
  *      field_mask, as they determine whether memory is allocated.  All
  *      other fields are unconditionally initialized to 0, NULL, or blank.
  *
@@ -486,14 +486,14 @@ void    sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
     {
 	if ( seq_len != 0 )
 	{
-	    if ( (field_mask & SAM_FIELD_SEQ) && 
+	    if ( (field_mask & BL_SAM_FIELD_SEQ) && 
 		 ((sam_alignment->seq = xt_malloc(seq_len + 1,
 			sizeof(*sam_alignment->seq))) == NULL) )
 	    {
 		fprintf(stderr, "sam_init_alignment(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
-	    if ( (field_mask & SAM_FIELD_QUAL) &&
+	    if ( (field_mask & BL_SAM_FIELD_QUAL) &&
 		 ((sam_alignment->qual = xt_malloc(seq_len + 1,
 			sizeof(*sam_alignment->qual))) == NULL) )
 	    {
