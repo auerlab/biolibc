@@ -15,7 +15,7 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_ALIGNMENTS(ptr)
+BL_SAM_BUFF_ALIGNMENTS(ptr,c)
 .ad
 .fi
 
@@ -23,6 +23,7 @@ BL_SAM_BUFF_ALIGNMENTS(ptr)
 .nf
 .na
 ptr     Pointer to a bl_sam_buff_t structure
+c       Subscript to alignments array
 .ad
 .fi
 
@@ -39,8 +40,9 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+size_t          c;
 
-alignments = BL_SAM_BUFF_ALIGNMENTS(&bl_sam_buff);
+alignment = BL_SAM_BUFF_ALIGNMENTS(&bl_sam_buff,c);
 .ad
 .fi
 
