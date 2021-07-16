@@ -61,23 +61,45 @@ typedef struct
 		unmapped_alignments;
 }   bl_sam_buff_t;
 
-// FIXME: Make sure all fields have accessors and mutators
-#define BL_SAM_BUFF_MAPQ_MIN(b)    ((b)->mapq_min)
-#define BL_SAM_BUFF_MAPQ_SUM(b)    ((b)->mapq_sum)
-#define BL_SAM_BUFF_MAPQ_LOW(b)    ((b)->mapq_low)
-#define BL_SAM_BUFF_MAPQ_HIGH(b)   ((b)->mapq_high)
-#define BL_SAM_BUFF_READS_USED(b)  ((b)->reads_used)
+#define BL_SAM_BUFF_BUFF_SIZE(ptr)              ((ptr)->buff_size)
+#define BL_SAM_BUFF_ALIGNMENTS(ptr)             ((ptr)->alignments)
+#define BL_SAM_BUFF_BUFFERED_COUNT(ptr)         ((ptr)->buffered_count)
+#define BL_SAM_BUFF_MAX_COUNT(ptr)              ((ptr)->max_count)
+#define BL_SAM_BUFF_PREVIOUS_POS(ptr)           ((ptr)->previous_pos)
+#define BL_SAM_BUFF_PREVIOUS_RNAME(ptr)         ((ptr)->previous_rname)
+#define BL_SAM_BUFF_MAPQ_MIN(ptr)               ((ptr)->mapq_min)
+#define BL_SAM_BUFF_MAPQ_LOW(ptr)               ((ptr)->mapq_low)
+#define BL_SAM_BUFF_MAPQ_HIGH(ptr)              ((ptr)->mapq_high)
+#define BL_SAM_BUFF_MAPQ_SUM(ptr)               ((ptr)->mapq_sum)
+#define BL_SAM_BUFF_READS_USED(ptr)             ((ptr)->reads_used)
+#define BL_SAM_BUFF_TOTAL_ALIGNMENTS(ptr)       ((ptr)->total_alignments)
+#define BL_SAM_BUFF_TRAILING_ALIGNMENTS(ptr)    ((ptr)->trailing_alignments)
+#define BL_SAM_BUFF_DISCARDED_ALIGNMENTS(ptr)   ((ptr)->discarded_alignments)
+#define BL_SAM_BUFF_DISCARDED_SCORE_SUM(ptr)    ((ptr)->discarded_score_sum)
+#define BL_SAM_BUFF_DISCARDED_TRAILING(ptr)     ((ptr)->discarded_trailing)
+#define BL_SAM_BUFF_MIN_DISCARDED_SCORE(ptr)    ((ptr)->min_discarded_score)
+#define BL_SAM_BUFF_MAX_DISCARDED_SCORE(ptr)    ((ptr)->max_discarded_score)
+#define BL_SAM_BUFF_UNMAPPED_ALIGNMENTS(ptr)    ((ptr)->unmapped_alignments)
 
-#define BL_SAM_BUFF_TOTAL_ALIGNMENTS(b)        ((b)->total_alignments)
-#define BL_SAM_BUFF_UNMAPPED_ALIGNMENTS(b)     ((b)->unmapped_alignments)
-#define BL_SAM_BUFF_DISCARDED_ALIGNMENTS(b)    ((b)->discarded_alignments)
-#define BL_SAM_BUFF_DISCARDED_TRAILING(b)      ((b)->discarded_trailing)
-#define BL_SAM_BUFF_MIN_DISCARDED_SCORE(b)     ((b)->min_discarded_score)
-#define BL_SAM_BUFF_MAX_DISCARDED_SCORE(b)     ((b)->max_discarded_score)
-#define BL_SAM_BUFF_DISCARDED_SCORE_SUM(b)     ((b)->discarded_score_sum)
-#define BL_SAM_BUFF_BUFFERED_COUNT(b)          ((b)->buffered_count)
-#define BL_SAM_BUFF_MAX_COUNT(b)               ((b)->max_count)
-#define BL_SAM_BUFF_ALIGNMENTS(b,c)            ((b)->alignments[c])
+#define BL_SAM_BUFF_SET_BUFF_SIZE(ptr,buff_size)        ((ptr)->buff_size = (buff_size))
+#define BL_SAM_BUFF_SET_ALIGNMENTS(ptr,alignments)      ((ptr)->alignments = (alignments))
+#define BL_SAM_BUFF_SET_BUFFERED_COUNT(ptr,buffered_count)  ((ptr)->buffered_count = (buffered_count))
+#define BL_SAM_BUFF_SET_MAX_COUNT(ptr,max_count)        ((ptr)->max_count = (max_count))
+#define BL_SAM_BUFF_SET_PREVIOUS_POS(ptr,previous_pos)  ((ptr)->previous_pos = (previous_pos))
+#define BL_SAM_BUFF_SET_PREVIOUS_RNAME(ptr,previous_rname)  strlcpy(ptr->previous_rname,previous_rname,BL_SAM_RNAME_MAX_CHARS+1)
+#define BL_SAM_BUFF_SET_MAPQ_MIN(ptr,mapq_min)          ((ptr)->mapq_min = (mapq_min))
+#define BL_SAM_BUFF_SET_MAPQ_LOW(ptr,mapq_low)          ((ptr)->mapq_low = (mapq_low))
+#define BL_SAM_BUFF_SET_MAPQ_HIGH(ptr,mapq_high)        ((ptr)->mapq_high = (mapq_high))
+#define BL_SAM_BUFF_SET_MAPQ_SUM(ptr,mapq_sum)          ((ptr)->mapq_sum = (mapq_sum))
+#define BL_SAM_BUFF_SET_READS_USED(ptr,reads_used)      ((ptr)->reads_used = (reads_used))
+#define BL_SAM_BUFF_SET_TOTAL_ALIGNMENTS(ptr,total_alignments)  ((ptr)->total_alignments = (total_alignments))
+#define BL_SAM_BUFF_SET_TRAILING_ALIGNMENTS(ptr,trailing_alignments)    ((ptr)->trailing_alignments = (trailing_alignments))
+#define BL_SAM_BUFF_SET_DISCARDED_ALIGNMENTS(ptr,discarded_alignments)  ((ptr)->discarded_alignments = (discarded_alignments))
+#define BL_SAM_BUFF_SET_DISCARDED_SCORE_SUM(ptr,discarded_score_sum)    ((ptr)->discarded_score_sum = (discarded_score_sum))
+#define BL_SAM_BUFF_SET_DISCARDED_TRAILING(ptr,discarded_trailing)  ((ptr)->discarded_trailing = (discarded_trailing))
+#define BL_SAM_BUFF_SET_MIN_DISCARDED_SCORE(ptr,min_discarded_score)    ((ptr)->min_discarded_score = (min_discarded_score))
+#define BL_SAM_BUFF_SET_MAX_DISCARDED_SCORE(ptr,max_discarded_score)    ((ptr)->max_discarded_score = (max_discarded_score))
+#define BL_SAM_BUFF_SET_UNMAPPED_ALIGNMENTS(ptr,unmapped_alignments)    ((ptr)->unmapped_alignments = (unmapped_alignments))
 
 #define BL_SAM_BUFF_INC_TOTAL_ALIGNMENTS(b)    (++(b)->total_alignments)
 #define BL_SAM_BUFF_INC_TRAILING_ALIGNMENTS(b) (++(b)->trailing_alignments)
@@ -90,6 +112,6 @@ void sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 void sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 void sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c);
 void sam_buff_shift(bl_sam_buff_t *sam_buff, size_t c);
-_Bool sam_buff_alignment_ok(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+bool sam_buff_alignment_ok(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 
 #endif  // _sam_buff_h_
