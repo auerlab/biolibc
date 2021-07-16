@@ -41,10 +41,11 @@
 #define BL_VCF_QUALITY_MAX_CHARS       34
 #define BL_VCF_FILTER_MAX_CHARS        64
 
-#define BL_VCF_CALL_INIT   { "", "", "", "", "", "", "", NULL, NULL, NULL, \
+#define BL_VCF_CALL_INIT   { "", "", "", "", "", "", NULL, NULL, NULL, \
 			    0, 0, 0, 0, 0, 0, 0, 0, \
 			    NULL, NULL, 0, 0 \
 			}
+// We actually saw INFO fields over 512k in some dbGap BCFs
 typedef struct
 {
     char    chromosome[BL_CHROMOSOME_MAX_CHARS + 1],
@@ -53,7 +54,6 @@ typedef struct
 	    alt[BL_VCF_ALT_MAX_CHARS + 1],
 	    quality[BL_VCF_QUALITY_MAX_CHARS + 1],
 	    filter[BL_VCF_FILTER_MAX_CHARS + 1],
-	    // We actually saw INFO fields over 512k in some dbGap BCFs
 	    *info,
 	    *format,
 	    *single_sample; // Avoid using multi_samples
@@ -74,12 +74,15 @@ typedef struct
 }   bl_vcf_t;
 
 #define BL_VCF_CHROMOSOME(ptr)  ((ptr)->chromosome)
-#define BL_VCF_ID(ptr)  ((ptr)->id)
-#define BL_VCF_REF(ptr) ((ptr)->ref)
-#define BL_VCF_ALT(ptr) ((ptr)->alt)
-#define BL_VCF_QUALITY(ptr) ((ptr)->quality)
-#define BL_VCF_FILTER(ptr)  ((ptr)->filter)
-#define BL_VCF_POS(ptr) ((ptr)->pos)
+#define BL_VCF_ID(ptr)          ((ptr)->id)
+#define BL_VCF_REF(ptr)         ((ptr)->ref)
+#define BL_VCF_ALT(ptr)         ((ptr)->alt)
+#define BL_VCF_QUALITY(ptr)     ((ptr)->quality)
+#define BL_VCF_FILTER(ptr)      ((ptr)->filter)
+#define BL_VCF_INFO(ptr)        ((ptr)->info)
+#define BL_VCF_FORMAT(ptr)      ((ptr)->format)
+#define BL_VCF_SINGLE_SAMPLE(ptr)   ((ptr)->single_sample)
+#define BL_VCF_POS(ptr)         ((ptr)->pos)
 #define BL_VCF_INFO_LEN(ptr)    ((ptr)->info_len)
 #define BL_VCF_INFO_MAX(ptr)    ((ptr)->info_max)
 #define BL_VCF_FORMAT_MAX(ptr)  ((ptr)->format_max)
@@ -87,8 +90,8 @@ typedef struct
 #define BL_VCF_REF_COUNT(ptr)   ((ptr)->ref_count)
 #define BL_VCF_ALT_COUNT(ptr)   ((ptr)->alt_count)
 #define BL_VCF_OTHER_COUNT(ptr) ((ptr)->other_count)
-#define BL_VCF_MULTI_SAMPLES(ptr,c)   ((ptr)->multi_samples[c])
-#define BL_VCF_PHREDS(ptr)  ((ptr)->phreds)
+#define BL_VCF_MULTI_SAMPLES(ptr,c) ((ptr)->multi_samples[c])
+#define BL_VCF_PHREDS(ptr)      ((ptr)->phreds)
 #define BL_VCF_PHRED_COUNT(ptr) ((ptr)->phred_count)
 #define BL_VCF_PHRED_BUFF_SIZE(ptr) ((ptr)->phred_buff_size)
 
@@ -98,6 +101,9 @@ typedef struct
 #define BL_VCF_SET_ALT(ptr,alt)                 strlcpy(ptr->alt,alt,BL_VCF_ALT_MAX_CHARS+1)
 #define BL_VCF_SET_QUALITY(ptr,quality)         strlcpy(ptr->quality,quality,BL_VCF_QUALITY_MAX_CHARS+1)
 #define BL_VCF_SET_FILTER(ptr,filter)           strlcpy(ptr->filter,filter,BL_VCF_FILTER_MAX_CHARS+1)
+#define BL_VCF_SET_INFO(ptr,info)               ((ptr)->info = (info))
+#define BL_VCF_SET_FORMAT(ptr,format)           ((ptr)->format = (format))
+#define BL_VCF_SET_SINGLE_SAMPLE(ptr,single_sample) ((ptr)->single_sample = (single_sample))
 #define BL_VCF_SET_POS(ptr,pos)                 ((ptr)->pos = (pos))
 #define BL_VCF_SET_INFO_LEN(ptr,info_len)       ((ptr)->info_len = (info_len))
 #define BL_VCF_SET_INFO_MAX(ptr,info_max)       ((ptr)->info_max = (info_max))
