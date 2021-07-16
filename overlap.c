@@ -28,8 +28,8 @@
  *  Examples:
  *          bed_start = BED_START_POS(bed_feature);
  *          bed_end = BED_END_POS(bed_feature);
- *          gff_start = GFF_START_POS(gff_feature);
- *          gff_end = GFF_END_POS(gff_feature);
+ *          gff_start = BL_GFF_START_POS(gff_feature);
+ *          gff_end = BL_GFF_END_POS(gff_feature);
  *          bed_len = bed_end - bed_start;
  *          gff_len = gff_end - gff_start + 1;
  *          bl_overlap_set_all(overlap, bed_len, gff_len,

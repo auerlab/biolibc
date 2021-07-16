@@ -9,56 +9,65 @@
 #include <xtend.h>  // strlcpy() on Linux
 #endif
 
-#define GFF_SCORE_MAX_DIGITS        64      // Floating point
-#define GFF_SOURCE_MAX_CHARS        1024    // Guess
-#define GFF_NAME_MAX_CHARS          1024    // Guess
-#define GFF_STRAND_MAX_CHARS        2
-#define GFF_LINE_MAX_CHARS          4096
-#define GFF_PHASE_MAX_DIGITS        2
-#define GFF_ATTRIBUTES_MAX_CHARS    8192    // For temp vars only.
+#define BL_GFF_SCORE_MAX_DIGITS        64      // Floating point
+#define BL_GFF_SOURCE_MAX_CHARS        1024    // Guess
+#define BL_GFF_NAME_MAX_CHARS          1024    // Guess
+#define BL_GFF_STRAND_MAX_CHARS        2
+#define BL_GFF_LINE_MAX_CHARS          4096
+#define BL_GFF_PHASE_MAX_DIGITS        2
+#define BL_GFF_ATTRIBUTES_MAX_CHARS    8192    // For temp vars only.
 					    // Structure uses malloc()
 
-#define GFF_SCORE_UNAVAILABLE       -1.0
-#define GFF_PHASE_UNAVAILABLE       '.'
+#define BL_GFF_SCORE_UNAVAILABLE       -1.0
+#define BL_GFF_PHASE_UNAVAILABLE       '.'
 
 typedef unsigned int        gff_field_mask_t;
 
-#define GFF_FIELD_SEQUENCE      0x001
-#define GFF_FIELD_SOURCE        0x002
-#define GFF_FIELD_NAME          0x004
-#define GFF_FIELD_START_POS     0x008
-#define GFF_FIELD_END_POS       0x010
-#define GFF_FIELD_SCORE         0x020
-#define GFF_FIELD_STRAND        0x040
-#define GFF_FIELD_PHASE         0x080
-#define GFF_FIELD_ATTRIBUTES    0x100
-#define GFF_FIELD_ALL           0xfff
+#define BL_GFF_FIELD_SEQUENCE      0x001
+#define BL_GFF_FIELD_SOURCE        0x002
+#define BL_GFF_FIELD_NAME          0x004
+#define BL_GFF_FIELD_START_POS     0x008
+#define BL_GFF_FIELD_END_POS       0x010
+#define BL_GFF_FIELD_SCORE         0x020
+#define BL_GFF_FIELD_STRAND        0x040
+#define BL_GFF_FIELD_PHASE         0x080
+#define BL_GFF_FIELD_ATTRIBUTES    0x100
+#define BL_GFF_FIELD_ALL           0xfff
 
-#define GFF_SEQUENCE(gf)        ((gf)->sequence)
-#define GFF_START_POS(gf)       ((gf)->start_pos)
-#define GFF_END_POS(gf)         ((gf)->end_pos)
-#define GFF_NAME(gf)            ((gf)->name)
-#define GFF_SCORE(gf)           ((gf)->score)
-#define GFF_STRAND(gf)          ((gf)->strand)
+#define BL_GFF_SEQUENCE(ptr)    ((ptr)->sequence)
+#define BL_GFF_SOURCE(ptr)      ((ptr)->source)
+#define BL_GFF_NAME(ptr)        ((ptr)->name)
+#define BL_GFF_START_POS(ptr)   ((ptr)->start_pos)
+#define BL_GFF_END_POS(ptr)     ((ptr)->end_pos)
+#define BL_GFF_SCORE(ptr)       ((ptr)->score)
+#define BL_GFF_STRAND(ptr)      ((ptr)->strand)
+#define BL_GFF_PHASE(ptr)       ((ptr)->phase)
+#define BL_GFF_ATTRIBUTES(ptr)  ((ptr)->attributes)
+#define BL_GFF_FEATURE_ID(ptr)  ((ptr)->feature_id)
+#define BL_GFF_GENE_NAME(ptr)   ((ptr)->gene_name)
 
-#define GFF_SET_START_POS(gf, p)    ((gf)->start_pos = (p))
-#define GFF_SET_END_POS(gf, p)      ((gf)->end_pos = (p))
-#define GFF_SET_NAME(gf, n) \
-	(strlcpy((gf)->name, (n), GFF_NAME_MAX_CHARS))
+#define BL_GFF_SET_SEQUENCE(ptr,sequence)       strlcpy(ptr->sequence,sequence,BL_CHROMOSOME_MAX_CHARS+1)
+#define BL_GFF_SET_SOURCE(ptr,source)           strlcpy(ptr->source,source,BL_GFF_SOURCE_MAX_CHARS+1)
+#define BL_GFF_SET_NAME(ptr,name)               strlcpy(ptr->name,name,BL_GFF_NAME_MAX_CHARS+1)
+#define BL_GFF_SET_START_POS(ptr,start_pos)     ((ptr)->start_pos, = (start_pos,))
+#define BL_GFF_SET_END_POS(ptr,end_pos)         ((ptr)->end_pos = (end_pos))
+#define BL_GFF_SET_SCORE(ptr,score)             ((ptr)->score = (score))
+#define BL_GFF_SET_STRAND(ptr,strand)           ((ptr)->strand = (strand))
+#define BL_GFF_SET_PHASE(ptr,phase)             ((ptr)->phase = (phase))
+#define BL_GFF_SET_ATTRIBUTES(ptr,attributes)   ((ptr)->attributes = (attributes))
+#define BL_GFF_SET_FEATURE_ID(ptr,feature_id)   ((ptr)->feature_id = (feature_id))
+#define BL_GFF_SET_GENE_NAME(ptr,gene_name)     ((ptr)->gene_name = (gene_name))
 
-#define GFF_INIT \
-	{ "", "", "", "", "", 0, 0, "", 0.0, '.', '.', NULL, NULL, NULL }
+#define BL_GFF_INIT \
+	{ "", "", "", 0, 0, 0.0, '.', '.', NULL, NULL, NULL }
 
 typedef struct
 {
     char            sequence[BL_CHROMOSOME_MAX_CHARS + 1];
-    char            source[GFF_SOURCE_MAX_CHARS + 1];
-    char            name[GFF_NAME_MAX_CHARS + 1];
-    char            start_pos_str[BL_POSITION_MAX_DIGITS + 1],  // 0-based
-		    end_pos_str[BL_POSITION_MAX_DIGITS + 1];   
+    char            source[BL_GFF_SOURCE_MAX_CHARS + 1];
+    char            name[BL_GFF_NAME_MAX_CHARS + 1];
     uint64_t        start_pos,
 		    end_pos;
-    char            score_str[GFF_SCORE_MAX_DIGITS + 1];
     double          score;
     char            strand;         // '+' or '-' or '.'
     char            phase;          // 0, 1, 2, or '.' (bases to condon start)
@@ -69,7 +78,7 @@ typedef struct
      *  and may be useful.
      */
     char            *feature_id;    // In every feature of Ensemble GFFs
-    char            *gane_name;     // Extract from gene features and look
+    char            *gene_name;     // Extract from gene features and look
 				    // up using Ensemble ID for others
 }   bl_gff_t;
 

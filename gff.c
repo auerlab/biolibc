@@ -66,21 +66,21 @@ FILE    *gff_skip_header(FILE *gff_stream)
  *  Description:
  *      Read next feature (line) from a GFF file.
  *
- *      If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in gff_feature.
  *      That field in the structure is then populated with an appropriate
  *      marker, such as '.'.  Possible mask values are:
  *
- *      GFF_FIELD_ALL
- *      GFF_FIELD_SEQUENCE
- *      GFF_FIELD_SOURCE
- *      GFF_FIELD_NAME
- *      GFF_FIELD_START_POS
- *      GFF_FIELD_END_POS
- *      GFF_FIELD_SCORE
- *      GFF_FIELD_STRAND
- *      GFF_FIELD_PHASE
- *      GFF_FIELD_ATTRIBUTES
+ *      BL_GFF_FIELD_ALL
+ *      BL_GFF_FIELD_SEQUENCE
+ *      BL_GFF_FIELD_SOURCE
+ *      BL_GFF_FIELD_NAME
+ *      BL_GFF_FIELD_START_POS
+ *      BL_GFF_FIELD_END_POS
+ *      BL_GFF_FIELD_SCORE
+ *      BL_GFF_FIELD_STRAND
+ *      BL_GFF_FIELD_PHASE
+ *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
  *      gff_stream:     A FILE stream from which to read the line
@@ -93,9 +93,9 @@ FILE    *gff_skip_header(FILE *gff_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      gff_read_feature(stdin, &gff_feature, GFF_FIELD_ALL);
+ *      gff_read_feature(stdin, &gff_feature, BL_GFF_FIELD_ALL);
  *      gff_read_feature(gff_stream, &gff_feature,
- *                       GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
+ *                       BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
  *
  *  See also:
  *      gff_write_feature(3)
@@ -110,12 +110,15 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 
 {
     char    *end,
-	    line[GFF_LINE_MAX_CHARS + 1],
-	    temp_attributes[GFF_ATTRIBUTES_MAX_CHARS + 1],
-	    strand_str[GFF_STRAND_MAX_CHARS + 1],
-	    phase_str[GFF_PHASE_MAX_DIGITS + 1],
+	    line[BL_GFF_LINE_MAX_CHARS + 1],
+	    temp_attributes[BL_GFF_ATTRIBUTES_MAX_CHARS + 1],
+	    strand_str[BL_GFF_STRAND_MAX_CHARS + 1],
+	    phase_str[BL_GFF_PHASE_MAX_DIGITS + 1],
 	    *id_start,
-	    *id_end;
+	    *id_end,
+	    start_pos_str[BL_POSITION_MAX_DIGITS + 1],
+	    end_pos_str[BL_POSITION_MAX_DIGITS + 1],
+	    score_str[BL_GFF_SCORE_MAX_DIGITS + 1];
     size_t  len;
     int     delim,
 	    ch;
@@ -124,10 +127,10 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     // FIXME: Rely on parent ID instead of ###?
     if ( (ch = getc(gff_stream)) == '#' )
     {
-	fgets(line, GFF_LINE_MAX_CHARS, gff_stream);
+	fgets(line, BL_GFF_LINE_MAX_CHARS, gff_stream);
 	if ( strcmp(line, "##\n") == 0 )
 	{
-	    strlcpy(gff_feature->name, "###", GFF_NAME_MAX_CHARS);
+	    strlcpy(gff_feature->name, "###", BL_GFF_NAME_MAX_CHARS);
 	    return BL_READ_OK;
 	}
     }
@@ -144,7 +147,7 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     
     // 2 Source
     if ( (delim = tsv_read_field(gff_stream, gff_feature->source,
-			GFF_NAME_MAX_CHARS, &len)) == EOF )
+			BL_GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading SOURCE: %s.\n",
 		gff_feature->source);
@@ -153,7 +156,7 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 
     // 3 Feature
     if ( (delim = tsv_read_field(gff_stream, gff_feature->name,
-			GFF_NAME_MAX_CHARS, &len)) == EOF )
+			BL_GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading feature: %s.\n",
 		gff_feature->name);
@@ -161,64 +164,64 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     }
     
     // 4 Feature start position
-    if ( tsv_read_field(gff_stream, gff_feature->start_pos_str,
+    if ( tsv_read_field(gff_stream, start_pos_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading start POS: %s.\n",
-		gff_feature->start_pos_str);
+		start_pos_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	gff_feature->start_pos = strtoul(gff_feature->start_pos_str, &end, 10);
+	gff_feature->start_pos = strtoul(start_pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "gff_read_feature(): Invalid feature position: %s\n",
-		    gff_feature->start_pos_str);
+		    start_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
     }
     
     // 5 Feature end position
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->end_pos_str,
+    if ( (delim = tsv_read_field(gff_stream, end_pos_str,
 			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading end POS: %s.\n",
-		gff_feature->end_pos_str);
+		end_pos_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	gff_feature->end_pos = strtoul(gff_feature->end_pos_str, &end, 10);
+	gff_feature->end_pos = strtoul(end_pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "gff_read_feature(): Invalid feature position: %s\n",
-		    gff_feature->end_pos_str);
+		    end_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
     }
 
     // 6 Score
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->score_str,
-			GFF_SCORE_MAX_DIGITS, &len)) == EOF )
+    if ( (delim = tsv_read_field(gff_stream, score_str,
+			BL_GFF_SCORE_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading SCORE: %s.\n",
-		gff_feature->score_str);
+		score_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	gff_feature->score = strtod(gff_feature->score_str, &end);
+	gff_feature->score = strtod(score_str, &end);
 	if ( *end != '\0' )
-	    gff_feature->score = GFF_SCORE_UNAVAILABLE;
+	    gff_feature->score = BL_GFF_SCORE_UNAVAILABLE;
     }
     
     
     // 7 Strand
     if ( (delim = tsv_read_field(gff_stream, strand_str,
-			GFF_STRAND_MAX_CHARS, &len)) == EOF )
+			BL_GFF_STRAND_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading STRAND: %s.\n",
 		strand_str);
@@ -229,7 +232,7 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     
     // 8 Phase (bases to start of next codon: 0, 1, or 2. "." if unavailable)
     if ( (delim = tsv_read_field(gff_stream, phase_str,
-			GFF_PHASE_MAX_DIGITS, &len)) == EOF )
+			BL_GFF_PHASE_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading PHASE: %s.\n",
 		phase_str);
@@ -240,7 +243,7 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 
     // 9 Attributes
     if ( (delim = tsv_read_field(gff_stream, temp_attributes,
-			GFF_ATTRIBUTES_MAX_CHARS, &len)) == EOF )
+			BL_GFF_ATTRIBUTES_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "gff_read_feature(): Got EOF reading ATTRIBUTES: %s.\n",
 		temp_attributes);
@@ -281,21 +284,21 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
  *      Write fields from a GFF feature to the specified FILE
  *      stream.
  *
- *      If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are written as an appropriate marker for that field,
  *      such as a '.', rather than writing the real data.
  *      Possible mask values are:
  *
- *      GFF_FIELD_ALL
- *      GFF_FIELD_SEQUENCE
- *      GFF_FIELD_SOURCE
- *      GFF_FIELD_NAME
- *      GFF_FIELD_START_POS
- *      GFF_FIELD_END_POS
- *      GFF_FIELD_SCORE
- *      GFF_FIELD_STRAND
- *      GFF_FIELD_PHASE
- *      GFF_FIELD_ATTRIBUTES
+ *      BL_GFF_FIELD_ALL
+ *      BL_GFF_FIELD_SEQUENCE
+ *      BL_GFF_FIELD_SOURCE
+ *      BL_GFF_FIELD_NAME
+ *      BL_GFF_FIELD_START_POS
+ *      BL_GFF_FIELD_END_POS
+ *      BL_GFF_FIELD_SCORE
+ *      BL_GFF_FIELD_STRAND
+ *      BL_GFF_FIELD_PHASE
+ *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
  *      gff_stream:     FILE stream to which TSV gff line is written
@@ -307,9 +310,9 @@ int     gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      gff_write_feature(stdout, &gff_feature, GFF_FIELD_ALL);
+ *      gff_write_feature(stdout, &gff_feature, BL_GFF_FIELD_ALL);
  *      gff_write_feature(gff_stream, &gff_feature,
- *                        GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
+ *                        BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
  *
  *  See also:
  *      gff_read_feature(3)
@@ -324,9 +327,9 @@ int     gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 
 {
     return fprintf(gff_stream,
-	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%s\t%c\t%c\t%s\n",
+	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%f\t%c\t%c\t%s\n",
 	gff_feature->sequence, gff_feature->source, gff_feature->name,
-	gff_feature->start_pos, gff_feature->end_pos, gff_feature->score_str,
+	gff_feature->start_pos, gff_feature->end_pos, gff_feature->score,
 	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
 }
 
@@ -357,20 +360,20 @@ void    gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
 
 {
     char    name[BED_NAME_MAX_CHARS + 1],
-	    strand = GFF_STRAND(gff_feature);
+	    strand = BL_GFF_STRAND(gff_feature);
     
-    bed_set_chromosome(bed_feature, GFF_SEQUENCE(gff_feature));
+    bed_set_chromosome(bed_feature, BL_GFF_SEQUENCE(gff_feature));
     /*
      *  BED start is 0-based and inclusive
      *  GFF is 1-based and inclusive
      */
-    bed_set_start_pos(bed_feature, GFF_START_POS(gff_feature) - 1);
+    bed_set_start_pos(bed_feature, BL_GFF_START_POS(gff_feature) - 1);
     /*
      *  BED end is 0-base and inclusive (or 1-based and non-inclusive)
      *  GFF is the same
      */
-    bed_set_end_pos(bed_feature, GFF_END_POS(gff_feature));
-    snprintf(name, BED_NAME_MAX_CHARS, "%s", GFF_NAME(gff_feature));
+    bed_set_end_pos(bed_feature, BL_GFF_END_POS(gff_feature));
+    snprintf(name, BED_NAME_MAX_CHARS, "%s", BL_GFF_NAME(gff_feature));
     bed_set_name(bed_feature, name);
     bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
     if ( bed_set_strand(bed_feature, strand) != BL_DATA_OK )

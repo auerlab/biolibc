@@ -35,29 +35,29 @@ field_mask:     Bit mask indicating which fields to output
 Write fields from a GFF feature to the specified FILE
 stream.
 
-If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
 in the bit mask are written as an appropriate marker for that field,
 such as a '.', rather than writing the real data.
 Possible mask values are:
 
-GFF_FIELD_ALL
-GFF_FIELD_SEQUENCE
-GFF_FIELD_SOURCE
-GFF_FIELD_NAME
-GFF_FIELD_START_POS
-GFF_FIELD_END_POS
-GFF_FIELD_SCORE
-GFF_FIELD_STRAND
-GFF_FIELD_PHASE
-GFF_FIELD_ATTRIBUTES
+BL_GFF_FIELD_ALL
+BL_GFF_FIELD_SEQUENCE
+BL_GFF_FIELD_SOURCE
+BL_GFF_FIELD_NAME
+BL_GFF_FIELD_START_POS
+BL_GFF_FIELD_END_POS
+BL_GFF_FIELD_SCORE
+BL_GFF_FIELD_STRAND
+BL_GFF_FIELD_PHASE
+BL_GFF_FIELD_ATTRIBUTES
 
 .SH EXAMPLES
 .nf
 .na
 
-gff_write_feature(stdout, &gff_feature, GFF_FIELD_ALL);
+gff_write_feature(stdout, &gff_feature, BL_GFF_FIELD_ALL);
 gff_write_feature(gff_stream, &gff_feature,
-GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
+BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
 .ad
 .fi
 

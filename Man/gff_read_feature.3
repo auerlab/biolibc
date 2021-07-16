@@ -41,29 +41,29 @@ the function returns a FILE pointer to the header stream.
 
 Read next feature (line) from a GFF file.
 
-If field_mask is not GFF_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
 in the bit mask are discarded rather than stored in gff_feature.
 That field in the structure is then populated with an appropriate
 marker, such as '.'.  Possible mask values are:
 
-GFF_FIELD_ALL
-GFF_FIELD_SEQUENCE
-GFF_FIELD_SOURCE
-GFF_FIELD_NAME
-GFF_FIELD_START_POS
-GFF_FIELD_END_POS
-GFF_FIELD_SCORE
-GFF_FIELD_STRAND
-GFF_FIELD_PHASE
-GFF_FIELD_ATTRIBUTES
+BL_GFF_FIELD_ALL
+BL_GFF_FIELD_SEQUENCE
+BL_GFF_FIELD_SOURCE
+BL_GFF_FIELD_NAME
+BL_GFF_FIELD_START_POS
+BL_GFF_FIELD_END_POS
+BL_GFF_FIELD_SCORE
+BL_GFF_FIELD_STRAND
+BL_GFF_FIELD_PHASE
+BL_GFF_FIELD_ATTRIBUTES
 
 .SH EXAMPLES
 .nf
 .na
 
-gff_read_feature(stdin, &gff_feature, GFF_FIELD_ALL);
+gff_read_feature(stdin, &gff_feature, BL_GFF_FIELD_ALL);
 gff_read_feature(gff_stream, &gff_feature,
-GFF_FIELD_SEQUENCE|GFF_FIELD_START_POS|GFF_FIELD_END_POS);
+BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
 .ad
 .fi
 

@@ -618,7 +618,7 @@ int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 		gff_start, gff_end, gff_len;
     
     chromosome_cmp = chromosome_name_cmp(BED_CHROMOSOME(bed_feature),
-					 GFF_SEQUENCE(gff_feature));
+					 BL_GFF_SEQUENCE(gff_feature));
     if ( chromosome_cmp == 0 )
     {
 	/*
@@ -627,12 +627,12 @@ int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	 *  GFF is 1-based, both ends inclusive
 	 */
 	
-	if ( BED_END_POS(bed_feature) < GFF_START_POS(gff_feature) )
+	if ( BED_END_POS(bed_feature) < BL_GFF_START_POS(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return -1;
 	}
-	else if ( BED_START_POS(bed_feature) + 1 > GFF_END_POS(gff_feature) )
+	else if ( BED_START_POS(bed_feature) + 1 > BL_GFF_END_POS(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return 1;
@@ -641,8 +641,8 @@ int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	{
 	    bed_start = BED_START_POS(bed_feature);
 	    bed_end = BED_END_POS(bed_feature);
-	    gff_start = GFF_START_POS(gff_feature);
-	    gff_end = GFF_END_POS(gff_feature);
+	    gff_start = BL_GFF_START_POS(gff_feature);
+	    gff_end = BL_GFF_END_POS(gff_feature);
 	    bed_len = bed_end - bed_start;
 	    gff_len = gff_end - gff_start + 1;
 	    bl_overlap_set_all(overlap, bed_len, gff_len,
