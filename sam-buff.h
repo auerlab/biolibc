@@ -82,7 +82,7 @@ typedef struct
 #define BL_SAM_BUFF_UNMAPPED_ALIGNMENTS(ptr)    ((ptr)->unmapped_alignments)
 
 #define BL_SAM_BUFF_SET_BUFF_SIZE(ptr,buff_size)        ((ptr)->buff_size = (buff_size))
-#define BL_SAM_BUFF_SET_ALIGNMENTS(ptr,alignments,c)    ((ptr)->alignments[c] = (alignments))
+#define BL_SAM_BUFF_SET_ALIGNMENTS(ptr,c,alignment)     ((ptr)->alignments[c] = (alignment))
 #define BL_SAM_BUFF_SET_BUFFERED_COUNT(ptr,buffered_count)  ((ptr)->buffered_count = (buffered_count))
 #define BL_SAM_BUFF_SET_MAX_COUNT(ptr,max_count)        ((ptr)->max_count = (max_count))
 #define BL_SAM_BUFF_SET_PREVIOUS_POS(ptr,previous_pos)  ((ptr)->previous_pos = (previous_pos))

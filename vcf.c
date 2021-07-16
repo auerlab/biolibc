@@ -110,7 +110,7 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 {
     size_t  c,
 	    len;
-    char    temp_sample_id[VCF_ID_MAX_CHARS + 1];
+    char    temp_sample_id[BL_VCF_ID_MAX_CHARS + 1];
     int     delimiter = 0;
     
     // Skip standard header tags to get to sample IDs
@@ -123,7 +123,7 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
     
     for (; (c <= last_col) &&
 	   (delimiter = tsv_read_field(vcf_stream, temp_sample_id,
-				     VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
+				     BL_VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
 	// fprintf(stderr, "'%s'\n", temp_sample_id);
@@ -152,20 +152,20 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *      This function does not read any of the sample data in columns 10
  *      and on.  Samples can be read using a loop with tsv_read_field(3).
  *
- *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in bed_feature.
  *      Possible mask values are:
  *
- *      VCF_FIELD_ALL
- *      VCF_FIELD_CHROM
- *      VCF_FIELD_POS
- *      VCF_FIELD_ID
- *      VCF_FIELD_REF
- *      VCF_FIELD_ALT
- *      VCF_FIELD_QUAL
- *      VCF_FIELD_FILTER
- *      VCF_FIELD_INFO
- *      VCF_FIELD_FORMAT
+ *      BL_VCF_FIELD_ALL
+ *      BL_VCF_FIELD_CHROM
+ *      BL_VCF_FIELD_POS
+ *      BL_VCF_FIELD_ID
+ *      BL_VCF_FIELD_REF
+ *      BL_VCF_FIELD_ALT
+ *      BL_VCF_FIELD_QUAL
+ *      BL_VCF_FIELD_FILTER
+ *      BL_VCF_FIELD_INFO
+ *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
  *      vcf_stream: FILE stream for VCF input
@@ -183,7 +183,7 @@ void    vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *      char        sample_data[MAX_CHARS + 1];
  *      size_t      len;
  *
- *      vcf_read_static_fields(stream, &vcf_call, VCF_FIELD_ALL);
+ *      vcf_read_static_fields(stream, &vcf_call, BL_VCF_FIELD_ALL);
  *      while ( tsv_read_field(stream, sample_data, MAX_CHARS, &len) != '\n' )
  *      {
  *          ...
@@ -201,7 +201,8 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 			       vcf_field_mask_t field_mask)
 
 {
-    char    *end;
+    char    *end,
+	    pos_str[BL_POSITION_MAX_DIGITS + 1];
     size_t  len;
     
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
@@ -215,28 +216,28 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     }
     
     // Call position
-    if ( tsv_read_field(vcf_stream, vcf_call->pos_str,
+    if ( tsv_read_field(vcf_stream, pos_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading POS: %s.\n",
-		vcf_call->pos_str);
+		pos_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	vcf_call->pos = strtoul(vcf_call->pos_str, &end, 10);
+	vcf_call->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "vcf_read_static_fields(): Invalid call position: %s\n",
-		    vcf_call->pos_str);
+		    pos_str);
 	    return BL_READ_TRUNCATED;
 	}
     }
     
     // ID
     if ( tsv_read_field(vcf_stream, vcf_call->id,
-			VCF_ID_MAX_CHARS, &len) == EOF )
+			BL_VCF_ID_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ID.\n");
 	return BL_READ_TRUNCATED;
@@ -244,7 +245,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     
     // Ref
     if ( tsv_read_field(vcf_stream, vcf_call->ref,
-			VCF_REF_MAX_CHARS, &len) == EOF )
+			BL_VCF_REF_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading REF.\n");
 	return BL_READ_TRUNCATED;
@@ -252,7 +253,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     
     // Alt
     if ( tsv_read_field(vcf_stream, vcf_call->alt,
-		   VCF_ALT_MAX_CHARS, &len) == EOF )
+		   BL_VCF_ALT_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading ALT.\n");
 	return BL_READ_TRUNCATED;
@@ -260,7 +261,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 
     // Qual
     if ( tsv_read_field(vcf_stream, vcf_call->quality,
-		   VCF_QUALITY_MAX_CHARS, &len) == EOF )
+		   BL_VCF_QUALITY_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return BL_READ_TRUNCATED;
@@ -268,7 +269,7 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     
     // Filter
     if ( tsv_read_field(vcf_stream, vcf_call->filter,
-		   VCF_FILTER_MAX_CHARS, &len) == EOF )
+		   BL_VCF_FILTER_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "vcf_read_static_fields(): Got EOF reading FILTER.\n");
 	return BL_READ_TRUNCATED;
@@ -305,20 +306,20 @@ int     vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      sample column.  For multisample VCFs, use vcf_read_static_fields()
  *      followed by a loop to read the sample data.
  *
- *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in bed_feature.
  *      Possible mask values are:
  *
- *      VCF_FIELD_ALL
- *      VCF_FIELD_CHROM
- *      VCF_FIELD_POS
- *      VCF_FIELD_ID
- *      VCF_FIELD_REF
- *      VCF_FIELD_ALT
- *      VCF_FIELD_QUAL
- *      VCF_FIELD_FILTER
- *      VCF_FIELD_INFO
- *      VCF_FIELD_FORMAT
+ *      BL_VCF_FIELD_ALL
+ *      BL_VCF_FIELD_CHROM
+ *      BL_VCF_FIELD_POS
+ *      BL_VCF_FIELD_ID
+ *      BL_VCF_FIELD_REF
+ *      BL_VCF_FIELD_ALT
+ *      BL_VCF_FIELD_QUAL
+ *      BL_VCF_FIELD_FILTER
+ *      BL_VCF_FIELD_INFO
+ *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to VCF input stream
@@ -371,20 +372,20 @@ int     vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      Write static fields from one line of a single-entry VCF file.
  *      Does not write sample data.
  *
- *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are written as an appropriate placeholder such as '.'
  *      rather than the actual data.  Possible mask values are:
  *
- *      VCF_FIELD_ALL
- *      VCF_FIELD_CHROM
- *      VCF_FIELD_POS
- *      VCF_FIELD_ID
- *      VCF_FIELD_REF
- *      VCF_FIELD_ALT
- *      VCF_FIELD_QUAL
- *      VCF_FIELD_FILTER
- *      VCF_FIELD_INFO
- *      VCF_FIELD_FORMAT
+ *      BL_VCF_FIELD_ALL
+ *      BL_VCF_FIELD_CHROM
+ *      BL_VCF_FIELD_POS
+ *      BL_VCF_FIELD_ID
+ *      BL_VCF_FIELD_REF
+ *      BL_VCF_FIELD_ALT
+ *      BL_VCF_FIELD_QUAL
+ *      BL_VCF_FIELD_FILTER
+ *      BL_VCF_FIELD_INFO
+ *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to the VCF output stream
@@ -407,7 +408,7 @@ int     vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 
 {
     char    *chromosome = ".",
-	    *pos_str = ".",
+	    pos_str[BL_POSITION_MAX_DIGITS+1] = ".",
 	    *id = ".",
 	    *ref = ".",
 	    *alt = ".",
@@ -416,23 +417,23 @@ int     vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 	    *info = ".",
 	    *format = ".";
     
-    if ( field_mask & VCF_FIELD_CHROM )
+    if ( field_mask & BL_VCF_FIELD_CHROM )
 	chromosome = vcf_call->chromosome;
-    if ( field_mask & VCF_FIELD_POS )
-	pos_str = vcf_call->pos_str;
-    if ( field_mask & VCF_FIELD_ID )
+    if ( field_mask & BL_VCF_FIELD_POS )
+	ltostrn(pos_str, vcf_call->pos, 10, BL_POSITION_MAX_DIGITS);
+    if ( field_mask & BL_VCF_FIELD_ID )
 	id = vcf_call->id;
-    if ( field_mask & VCF_FIELD_REF )
+    if ( field_mask & BL_VCF_FIELD_REF )
 	ref = vcf_call->ref;
-    if ( field_mask & VCF_FIELD_ALT )
+    if ( field_mask & BL_VCF_FIELD_ALT )
 	alt = vcf_call->alt;
-    if ( field_mask & VCF_FIELD_QUAL )
+    if ( field_mask & BL_VCF_FIELD_QUAL )
 	quality = vcf_call->quality;
-    if ( field_mask & VCF_FIELD_FILTER )
+    if ( field_mask & BL_VCF_FIELD_FILTER )
 	filter = vcf_call->filter;
-    if ( field_mask & VCF_FIELD_INFO )
+    if ( field_mask & BL_VCF_FIELD_INFO )
 	info = vcf_call->info;
-    if ( field_mask & VCF_FIELD_FORMAT )
+    if ( field_mask & BL_VCF_FIELD_FORMAT )
 	format = vcf_call->format;
     
     return fprintf(vcf_stream,
@@ -455,20 +456,20 @@ int     vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      sample column.  For multisample VCFs, use vcf_write_static_fields()
  *      followed by a loop to write the sample data.
  *
- *      If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are written as an appropriate placeholder such as '.'
  *      rather than the actual data.  Possible mask values are:
  *
- *      VCF_FIELD_ALL
- *      VCF_FIELD_CHROM
- *      VCF_FIELD_POS
- *      VCF_FIELD_ID
- *      VCF_FIELD_REF
- *      VCF_FIELD_ALT
- *      VCF_FIELD_QUAL
- *      VCF_FIELD_FILTER
- *      VCF_FIELD_INFO
- *      VCF_FIELD_FORMAT
+ *      BL_VCF_FIELD_ALL
+ *      BL_VCF_FIELD_CHROM
+ *      BL_VCF_FIELD_POS
+ *      BL_VCF_FIELD_ID
+ *      BL_VCF_FIELD_REF
+ *      BL_VCF_FIELD_ALT
+ *      BL_VCF_FIELD_QUAL
+ *      BL_VCF_FIELD_FILTER
+ *      BL_VCF_FIELD_INFO
+ *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
  *      vcf_stream: FILE pointer to the VCF output stream
@@ -606,7 +607,7 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
     {
 	free(vcf_call->phreds);
 	vcf_call->phreds = NULL;
-	vcf_call->phred_buff_size = VCF_PHRED_BUFF_SIZE;
+	vcf_call->phred_buff_size = BL_VCF_PHRED_BUFF_SIZE;
     }
     vcf_phred_blank(vcf_call);
 }
@@ -666,7 +667,6 @@ void    vcf_call_init(bl_vcf_t *vcf_call,
 
 {
     vcf_call->chromosome[0] = '\0';
-    vcf_call->pos_str[0] = '\0';
     vcf_call->id[0] = '\0';
     vcf_call->ref[0] = '\0';
     vcf_call->alt[0] = '\0';
@@ -733,7 +733,7 @@ void    vcf_call_init(bl_vcf_t *vcf_call,
 vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 
 {
-    vcf_field_mask_t    field_mask = VCF_FIELD_ALL;
+    vcf_field_mask_t    field_mask = BL_VCF_FIELD_ALL;
     char            *field_name;
     
     if ( strcmp("spec", "all") != 0 )
@@ -741,25 +741,25 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 	while ((field_name = strsep(&spec, ",")) != NULL)
 	{
 	    if ( strcmp(field_name, "chrom") == 0 )
-		field_mask |= VCF_FIELD_CHROM;
+		field_mask |= BL_VCF_FIELD_CHROM;
 	    else if ( strcmp(field_name, "pos") == 0 )
-		field_mask |= VCF_FIELD_POS;
+		field_mask |= BL_VCF_FIELD_POS;
 	    else if ( strcmp(field_name, "id") == 0 )
-		field_mask |= VCF_FIELD_ID;
+		field_mask |= BL_VCF_FIELD_ID;
 	    else if ( strcmp(field_name, "ref") == 0 )
-		field_mask |= VCF_FIELD_REF;
+		field_mask |= BL_VCF_FIELD_REF;
 	    else if ( strcmp(field_name, "alt") == 0 )
-		field_mask |= VCF_FIELD_ALT;
+		field_mask |= BL_VCF_FIELD_ALT;
 	    else if ( strcmp(field_name, "qual") == 0 )
-		field_mask |= VCF_FIELD_QUAL;
+		field_mask |= BL_VCF_FIELD_QUAL;
 	    else if ( strcmp(field_name, "filter") == 0 )
-		field_mask |= VCF_FIELD_FILTER;
+		field_mask |= BL_VCF_FIELD_FILTER;
 	    else if ( strcmp(field_name, "info") == 0 )
-		field_mask |= VCF_FIELD_INFO;
+		field_mask |= BL_VCF_FIELD_INFO;
 	    else if ( strcmp(field_name, "format") == 0 )
-		field_mask |= VCF_FIELD_FORMAT;
+		field_mask |= BL_VCF_FIELD_FORMAT;
 	    else
-		field_mask = VCF_FIELD_ERROR;
+		field_mask = BL_VCF_FIELD_ERROR;
 	}
     }
     return field_mask;
@@ -796,9 +796,9 @@ vcf_field_mask_t    vcf_parse_field_spec(char *spec)
 bool    vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 {
-    if ( (strcmp(VCF_CHROMOSOME(vcf_call), BL_SAM_RNAME(sam_alignment)) == 0) &&
-	 (VCF_POS(vcf_call) >= BL_SAM_POS(sam_alignment)) &&
-	 (VCF_POS(vcf_call) <
+    if ( (strcmp(BL_VCF_CHROMOSOME(vcf_call), BL_SAM_RNAME(sam_alignment)) == 0) &&
+	 (BL_VCF_POS(vcf_call) >= BL_SAM_POS(sam_alignment)) &&
+	 (BL_VCF_POS(vcf_call) <
 	    BL_SAM_POS(sam_alignment) + BL_SAM_SEQ_LEN(sam_alignment)) )
 	return true;
     else
@@ -839,11 +839,11 @@ bool    vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
     /*fprintf(stderr, "vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
 	    BL_SAM_RNAME(sam_alignment),BL_SAM_POS(sam_alignment),
 	    BL_SAM_SEQ_LEN(sam_alignment),
-	    VCF_CHROMOSOME(vcf_call),VCF_POS(vcf_call));*/
-    if ( (BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) <= VCF_POS(vcf_call)) &&
-	  (strcmp(BL_SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) == 0) )
+	    BL_VCF_CHROMOSOME(vcf_call),BL_VCF_POS(vcf_call));*/
+    if ( (BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) <= BL_VCF_POS(vcf_call)) &&
+	  (strcmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) == 0) )
 	return true;
-    else if ( chromosome_name_cmp(BL_SAM_RNAME(alignment), VCF_CHROMOSOME(vcf_call)) < 0 )
+    else if ( chromosome_name_cmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) < 0 )
 	return true;
     else
 	return false;
@@ -880,7 +880,7 @@ void    vcf_out_of_order(bl_vcf_t *vcf_call,
 {
     fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chromosome and then position.\n");
     fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
-	    VCF_CHROMOSOME(vcf_call), VCF_POS(vcf_call),
+	    BL_VCF_CHROMOSOME(vcf_call), BL_VCF_POS(vcf_call),
 	    previous_chromosome, previous_pos);
     exit(EX_DATAERR);
 }

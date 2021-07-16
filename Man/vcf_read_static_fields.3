@@ -36,20 +36,20 @@ Read static fields (columns 1 to 9) from one line of a VCF file.
 This function does not read any of the sample data in columns 10
 and on.  Samples can be read using a loop with tsv_read_field(3).
 
-If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
 in the bit mask are discarded rather than stored in bed_feature.
 Possible mask values are:
 
-VCF_FIELD_ALL
-VCF_FIELD_CHROM
-VCF_FIELD_POS
-VCF_FIELD_ID
-VCF_FIELD_REF
-VCF_FIELD_ALT
-VCF_FIELD_QUAL
-VCF_FIELD_FILTER
-VCF_FIELD_INFO
-VCF_FIELD_FORMAT
+BL_VCF_FIELD_ALL
+BL_VCF_FIELD_CHROM
+BL_VCF_FIELD_POS
+BL_VCF_FIELD_ID
+BL_VCF_FIELD_REF
+BL_VCF_FIELD_ALT
+BL_VCF_FIELD_QUAL
+BL_VCF_FIELD_FILTER
+BL_VCF_FIELD_INFO
+BL_VCF_FIELD_FORMAT
 
 .SH EXAMPLES
 .nf
@@ -60,7 +60,7 @@ bl_vcf_t  vcf_call;
 char        sample_data[MAX_CHARS + 1];
 size_t      len;
 
-vcf_read_static_fields(stream, &vcf_call, VCF_FIELD_ALL);
+vcf_read_static_fields(stream, &vcf_call, BL_VCF_FIELD_ALL);
 while ( tsv_read_field(stream, sample_data, MAX_CHARS, &len) != 'n' )
 {
 ...

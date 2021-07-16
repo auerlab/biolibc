@@ -37,20 +37,20 @@ This should only be used with VCF inputs that have exactly one
 sample column.  For multisample VCFs, use vcf_read_static_fields()
 followed by a loop to read the sample data.
 
-If field_mask is not VCF_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
 in the bit mask are discarded rather than stored in bed_feature.
 Possible mask values are:
 
-VCF_FIELD_ALL
-VCF_FIELD_CHROM
-VCF_FIELD_POS
-VCF_FIELD_ID
-VCF_FIELD_REF
-VCF_FIELD_ALT
-VCF_FIELD_QUAL
-VCF_FIELD_FILTER
-VCF_FIELD_INFO
-VCF_FIELD_FORMAT
+BL_VCF_FIELD_ALL
+BL_VCF_FIELD_CHROM
+BL_VCF_FIELD_POS
+BL_VCF_FIELD_ID
+BL_VCF_FIELD_REF
+BL_VCF_FIELD_ALT
+BL_VCF_FIELD_QUAL
+BL_VCF_FIELD_FILTER
+BL_VCF_FIELD_INFO
+BL_VCF_FIELD_FORMAT
 
 .SH SEE ALSO
 
