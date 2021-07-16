@@ -16,10 +16,10 @@
  *      function.)
  *
  *  Arguments:
- *      f1_len:     Length of feature 1
- *      f2_len:     Length of feature 2
- *      ov_start:   Start position of overlap relative to start of feature 1
- *      ov_end:     End position of overlap relative to start of feature 1
+ *      feature1_len:     Length of feature 1
+ *      feature2_len:     Length of feature 2
+ *      overlap_start:   Start position of overlap relative to start of feature 1
+ *      overlap_end:     End position of overlap relative to start of feature 1
  *
  *  Returns:
  *      BL_DATA_OK upon success.
@@ -45,15 +45,15 @@
  ***************************************************************************/
 
 int     bl_overlap_set_all(bl_overlap_t *overlap,
-			uint64_t f1_len, uint64_t f2_len,
-			uint64_t ov_start, uint64_t ov_end)
+			uint64_t feature1_len, uint64_t feature2_len,
+			uint64_t overlap_start, uint64_t overlap_end)
 
 {
-    overlap->f1_len = f1_len;
-    overlap->f2_len = f2_len;
-    overlap->ov_start = ov_start;
-    overlap->ov_end = ov_end;
-    overlap->ov_len = ov_end - ov_start + 1;
+    overlap->feature1_len = feature1_len;
+    overlap->feature2_len = feature2_len;
+    overlap->overlap_start = overlap_start;
+    overlap->overlap_end = overlap_end;
+    overlap->overlap_len = overlap_end - overlap_start + 1;
     
     // FIXME: Return BL_DATA_INVALID if sanity checks fail
     return BL_DATA_OK;
@@ -71,8 +71,8 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
  *  Arguments:
  *      stream:     FILE stream to which data are printed (e.g. stderr)
  *      overlap:    Address of a bl_overlap_t structure
- *      f1_name:    Name of field 1 to print with data
- *      f2_name:    Name of field 2 to print with data
+ *      feature1_name:    Name of field 1 to print with data
+ *      feature2_name:    Name of field 2 to print with data
  *
  *  Returns:
  *      Return status from fprintf(3)
@@ -86,21 +86,21 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
  ***************************************************************************/
 
 int     bl_overlap_print(FILE *stream, bl_overlap_t *overlap,
-			  char *f1_name, char *f2_name)
+			  char *feature1_name, char *feature2_name)
 
 {
-    char    f1_len[16], f2_len[16];
+    char    feature1_len[16], feature2_len[16];
     
-    strlcpy(f1_len, f1_name, 12);
-    strlcat(f1_len, " len", 16);
-    strlcpy(f2_len, f2_name, 12);
-    strlcat(f2_len, " len", 16);
+    strlcpy(feature1_len, feature1_name, 12);
+    strlcat(feature1_len, " len", 16);
+    strlcpy(feature2_len, feature2_name, 12);
+    strlcat(feature2_len, " len", 16);
     return fprintf(stream, "%-16s: %" PRIu64 "\n"
 	   "%-16s: %" PRIu64 "\n"
 	   "Overlap start   : %" PRIu64 "\n"
 	   "Overlap end     : %" PRIu64 "\n"
 	   "Overlap length  : %" PRIu64 "\n",
-	   f1_len, overlap->f1_len,
-	   f2_len, overlap->f2_len,
-	   overlap->ov_start, overlap->ov_end, overlap->ov_len);
+	   feature1_len, overlap->feature1_len,
+	   feature2_len, overlap->feature2_len,
+	   overlap->overlap_start, overlap->overlap_end, overlap->overlap_len);
 }
