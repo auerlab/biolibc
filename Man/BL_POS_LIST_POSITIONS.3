@@ -15,7 +15,7 @@
 .PP
 .nf 
 .na
-BL_POS_LIST_POSITIONS(ptr)
+BL_POS_LIST_POSITIONS(ptr,c)
 .ad
 .fi
 
@@ -23,12 +23,13 @@ BL_POS_LIST_POSITIONS(ptr)
 .nf
 .na
 ptr     Pointer to a bl_pos_list_t structure
+c       Subscript to positions array
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for positions.  Use this macro to reference the positions of
+Accessor macro for positions array.  Use this macro to reference the positions of
 a bl_pos_list_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_pos_list_t structure may change, effort is made to
@@ -39,8 +40,9 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_pos_list_t   bl_pos_list;
+size_t          c;
 
-positions = BL_POS_LIST_POSITIONS(&bl_pos_list);
+position = BL_POS_LIST_POSITIONS(&bl_pos_list,c);
 .ad
 .fi
 
