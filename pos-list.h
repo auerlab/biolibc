@@ -9,13 +9,13 @@
 
 #define BL_POS_LIST_INIT  { 0, 0, NULL };
 
-#define BL_POS_LIST_ARRAY_SIZE(ptr) ((ptr)->array_size)
-#define BL_POS_LIST_COUNT(ptr)  ((ptr)->count)
-#define BL_POS_LIST_POSITIONS(ptr)  ((ptr)->positions)
+#define BL_POS_LIST_ARRAY_SIZE(ptr)     ((ptr)->array_size)
+#define BL_POS_LIST_COUNT(ptr)          ((ptr)->count)
+#define BL_POS_LIST_POSITIONS(ptr,c)    ((ptr)->positions[c])
 
 #define BL_POS_LIST_SET_ARRAY_SIZE(ptr,array_size)  ((ptr)->array_size = (array_size))
-#define BL_POS_LIST_SET_COUNT(ptr,count)    ((ptr)->count = (count))
-#define BL_POS_LIST_SET_POSITIONS(ptr,positions)    ((ptr)->positions = (positions))
+#define BL_POS_LIST_SET_COUNT(ptr,count)            ((ptr)->count = (count))
+#define BL_POS_LIST_SET_POSITIONS(ptr,positions,c)  ((ptr)->positions[c] = (position))
 
 #define BL_POS_LIST_ASCENDING  0
 #define BL_POS_LIST_DESCENDING 1
