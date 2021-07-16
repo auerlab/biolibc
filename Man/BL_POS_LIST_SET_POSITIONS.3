@@ -4,7 +4,7 @@
 .SH LIBRARY
 .nf
 .na
-#include <pos-list.h>
+#include <biolibc/pos-list.h>
 -lbiolibc
 .ad
 .fi
@@ -15,7 +15,7 @@
 .PP
 .nf 
 .na
-BL_POS_LIST_SET_POSITIONS(ptr,positions,c)
+BL_POS_LIST_SET_POSITIONS(ptr,positions)
 .ad
 .fi
 
@@ -24,7 +24,6 @@ BL_POS_LIST_SET_POSITIONS(ptr,positions,c)
 .na
 ptr              Pointer to a bl_pos_list_t structure
 positions        New value for ptr->positions
-c                Subscript to positions array
 .ad
 .fi
 
@@ -42,7 +41,7 @@ preserve the API of functions and macros used to access it.
 .na
 bl_pos_list_t   bl_pos_list;
 
-BL_POS_LIST_SET_POSITIONS(&bl_pos_list, new_position);
+BL_POS_LIST_SET_POSITIONS(&bl_pos_list, new_positions);
 .ad
 .fi
 

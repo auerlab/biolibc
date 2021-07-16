@@ -843,7 +843,7 @@ bool    vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
     if ( (BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) <= BL_VCF_POS(vcf_call)) &&
 	  (strcmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) == 0) )
 	return true;
-    else if ( chromosome_name_cmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) < 0 )
+    else if ( bl_chromosome_name_cmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) < 0 )
 	return true;
     else
 	return false;

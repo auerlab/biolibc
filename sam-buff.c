@@ -46,7 +46,7 @@ void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
 	else
 	    sam_buff->previous_pos = sam_alignment->pos;
     }
-    else if ( chromosome_name_cmp(sam_alignment->rname,
+    else if ( bl_chromosome_name_cmp(sam_alignment->rname,
 				  sam_buff->previous_rname) < 0 )
 	sam_buff_out_of_order(sam_buff, sam_alignment);
     else

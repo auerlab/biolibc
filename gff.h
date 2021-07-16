@@ -46,17 +46,17 @@ typedef unsigned int        gff_field_mask_t;
 #define BL_GFF_FEATURE_ID(ptr)  ((ptr)->feature_id)
 #define BL_GFF_GENE_NAME(ptr)   ((ptr)->gene_name)
 
-#define BL_GFF_SET_SEQUENCE(ptr,sequence)       strlcpy(ptr->sequence,sequence,BL_CHROMOSOME_MAX_CHARS+1)
-#define BL_GFF_SET_SOURCE(ptr,source)           strlcpy(ptr->source,source,BL_GFF_SOURCE_MAX_CHARS+1)
-#define BL_GFF_SET_NAME(ptr,name)               strlcpy(ptr->name,name,BL_GFF_NAME_MAX_CHARS+1)
-#define BL_GFF_SET_START_POS(ptr,start_pos)     ((ptr)->start_pos, = (start_pos,))
-#define BL_GFF_SET_END_POS(ptr,end_pos)         ((ptr)->end_pos = (end_pos))
-#define BL_GFF_SET_SCORE(ptr,score)             ((ptr)->score = (score))
-#define BL_GFF_SET_STRAND(ptr,strand)           ((ptr)->strand = (strand))
-#define BL_GFF_SET_PHASE(ptr,phase)             ((ptr)->phase = (phase))
-#define BL_GFF_SET_ATTRIBUTES(ptr,attributes)   ((ptr)->attributes = (attributes))
-#define BL_GFF_SET_FEATURE_ID(ptr,feature_id)   ((ptr)->feature_id = (feature_id))
-#define BL_GFF_SET_GENE_NAME(ptr,gene_name)     ((ptr)->gene_name = (gene_name))
+#define BL_GFF_SET_SEQUENCE(ptr,v)  strlcpy(ptr->sequence,v,BL_CHROMOSOME_MAX_CHARS+1)
+#define BL_GFF_SET_SOURCE(ptr,v)    strlcpy(ptr->source,v,BL_GFF_SOURCE_MAX_CHARS+1)
+#define BL_GFF_SET_NAME(ptr,v)      strlcpy(ptr->name,v,BL_GFF_NAME_MAX_CHARS+1)
+#define BL_GFF_SET_START_POS(ptr,v) ((ptr)->start_pos = (v))
+#define BL_GFF_SET_END_POS(ptr,v)   ((ptr)->end_pos = (v))
+#define BL_GFF_SET_SCORE(ptr,v)     ((ptr)->score = (v))
+#define BL_GFF_SET_STRAND(ptr,v)    ((ptr)->strand = (v))
+#define BL_GFF_SET_PHASE(ptr,v)     ((ptr)->phase = (v))
+#define BL_GFF_SET_ATTRIBUTES(ptr,v)    ((ptr)->attributes = (v))
+#define BL_GFF_SET_FEATURE_ID(ptr,v)    ((ptr)->feature_id = (v))
+#define BL_GFF_SET_GENE_NAME(ptr,v) ((ptr)->gene_name = (v))
 
 #define BL_GFF_INIT \
 	{ "", "", "", 0, 0, 0.0, '.', '.', NULL, NULL, NULL }

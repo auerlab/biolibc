@@ -68,19 +68,19 @@ typedef struct
 #define BL_BED_BLOCK_SIZES(ptr)     ((ptr)->block_sizes)
 #define BL_BED_BLOCK_STARTS(ptr)    ((ptr)->block_starts)
 
-#define BL_BED_SET_FIELDS(ptr,fields)           ((ptr)->fields = (fields))
-#define BL_BED_SET_CHROMOSOME(ptr,chromosome)   strlcpy(ptr->chromosome,chromosome,BL_CHROMOSOME_MAX_CHARS+1)
-#define BL_BED_SET_START_POS(ptr,start_pos)     ((ptr)->start_pos = (start_pos))
-#define BL_BED_SET_END_POS(ptr,end_pos)         ((ptr)->end_pos = (end_pos))
-#define BL_BED_SET_NAME(ptr,name)               strlcpy(ptr->name,name,BL_BED_NAME_MAX_CHARS+1)
-#define BL_BED_SET_SCORE(ptr,score)             ((ptr)->score = (score))
-#define BL_BED_SET_STRAND(ptr,strand)           ((ptr)->strand = (strand))
-#define BL_BED_SET_THICK_START_POS(ptr,thick_start_pos) ((ptr)->thick_start_pos = (thick_start_pos))
-#define BL_BED_SET_THICK_END_POS(ptr,thick_end_pos)     ((ptr)->thick_end_pos = (thick_end_pos))
-#define BL_BED_SET_RGB_STR(ptr,rgb_str)         strlcpy(ptr->rgb_str,rgb_str,BL_BED_RGB_STR_MAX_CHARS+1)
-#define BL_BED_SET_BLOCK_COUNT(ptr,block_count) ((ptr)->block_count = (block_count))
-#define BL_BED_SET_BLOCK_SIZES(ptr,block_sizes) ((ptr)->block_sizes = (block_sizes))
-#define BL_BED_SET_BLOCK_STARTS(ptr,block_starts)   ((ptr)->block_starts = (block_starts))
+#define BL_BED_SET_FIELDS(ptr,v)        ((ptr)->fields = (v))
+#define BL_BED_SET_CHROMOSOME(ptr,v)    strlcpy(ptr->chromosome,v,BL_CHROMOSOME_MAX_CHARS+1)
+#define BL_BED_SET_START_POS(ptr,v)     ((ptr)->start_pos = (v))
+#define BL_BED_SET_END_POS(ptr,v)       ((ptr)->end_pos = (v))
+#define BL_BED_SET_NAME(ptr,v)          strlcpy(ptr->name,v,BL_BED_NAME_MAX_CHARS+1)
+#define BL_BED_SET_SCORE(ptr,v)         ((ptr)->score = (v))
+#define BL_BED_SET_STRAND(ptr,v)        ((ptr)->strand = (v))
+#define BL_BED_SET_THICK_START_POS(ptr,v)   ((ptr)->thick_start_pos = (v))
+#define BL_BED_SET_THICK_END_POS(ptr,v) ((ptr)->thick_end_pos = (v))
+#define BL_BED_SET_RGB_STR(ptr,v)       strlcpy(ptr->rgb_str,v,BL_BED_RGB_STR_MAX_CHARS+1)
+#define BL_BED_SET_BLOCK_COUNT(ptr,v)   ((ptr)->block_count = (v))
+#define BL_BED_SET_BLOCK_SIZES(ptr,v)   ((ptr)->block_sizes = (v))
+#define BL_BED_SET_BLOCK_STARTS(ptr,v)  ((ptr)->block_starts = (v))
 
 // After bl_bed_t for prototypes
 #ifndef _gff_h_
@@ -97,14 +97,4 @@ int bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t f
 int bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
 void bed_check_order(bl_bed_t *bed_feature, char last_chrom[], uint64_t last_start);
 int bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
-int bed_set_fields(bl_bed_t *bed_feature, unsigned fields);
-int bed_set_chromosome(bl_bed_t *bed_feature, char *chromosome);
-int bed_set_start_pos(bl_bed_t *bed_feature, uint64_t start_pos);
-int bed_set_end_pos(bl_bed_t *bed_feature, uint64_t end_pos);
-int bed_set_name(bl_bed_t *bed_feature, char *name);
-int bed_set_score(bl_bed_t *feature, unsigned score);
-int bed_set_strand(bl_bed_t *feature, int strand);
-int bed_set_thick_start_pos(bl_bed_t *bed_feature, uint64_t thick_start_pos);
-int bed_set_thick_end_pos(bl_bed_t *bed_feature, uint64_t thick_end_pos);
-int bed_set_rgb_str(bl_bed_t *bed_feature, char *rgb_str);
 #endif  // _bed_h_

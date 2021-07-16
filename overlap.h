@@ -10,11 +10,11 @@
 #define BL_OVERLAP_OVERLAP_END(ptr)     ((ptr)->overlap_end)
 #define BL_OVERLAP_OVERLAP_LEN(ptr)     ((ptr)->overlap_len)
 
-#define BL_OVERLAP_SET_FEATURE1_LEN(ptr,feature1_len)   ((ptr)->feature1_len = (feature1_len))
-#define BL_OVERLAP_SET_FEATURE2_LEN(ptr,feature2_len)   ((ptr)->feature2_len = (feature2_len))
-#define BL_OVERLAP_SET_OVERLAP_START(ptr,overlap_start) ((ptr)->overlap_start = (overlap_start))
-#define BL_OVERLAP_SET_OVERLAP_END(ptr,overlap_end)     ((ptr)->overlap_end = (overlap_end))
-#define BL_OVERLAP_SET_OVERLAP_LEN(ptr,overlap_len)     ((ptr)->overlap_len = (overlap_len))
+#define BL_OVERLAP_SET_FEATURE1_LEN(ptr,v)  ((ptr)->feature1_len = (v))
+#define BL_OVERLAP_SET_FEATURE2_LEN(ptr,v)  ((ptr)->feature2_len = (v))
+#define BL_OVERLAP_SET_OVERLAP_START(ptr,v) ((ptr)->overlap_start = (v))
+#define BL_OVERLAP_SET_OVERLAP_END(ptr,v)   ((ptr)->overlap_end = (v))
+#define BL_OVERLAP_SET_OVERLAP_LEN(ptr,v)   ((ptr)->overlap_len = (v))
 
 // 1-based, inclusive at both ends
 typedef struct

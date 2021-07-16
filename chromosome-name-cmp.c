@@ -19,7 +19,7 @@
  *      if either is a letter, they are compared lexically.  If both are
  *      numbers, they are converted to integers and compared numerically.
  *
- *      Use chromosome_name_cmp() only if you need to know which string is
+ *      Use bl_chromosome_name_cmp() only if you need to know which string is
  *      < or >.  If only checking for equality/inequality, strcmp() will be
  *      faster.
  *
@@ -39,7 +39,7 @@
  *  2020-05-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     chromosome_name_cmp(const char *name1, const char *name2)
+int     bl_chromosome_name_cmp(const char *name1, const char *name2)
 
 {
     const char      *p1 = name1, *p2 = name2;
@@ -67,14 +67,14 @@ int     chromosome_name_cmp(const char *name1, const char *name2)
     if ( *end != '\0' )
     {
 	fprintf(stderr,
-		"chromosome_name_cmp(): Invalid chromosome ID: %s\n", name1);
+		"bl_chromosome_name_cmp(): Invalid chromosome ID: %s\n", name1);
 	exit(EX_DATAERR);
     }
     c2 = strtoul(p2, &end, 10);
     if ( *end != '\0' )
     {
 	fprintf(stderr,
-		"chromosome_name_cmp(): Invalid chromosome ID: %s\n", name2);
+		"bl_chromosome_name_cmp(): Invalid chromosome ID: %s\n", name2);
 	exit(EX_DATAERR);
     }
     return c1 - c2;
