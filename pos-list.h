@@ -7,17 +7,20 @@
 #include <stdint.h>
 #endif
 
-#define POS_LIST_INIT  { 0, 0, NULL };
+#define BL_POS_LIST_INIT  { 0, 0, NULL };
 
-#define POS_LIST_ARRAY_SIZE(p)      ((p)->array_size)
-#define POS_LIST_COUNT(p)           ((p)->count)
-#define POS_LIST_POSITIONS(p, c)    ((p)->positions[c])
+#define BL_POS_LIST_ARRAY_SIZE(ptr) ((ptr)->array_size)
+#define BL_POS_LIST_COUNT(ptr)  ((ptr)->count)
+#define BL_POS_LIST_POSITIONS(ptr)  ((ptr)->positions)
 
-typedef enum
-{
-    POS_LIST_ASCENDING,
-    POS_LIST_DESCENDING
-}   pos_list_sort_order_t;
+#define BL_POS_LIST_SET_ARRAY_SIZE(ptr,array_size)  ((ptr)->array_size = (array_size))
+#define BL_POS_LIST_SET_COUNT(ptr,count)    ((ptr)->count = (count))
+#define BL_POS_LIST_SET_POSITIONS(ptr,positions)    ((ptr)->positions = (positions))
+
+#define BL_POS_LIST_ASCENDING  0
+#define BL_POS_LIST_DESCENDING 1
+
+typedef int bl_pos_list_sort_order_t;
 
 typedef struct
 {
@@ -27,8 +30,8 @@ typedef struct
 }   bl_pos_list_t;
 
 /* pos-list.c */
-void pos_list_allocate(bl_pos_list_t *pos_list, size_t max_positions);
-void pos_list_free(bl_pos_list_t *pos_list);
-int pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position);
-int pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str, size_t max_positions);
-void pos_list_sort(bl_pos_list_t *pos_list, pos_list_sort_order_t order);
+void bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t max_positions);
+void bl_pos_list_free(bl_pos_list_t *pos_list);
+int bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position);
+int bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str, size_t max_positions);
+void bl_pos_list_sort(bl_pos_list_t *pos_list, bl_pos_list_sort_order_t order);

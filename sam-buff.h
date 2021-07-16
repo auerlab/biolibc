@@ -38,27 +38,27 @@
 // FIXME: Move this to samio when complete?
 typedef struct
 {
-    size_t          buff_size;;
-    bl_sam_t **alignments;
-    size_t          buffered_count;
-    size_t          max_count;
-    size_t          previous_pos;
-    char            previous_rname[BL_SAM_RNAME_MAX_CHARS + 1];
+    size_t      buff_size;;
+    bl_sam_t    **alignments;
+    size_t      buffered_count;
+    size_t      max_count;
+    size_t      previous_pos;
+    char        previous_rname[BL_SAM_RNAME_MAX_CHARS + 1];
     
     // Use 64 bits to accommodate large sums
-    size_t          mapq_min,
-		    mapq_low,
-		    mapq_high,
-		    mapq_sum,
-		    reads_used,
-		    total_alignments,
-		    trailing_alignments,
-		    discarded_alignments,
-		    discarded_score_sum,
-		    discarded_trailing,
-		    min_discarded_score,
-		    max_discarded_score,
-		    unmapped_alignments;
+    size_t      mapq_min,
+		mapq_low,
+		mapq_high,
+		mapq_sum,
+		reads_used,
+		total_alignments,
+		trailing_alignments,
+		discarded_alignments,
+		discarded_score_sum,
+		discarded_trailing,
+		min_discarded_score,
+		max_discarded_score,
+		unmapped_alignments;
 }   bl_sam_buff_t;
 
 // FIXME: Make sure all fields have accessors and mutators
