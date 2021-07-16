@@ -46,9 +46,9 @@ typedef unsigned int        gff_field_mask_t;
 #define BL_GFF_FEATURE_ID(ptr)  ((ptr)->feature_id)
 #define BL_GFF_GENE_NAME(ptr)   ((ptr)->gene_name)
 
-#define BL_GFF_SET_SEQUENCE(ptr,v)  strlcpy(ptr->sequence,v,BL_CHROMOSOME_MAX_CHARS+1)
-#define BL_GFF_SET_SOURCE(ptr,v)    strlcpy(ptr->source,v,BL_GFF_SOURCE_MAX_CHARS+1)
-#define BL_GFF_SET_NAME(ptr,v)      strlcpy(ptr->name,v,BL_GFF_NAME_MAX_CHARS+1)
+#define BL_GFF_SET_SEQUENCE(ptr,v)  strlcpy((ptr)->sequence,v,BL_CHROMOSOME_MAX_CHARS+1)
+#define BL_GFF_SET_SOURCE(ptr,v)    strlcpy((ptr)->source,v,BL_GFF_SOURCE_MAX_CHARS+1)
+#define BL_GFF_SET_NAME(ptr,v)      strlcpy((ptr)->name,v,BL_GFF_NAME_MAX_CHARS+1)
 #define BL_GFF_SET_START_POS(ptr,v) ((ptr)->start_pos = (v))
 #define BL_GFF_SET_END_POS(ptr,v)   ((ptr)->end_pos = (v))
 #define BL_GFF_SET_SCORE(ptr,v)     ((ptr)->score = (v))

@@ -86,7 +86,7 @@ typedef struct
 #define BL_SAM_BUFF_SET_BUFFERED_COUNT(ptr,v)   ((ptr)->buffered_count = (v))
 #define BL_SAM_BUFF_SET_MAX_COUNT(ptr,v)        ((ptr)->max_count = (v))
 #define BL_SAM_BUFF_SET_PREVIOUS_POS(ptr,v)     ((ptr)->previous_pos = (v))
-#define BL_SAM_BUFF_SET_PREVIOUS_RNAME(ptr,v)   strlcpy(ptr->previous_rname,v,BL_SAM_RNAME_MAX_CHARS+1)
+#define BL_SAM_BUFF_SET_PREVIOUS_RNAME(ptr,v)   strlcpy((ptr)->previous_rname,v,BL_SAM_RNAME_MAX_CHARS+1)
 #define BL_SAM_BUFF_SET_MAPQ_MIN(ptr,v)         ((ptr)->mapq_min = (v))
 #define BL_SAM_BUFF_SET_MAPQ_LOW(ptr,v)         ((ptr)->mapq_low = (v))
 #define BL_SAM_BUFF_SET_MAPQ_HIGH(ptr,v)        ((ptr)->mapq_high = (v))
