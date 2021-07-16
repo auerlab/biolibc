@@ -359,7 +359,7 @@ int     gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 void    gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
 
 {
-    char    name[BED_NAME_MAX_CHARS + 1],
+    char    name[BL_BED_NAME_MAX_CHARS + 1],
 	    strand = BL_GFF_STRAND(gff_feature);
     
     bed_set_chromosome(bed_feature, BL_GFF_SEQUENCE(gff_feature));
@@ -373,7 +373,7 @@ void    gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
      *  GFF is the same
      */
     bed_set_end_pos(bed_feature, BL_GFF_END_POS(gff_feature));
-    snprintf(name, BED_NAME_MAX_CHARS, "%s", BL_GFF_NAME(gff_feature));
+    snprintf(name, BL_BED_NAME_MAX_CHARS, "%s", BL_GFF_NAME(gff_feature));
     bed_set_name(bed_feature, name);
     bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
     if ( bed_set_strand(bed_feature, strand) != BL_DATA_OK )

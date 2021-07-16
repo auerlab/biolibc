@@ -87,23 +87,23 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      have up to 12 fields, all of which must be in the correct order
  *      according to the BED specification.
  *
- *      If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_BED_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in bed_feature.
  *      Possible mask values are:
  *
- *      BED_FIELD_ALL
- *      BED_FIELD_NAME
- *      BED_FIELD_SCORE
- *      BED_FIELD_STRAND
- *      BED_FIELD_THICK
- *      BED_FIELD_RGB
- *      BED_FIELD_BLOCK
+ *      BL_BED_FIELD_ALL
+ *      BL_BED_FIELD_NAME
+ *      BL_BED_FIELD_SCORE
+ *      BL_BED_FIELD_STRAND
+ *      BL_BED_FIELD_THICK
+ *      BL_BED_FIELD_RGB
+ *      BL_BED_FIELD_BLOCK
  *
  *      The chromosome, start, and end fields are required and therefore have
  *      no corresponding mask bits. The thickStart and thickEnd fields must
- *      occur together or not at all, so only a single bit BED_FIELD_THICK
+ *      occur together or not at all, so only a single bit BL_BED_FIELD_THICK
  *      selects both of them.  Likewise, blockCount, blockSizes and
- *      blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+ *      blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
  *      masks all three.
  *
  *  Arguments:
@@ -117,9 +117,9 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bed_read_feature(stdin, &bed_feature, BED_FIELD_ALL);
+ *      bed_read_feature(stdin, &bed_feature, BL_BED_FIELD_ALL);
  *      bed_read_feature(bed_stream, &bed_feature,
- *                       BED_FIELD_NAME|BED_FIELD_SCORE);
+ *                       BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
  *
  *  See also:
  *      bed_write_feature(3)
@@ -134,13 +134,13 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 
 {
     char    *end,
-	    strand[BED_STRAND_MAX_CHARS + 1],
-	    block_count_str[BED_BLOCK_COUNT_MAX_DIGITS + 1],
-	    block_size_str[BED_BLOCK_SIZE_MAX_DIGITS + 1],
-	    block_start_str[BED_BLOCK_START_MAX_DIGITS + 1],
+	    strand[BL_BED_STRAND_MAX_CHARS + 1],
+	    block_count_str[BL_BED_BLOCK_COUNT_MAX_DIGITS + 1],
+	    block_size_str[BL_BED_BLOCK_SIZE_MAX_DIGITS + 1],
+	    block_start_str[BL_BED_BLOCK_START_MAX_DIGITS + 1],
 	    start_pos_str[BL_POSITION_MAX_DIGITS + 1],
 	    end_pos_str[BL_POSITION_MAX_DIGITS + 1],
-	    score_str[BED_SCORE_MAX_DIGITS + 1],
+	    score_str[BL_BED_SCORE_MAX_DIGITS + 1],
 	    thick_start_pos_str[BL_POSITION_MAX_DIGITS + 1],
 	    thick_end_pos_str[BL_POSITION_MAX_DIGITS + 1];
     size_t  len;
@@ -205,7 +205,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
-			    BED_NAME_MAX_CHARS, &len)) == EOF )
+			    BL_BED_NAME_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading name: %s.\n",
 		    bed_feature->name);
@@ -242,7 +242,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, strand,
-			    BED_STRAND_MAX_CHARS, &len)) == EOF )
+			    BL_BED_STRAND_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading strand: %s.\n",
 		    bed_feature->name);
@@ -315,7 +315,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->rgb_str,
-			    BED_RGB_STR_MAX_CHARS, &len)) == EOF )
+			    BL_BED_RGB_STR_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading RGB: %s.\n",
 		    bed_feature->name);
@@ -332,7 +332,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( delim != '\n' )
     {
 	if ( (delim = tsv_read_field(bed_stream, block_count_str,
-			    BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
+			    BL_BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bed_read_feature(): Got EOF reading block count: %s.\n",
 		    score_str);
@@ -375,7 +375,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	do
 	{
 	    delim = dsv_read_field(bed_stream, block_size_str,
-			    BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len);
+			    BL_BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_sizes[c++] = strtoul(block_size_str, &end, 10);
 	    //fprintf(stderr, "Block size[%u] = %s\n", c-1, block_size_str);
 	    if ( *end != '\0' )
@@ -402,7 +402,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	do
 	{
 	    delim = dsv_read_field(bed_stream, block_start_str,
-			    BED_BLOCK_START_MAX_DIGITS, ",\t", &len);
+			    BL_BED_BLOCK_START_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_starts[c++] = strtoul(block_start_str, &end, 10);
 	    //fprintf(stderr, "Block start[%u] = %s\n", c-1, block_start_str);
 	    if ( *end != '\0' )
@@ -443,26 +443,26 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
  *
  *  Description:
  *      Write fields from one line of a bed file to the specified FILE
- *      stream.  If field_mask is not BED_FIELD_ALL, only selected fields
+ *      stream.  If field_mask is not BL_BED_FIELD_ALL, only selected fields
  *      are written.
  *
- *      If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+ *      If field_mask is not BL_BED_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are written as an appropriate marker for that field,
  *      such as a '.', rather than writing the real data.
  *      Possible mask values are:
  *
- *      BED_FIELD_NAME
- *      BED_FIELD_SCORE
- *      BED_FIELD_STRAND
- *      BED_FIELD_THICK
- *      BED_FIELD_RGB
- *      BED_FIELD_BLOCK
+ *      BL_BED_FIELD_NAME
+ *      BL_BED_FIELD_SCORE
+ *      BL_BED_FIELD_STRAND
+ *      BL_BED_FIELD_THICK
+ *      BL_BED_FIELD_RGB
+ *      BL_BED_FIELD_BLOCK
  *
  *      The chromosome, start, and end fields are required and therefore have
  *      no corresponding mask bits. The thickStart and thickEnd fields must
- *      occur together or not at all, so only a single bit BED_FIELD_THICK
+ *      occur together or not at all, so only a single bit BL_BED_FIELD_THICK
  *      selects both of them.  Likewise, blockCount, blockSizes and
- *      blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+ *      blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
  *      masks all three.
  *
  *  Arguments:
@@ -475,9 +475,9 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bed_write_feature(stdout, &bed_feature, BED_FIELD_ALL);
+ *      bed_write_feature(stdout, &bed_feature, BL_BED_FIELD_ALL);
  *      bed_write_feature(bed_stream, &bed_feature,
- *                        BED_FIELD_NAME|BED_FIELD_SCORE);
+ *                        BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
  *
  *  See also:
  *      bed_read_feature(3)
@@ -617,7 +617,7 @@ int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
     uint64_t    bed_start, bed_end, bed_len,
 		gff_start, gff_end, gff_len;
     
-    chromosome_cmp = chromosome_name_cmp(BED_CHROMOSOME(bed_feature),
+    chromosome_cmp = chromosome_name_cmp(BL_BED_CHROMOSOME(bed_feature),
 					 BL_GFF_SEQUENCE(gff_feature));
     if ( chromosome_cmp == 0 )
     {
@@ -627,20 +627,20 @@ int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	 *  GFF is 1-based, both ends inclusive
 	 */
 	
-	if ( BED_END_POS(bed_feature) < BL_GFF_START_POS(gff_feature) )
+	if ( BL_BED_END_POS(bed_feature) < BL_GFF_START_POS(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return -1;
 	}
-	else if ( BED_START_POS(bed_feature) + 1 > BL_GFF_END_POS(gff_feature) )
+	else if ( BL_BED_START_POS(bed_feature) + 1 > BL_GFF_END_POS(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return 1;
 	}
 	else
 	{
-	    bed_start = BED_START_POS(bed_feature);
-	    bed_end = BED_END_POS(bed_feature);
+	    bed_start = BL_BED_START_POS(bed_feature);
+	    bed_end = BL_BED_END_POS(bed_feature);
 	    gff_start = BL_GFF_START_POS(gff_feature);
 	    gff_end = BL_GFF_END_POS(gff_feature);
 	    bed_len = bed_end - bed_start;
@@ -721,7 +721,7 @@ int     bed_set_fields(bl_bed_t *bed_feature, unsigned fields)
  *      bed_set_chromosome(&bed_feature, "chr1");
  *
  *  See also:
- *      BED_CHROMOSOME(3)
+ *      BL_BED_CHROMOSOME(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -762,7 +762,7 @@ int     bed_set_chromosome(bl_bed_t *bed_feature, char *chromosome)
  *      bed_set_start_pos(&bed_feature, 0);
  *
  *  See also:
- *      BED_START_POS(3)
+ *      BL_BED_START_POS(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -798,7 +798,7 @@ int     bed_set_start_pos(bl_bed_t *bed_feature, uint64_t start_pos)
  *      bed_set_end_pos(&bed_feature, 1000);
  *
  *  See also:
- *      BED_END_POS(3)
+ *      BL_BED_END_POS(3)
  *
  *  History:
  *  Date        Name        Modification
@@ -834,7 +834,7 @@ int     bed_set_end_pos(bl_bed_t *bed_feature, uint64_t end_pos)
  *      bed_set_name(&bed_feature, "exon");
  *
  *  See also:
- *      BED_NAME(3)
+ *      BL_BED_NAME(3)
  *
  *  History:
  *  Date        Name        Modification
@@ -848,7 +848,7 @@ int     bed_set_name(bl_bed_t *bed_feature, char *name)
 	return BL_DATA_INVALID;
     else
     {
-	strlcpy(bed_feature->name, name, BED_NAME_MAX_CHARS);
+	strlcpy(bed_feature->name, name, BL_BED_NAME_MAX_CHARS);
 	return BL_DATA_OK;
     }
 }
@@ -875,7 +875,7 @@ int     bed_set_name(bl_bed_t *bed_feature, char *name)
  *      bed_set_score(&bed_feature, 20);
  *
  *  See also:
- *      BED_SCORE(3)
+ *      BL_BED_SCORE(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -917,7 +917,7 @@ int     bed_set_score(bl_bed_t *feature, unsigned score)
  *      bed_set_strand(&bed_feature, '+');
  *
  *  See also:
- *      BED_STRAND(3)
+ *      BL_BED_STRAND(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -960,7 +960,7 @@ int     bed_set_strand(bl_bed_t *feature, int strand)
  *      bed_set_thick_start_pos(&bed_feature, 100);
  *
  *  See also:
- *      BED_THICK_START_POS(3)
+ *      BL_BED_THICK_START_POS(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -996,7 +996,7 @@ int     bed_set_thick_start_pos(bl_bed_t *bed_feature, uint64_t thick_start_pos)
  *      bed_set_thick_end_pos(&bed_feature, 100);
  *
  *  See also:
- *      BED_THICK_END_POS(3)
+ *      BL_BED_THICK_END_POS(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -1032,7 +1032,7 @@ int     bed_set_thick_end_pos(bl_bed_t *bed_feature, uint64_t thick_end_pos)
  *      bed_set_rgb_str(&bed_feature, "exon");
  *
  *  See also:
- *      BED_RGB_STR(3)
+ *      BL_BED_RGB_STR(3)
  *
  *  History:
  *  Date        Name        Modification
@@ -1046,7 +1046,7 @@ int     bed_set_rgb_str(bl_bed_t *bed_feature, char *rgb_str)
 	return BL_DATA_INVALID;
     else
     {
-	strlcpy(bed_feature->rgb_str, rgb_str, BED_RGB_STR_MAX_CHARS);
+	strlcpy(bed_feature->rgb_str, rgb_str, BL_BED_RGB_STR_MAX_CHARS);
 	return BL_DATA_OK;
     }
 }

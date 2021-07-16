@@ -26,8 +26,8 @@
  *      BL_DATA_INVALID is arguments don't make sense.
  *
  *  Examples:
- *          bed_start = BED_START_POS(bed_feature);
- *          bed_end = BED_END_POS(bed_feature);
+ *          bed_start = BL_BED_START_POS(bed_feature);
+ *          bed_end = BL_BED_END_POS(bed_feature);
  *          gff_start = BL_GFF_START_POS(gff_feature);
  *          gff_end = BL_GFF_END_POS(gff_feature);
  *          bed_len = bed_end - bed_start;

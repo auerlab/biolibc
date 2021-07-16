@@ -33,35 +33,35 @@ field_mask:     Bit mask indicating which fields to output
 .SH DESCRIPTION
 
 Write fields from one line of a bed file to the specified FILE
-stream.  If field_mask is not BED_FIELD_ALL, only selected fields
+stream.  If field_mask is not BL_BED_FIELD_ALL, only selected fields
 are written.
 
-If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_BED_FIELD_ALL, fields not indicated by a 1
 in the bit mask are written as an appropriate marker for that field,
 such as a '.', rather than writing the real data.
 Possible mask values are:
 
-BED_FIELD_NAME
-BED_FIELD_SCORE
-BED_FIELD_STRAND
-BED_FIELD_THICK
-BED_FIELD_RGB
-BED_FIELD_BLOCK
+BL_BED_FIELD_NAME
+BL_BED_FIELD_SCORE
+BL_BED_FIELD_STRAND
+BL_BED_FIELD_THICK
+BL_BED_FIELD_RGB
+BL_BED_FIELD_BLOCK
 
 The chromosome, start, and end fields are required and therefore have
 no corresponding mask bits. The thickStart and thickEnd fields must
-occur together or not at all, so only a single bit BED_FIELD_THICK
+occur together or not at all, so only a single bit BL_BED_FIELD_THICK
 selects both of them.  Likewise, blockCount, blockSizes and
-blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
 masks all three.
 
 .SH EXAMPLES
 .nf
 .na
 
-bed_write_feature(stdout, &bed_feature, BED_FIELD_ALL);
+bed_write_feature(stdout, &bed_feature, BL_BED_FIELD_ALL);
 bed_write_feature(bed_stream, &bed_feature,
-BED_FIELD_NAME|BED_FIELD_SCORE);
+BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
 .ad
 .fi
 

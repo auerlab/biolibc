@@ -37,31 +37,31 @@ least the first 3 fields (chromosome, start, and end).  It may
 have up to 12 fields, all of which must be in the correct order
 according to the BED specification.
 
-If field_mask is not BED_FIELD_ALL, fields not indicated by a 1
+If field_mask is not BL_BED_FIELD_ALL, fields not indicated by a 1
 in the bit mask are discarded rather than stored in bed_feature.
 Possible mask values are:
 
-BED_FIELD_NAME
-BED_FIELD_SCORE
-BED_FIELD_STRAND
-BED_FIELD_THICK
-BED_FIELD_RGB
-BED_FIELD_BLOCK
+BL_BED_FIELD_NAME
+BL_BED_FIELD_SCORE
+BL_BED_FIELD_STRAND
+BL_BED_FIELD_THICK
+BL_BED_FIELD_RGB
+BL_BED_FIELD_BLOCK
 
 The chromosome, start, and end fields are required and therefore have
 no corresponding mask bits. The thickStart and thickEnd fields must
-occur together or not at all, so only a single bit BED_FIELD_THICK
+occur together or not at all, so only a single bit BL_BED_FIELD_THICK
 selects both of them.  Likewise, blockCount, blockSizes and
-blockStarts must all be present or omitted, so BED_FIELD_BLOCK
+blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
 masks all three.
 
 .SH EXAMPLES
 .nf
 .na
 
-bed_read_feature(stdin, &bed_feature, BED_FIELD_ALL);
+bed_read_feature(stdin, &bed_feature, BL_BED_FIELD_ALL);
 bed_read_feature(bed_stream, &bed_feature,
-BED_FIELD_NAME|BED_FIELD_SCORE);
+BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
 .ad
 .fi
 
