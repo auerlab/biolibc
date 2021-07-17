@@ -48,7 +48,7 @@
  *                         BL_SAM_FIELD_QNAME|BL_SAM_FIELD_POS|BL_SAM_FIELD_TLEN);
  *
  *  See also:
- *      sam_alignment_write(3)
+ *      bl_sam_write_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -399,7 +399,10 @@ void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
 	fprintf(stderr, "bl_sam_copy_alignment(): Could not allocate qual.\n");
 	exit(EX_UNAVAILABLE);
     }
-    memcpy(dest->qual, src->qual, src->qual_len + 1);
+    
+    /* qual is an optional field */
+    if ( src->qual_len > 0 )
+	memcpy(dest->qual, src->qual, src->qual_len + 1);
     
     dest->seq_len = src->seq_len;
     dest->qual_len = src->qual_len;
@@ -503,4 +506,69 @@ void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
 	}
     }
     sam_alignment->seq_len = seq_len;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc
+ *
+ *  Description:
+ *      Write an alignment (line) to a SAM stream.
+ *
+ *      If field_mask is not BL_SAM_FIELD_ALL, fields not indicated by a 1
+ *      in the bit mask are written as an appropriate placeholder such as '.'
+ *      rather than stored in sam_alignment.  Possible mask values are:
+ *
+ *      BL_SAM_FIELD_ALL
+ *      BL_SAM_FIELD_QNAME
+ *      BL_SAM_FIELD_FLAG
+ *      BL_SAM_FIELD_RNAME
+ *      BL_SAM_FIELD_POS
+ *      BL_SAM_FIELD_MAPQ
+ *      BL_SAM_FIELD_CIGAR
+ *      BL_SAM_FIELD_RNEXT
+ *      BL_SAM_FIELD_PNEXT
+ *      BL_SAM_FIELD_TLEN
+ *      BL_SAM_FIELD_SEQ
+ *      BL_SAM_FIELD_QUAL
+ *
+ *  Arguments:
+ *      sam_stream:     A FILE stream to which to write the line
+ *      sam_alignment:  Pointer to a bl_sam_t structure
+ *      field_mask:     Bit mask indicating which fields to store in sam_alignment
+ *
+ *  Returns:
+ *      Number of items written (per fprintf() output)
+ *
+ *  See also:
+ *      bl_sam_read_alignment(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2019-12-09  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bl_sam_write_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
+			   sam_field_mask_t field_mask)
+
+{
+    int     count;
+    
+    count = fprintf(sam_stream, "%s\t%u\t%s\t%zu\t%u\t%s\t%s\t%zu\t%zu\t%s\t%s\t%zu\t%zu\n",
+		    sam_alignment->qname,
+		    sam_alignment->flag,
+		    sam_alignment->rname,
+		    sam_alignment->pos,
+		    sam_alignment->mapq,
+		    sam_alignment->cigar,
+		    sam_alignment->rnext,
+		    sam_alignment->pnext,
+		    sam_alignment->tlen,
+		    sam_alignment->seq,
+		    sam_alignment->qual,
+		    sam_alignment->seq_len,
+		    sam_alignment->qual_len);
+    return count;
 }

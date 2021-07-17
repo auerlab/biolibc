@@ -48,29 +48,31 @@
 // We actually saw INFO fields over 512k in some dbGap BCFs
 typedef struct
 {
-    char    chromosome[BL_CHROMOSOME_MAX_CHARS + 1],
-	    id[BL_VCF_ID_MAX_CHARS + 1],
-	    ref[BL_VCF_REF_MAX_CHARS + 1],
-	    alt[BL_VCF_ALT_MAX_CHARS + 1],
-	    quality[BL_VCF_QUALITY_MAX_CHARS + 1],
-	    filter[BL_VCF_FILTER_MAX_CHARS + 1],
-	    *info,
-	    *format,
-	    *single_sample; // Avoid using multi_samples
-    size_t  pos,
-	    info_len,
-	    info_max,
-	    format_max,
-	    sample_max;
-    int     ref_count,
-	    alt_count,
-	    other_count;
+    char        chromosome[BL_CHROMOSOME_MAX_CHARS + 1],
+		id[BL_VCF_ID_MAX_CHARS + 1],
+		ref[BL_VCF_REF_MAX_CHARS + 1],
+		alt[BL_VCF_ALT_MAX_CHARS + 1],
+		quality[BL_VCF_QUALITY_MAX_CHARS + 1],
+		filter[BL_VCF_FILTER_MAX_CHARS + 1],
+		*info,
+		*format,
+		*single_sample; // Avoid using multi_samples
+    uint64_t    pos;
+    size_t      info_len,
+		info_max,
+		format_max,
+		sample_max;
+    unsigned    ref_count,
+		alt_count,
+		other_count;
+    
     // Use bl_vcf_sample_alloc() to initialize this for multi-sample VCFs
-    char    **multi_samples;
+    char        **multi_samples;
+    
     // Apps can buffer phred scores from reads to collect stats
     unsigned char   *phreds;
-    size_t  phred_count;
-    size_t  phred_buff_size;
+    size_t          phred_count;
+    size_t          phred_buff_size;
 }   bl_vcf_t;
 
 #define BL_VCF_CHROMOSOME(ptr)  ((ptr)->chromosome)

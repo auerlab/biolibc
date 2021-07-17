@@ -41,9 +41,6 @@
 #define BL_SAM_SET_SEQ_LEN(ptr,v)   ((ptr)->seq_len = (v))
 #define BL_SAM_SET_QUAL_LEN(ptr,v)  ((ptr)->qual_len = (v))
 
-// Use this or the function for every new object
-#define BL_SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0 }
-
 typedef unsigned int    sam_field_mask_t;
 
 #define BL_SAM_FIELD_ALL   0xfff
@@ -59,28 +56,32 @@ typedef unsigned int    sam_field_mask_t;
 #define BL_SAM_FIELD_SEQ   0x200
 #define BL_SAM_FIELD_QUAL  0x400
 
+// Use this or the function for every new object
+#define BL_SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0, 0 }
+
 typedef struct
 {
-    /* SAM fields */
+    /* SAM specification fields.  Meet or exceed published ranges. */
     char            qname[BL_SAM_QNAME_MAX_CHARS + 1];
     unsigned        flag;
     char            rname[BL_SAM_RNAME_MAX_CHARS + 1];
-    size_t          pos;
+    uint64_t        pos;
     unsigned char   mapq;
     char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
     char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
-    size_t          pnext;
-    size_t          tlen;   // Max size?
+    uint64_t        pnext;
+    long            tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it
     char            *qual;  // PHRED scores, same length as seq if present
     
     /* Additional data */
-    size_t  seq_len;        // Qual len should be the same
-    size_t  qual_len;
+    size_t          seq_len;
+    size_t          qual_len;
 }   bl_sam_t;
 
 /* sam.c */
 int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
+int     bl_sam_write_alignment(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
 void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src);
 void    bl_sam_free_alignment(bl_sam_t *sam_alignment);
 void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
