@@ -9,6 +9,10 @@
 #include "bed.h"
 
 /***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc
+ *
  *  Description:
  *      Skip over header lines in gff input stream.  The FILE pointer
  *      gff_stream is advanced to the first character of the first line

@@ -24,7 +24,6 @@ gff_field_mask_t field_mask)
 .SH ARGUMENTS
 .nf
 .na
-gff_stream: FILE pointer to the open GFF file
 gff_stream:     A FILE stream from which to read the line
 gff_feature:    Pointer to a bl_gff_t structure
 field_mask:     Bit mask indicating which fields to store in gff_feature
@@ -32,12 +31,6 @@ field_mask:     Bit mask indicating which fields to store in gff_feature
 .fi
 
 .SH DESCRIPTION
-
-Skip over header lines in gff input stream.  The FILE pointer
-gff_stream is advanced to the first character of the first line
-after the header.  The header is copied to a temporary file and and
-the function returns a FILE pointer to the header stream.
-
 
 Read next feature (line) from a GFF file.
 
@@ -68,9 +61,6 @@ BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
 .fi
 
 .SH SEE ALSO
-
-bl_gff_read_feature(3)
-
 
 bl_gff_write_feature(3)
 
