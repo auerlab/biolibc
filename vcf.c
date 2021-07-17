@@ -648,11 +648,14 @@ void    bl_vcf_call_free(bl_vcf_t *vcf_call)
  *      -lbiolibc
  *
  *  Description:
- *      Iniitialize a bl_vcf_t structure, allocating default buffer
+ *      Initialize a bl_vcf_t structure, allocating default buffer
  *      sizes for some fields.
  *
  *  Arguments:
  *      vcf_call:   Pointer to the bl_vcf_t structure to initialize
+ *      info_max:   Maximum size of INFO field in bytes
+ *      format_max: Maximum size of FORMAT field in bytes
+ *      sample_max: Maxixum size of SAMPLE field in bytes
  *
  *  See also:
  *      bl_vcf_call_free(3), vcf_read_call(3), bl_vcf_sample_alloc(3)

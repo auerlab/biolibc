@@ -25,12 +25,15 @@ size_t info_max, size_t format_max, size_t sample_max)
 .nf
 .na
 vcf_call:   Pointer to the bl_vcf_t structure to initialize
+info_max:   Maximum size of INFO field in bytes
+format_max: Maximum size of FORMAT field in bytes
+sample_max: Maxixum size of SAMPLE field in bytes
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Iniitialize a bl_vcf_t structure, allocating default buffer
+Initialize a bl_vcf_t structure, allocating default buffer
 sizes for some fields.
 
 .SH SEE ALSO
