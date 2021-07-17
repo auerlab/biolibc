@@ -1,6 +1,10 @@
 #ifndef _sam_h_
 #define _sam_h_
 
+#ifndef _INTTYPES_H
+#include <inttypes.h>
+#endif
+
 #ifndef __xtend_h__
 #include <xtend.h>
 #endif
