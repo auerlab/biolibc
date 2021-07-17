@@ -17,18 +17,18 @@
 .nf 
 .na
 int     bl_overlap_set_all(bl_overlap_t *overlap,
-uint64_t f1_len, uint64_t f2_len,
-uint64_t ov_start, uint64_t ov_end)
+uint64_t feature1_len, uint64_t feature2_len,
+uint64_t overlap_start, uint64_t overlap_end)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-f1_len:     Length of feature 1
-f2_len:     Length of feature 2
-ov_start:   Start position of overlap relative to start of feature 1
-ov_end:     End position of overlap relative to start of feature 1
+feature1_len:     Length of feature 1
+feature2_len:     Length of feature 2
+overlap_start:   Start position of overlap relative to start of feature 1
+overlap_end:     End position of overlap relative to start of feature 1
 .ad
 .fi
 
@@ -42,6 +42,7 @@ function.)
 .SH EXAMPLES
 .nf
 .na
+
 bed_start = BL_BED_START_POS(bed_feature);
 bed_end = BL_BED_END_POS(bed_feature);
 gff_start = BL_GFF_START_POS(gff_feature);
@@ -49,8 +50,8 @@ gff_end = BL_GFF_END_POS(gff_feature);
 bed_len = bed_end - bed_start;
 gff_len = gff_end - gff_start + 1;
 bl_overlap_set_all(overlap, bed_len, gff_len,
-		    MAX(bed_start+1, gff_start),
-		    MIN(bed_end, gff_end));
+MAX(bed_start+1, gff_start),
+MIN(bed_end, gff_end));
 .ad
 .fi
 
