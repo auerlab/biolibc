@@ -24,14 +24,14 @@
  *      sam_alignment:  Pointer to the most recently read alignment
  *
  *  See also:
- *      sam_read_alignment(3)
+ *      bl_sam_read_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
+void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
 			     bl_sam_t *sam_alignment)
 
 {
@@ -42,13 +42,13 @@ void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
     {
 	// Silly to assign when already ==, but sillier to add another check
 	if (sam_alignment->pos < sam_buff->previous_pos )
-	    sam_buff_out_of_order(sam_buff, sam_alignment);
+	    bl_sam_buff_out_of_order(sam_buff, sam_alignment);
 	else
 	    sam_buff->previous_pos = sam_alignment->pos;
     }
     else if ( bl_chromosome_name_cmp(sam_alignment->rname,
 				  sam_buff->previous_rname) < 0 )
-	sam_buff_out_of_order(sam_buff, sam_alignment);
+	bl_sam_buff_out_of_order(sam_buff, sam_alignment);
     else
     {
 	strlcpy(sam_buff->previous_rname, sam_alignment->rname, BL_SAM_RNAME_MAX_CHARS);
@@ -68,23 +68,23 @@ void    sam_buff_check_order(bl_sam_buff_t *sam_buff,
  *      stream for alignments overlapping a certain region or position.
  *      The buffer array is set to a
  *      reasonable initial size and extended as far as BL_SAM_BUFF_MAX_SIZE
- *      by sam_buff_add_alignment(3) if needed.  A minimum MAPQ value
+ *      by bl_sam_buff_add_alignment(3) if needed.  A minimum MAPQ value
  *      is stored in the bl_sam_buff_t structure for filtering with
- *      sam_buff_alignment_ok(3).
+ *      bl_sam_buff_alignment_ok(3).
  *  
  *  Arguments:
  *      sam_buff:   Pointer to a the bl_sam_buff_t structure to initialize
  *      mapq_min:   User-selected minimum MAPQ value
  *
  *  See also:
- *      sam_buff_check_order(3), sam_read_alignment(3)
+ *      bl_sam_buff_check_order(3), bl_sam_read_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
+void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
 
 {
     size_t  c;
@@ -140,28 +140,28 @@ void    sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
  *      sam_alignment:  New SAM alignment to add to buffer
  *
  *  See also:
- *      sam_buff_init(3), sam_buff_check_order(3)
+ *      bl_sam_buff_init(3), bl_sam_buff_check_order(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
+void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 			       bl_sam_t *sam_alignment)
 
 {
     size_t  old_buff_size,
 	    c;
 
-    sam_buff_check_order(sam_buff, sam_alignment);
+    bl_sam_buff_check_order(sam_buff, sam_alignment);
     
     sam_buff->mapq_low = MIN(sam_buff->mapq_low, BL_SAM_MAPQ(sam_alignment));
     sam_buff->mapq_high = MAX(sam_buff->mapq_high, BL_SAM_MAPQ(sam_alignment));
     sam_buff->mapq_sum += BL_SAM_MAPQ(sam_alignment);
     ++sam_buff->reads_used;
 
-    // Just allocate the static fields, sam_copy_alignment() does the rest
+    // Just allocate the static fields, bl_sam_copy_alignment() does the rest
     if ( sam_buff->alignments[sam_buff->buffered_count] == NULL )
     {
 	//fprintf(stderr, "Allocating alignment #%zu\n", sam_buff->buffered_count);
@@ -169,16 +169,16 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	    xt_malloc(1, sizeof(bl_sam_t));
 	if ( sam_buff->alignments[sam_buff->buffered_count] == NULL )
 	{
-	    fprintf(stderr, "sam_buff_add_alignment(): Could not allocate alignments.\n");
+	    fprintf(stderr, "bl_sam_buff_add_alignment(): Could not allocate alignments.\n");
 	    exit(EX_UNAVAILABLE);
 	}
-	// Redundant to sam_copy_alignment()
-	// sam_init_alignment(sam_buff->alignments[sam_buff->buffered_count], 0);
+	// Redundant to bl_sam_copy_alignment()
+	// bl_sam_init_alignment(sam_buff->alignments[sam_buff->buffered_count], 0);
     }
     else
-	sam_free_alignment(sam_buff->alignments[sam_buff->buffered_count]);
+	bl_sam_free_alignment(sam_buff->alignments[sam_buff->buffered_count]);
     
-    sam_copy_alignment(sam_buff->alignments[sam_buff->buffered_count], sam_alignment);
+    bl_sam_copy_alignment(sam_buff->alignments[sam_buff->buffered_count], sam_alignment);
     
     ++sam_buff->buffered_count;
 
@@ -191,7 +191,7 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
     if ( sam_buff->buffered_count == BL_SAM_BUFF_MAX_SIZE )
     {
 	fprintf(stderr,
-		"sam_buff_add_alignment(): Hit BL_SAM_BUFF_MAX_SIZE=%u.\n",
+		"bl_sam_buff_add_alignment(): Hit BL_SAM_BUFF_MAX_SIZE=%u.\n",
 		BL_SAM_BUFF_MAX_SIZE);
 	fprintf(stderr, "Terminating to prevent runaway memory use.\n");
 	fprintf(stderr, "Check your SAM input.\n");
@@ -201,7 +201,7 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
     if ( sam_buff->buffered_count == sam_buff->buff_size )
     {
 	fprintf(stderr,
-		"sam_buff_add_alignment(): Hit buff_size=%zu, doubling buffer size.\n",
+		"bl_sam_buff_add_alignment(): Hit buff_size=%zu, doubling buffer size.\n",
 		sam_buff->buff_size);
 	fprintf(stderr, "RNAME: %s  POS: %zu  LEN: %zu\n",
 		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
@@ -234,14 +234,14 @@ void    sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
  *      Does not return.
  *
  *  See also:
- *      sam_buff_alignment_ok(3)
+ *      bl_sam_buff_alignment_ok(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
+void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
 
 {
     fprintf(stderr, "Error: SAM input must be sorted by chromosome and then position.\n");
@@ -267,18 +267,18 @@ void    sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
  *      c:          Index of the alignment to be freed (0-based)
  *
  *  See also:
- *      sam_buff_init(3), sam_buff_add_alignment(3)
+ *      bl_sam_buff_init(3), bl_sam_buff_add_alignment(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
+void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 {
-    sam_free_alignment(sam_buff->alignments[c]);
-    sam_init_alignment(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
+    bl_sam_free_alignment(sam_buff->alignments[c]);
+    bl_sam_init_alignment(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
     if ( sam_buff->alignments[c] != NULL )
     {
 	free(sam_buff->alignments[c]);
@@ -301,7 +301,7 @@ void    sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
  *      nelem:      Number of alignments to free
  *
  *  See also:
- *      sam_buff_free_alignment(3)
+ *      bl_sam_buff_free_alignment(3)
  *
  *  FIXME: Use circular queuing for better efficiency
  *
@@ -310,7 +310,7 @@ void    sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
+void    bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
 
 {
     size_t  c;
@@ -323,7 +323,7 @@ void    sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
     
     /* Make susre elements to be removed are freed */
     for (c = 0; c < nelem; ++c)
-	sam_buff_free_alignment(sam_buff, c);
+	bl_sam_buff_free_alignment(sam_buff, c);
 
     /* Shift elements */
     for (c = 0; c < sam_buff->buffered_count - nelem; ++c)
@@ -359,14 +359,14 @@ void    sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
  *      false otherwise
  *
  *  See also:
- *      sam_buff_check_order(3)
+ *      bl_sam_buff_check_order(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
  
-bool    sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
+bool    bl_sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
 			      bl_sam_t *sam_alignment)
 
 {
@@ -389,7 +389,7 @@ bool    sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
 	    sam_buff->max_discarded_score = BL_SAM_MAPQ(sam_alignment);
 
 #ifdef DEBUG
-	fprintf(stderr, "sam_buff_alignment_ok(): Discarding low quality alignment: %s,%zu MAPQ=%u\n",
+	fprintf(stderr, "bl_sam_buff_alignment_ok(): Discarding low quality alignment: %s,%zu MAPQ=%u\n",
 		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 		BL_SAM_MAPQ(sam_alignment));
 #endif

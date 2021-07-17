@@ -30,17 +30,17 @@
  *  Examples:
  *      FILE    *header, *bed_stream;
  *      ...
- *      header = bed_skip_header(bed_stream);
+ *      header = bl_bed_skip_header(bed_stream);
  *
  *  See also:
- *      bed_read_feature(3), xt_fopen(3)
+ *      bl_bed_read_feature(3), xt_fopen(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-FILE    *bed_skip_header(FILE *bed_stream)
+FILE    *bl_bed_skip_header(FILE *bed_stream)
 
 {
     char    start[7] = "xxxxxx";
@@ -117,19 +117,19 @@ FILE    *bed_skip_header(FILE *bed_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bed_read_feature(stdin, &bed_feature, BL_BED_FIELD_ALL);
- *      bed_read_feature(bed_stream, &bed_feature,
+ *      bl_bed_read_feature(stdin, &bed_feature, BL_BED_FIELD_ALL);
+ *      bl_bed_read_feature(bed_stream, &bed_feature,
  *                       BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
  *
  *  See also:
- *      bed_write_feature(3)
+ *      bl_bed_write_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
+int     bl_bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 			 bed_field_mask_t field_mask)
 
 {
@@ -154,7 +154,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( tsv_read_field(bed_stream, bed_feature->chromosome,
 			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	// fputs("bed_read_feature(): Info: Got EOF reading CHROM, as expected.\n", stderr);
+	// fputs("bl_bed_read_feature(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BL_READ_EOF;
     }
     
@@ -162,7 +162,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( tsv_read_field(bed_stream, start_pos_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
-	fprintf(stderr, "bed_read_feature(): Got EOF reading start position: %s.\n",
+	fprintf(stderr, "bl_bed_read_feature(): Got EOF reading start position: %s.\n",
 		start_pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -172,7 +172,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bed_read_feature(): Invalid start position: %s\n",
+		    "bl_bed_read_feature(): Invalid start position: %s\n",
 		    start_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -183,7 +183,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     if ( (delim = tsv_read_field(bed_stream, end_pos_str,
 			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "bed_read_feature(): Got EOF reading end position: %s.\n",
+	fprintf(stderr, "bl_bed_read_feature(): Got EOF reading end position: %s.\n",
 		end_pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -193,7 +193,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bed_read_feature(): Invalid end position: %s\n",
+		    "bl_bed_read_feature(): Invalid end position: %s\n",
 		    end_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -207,7 +207,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
 			    BL_BED_NAME_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading name: %s.\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading name: %s.\n",
 		    bed_feature->name);
 	    return BL_READ_TRUNCATED;
 	}
@@ -220,7 +220,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( (delim = tsv_read_field(bed_stream, score_str,
 			    BL_POSITION_MAX_DIGITS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading score: %s.\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading score: %s.\n",
 		    score_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -230,7 +230,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	    if ( (*end != '\0') || (bed_feature->score > 1000) )
 	    {
 		fprintf(stderr,
-			"bed_read_feature(): Invalid feature score: %s\n",
+			"bl_bed_read_feature(): Invalid feature score: %s\n",
 			score_str);
 		return BL_READ_TRUNCATED;
 	    }
@@ -244,13 +244,13 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( (delim = tsv_read_field(bed_stream, strand,
 			    BL_BED_STRAND_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading strand: %s.\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading strand: %s.\n",
 		    bed_feature->name);
 	    return BL_READ_TRUNCATED;
 	}
 	if ( (len != 1) || ((*strand != '+') && (*strand != '-') && (*strand != '.')) )
 	{
-	    fprintf(stderr, "bed_read_feature(): Strand must be + or - or .: %s\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Strand must be + or - or .: %s\n",
 		    strand);
 	    return BL_READ_TRUNCATED;
 	}
@@ -266,7 +266,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( tsv_read_field(bed_stream, thick_start_pos_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick start "
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading thick start "
 		    "POS: %s.\n", thick_start_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -276,7 +276,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 		strtoul(thick_start_pos_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
-		fprintf(stderr, "bed_read_feature(): Invalid thick start "
+		fprintf(stderr, "bl_bed_read_feature(): Invalid thick start "
 				"position: %s\n",
 				thick_start_pos_str);
 		return BL_READ_TRUNCATED;
@@ -285,14 +285,14 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	
 	if ( delim == '\n' )
 	{
-	    fprintf(stderr, "bed_read_feature(): Found thick start, but no thick end.\n");
+	    fprintf(stderr, "bl_bed_read_feature(): Found thick start, but no thick end.\n");
 	    return BL_READ_TRUNCATED;
 	}
     
 	if ( tsv_read_field(bed_stream, thick_end_pos_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading thick end "
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading thick end "
 		    "POS: %s.\n", thick_end_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -302,7 +302,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 		strtoul(thick_end_pos_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
-		fprintf(stderr, "bed_read_feature(): Invalid thick end "
+		fprintf(stderr, "bl_bed_read_feature(): Invalid thick end "
 				"position: %s\n",
 				thick_end_pos_str);
 		return BL_READ_TRUNCATED;
@@ -317,7 +317,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( (delim = tsv_read_field(bed_stream, bed_feature->rgb_str,
 			    BL_BED_RGB_STR_MAX_CHARS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading RGB: %s.\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading RGB: %s.\n",
 		    bed_feature->name);
 	    return BL_READ_TRUNCATED;
 	}
@@ -334,7 +334,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	if ( (delim = tsv_read_field(bed_stream, block_count_str,
 			    BL_BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
 	{
-	    fprintf(stderr, "bed_read_feature(): Got EOF reading block count: %s.\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Got EOF reading block count: %s.\n",
 		    score_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -344,7 +344,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	    if ( (*end != '\0') || (block_count > 65535) )
 	    {
 		fprintf(stderr,
-			"bed_read_feature(): Invalid block count: %s\n",
+			"bl_bed_read_feature(): Invalid block count: %s\n",
 			score_str);
 		return BL_READ_TRUNCATED;
 	    }
@@ -354,19 +354,19 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 					sizeof(*bed_feature->block_sizes));
 	if ( bed_feature->block_sizes == NULL )
 	{
-	    fputs("bed_read_feature(): Cannot allocate block_sizes.\n", stderr);
+	    fputs("bl_bed_read_feature(): Cannot allocate block_sizes.\n", stderr);
 	    exit(EX_UNAVAILABLE);
 	}
 	bed_feature->block_starts = xt_malloc(bed_feature->block_count,
 					sizeof(*bed_feature->block_starts));
 	if ( bed_feature->block_starts == NULL )
 	{
-	    fputs("bed_read_feature(): Cannot allocate block_starts.\n", stderr);
+	    fputs("bl_bed_read_feature(): Cannot allocate block_starts.\n", stderr);
 	    exit(EX_UNAVAILABLE);
 	}
 	if ( delim == '\n' )
 	{
-	    fputs("bed_read_feature(): Found block count, but no sizes.\n", stderr);
+	    fputs("bl_bed_read_feature(): Found block count, but no sizes.\n", stderr);
 	    return BL_READ_TRUNCATED;
 	}
 	
@@ -380,20 +380,20 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	    //fprintf(stderr, "Block size[%u] = %s\n", c-1, block_size_str);
 	    if ( *end != '\0' )
 	    {
-		fprintf(stderr, "bed_read_feature(): Invalid block size: %s\n",
+		fprintf(stderr, "bl_bed_read_feature(): Invalid block size: %s\n",
 			block_size_str);
 		return BL_READ_TRUNCATED;
 	    }
 	}   while ( delim == ',' );
 	if ( c != bed_feature->block_count )
 	{
-	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Block count = %u  Sizes = %u\n",
 		    bed_feature->block_count, c);
 	    return BL_READ_MISMATCH;
 	}
 	if ( delim == '\n' )
 	{
-	    fputs("bed_read_feature(): Found block sizes, but no starts.\n", stderr);
+	    fputs("bl_bed_read_feature(): Found block sizes, but no starts.\n", stderr);
 	    return BL_READ_TRUNCATED;
 	}
 	
@@ -407,14 +407,14 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 	    //fprintf(stderr, "Block start[%u] = %s\n", c-1, block_start_str);
 	    if ( *end != '\0' )
 	    {
-		fprintf(stderr, "bed_read_feature(): Invalid block start: %s\n",
+		fprintf(stderr, "bl_bed_read_feature(): Invalid block start: %s\n",
 			block_start_str);
 		return BL_READ_TRUNCATED;
 	    }
 	}   while ( delim == ',' );
 	if ( c != bed_feature->block_count )
 	{
-	    fprintf(stderr, "bed_read_feature(): Block count = %u  Sizes = %u\n",
+	    fprintf(stderr, "bl_bed_read_feature(): Block count = %u  Sizes = %u\n",
 		    bed_feature->block_count, c);
 	    return BL_READ_MISMATCH;
 	}
@@ -429,7 +429,7 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
     
     if ( delim != '\n' )
     {
-	fputs("bed_read_feature(): Extra columns found.\n", stderr);
+	fputs("bl_bed_read_feature(): Extra columns found.\n", stderr);
 	return BL_READ_EXTRA_COLS;
     }
     return BL_READ_OK;
@@ -475,19 +475,19 @@ int     bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature,
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bed_write_feature(stdout, &bed_feature, BL_BED_FIELD_ALL);
- *      bed_write_feature(bed_stream, &bed_feature,
+ *      bl_bed_write_feature(stdout, &bed_feature, BL_BED_FIELD_ALL);
+ *      bl_bed_write_feature(bed_stream, &bed_feature,
  *                        BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
  *
  *  See also:
- *      bed_read_feature(3)
+ *      bl_bed_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature,
+int     bl_bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature,
 				bed_field_mask_t field_mask)
 
 {
@@ -542,14 +542,14 @@ int     bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature,
  *      Nothing: Terminates process if input is out of order
  *
  *  See also:
- *      bed_read_feature(3)
+ *      bl_bed_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-08  Jason Bacon Begin
  ***************************************************************************/
 
-void    bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
+void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
 			uint64_t last_start)
 
 {
@@ -599,17 +599,17 @@ void    bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
  *      0 if the BED feature overlaps the GFF feature
  *
  *  Examples:
- *      if ( bed_gff_cmp(&bed_feature, &gff_feature, *overlap) == 0 )
+ *      if ( bl_bed_gff_cmp(&bed_feature, &gff_feature, *overlap) == 0 )
  *
  *  See also:
- *      bed_read_feature(3), gff_read_feature(3)
+ *      bl_bed_read_feature(3), bl_gff_read_feature(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
+int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 		    bl_overlap_t *overlap)
 
 {

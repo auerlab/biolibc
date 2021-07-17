@@ -65,7 +65,7 @@ typedef struct
     int     ref_count,
 	    alt_count,
 	    other_count;
-    // Use vcf_sample_alloc() to initialize this for multi-sample VCFs
+    // Use bl_vcf_sample_alloc() to initialize this for multi-sample VCFs
     char    **multi_samples;
     // Apps can buffer phred scores from reads to collect stats
     unsigned char   *phreds;
@@ -139,20 +139,18 @@ typedef unsigned int        vcf_header_t;
 #define BL_VCF_HEADER_ALL      0x1
 
 /* vcf.c */
-FILE *vcf_skip_header(FILE *vcf_stream);
-void vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
-int vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-char **vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples);
-void vcf_call_free(bl_vcf_t *vcf_call);
-void vcf_call_init(bl_vcf_t *vcf_call,
-		   size_t info_max, size_t format_max, size_t sample_max);
-vcf_field_mask_t vcf_parse_field_spec(char *spec);
-bool vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
-bool vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
-void vcf_out_of_order(bl_vcf_t *vcf_call,
-			 char *previous_chromosome, size_t previous_pos);
+FILE *bl_vcf_skip_header(FILE *vcf_stream);
+void bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
+int bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+char **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples);
+void bl_vcf_call_free(bl_vcf_t *vcf_call);
+void bl_vcf_call_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t sample_max);
+vcf_field_mask_t bl_vcf_parse_field_spec(char *spec);
+bool bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
+bool bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
+void bl_vcf_out_of_order(bl_vcf_t *vcf_call, char *previous_chromosome, size_t previous_pos);
 
 #endif // _vcf_h_

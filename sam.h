@@ -80,9 +80,9 @@ typedef struct
 }   bl_sam_t;
 
 /* sam.c */
-int     sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
-void    sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src);
-void    sam_free_alignment(bl_sam_t *sam_alignment);
-void    sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
+int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
+void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src);
+void    bl_sam_free_alignment(bl_sam_t *sam_alignment);
+void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
 
 #endif // _sam_h_

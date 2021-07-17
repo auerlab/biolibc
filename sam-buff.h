@@ -106,12 +106,12 @@ typedef struct
 #define BL_SAM_BUFF_INC_DISCARDED_TRAILING(b)  (++(b)->discarded_trailing)
 
 /* sam-buff.c */
-void sam_buff_check_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
-void sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min);
-void sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
-void sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
-void sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c);
-void sam_buff_shift(bl_sam_buff_t *sam_buff, size_t c);
-bool sam_buff_alignment_ok(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void bl_sam_buff_check_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min);
+void bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c);
+void bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t c);
+bool bl_sam_buff_alignment_ok(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 
 #endif  // _sam_buff_h_
