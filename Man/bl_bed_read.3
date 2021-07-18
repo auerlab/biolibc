@@ -33,7 +33,7 @@ field_mask:     Bit mask indicating which fields to store in bed_feature
 .SH DESCRIPTION
 
 Read next entry (line) from a BED file.  The line must have at
-least the first 3 fields (chromosome, start, and end).  It may
+least the first 3 fields (chrom, start, and end).  It may
 have up to 12 fields, all of which must be in the correct order
 according to the BED specification.
 
@@ -49,7 +49,7 @@ BL_BED_FIELD_THICK
 BL_BED_FIELD_RGB
 BL_BED_FIELD_BLOCK
 
-The chromosome, start, and end fields are required and therefore have
+The chrom, start, and end fields are required and therefore have
 no corresponding mask bits. The thickStart and thickEnd fields must
 occur together or not at all, so only a single bit BL_BED_FIELD_THICK
 selects both of them.  Likewise, blockCount, blockSizes and

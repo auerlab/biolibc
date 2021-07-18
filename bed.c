@@ -83,7 +83,7 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *
  *  Description:
  *      Read next entry (line) from a BED file.  The line must have at
- *      least the first 3 fields (chromosome, start, and end).  It may
+ *      least the first 3 fields (chrom, start, and end).  It may
  *      have up to 12 fields, all of which must be in the correct order
  *      according to the BED specification.
  *
@@ -99,7 +99,7 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *      BL_BED_FIELD_RGB
  *      BL_BED_FIELD_BLOCK
  *
- *      The chromosome, start, and end fields are required and therefore have
+ *      The chrom, start, and end fields are required and therefore have
  *      no corresponding mask bits. The thickStart and thickEnd fields must
  *      occur together or not at all, so only a single bit BL_BED_FIELD_THICK
  *      selects both of them.  Likewise, blockCount, blockSizes and
@@ -138,11 +138,11 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
 	    block_count_str[BL_BED_BLOCK_COUNT_MAX_DIGITS + 1],
 	    block_size_str[BL_BED_BLOCK_SIZE_MAX_DIGITS + 1],
 	    block_start_str[BL_BED_BLOCK_START_MAX_DIGITS + 1],
-	    start_pos_str[BL_POSITION_MAX_DIGITS + 1],
-	    end_pos_str[BL_POSITION_MAX_DIGITS + 1],
+	    chrom_start_str[BL_POSITION_MAX_DIGITS + 1],
+	    chrom_end_str[BL_POSITION_MAX_DIGITS + 1],
 	    score_str[BL_BED_SCORE_MAX_DIGITS + 1],
-	    thick_start_pos_str[BL_POSITION_MAX_DIGITS + 1],
-	    thick_end_pos_str[BL_POSITION_MAX_DIGITS + 1];
+	    thick_start_str[BL_POSITION_MAX_DIGITS + 1],
+	    thick_end_str[BL_POSITION_MAX_DIGITS + 1];
     size_t  len;
     int     delim;
     unsigned long   block_count;
@@ -151,50 +151,50 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
     // FIXME: Respect field_mask
     
     // Chromosome
-    if ( tsv_read_field(bed_stream, bed_feature->chromosome,
-			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
+    if ( tsv_read_field(bed_stream, bed_feature->chrom,
+			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	// fputs("bl_bed_read(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BL_READ_EOF;
     }
     
     // Feature start position
-    if ( tsv_read_field(bed_stream, start_pos_str,
+    if ( tsv_read_field(bed_stream, chrom_start_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_bed_read(): Got EOF reading start position: %s.\n",
-		start_pos_str);
+		chrom_start_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	bed_feature->start_pos = strtoul(start_pos_str, &end, 10);
+	bed_feature->chrom_start = strtoul(chrom_start_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "bl_bed_read(): Invalid start position: %s\n",
-		    start_pos_str);
+		    chrom_start_str);
 	    return BL_READ_TRUNCATED;
 	}
     }
     
     // Feature end position
     // FIXME: Check for > or < start if strand + or -
-    if ( (delim = tsv_read_field(bed_stream, end_pos_str,
+    if ( (delim = tsv_read_field(bed_stream, chrom_end_str,
 			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "bl_bed_read(): Got EOF reading end position: %s.\n",
-		end_pos_str);
+		chrom_end_str);
 	return BL_READ_TRUNCATED;
     }
     else
     {
-	bed_feature->end_pos = strtoul(end_pos_str, &end, 10);
+	bed_feature->chrom_end = strtoul(chrom_end_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
 		    "bl_bed_read(): Invalid end position: %s\n",
-		    end_pos_str);
+		    chrom_end_str);
 	    return BL_READ_TRUNCATED;
 	}
     }
@@ -263,22 +263,22 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
     // Feature start position
     if ( delim != '\n' )
     {
-	if ( tsv_read_field(bed_stream, thick_start_pos_str,
+	if ( tsv_read_field(bed_stream, thick_start_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading thick start "
-		    "POS: %s.\n", thick_start_pos_str);
+		    "POS: %s.\n", thick_start_str);
 	    return BL_READ_TRUNCATED;
 	}
 	else
 	{
-	    bed_feature->thick_start_pos =
-		strtoul(thick_start_pos_str, &end, 10);
+	    bed_feature->thick_start =
+		strtoul(thick_start_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bl_bed_read(): Invalid thick start "
 				"position: %s\n",
-				thick_start_pos_str);
+				thick_start_str);
 		return BL_READ_TRUNCATED;
 	    }
 	}
@@ -289,22 +289,22 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
 	    return BL_READ_TRUNCATED;
 	}
     
-	if ( tsv_read_field(bed_stream, thick_end_pos_str,
+	if ( tsv_read_field(bed_stream, thick_end_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading thick end "
-		    "POS: %s.\n", thick_end_pos_str);
+		    "POS: %s.\n", thick_end_str);
 	    return BL_READ_TRUNCATED;
 	}
 	else
 	{
-	    bed_feature->thick_end_pos =
-		strtoul(thick_end_pos_str, &end, 10);
+	    bed_feature->thick_end =
+		strtoul(thick_end_str, &end, 10);
 	    if ( *end != '\0' )
 	    {
 		fprintf(stderr, "bl_bed_read(): Invalid thick end "
 				"position: %s\n",
-				thick_end_pos_str);
+				thick_end_str);
 		return BL_READ_TRUNCATED;
 	    }
 	}
@@ -314,8 +314,8 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
     // Read RGB string field if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, bed_feature->rgb_str,
-			    BL_BED_RGB_STR_MAX_CHARS, &len)) == EOF )
+	if ( (delim = tsv_read_field(bed_stream, bed_feature->item_rgb,
+			    BL_BED_ITEM_RGB_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading RGB: %s.\n",
 		    bed_feature->name);
@@ -458,7 +458,7 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
  *      BL_BED_FIELD_RGB
  *      BL_BED_FIELD_BLOCK
  *
- *      The chromosome, start, and end fields are required and therefore have
+ *      The chrom, start, and end fields are required and therefore have
  *      no corresponding mask bits. The thickStart and thickEnd fields must
  *      occur together or not at all, so only a single bit BL_BED_FIELD_THICK
  *      selects both of them.  Likewise, blockCount, blockSizes and
@@ -496,8 +496,8 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
     // FIXME: Respect field_mask
     // FIXME: Check fprintf() return codes
     fprintf(bed_stream, "%s\t%" PRIu64 "\t%" PRIu64,
-	    bed_feature->chromosome,
-	    bed_feature->start_pos, bed_feature->end_pos);
+	    bed_feature->chrom,
+	    bed_feature->chrom_start, bed_feature->chrom_end);
     if ( bed_feature->fields > 3 )
 	fprintf(bed_stream, "\t%s", bed_feature->name);
     if ( bed_feature->fields > 4 )
@@ -506,9 +506,9 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
 	fprintf(bed_stream, "\t%c", bed_feature->strand);
     if ( bed_feature->fields > 6 )
 	fprintf(bed_stream, "\t%" PRIu64 "\t%" PRIu64,
-		bed_feature->thick_start_pos, bed_feature->thick_end_pos);
+		bed_feature->thick_start, bed_feature->thick_end);
     if ( bed_feature->fields > 8 )
-	fprintf(bed_stream, "\t%s", bed_feature->rgb_str);
+	fprintf(bed_stream, "\t%s", bed_feature->item_rgb);
     if ( bed_feature->fields > 9 )
     {
 	fprintf(bed_stream, "\t%u\t", bed_feature->block_count);
@@ -530,7 +530,7 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Make sure the BED input is sorted by chromosome and start position.
+ *      Make sure the BED input is sorted by chrom and start position.
  *
  *  Arguments:
  *      bed_feature:    Pointer to the BED structure containing the current
@@ -553,18 +553,18 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
 			uint64_t last_start)
 
 {
-    if ( bl_chromosome_name_cmp(bed_feature->chromosome, last_chrom) == 0 )
+    if ( bl_chrom_name_cmp(bed_feature->chrom, last_chrom) == 0 )
     {
-	if ( bed_feature->start_pos < last_start )
+	if ( bed_feature->chrom_start < last_start )
 	{
 	    fprintf(stderr, "peak-classifier: BED file not sorted by start position.\n");
 	    exit(EX_DATAERR);
 	}
     }
-    else if ( bl_chromosome_name_cmp(bed_feature->chromosome, last_chrom) < 0 )
+    else if ( bl_chrom_name_cmp(bed_feature->chrom, last_chrom) < 0 )
     {
-	fprintf(stderr, "peak-classifier: BED file not sorted by chromosome.\n");
-	fprintf(stderr, "%s, %s\n", bed_feature->chromosome, last_chrom);
+	fprintf(stderr, "peak-classifier: BED file not sorted by chrom.\n");
+	fprintf(stderr, "%s, %s\n", bed_feature->chrom, last_chrom);
 	exit(EX_DATAERR);
     }
 }
@@ -613,13 +613,13 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 		    bl_overlap_t *overlap)
 
 {
-    int         chromosome_cmp;
+    int         chrom_cmp;
     uint64_t    bed_start, bed_end, bed_len,
 		gff_start, gff_end, gff_len;
     
-    chromosome_cmp = bl_chromosome_name_cmp(BL_BED_CHROMOSOME(bed_feature),
+    chrom_cmp = bl_chrom_name_cmp(BL_BED_CHROM(bed_feature),
 					 BL_GFF_SEQUENCE(gff_feature));
-    if ( chromosome_cmp == 0 )
+    if ( chrom_cmp == 0 )
     {
 	/*
 	 *  BED positions are 0-based, with end non-inclusive, which can
@@ -627,22 +627,22 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	 *  GFF is 1-based, both ends inclusive
 	 */
 	
-	if ( BL_BED_END_POS(bed_feature) < BL_GFF_START_POS(gff_feature) )
+	if ( BL_BED_CHROM_END(bed_feature) < BL_GFF_START(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return -1;
 	}
-	else if ( BL_BED_START_POS(bed_feature) + 1 > BL_GFF_END_POS(gff_feature) )
+	else if ( BL_BED_CHROM_START(bed_feature) + 1 > BL_GFF_END(gff_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return 1;
 	}
 	else
 	{
-	    bed_start = BL_BED_START_POS(bed_feature);
-	    bed_end = BL_BED_END_POS(bed_feature);
-	    gff_start = BL_GFF_START_POS(gff_feature);
-	    gff_end = BL_GFF_END_POS(gff_feature);
+	    bed_start = BL_BED_CHROM_START(bed_feature);
+	    bed_end = BL_BED_CHROM_END(bed_feature);
+	    gff_start = BL_GFF_START(gff_feature);
+	    gff_end = BL_GFF_END(gff_feature);
 	    bed_len = bed_end - bed_start;
 	    gff_len = gff_end - gff_start + 1;
 	    bl_overlap_set_all(overlap, bed_len, gff_len,
@@ -651,5 +651,5 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	    return 0;
 	}
     }
-    return chromosome_cmp;
+    return chrom_cmp;
 }

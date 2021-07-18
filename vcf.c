@@ -208,8 +208,8 @@ int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
     
     // Chromosome
-    if ( tsv_read_field(vcf_stream, vcf_call->chromosome,
-			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
+    if ( tsv_read_field(vcf_stream, vcf_call->chrom,
+			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	// fputs("bl_vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BL_READ_EOF;
@@ -260,8 +260,8 @@ int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     }
 
     // Qual
-    if ( tsv_read_field(vcf_stream, vcf_call->quality,
-		   BL_VCF_QUALITY_MAX_CHARS, &len) == EOF )
+    if ( tsv_read_field(vcf_stream, vcf_call->qual,
+		   BL_VCF_QUAL_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return BL_READ_TRUNCATED;
@@ -407,18 +407,18 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 				vcf_field_mask_t field_mask)
 
 {
-    char    *chromosome = ".",
+    char    *chrom = ".",
 	    pos_str[BL_POSITION_MAX_DIGITS+1] = ".",
 	    *id = ".",
 	    *ref = ".",
 	    *alt = ".",
-	    *quality = ".",
+	    *qual = ".",
 	    *filter = ".",
 	    *info = ".",
 	    *format = ".";
     
     if ( field_mask & BL_VCF_FIELD_CHROM )
-	chromosome = vcf_call->chromosome;
+	chrom = vcf_call->chrom;
     if ( field_mask & BL_VCF_FIELD_POS )
 	ltostrn(pos_str, vcf_call->pos, 10, BL_POSITION_MAX_DIGITS);
     if ( field_mask & BL_VCF_FIELD_ID )
@@ -428,7 +428,7 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     if ( field_mask & BL_VCF_FIELD_ALT )
 	alt = vcf_call->alt;
     if ( field_mask & BL_VCF_FIELD_QUAL )
-	quality = vcf_call->quality;
+	qual = vcf_call->qual;
     if ( field_mask & BL_VCF_FIELD_FILTER )
 	filter = vcf_call->filter;
     if ( field_mask & BL_VCF_FIELD_INFO )
@@ -438,9 +438,9 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
     
     return fprintf(vcf_stream,
 	    "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
-	    chromosome, pos_str,
+	    chrom, pos_str,
 	    id, ref, alt, 
-	    quality, filter, info,
+	    qual, filter, info,
 	    format);
 }
 
@@ -669,11 +669,11 @@ void    bl_vcf_init(bl_vcf_t *vcf_call,
 		      size_t info_max, size_t format_max, size_t sample_max)
 
 {
-    vcf_call->chromosome[0] = '\0';
+    vcf_call->chrom[0] = '\0';
     vcf_call->id[0] = '\0';
     vcf_call->ref[0] = '\0';
     vcf_call->alt[0] = '\0';
-    vcf_call->quality[0] = '\0';
+    vcf_call->qual[0] = '\0';
     vcf_call->filter[0] = '\0';
     vcf_call->pos = 0;
     vcf_call->info_len = 0;
@@ -776,7 +776,7 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
  *
  *  Description:
  *      Determine if a VCF call is within a SAM alignment, i.e. on the
- *      same chromosome and between the start and end positions of the
+ *      same chrom and between the start and end positions of the
  *      alignment.
  *
  *  Arguments:
@@ -799,7 +799,7 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
 bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 {
-    if ( (strcmp(BL_VCF_CHROMOSOME(vcf_call), BL_SAM_RNAME(sam_alignment)) == 0) &&
+    if ( (strcmp(BL_VCF_CHROM(vcf_call), BL_SAM_RNAME(sam_alignment)) == 0) &&
 	 (BL_VCF_POS(vcf_call) >= BL_SAM_POS(sam_alignment)) &&
 	 (BL_VCF_POS(vcf_call) <
 	    BL_SAM_POS(sam_alignment) + BL_SAM_SEQ_LEN(sam_alignment)) )
@@ -817,7 +817,7 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
  *  Description:
  *      Determine if a VCF call is downstream of a SAM alignment.
  *      For the purpose of this function, this could mean on the same
- *      chromosome and higher position, or on a later chromosome.
+ *      chrom and higher position, or on a later chrom.
  *
  *  Arguments:
  *      vcf_call:   Pointer to bl_vcf_t structure containing VCF call
@@ -842,11 +842,11 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
     /*fprintf(stderr, "bl_vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
 	    BL_SAM_RNAME(sam_alignment),BL_SAM_POS(sam_alignment),
 	    BL_SAM_SEQ_LEN(sam_alignment),
-	    BL_VCF_CHROMOSOME(vcf_call),BL_VCF_POS(vcf_call));*/
+	    BL_VCF_CHROM(vcf_call),BL_VCF_POS(vcf_call));*/
     if ( (BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) <= BL_VCF_POS(vcf_call)) &&
-	  (strcmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) == 0) )
+	  (strcmp(BL_SAM_RNAME(alignment), BL_VCF_CHROM(vcf_call)) == 0) )
 	return true;
-    else if ( bl_chromosome_name_cmp(BL_SAM_RNAME(alignment), BL_VCF_CHROMOSOME(vcf_call)) < 0 )
+    else if ( bl_chrom_name_cmp(BL_SAM_RNAME(alignment), BL_VCF_CHROM(vcf_call)) < 0 )
 	return true;
     else
 	return false;
@@ -863,7 +863,7 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  *
  *  Arguments:
  *      vcf_call:   Pointer to bl_vcf_t structure with latest call
- *      previous_chromosome:    Chromosome of previous VCF call
+ *      previous_chrom:    Chromosome of previous VCF call
  *      previous_pos:           Position of previous VCF call
  *
  *  Returns:
@@ -878,12 +878,12 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  ***************************************************************************/
 
 void    bl_vcf_call_out_of_order(bl_vcf_t *vcf_call,
-			 char *previous_chromosome, size_t previous_pos)
+			 char *previous_chrom, size_t previous_pos)
 
 {
-    fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chromosome and then position.\n");
+    fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chrom and then position.\n");
     fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
-	    BL_VCF_CHROMOSOME(vcf_call), BL_VCF_POS(vcf_call),
-	    previous_chromosome, previous_pos);
+	    BL_VCF_CHROM(vcf_call), BL_VCF_POS(vcf_call),
+	    previous_chrom, previous_pos);
     exit(EX_DATAERR);
 }

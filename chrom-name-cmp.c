@@ -11,20 +11,20 @@
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Perform a numeric comparison of two chromosome names.
+ *      Perform a numeric comparison of two chrom names.
  *
  *      The names may contain a prefix of non-digits, such as "chr".
- *      Characters that follow must be a chromosome number or letter.
+ *      Characters that follow must be a chrom number or letter.
  *      Numbers are considered less than letters (e.g. 22 < X).  As such,
  *      if either is a letter, they are compared lexically.  If both are
  *      numbers, they are converted to integers and compared numerically.
  *
- *      Use bl_chromosome_name_cmp() only if you need to know which string is
+ *      Use bl_chrom_name_cmp() only if you need to know which string is
  *      < or >.  If only checking for equality/inequality, strcmp() will be
  *      faster.
  *
  *  Arguments:
- *      name1, name2:   Names of two chromosomes
+ *      name1, name2:   Names of two chroms
  *
  *  Returns:
  *      A value < 1 if name1 is numerically < name2
@@ -39,7 +39,7 @@
  *  2020-05-07  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_chromosome_name_cmp(const char *name1, const char *name2)
+int     bl_chrom_name_cmp(const char *name1, const char *name2)
 
 {
     const char      *p1 = name1, *p2 = name2;
@@ -67,14 +67,14 @@ int     bl_chromosome_name_cmp(const char *name1, const char *name2)
     if ( *end != '\0' )
     {
 	fprintf(stderr,
-		"bl_chromosome_name_cmp(): Invalid chromosome ID: %s\n", name1);
+		"bl_chrom_name_cmp(): Invalid chrom ID: %s\n", name1);
 	exit(EX_DATAERR);
     }
     c2 = strtoul(p2, &end, 10);
     if ( *end != '\0' )
     {
 	fprintf(stderr,
-		"bl_chromosome_name_cmp(): Invalid chromosome ID: %s\n", name2);
+		"bl_chrom_name_cmp(): Invalid chrom ID: %s\n", name2);
 	exit(EX_DATAERR);
     }
     return c1 - c2;

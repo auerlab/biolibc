@@ -26,10 +26,10 @@
  *      BL_DATA_INVALID is arguments don't make sense.
  *
  *  Examples:
- *          bed_start = BL_BED_START_POS(bed_feature);
- *          bed_end = BL_BED_END_POS(bed_feature);
- *          gff_start = BL_GFF_START_POS(gff_feature);
- *          gff_end = BL_GFF_END_POS(gff_feature);
+ *          bed_start = BL_BED_CHROM_START(bed_feature);
+ *          bed_end = BL_BED_CHROM_END(bed_feature);
+ *          gff_start = BL_GFF_CHROM_START(gff_feature);
+ *          gff_end = BL_GFF_CHROM_END(gff_feature);
  *          bed_len = bed_end - bed_start;
  *          gff_len = gff_end - gff_start + 1;
  *          bl_overlap_set_all(overlap, bed_len, gff_len,

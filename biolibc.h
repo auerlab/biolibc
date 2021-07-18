@@ -28,7 +28,7 @@
 #define BL_DATA_INVALID            -1      // Catch-all for non-specific error
 #define BL_DATA_OUT_OF_RANGE       -2
 
-#define BL_CHROMOSOME_MAX_CHARS    256
+#define BL_CHROM_MAX_CHARS    256
 #define BL_POSITION_MAX_DIGITS     32
 
 #define BL_CMD_MAX                 4096    // Arbitrary

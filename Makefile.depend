@@ -1,0 +1,37 @@
+bed.o: bed.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+  bed.h biolibc.h gff.h overlap.h biostring.h
+	${CC} -c ${CFLAGS} bed.c
+
+chrom-name-cmp.o: chrom-name-cmp.c biolibc.h
+	${CC} -c ${CFLAGS} chrom-name-cmp.c
+
+fasta.o: fasta.c
+	${CC} -c ${CFLAGS} fasta.c
+
+fastq.o: fastq.c
+	${CC} -c ${CFLAGS} fastq.c
+
+gff.o: gff.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+  gff.h biolibc.h bed.h overlap.h
+	${CC} -c ${CFLAGS} gff.c
+
+overlap.o: overlap.c ../local/include/xtend.h \
+  ../local/include/xtend-protos.h biolibc.h overlap.h
+	${CC} -c ${CFLAGS} overlap.c
+
+pos-list.o: pos-list.c ../local/include/xtend.h \
+  ../local/include/xtend-protos.h pos-list.h biolibc.h
+	${CC} -c ${CFLAGS} pos-list.c
+
+sam-buff.o: sam-buff.c ../local/include/xtend.h \
+  ../local/include/xtend-protos.h sam-buff.h sam.h biostring.h
+	${CC} -c ${CFLAGS} sam-buff.c
+
+sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+  sam.h biolibc.h
+	${CC} -c ${CFLAGS} sam.c
+
+vcf.o: vcf.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+  vcf.h sam.h biolibc.h biostring.h
+	${CC} -c ${CFLAGS} vcf.c
+

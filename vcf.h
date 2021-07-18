@@ -38,7 +38,7 @@
 // return an error code rather than exit with an error message
 #define BL_VCF_REF_MAX_CHARS           32
 #define BL_VCF_ALT_MAX_CHARS           33
-#define BL_VCF_QUALITY_MAX_CHARS       34
+#define BL_VCF_QUAL_MAX_CHARS       34
 #define BL_VCF_FILTER_MAX_CHARS        64
 
 #define BL_VCF_CALL_INIT   { "", "", "", "", "", "", NULL, NULL, NULL, \
@@ -48,11 +48,11 @@
 // We actually saw INFO fields over 512k in some dbGap BCFs
 typedef struct
 {
-    char        chromosome[BL_CHROMOSOME_MAX_CHARS + 1],
+    char        chrom[BL_CHROM_MAX_CHARS + 1],
 		id[BL_VCF_ID_MAX_CHARS + 1],
 		ref[BL_VCF_REF_MAX_CHARS + 1],
 		alt[BL_VCF_ALT_MAX_CHARS + 1],
-		quality[BL_VCF_QUALITY_MAX_CHARS + 1],
+		qual[BL_VCF_QUAL_MAX_CHARS + 1],
 		filter[BL_VCF_FILTER_MAX_CHARS + 1],
 		*info,
 		*format,
@@ -75,11 +75,11 @@ typedef struct
     size_t          phred_buff_size;
 }   bl_vcf_t;
 
-#define BL_VCF_CHROMOSOME(ptr)  ((ptr)->chromosome)
+#define BL_VCF_CHROM(ptr)       ((ptr)->chrom)
 #define BL_VCF_ID(ptr)          ((ptr)->id)
 #define BL_VCF_REF(ptr)         ((ptr)->ref)
 #define BL_VCF_ALT(ptr)         ((ptr)->alt)
-#define BL_VCF_QUALITY(ptr)     ((ptr)->quality)
+#define BL_VCF_QUAL(ptr)        ((ptr)->qual)
 #define BL_VCF_FILTER(ptr)      ((ptr)->filter)
 #define BL_VCF_INFO(ptr)        ((ptr)->info)
 #define BL_VCF_FORMAT(ptr)      ((ptr)->format)
@@ -97,11 +97,11 @@ typedef struct
 #define BL_VCF_PHRED_COUNT(ptr) ((ptr)->phred_count)
 #define BL_VCF_PHRED_BUFF_SIZE(ptr) ((ptr)->phred_buff_size)
 
-#define BL_VCF_SET_CHROMOSOME(ptr,v)    strlcpy((ptr)->chromosome,v,BL_CHROMOSOME_MAX_CHARS+1)
+#define BL_VCF_SET_CHROM(ptr,v)         strlcpy((ptr)->chrom,v,BL_CHROM_MAX_CHARS+1)
 #define BL_VCF_SET_ID(ptr,v)            strlcpy((ptr)->id,v,BL_VCF_ID_MAX_CHARS+1)
 #define BL_VCF_SET_REF(ptr,v)           strlcpy((ptr)->ref,v,BL_VCF_REF_MAX_CHARS+1)
 #define BL_VCF_SET_ALT(ptr,v)           strlcpy((ptr)->alt,v,BL_VCF_ALT_MAX_CHARS+1)
-#define BL_VCF_SET_QUALITY(ptr,v)       strlcpy((ptr)->quality,v,BL_VCF_QUALITY_MAX_CHARS+1)
+#define BL_VCF_SET_QUAL(ptr,v)          strlcpy((ptr)->qual,v,BL_VCF_QUAL_MAX_CHARS+1)
 #define BL_VCF_SET_FILTER(ptr,v)        strlcpy((ptr)->filter,v,BL_VCF_FILTER_MAX_CHARS+1)
 #define BL_VCF_SET_INFO(ptr,v)          ((ptr)->info = (v))
 #define BL_VCF_SET_FORMAT(ptr,v)        ((ptr)->format = (v))
@@ -153,6 +153,6 @@ void bl_vcf_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t 
 vcf_field_mask_t bl_vcf_parse_field_spec(char *spec);
 bool bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
 bool bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
-void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chromosome, size_t previous_pos);
+void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chrom, size_t previous_pos);
 
 #endif // _vcf_h_

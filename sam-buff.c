@@ -14,8 +14,8 @@
  *
  *  Description:
  *      Check that the newly read SAM alignment comes after the previous
- *      one, assuming the input is sorted first by chromosome and then
- *      position.  The previous chromosome and position are stored in
+ *      one, assuming the input is sorted first by chrom and then
+ *      position.  The previous chrom and position are stored in
  *      sam_buff (and initialized so that the first SAM alignment read is
  *      always OK).
  *  
@@ -46,7 +46,7 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
 	else
 	    sam_buff->previous_pos = sam_alignment->pos;
     }
-    else if ( bl_chromosome_name_cmp(sam_alignment->rname,
+    else if ( bl_chrom_name_cmp(sam_alignment->rname,
 				  sam_buff->previous_rname) < 0 )
 	bl_sam_buff_out_of_order(sam_buff, sam_alignment);
     else
@@ -244,7 +244,7 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
 
 {
-    fprintf(stderr, "Error: SAM input must be sorted by chromosome and then position.\n");
+    fprintf(stderr, "Error: SAM input must be sorted by chrom and then position.\n");
     fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
 	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 	    sam_buff->previous_rname, sam_buff->previous_pos);
