@@ -13,7 +13,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/bed.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Skip over header lines in bed input stream, leaving the FILE
@@ -79,7 +79,7 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/bed.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read next entry (line) from a BED file.  The line must have at
@@ -439,7 +439,7 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/bed.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write fields from one line of a bed file to the specified FILE
@@ -527,7 +527,7 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/bed.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Make sure the BED input is sorted by chromosome and start position.
@@ -572,7 +572,7 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
 /***************************************************************************
  *  Library:
  *      #include <biolibc/bed.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Compare the position of a BED feature to that of a GFF feature.

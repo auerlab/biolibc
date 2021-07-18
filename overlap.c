@@ -7,7 +7,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/overlap.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Set all fields in a bl_overlap_t structure.  Start and end
@@ -63,7 +63,7 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/overlap.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Print all fields in a bl_overlap_t structure for debugging.

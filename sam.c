@@ -9,7 +9,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read next alignment (line) from a SAM stream.
@@ -353,7 +353,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Copy a SAM alignment as efficiently as possible, allocating memory
@@ -412,7 +412,7 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Free memory allocated by bl_sam_read() or
@@ -443,7 +443,7 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Initialize a bl_sam_t structure, allocating memory for
@@ -512,7 +512,7 @@ void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write an alignment (line) to a SAM stream.

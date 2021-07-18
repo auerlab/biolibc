@@ -11,7 +11,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/gff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Skip over header lines in gff input stream.  The FILE pointer
@@ -66,7 +66,7 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/gff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read next feature (line) from a GFF file.
@@ -283,7 +283,7 @@ int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/gff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write fields from a GFF feature to the specified FILE
@@ -342,7 +342,7 @@ int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/gff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Copy GFF fields to a BED structure to the extent possible.  Since

@@ -10,7 +10,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Check that the newly read SAM alignment comes after the previous
@@ -60,7 +60,7 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Initialize a SAM alignment buffer for holding recently read SAM
@@ -129,7 +129,7 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Add a new alignment to the buffer, expanding the array as needed
@@ -221,7 +221,7 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Report SAM input sort error and terminate process.
@@ -255,7 +255,7 @@ void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignmen
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Free an element of the SAM alignment array by first freeing all
@@ -290,7 +290,7 @@ void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Free nelem SAM alignments at the head of the queue and shift
@@ -340,7 +340,7 @@ void    bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/sam-buff.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Verify that an alignment meets the quality requirements for the

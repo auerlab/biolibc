@@ -9,7 +9,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/pos-list.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Initialize a position list with an initial array size of
@@ -53,7 +53,7 @@ void    bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/pos-list.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Free the array of positions in position list and reset array_size
@@ -90,7 +90,7 @@ void    bl_pos_list_free(bl_pos_list_t *pos_list)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/pos-list.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Add another position to a pos_list, expanding the array if needed.
@@ -130,7 +130,7 @@ int     bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/pos-list.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Convert a comma-separated list of positions to a bl_pos_list_t list.
@@ -213,7 +213,7 @@ int     position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/pos-list.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Sort a position list in either ascending or descending order.

@@ -8,7 +8,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/biolibc.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Perform a numeric comparison of two chromosome names.

@@ -10,7 +10,7 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Skip over header lines in VCF input stream, leaving the FILE
@@ -73,7 +73,7 @@ FILE    *bl_vcf_skip_header(FILE *vcf_stream)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Extract sample IDs from a VCF input header line.  This is typically
@@ -145,7 +145,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read static fields (columns 1 to 9) from one line of a VCF file.
@@ -298,7 +298,7 @@ int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read a single-sample VCF call (static fields and one sample column).
@@ -366,7 +366,7 @@ int     bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write static fields from one line of a single-entry VCF file.
@@ -448,7 +448,7 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write a single-sample VCF call to vcf_stream.
@@ -499,7 +499,7 @@ int     bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Allocate an array for multiple samples in a VCF call.
@@ -617,7 +617,7 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Free all memory associated with a VCF call.
@@ -645,7 +645,7 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Initialize a bl_vcf_t structure, allocating default buffer
@@ -714,7 +714,7 @@ void    bl_vcf_init(bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Convert a comma-separated list of VCF fields to a field bit mask
@@ -772,7 +772,7 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Determine if a VCF call is within a SAM alignment, i.e. on the
@@ -812,7 +812,7 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Determine if a VCF call is downstream of a SAM alignment.
@@ -856,7 +856,7 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
 /***************************************************************************
  *  Library:
  *      #include <biolibc/vcf.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Report VCF input sort error and terminate the process.
