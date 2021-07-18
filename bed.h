@@ -93,8 +93,8 @@ typedef struct
 
 /* bed.c */
 FILE *bl_bed_skip_header(FILE *bed_stream);
-int bl_bed_read_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
-int bl_bed_write_feature(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
+int bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
+int bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
 void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], uint64_t last_start);
 int bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
 #endif  // _bed_h_

@@ -43,19 +43,19 @@
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bl_sam_read_alignment(stdin, &sam_alignment, BL_SAM_FIELD_ALL);
- *      bl_sam_read_alignment(sam_stream, &sam_alignment,
+ *      bl_sam_read(stdin, &sam_alignment, BL_SAM_FIELD_ALL);
+ *      bl_sam_read(sam_stream, &sam_alignment,
  *                         BL_SAM_FIELD_QNAME|BL_SAM_FIELD_POS|BL_SAM_FIELD_TLEN);
  *
  *  See also:
- *      bl_sam_write_alignment(3)
+ *      bl_sam_write(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
+int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 			   sam_field_mask_t field_mask)
 
 {
@@ -86,7 +86,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading flag: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading flag: %s.\n",
 		flag_str);
 	return BL_READ_TRUNCATED;
     }
@@ -95,7 +95,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->flag = strtoul(flag_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "bl_sam_read_alignment(): Invalid position: %s\n",
+	    fprintf(stderr, "bl_sam_read(): Invalid position: %s\n",
 		    flag_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
@@ -117,7 +117,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading rname: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading rname: %s.\n",
 		sam_alignment->rname);
 	return BL_READ_TRUNCATED;
     }
@@ -130,7 +130,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading pos: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading pos: %s.\n",
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -139,7 +139,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "bl_sam_read_alignment(): Invalid position: %s\n",
+	    fprintf(stderr, "bl_sam_read(): Invalid position: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
@@ -159,7 +159,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading mapq: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading mapq: %s.\n",
 		mapq_str);
 	return BL_READ_TRUNCATED;
     }
@@ -169,7 +169,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->mapq = strtoul(mapq_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "bl_sam_read_alignment(): Invalid mapq: %s\n",
+	    fprintf(stderr, "bl_sam_read(): Invalid mapq: %s\n",
 		    mapq_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
@@ -191,7 +191,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading cigar: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading cigar: %s.\n",
 		sam_alignment->cigar);
 	return BL_READ_TRUNCATED;
     }
@@ -207,7 +207,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading rnext: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading rnext: %s.\n",
 		sam_alignment->rnext);
 	return BL_READ_TRUNCATED;
     }
@@ -220,7 +220,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading pnext: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading pnext: %s.\n",
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -229,7 +229,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->pnext = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "bl_sam_read_alignment(): Invalid pnext: %s\n",
+	    fprintf(stderr, "bl_sam_read(): Invalid pnext: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
@@ -248,7 +248,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	delim = tsv_skip_field(sam_stream);
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading tlen: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading tlen: %s.\n",
 		pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -257,7 +257,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	sam_alignment->tlen = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
-	    fprintf(stderr, "bl_sam_read_alignment(): Invalid tlen: %s\n",
+	    fprintf(stderr, "bl_sam_read(): Invalid tlen: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
@@ -279,20 +279,20 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading seq: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading seq: %s.\n",
 		temp_seq_or_qual);
 	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & BL_SAM_FIELD_SEQ )
     {
-	// May be allocated by bl_sam_init_alignment() or bl_sam_copy_alignment()
+	// May be allocated by bl_sam_init() or bl_sam_copy()
 	if ( sam_alignment->seq == NULL )
 	{
 	    if ( (sam_alignment->seq = xt_malloc(sam_alignment->seq_len + 1,
 		    sizeof(*sam_alignment->seq))) == NULL )
 	    {
-		fprintf(stderr, "bl_sam_read_alignment(): Could not allocate seq.\n");
+		fprintf(stderr, "bl_sam_read(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -310,20 +310,20 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     }
     if ( delim == EOF )
     {
-	fprintf(stderr, "bl_sam_read_alignment(): Got EOF reading qual: %s.\n",
+	fprintf(stderr, "bl_sam_read(): Got EOF reading qual: %s.\n",
 		temp_seq_or_qual);
 	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & BL_SAM_FIELD_QUAL )
     {
-	// May be allocated by bl_sam_init_alignment() or bl_sam_copy_alignment()
+	// May be allocated by bl_sam_init() or bl_sam_copy()
 	if ( sam_alignment->qual == NULL )
 	{
 	    if ( (sam_alignment->qual = xt_malloc(sam_alignment->qual_len + 1,
 		    sizeof(*sam_alignment->qual))) == NULL )
 	    {
-		fprintf(stderr, "bl_sam_read_alignment(): Could not allocate qual.\n");
+		fprintf(stderr, "bl_sam_read(): Could not allocate qual.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -332,7 +332,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
     
 	if ( (sam_alignment->qual_len != 1) &&
 	     (sam_alignment->seq_len != sam_alignment->qual_len) )
-	    fprintf(stderr, "bl_sam_read_alignment(): Warning: qual_len != seq_len for %s,%zu\n",
+	    fprintf(stderr, "bl_sam_read(): Warning: qual_len != seq_len for %s,%zu\n",
 		    sam_alignment->rname, sam_alignment->pos);
     }
     
@@ -342,7 +342,7 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
 	while ( getc(sam_stream) != '\n' )
 	    ;
 
-    /*fprintf(stderr,"bl_sam_read_alignment(): %s,%zu,%zu\n",
+    /*fprintf(stderr,"bl_sam_read(): %s,%zu,%zu\n",
 	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 	    BL_SAM_SEQ_LEN(sam_alignment));*/
     
@@ -364,14 +364,14 @@ int     bl_sam_read_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
  *      src:    Pointer to bl_sam_t structure to be copied
  *
  *  See also:
- *      bl_sam_read_alignment(3), bl_sam_init_alignment(3), bl_sam_free_alignment(3)
+ *      bl_sam_read(3), bl_sam_init(3), bl_sam_free(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
+void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 
 {
     strlcpy(dest->qname, src->qname, BL_SAM_QNAME_MAX_CHARS + 1);
@@ -388,7 +388,7 @@ void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
     if ( (dest->seq = xt_malloc(src->seq_len + 1,
 	    sizeof(*dest->seq))) == NULL )
     {
-	fprintf(stderr, "bl_sam_copy_alignment(): Could not allocate seq.\n");
+	fprintf(stderr, "bl_sam_copy(): Could not allocate seq.\n");
 	exit(EX_UNAVAILABLE);
     }
     memcpy(dest->seq, src->seq, src->seq_len + 1);
@@ -396,7 +396,7 @@ void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
     if ( (dest->qual = xt_malloc(src->seq_len + 1,
 	    sizeof(*dest->qual))) == NULL )
     {
-	fprintf(stderr, "bl_sam_copy_alignment(): Could not allocate qual.\n");
+	fprintf(stderr, "bl_sam_copy(): Could not allocate qual.\n");
 	exit(EX_UNAVAILABLE);
     }
     
@@ -415,21 +415,21 @@ void    bl_sam_copy_alignment(bl_sam_t *dest, bl_sam_t *src)
  *      -lbiolibc
  *
  *  Description:
- *      Free memory allocated by bl_sam_read_alignment() or
- *      bl_sam_init_alignment().
+ *      Free memory allocated by bl_sam_read() or
+ *      bl_sam_init().
  *
  *  Arguments:
  *      sam_alignment:  Pointer to bl_sam_t structure to be freed.
  *
  *  See also:
- *      bl_sam_read_alignment(3), bl_sam_init_alignment(3), bl_sam_copy_alignment(3)
+ *      bl_sam_read(3), bl_sam_init(3), bl_sam_copy(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_free_alignment(bl_sam_t *sam_alignment)
+void    bl_sam_free(bl_sam_t *sam_alignment)
 
 {
     if ( sam_alignment->seq != NULL )
@@ -460,14 +460,14 @@ void    bl_sam_free_alignment(bl_sam_t *sam_alignment)
  *      field_mask:     Bit mask indicating which fields will be used
  *
  *  See also:
- *      bl_sam_read_alignment(3), bl_sam_free_alignment(3), bl_sam_copy_alignment(3)
+ *      bl_sam_read(3), bl_sam_free(3), bl_sam_copy(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
+void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
 			   sam_field_mask_t field_mask)
 
 {
@@ -493,14 +493,14 @@ void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
 		 ((sam_alignment->seq = xt_malloc(seq_len + 1,
 			sizeof(*sam_alignment->seq))) == NULL) )
 	    {
-		fprintf(stderr, "bl_sam_init_alignment(): Could not allocate seq.\n");
+		fprintf(stderr, "bl_sam_init(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	    if ( (field_mask & BL_SAM_FIELD_QUAL) &&
 		 ((sam_alignment->qual = xt_malloc(seq_len + 1,
 			sizeof(*sam_alignment->qual))) == NULL) )
 	    {
-		fprintf(stderr, "bl_sam_init_alignment(): Could not allocate qual.\n");
+		fprintf(stderr, "bl_sam_init(): Could not allocate qual.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
@@ -543,14 +543,14 @@ void    bl_sam_init_alignment(bl_sam_t *sam_alignment, size_t seq_len,
  *      Number of items written (per fprintf() output)
  *
  *  See also:
- *      bl_sam_read_alignment(3)
+ *      bl_sam_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_write_alignment(FILE *sam_stream, bl_sam_t *sam_alignment,
+int     bl_sam_write(FILE *sam_stream, bl_sam_t *sam_alignment,
 			   sam_field_mask_t field_mask)
 
 {

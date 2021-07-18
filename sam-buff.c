@@ -24,7 +24,7 @@
  *      sam_alignment:  Pointer to the most recently read alignment
  *
  *  See also:
- *      bl_sam_read_alignment(3)
+ *      bl_sam_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -77,7 +77,7 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
  *      mapq_min:   User-selected minimum MAPQ value
  *
  *  See also:
- *      bl_sam_buff_check_order(3), bl_sam_read_alignment(3)
+ *      bl_sam_buff_check_order(3), bl_sam_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -161,7 +161,7 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
     sam_buff->mapq_sum += BL_SAM_MAPQ(sam_alignment);
     ++sam_buff->reads_used;
 
-    // Just allocate the static fields, bl_sam_copy_alignment() does the rest
+    // Just allocate the static fields, bl_sam_copy() does the rest
     if ( sam_buff->alignments[sam_buff->buffered_count] == NULL )
     {
 	//fprintf(stderr, "Allocating alignment #%zu\n", sam_buff->buffered_count);
@@ -172,13 +172,13 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	    fprintf(stderr, "bl_sam_buff_add_alignment(): Could not allocate alignments.\n");
 	    exit(EX_UNAVAILABLE);
 	}
-	// Redundant to bl_sam_copy_alignment()
-	// bl_sam_init_alignment(sam_buff->alignments[sam_buff->buffered_count], 0);
+	// Redundant to bl_sam_copy()
+	// bl_sam_init(sam_buff->alignments[sam_buff->buffered_count], 0);
     }
     else
-	bl_sam_free_alignment(sam_buff->alignments[sam_buff->buffered_count]);
+	bl_sam_free(sam_buff->alignments[sam_buff->buffered_count]);
     
-    bl_sam_copy_alignment(sam_buff->alignments[sam_buff->buffered_count], sam_alignment);
+    bl_sam_copy(sam_buff->alignments[sam_buff->buffered_count], sam_alignment);
     
     ++sam_buff->buffered_count;
 
@@ -277,8 +277,8 @@ void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignmen
 void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 {
-    bl_sam_free_alignment(sam_buff->alignments[c]);
-    bl_sam_init_alignment(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
+    bl_sam_free(sam_buff->alignments[c]);
+    bl_sam_init(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
     if ( sam_buff->alignments[c] != NULL )
     {
 	free(sam_buff->alignments[c]);

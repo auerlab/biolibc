@@ -26,7 +26,7 @@
  *      A FILE pointer to a temporary file containing a copy of the header
  *
  *  See also:
- *      bl_gff_read_feature(3)
+ *      bl_gff_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -98,19 +98,19 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bl_gff_read_feature(stdin, &gff_feature, BL_GFF_FIELD_ALL);
- *      bl_gff_read_feature(gff_stream, &gff_feature,
+ *      bl_gff_read(stdin, &gff_feature, BL_GFF_FIELD_ALL);
+ *      bl_gff_read(gff_stream, &gff_feature,
  *                       BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
  *
  *  See also:
- *      bl_gff_write_feature(3)
+ *      bl_gff_write(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
+int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
 			 gff_field_mask_t field_mask)
 
 {
@@ -146,7 +146,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( tsv_read_field(gff_stream, gff_feature->sequence,
 			BL_CHROMOSOME_MAX_CHARS, &len) == EOF )
     {
-	//fputs("bl_gff_read_feature(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
+	//fputs("bl_gff_read(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
 	return BL_READ_EOF;
     }
     
@@ -154,7 +154,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, gff_feature->source,
 			BL_GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading SOURCE: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading SOURCE: %s.\n",
 		gff_feature->source);
 	return BL_READ_TRUNCATED;
     }
@@ -163,7 +163,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, gff_feature->name,
 			BL_GFF_NAME_MAX_CHARS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading feature: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading feature: %s.\n",
 		gff_feature->name);
 	return BL_READ_TRUNCATED;
     }
@@ -172,7 +172,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( tsv_read_field(gff_stream, start_pos_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading start POS: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading start POS: %s.\n",
 		start_pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -182,7 +182,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bl_gff_read_feature(): Invalid feature position: %s\n",
+		    "bl_gff_read(): Invalid feature position: %s\n",
 		    start_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -192,7 +192,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, end_pos_str,
 			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading end POS: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading end POS: %s.\n",
 		end_pos_str);
 	return BL_READ_TRUNCATED;
     }
@@ -202,7 +202,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
-		    "bl_gff_read_feature(): Invalid feature position: %s\n",
+		    "bl_gff_read(): Invalid feature position: %s\n",
 		    end_pos_str);
 	    return BL_READ_TRUNCATED;
 	}
@@ -212,7 +212,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, score_str,
 			BL_GFF_SCORE_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading SCORE: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading SCORE: %s.\n",
 		score_str);
 	return BL_READ_TRUNCATED;
     }
@@ -228,7 +228,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, strand_str,
 			BL_GFF_STRAND_MAX_CHARS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading STRAND: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading STRAND: %s.\n",
 		strand_str);
 	return BL_READ_TRUNCATED;
     }
@@ -239,7 +239,7 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, phase_str,
 			BL_GFF_PHASE_MAX_DIGITS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading PHASE: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading PHASE: %s.\n",
 		phase_str);
 	return BL_READ_TRUNCATED;
     }
@@ -250,13 +250,13 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
     if ( (delim = tsv_read_field(gff_stream, temp_attributes,
 			BL_GFF_ATTRIBUTES_MAX_CHARS, &len)) == EOF )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Got EOF reading ATTRIBUTES: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Got EOF reading ATTRIBUTES: %s.\n",
 		temp_attributes);
 	return BL_READ_TRUNCATED;
     }
     else if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
     {
-	fprintf(stderr, "bl_gff_read_feature(): Could not strdup attributes: %s.\n",
+	fprintf(stderr, "bl_gff_read(): Could not strdup attributes: %s.\n",
 		temp_attributes);
 	return BL_READ_TRUNCATED;
     }
@@ -315,19 +315,19 @@ int     bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature,
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bl_gff_write_feature(stdout, &gff_feature, BL_GFF_FIELD_ALL);
- *      bl_gff_write_feature(gff_stream, &gff_feature,
+ *      bl_gff_write(stdout, &gff_feature, BL_GFF_FIELD_ALL);
+ *      bl_gff_write(gff_stream, &gff_feature,
  *                        BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START_POS|BL_GFF_FIELD_END_POS);
  *
  *  See also:
- *      bl_gff_read_feature(3)
+ *      bl_gff_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
+int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
 				gff_field_mask_t field_mask)
 
 {
@@ -354,7 +354,7 @@ int     bl_gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature,
  *      gff_feature: Pointer to the bl_gff_t structure to copy
  *
  *  See also:
- *      bl_bed_read_feature(3), bl_gff_read_feature(3)
+ *      bl_bed_read(3), bl_gff_read(3)
  *
  *  History: 
  *  Date        Name        Modification

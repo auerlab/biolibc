@@ -88,8 +88,8 @@ typedef struct
 #endif
 
 FILE *bl_gff_skip_header(FILE *gff_stream);
-int bl_gff_read_feature(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
-int bl_gff_write_feature(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
+int bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
+int bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
 void bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature);
 
 #endif  // _gff_h_

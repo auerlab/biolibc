@@ -512,7 +512,7 @@ int     bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      Address of the allocated array (NULL if malloc failed)
  *
  *  See also:
- *      bl_vcf_call_init(3), bl_vcf_read_static_fields(3)
+ *      bl_vcf_init(3), bl_vcf_read_static_fields(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -626,14 +626,14 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
  *      vcf_call:   Pointer to the bl_vcf_t structure to free.
  *
  *  See also:
- *      bl_vcf_call_init(3), bl_vcf_sample_alloc(3)
+ *      bl_vcf_init(3), bl_vcf_sample_alloc(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_vcf_call_free(bl_vcf_t *vcf_call)
+void    bl_vcf_free(bl_vcf_t *vcf_call)
 
 {
     free(vcf_call->info);
@@ -658,14 +658,14 @@ void    bl_vcf_call_free(bl_vcf_t *vcf_call)
  *      sample_max: Maxixum size of SAMPLE field in bytes
  *
  *  See also:
- *      bl_vcf_call_free(3), vcf_read_call(3), bl_vcf_sample_alloc(3)
+ *      bl_vcf_free(3), vcf_read_call(3), bl_vcf_sample_alloc(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_vcf_call_init(bl_vcf_t *vcf_call,
+void    bl_vcf_init(bl_vcf_t *vcf_call,
 		      size_t info_max, size_t format_max, size_t sample_max)
 
 {
@@ -684,19 +684,19 @@ void    bl_vcf_call_init(bl_vcf_t *vcf_call,
     if ( (vcf_call->info = xt_malloc(info_max + 1,
 	    sizeof(*vcf_call->info))) == NULL )
     {
-	fprintf(stderr, "bl_vcf_call_init(): Could not allocate info field.\n");
+	fprintf(stderr, "bl_vcf_init(): Could not allocate info field.\n");
 	exit(EX_UNAVAILABLE);
     }
     if ( (vcf_call->format = xt_malloc(format_max + 1,
 	    sizeof(*vcf_call->format))) == NULL )
     {
-	fprintf(stderr, "bl_vcf_call_init(): Could not allocate format field.\n");
+	fprintf(stderr, "bl_vcf_init(): Could not allocate format field.\n");
 	exit(EX_UNAVAILABLE);
     }
     if ( (vcf_call->single_sample = xt_malloc(sample_max + 1,
 	    sizeof(*vcf_call->single_sample))) == NULL )
     {
-	fprintf(stderr, "bl_vcf_call_init(): Could not allocate single_sample field.\n");
+	fprintf(stderr, "bl_vcf_init(): Could not allocate single_sample field.\n");
 	exit(EX_UNAVAILABLE);
     }
     
@@ -877,7 +877,7 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_vcf_out_of_order(bl_vcf_t *vcf_call,
+void    bl_vcf_call_out_of_order(bl_vcf_t *vcf_call,
 			 char *previous_chromosome, size_t previous_pos)
 
 {
