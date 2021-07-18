@@ -4,7 +4,7 @@
 .SH LIBRARY
 .nf
 .na
-#include <vcf.h>
+#include <biolibc/vcf.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -39,10 +39,10 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_vcf_t   bl_vcf;
-size_t     c;
+bl_vcf_t    bl_vcf;
+size_t      c;
 
-sample = BL_VCF_MULTI_SAMPLES(&bl_vcf, c);
+samples = BL_VCF_MULTI_SAMPLES(&bl_vcf, c);
 .ad
 .fi
 

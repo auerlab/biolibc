@@ -15,7 +15,7 @@
 .PP
 .nf 
 .na
-BL_GFF_SET_FEATURE(ptr,name)
+BL_GFF_SET_FEATURE(ptr,feature)
 .ad
 .fi
 
@@ -23,13 +23,13 @@ BL_GFF_SET_FEATURE(ptr,name)
 .nf
 .na
 ptr              Pointer to a bl_gff_t structure
-name             New value for ptr->name
+feature          New value for ptr->feature
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for name.  Use this macro to set the name of
+Mutator macro for feature.  Use this macro to set the feature of
 a bl_gff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_gff_t structure may change, effort is made to

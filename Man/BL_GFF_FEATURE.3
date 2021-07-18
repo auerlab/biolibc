@@ -28,7 +28,7 @@ ptr     Pointer to a bl_gff_t structure
 
 .SH DESCRIPTION
 
-Accessor macro for name.  Use this macro to reference the name of
+Accessor macro for feature.  Use this macro to reference the feature of
 a bl_gff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_gff_t structure may change, effort is made to
@@ -40,7 +40,7 @@ preserve the API of functions and macros used to access it.
 .na
 bl_gff_t   bl_gff;
 
-name = BL_GFF_FEATURE(&bl_gff);
+feature = BL_GFF_FEATURE(&bl_gff);
 .ad
 .fi
 

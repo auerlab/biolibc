@@ -28,7 +28,7 @@ ptr     Pointer to a bl_vcf_t structure
 
 .SH DESCRIPTION
 
-Accessor macro for quality.  Use this macro to reference the quality of
+Accessor macro for qual.  Use this macro to reference the qual of
 a bl_vcf_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_vcf_t structure may change, effort is made to
@@ -40,7 +40,7 @@ preserve the API of functions and macros used to access it.
 .na
 bl_vcf_t   bl_vcf;
 
-quality = BL_VCF_QUAL(&bl_vcf);
+qual = BL_VCF_QUAL(&bl_vcf);
 .ad
 .fi
 

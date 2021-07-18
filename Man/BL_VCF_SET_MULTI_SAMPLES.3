@@ -4,7 +4,7 @@
 .SH LIBRARY
 .nf
 .na
-#include <vcf.h>
+#include <biolibc/vcf.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -15,7 +15,7 @@
 .PP
 .nf 
 .na
-BL_VCF_SET_MULTI_SAMPLES(ptr, c, new_sample)
+BL_VCF_SET_MULTI_SAMPLES(ptr,c,new_sample)
 .ad
 .fi
 
@@ -23,8 +23,8 @@ BL_VCF_SET_MULTI_SAMPLES(ptr, c, new_sample)
 .nf
 .na
 ptr              Pointer to a bl_vcf_t structure
+new_sample       New value for ptr->multi_samples
 c                Subscript to multi_samples array
-new_sample       New value for ptr->multi_samples[c]
 .ad
 .fi
 
