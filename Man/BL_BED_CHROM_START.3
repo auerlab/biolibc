@@ -22,13 +22,13 @@ BL_BED_CHROM_START(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_bed_t structure
+ptr             Pointer to a bl_bed_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for chrom_start.  Use this macro to reference the chrom_start of
+Accessor macro for chrom_start.  Use this macro to reference chrom_start in
 a bl_bed_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_bed_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_bed_t   bl_bed;
+bl_bed_t        bl_bed;
+uint64_t        chrom_start;
 
 chrom_start = BL_BED_CHROM_START(&bl_bed);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/bed.h for a full list of macros.

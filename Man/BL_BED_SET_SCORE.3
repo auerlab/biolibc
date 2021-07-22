@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_BED_SET_SCORE(ptr,score)
+BL_BED_SET_SCORE(ptr, new_score)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_bed_t structure
-score            New value for ptr->score
+ptr             Pointer to a bl_bed_t structure
+new_score       New value for score
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for score.  Use this macro to set the score of
+Mutator macro for score.  Use this macro to set score in
 a bl_bed_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_bed_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
 
+Note that there is an equivalent function bl_bed_set_score(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_score is not validated by other means.
+
 .SH EXAMPLES
 
 .nf
 .na
-bl_bed_t   bl_bed;
+bl_bed_t        bl_bed;
+unsigned short  new_score;
 
 BL_BED_SET_SCORE(&bl_bed, new_score);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_bed_set_score(3)
+See biolibc/bed.h for a full list of macros.
+.ad
+.fi

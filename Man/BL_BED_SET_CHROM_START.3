@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_BED_SET_CHROM_START(ptr,chrom_start)
+BL_BED_SET_CHROM_START(ptr, new_chrom_start)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_bed_t structure
-chrom_start      New value for ptr->chrom_start
+ptr             Pointer to a bl_bed_t structure
+new_chrom_start New value for chrom_start
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for chrom_start.  Use this macro to set the chrom_start of
+Mutator macro for chrom_start.  Use this macro to set chrom_start in
 a bl_bed_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_bed_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
 
+Note that there is an equivalent function bl_bed_set_chrom_start(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_chrom_start is not validated by other means.
+
 .SH EXAMPLES
 
 .nf
 .na
-bl_bed_t   bl_bed;
+bl_bed_t        bl_bed;
+uint64_t        new_chrom_start;
 
 BL_BED_SET_CHROM_START(&bl_bed, new_chrom_start);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_bed_set_chrom_start(3)
+See biolibc/bed.h for a full list of macros.
+.ad
+.fi

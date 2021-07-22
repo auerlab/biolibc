@@ -367,7 +367,7 @@ void    bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
     char    name[BL_BED_NAME_MAX_CHARS + 1],
 	    strand = BL_GFF_STRAND(gff_feature);
     
-    BL_BED_SET_CHROM(bed_feature, BL_GFF_SEQUENCE(gff_feature));
+    BL_BED_SET_CHROM_CPY(bed_feature, BL_GFF_SEQUENCE(gff_feature), BL_CHROM_MAX_CHARS + 1);
     /*
      *  BED start is 0-based and inclusive
      *  GFF is 1-based and inclusive
@@ -379,7 +379,7 @@ void    bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
      */
     BL_BED_SET_CHROM_END(bed_feature, BL_GFF_END(gff_feature));
     snprintf(name, BL_BED_NAME_MAX_CHARS, "%s", BL_GFF_FEATURE(gff_feature));
-    BL_BED_SET_NAME(bed_feature, name);
+    BL_BED_SET_NAME_CPY(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
     BL_BED_SET_SCORE(bed_feature, 0);  // FIXME: Take as arg?
     if ( BL_BED_SET_STRAND(bed_feature, strand) != BL_DATA_OK )
     {
