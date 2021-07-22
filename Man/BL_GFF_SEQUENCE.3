@@ -22,13 +22,13 @@ BL_GFF_SEQUENCE(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_gff_t structure
+ptr             Pointer to a bl_gff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for sequence.  Use this macro to reference the sequence of
+Accessor macro for sequence.  Use this macro to reference sequence in
 a bl_gff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_gff_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_gff_t   bl_gff;
+bl_gff_t        bl_gff;
+char            sequence;
 
 sequence = BL_GFF_SEQUENCE(&bl_gff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/gff.h for a full list of macros.

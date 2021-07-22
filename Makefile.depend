@@ -15,9 +15,16 @@ fasta.o: fasta.c
 fastq.o: fastq.c
 	${CC} -c ${CFLAGS} fastq.c
 
+gff-mutators.o: gff-mutators.c gff.h biolibc.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h bed.h overlap.h
+	${CC} -c ${CFLAGS} gff-mutators.c
+
 gff.o: gff.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   gff.h biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff.c
+
+overlap-mutators.o: overlap-mutators.c overlap.h
+	${CC} -c ${CFLAGS} overlap-mutators.c
 
 overlap.o: overlap.c ../local/include/xtend.h \
   ../local/include/xtend-protos.h biolibc.h overlap.h
@@ -34,10 +41,6 @@ sam-buff.o: sam-buff.c ../local/include/xtend.h \
 sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   sam.h biolibc.h
 	${CC} -c ${CFLAGS} sam.c
-
-temp-vcf-mutators.o: temp-vcf-mutators.c vcf.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam.h biolibc.h
-	${CC} -c ${CFLAGS} temp-vcf-mutators.c
 
 vcf.o: vcf.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   vcf.h sam.h biolibc.h biostring.h

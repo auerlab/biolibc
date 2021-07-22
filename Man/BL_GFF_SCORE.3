@@ -22,13 +22,13 @@ BL_GFF_SCORE(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_gff_t structure
+ptr             Pointer to a bl_gff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for score.  Use this macro to reference the score of
+Accessor macro for score.  Use this macro to reference score in
 a bl_gff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_gff_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_gff_t   bl_gff;
+bl_gff_t        bl_gff;
+double          score;
 
 score = BL_GFF_SCORE(&bl_gff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/gff.h for a full list of macros.

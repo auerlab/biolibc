@@ -22,13 +22,13 @@ BL_OVERLAP_OVERLAP_START(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_overlap_t structure
+ptr             Pointer to a bl_overlap_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for overlap_start.  Use this macro to reference the overlap_start of
+Accessor macro for overlap_start.  Use this macro to reference overlap_start in
 a bl_overlap_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_overlap_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_overlap_t   bl_overlap;
+bl_overlap_t    bl_overlap;
+uint64_t        overlap_start;
 
 overlap_start = BL_OVERLAP_OVERLAP_START(&bl_overlap);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/overlap.h for a full list of macros.

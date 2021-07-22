@@ -97,29 +97,24 @@ typedef unsigned int            bed_field_mask_t;
  *  as needed before adding to your code.
  */
 
-// FIXME: Assuming char array is a null-terminated string
 #define BL_BED_SET_CHROM_CPY(ptr,val,array_size) strlcpy((ptr)->chrom,val,array_size)
 #define BL_BED_SET_CHROM_AE(ptr,c,val)          ((ptr)->chrom[c] = (val))
 #define BL_BED_SET_CHROM_START(ptr,val)         ((ptr)->chrom_start = (val))
 #define BL_BED_SET_CHROM_END(ptr,val)           ((ptr)->chrom_end = (val))
-// FIXME: Assuming char array is a null-terminated string
 #define BL_BED_SET_NAME_CPY(ptr,val,array_size) strlcpy((ptr)->name,val,array_size)
 #define BL_BED_SET_NAME_AE(ptr,c,val)           ((ptr)->name[c] = (val))
 #define BL_BED_SET_SCORE(ptr,val)               ((ptr)->score = (val))
 #define BL_BED_SET_STRAND(ptr,val)              ((ptr)->strand = (val))
 #define BL_BED_SET_THICK_START(ptr,val)         ((ptr)->thick_start = (val))
 #define BL_BED_SET_THICK_END(ptr,val)           ((ptr)->thick_end = (val))
-// FIXME: Assuming char array is a null-terminated string
 #define BL_BED_SET_ITEM_RGB_CPY(ptr,val,array_size) strlcpy((ptr)->item_rgb,val,array_size)
 #define BL_BED_SET_ITEM_RGB_AE(ptr,c,val)       ((ptr)->item_rgb[c] = (val))
 #define BL_BED_SET_BLOCK_COUNT(ptr,val)         ((ptr)->block_count = (val))
 #define BL_BED_SET_BLOCK_SIZES(ptr,val)         ((ptr)->block_sizes = (val))
-// FIXME: Assuming all elements should be copied
 #define BL_BED_SET_BLOCK_SIZES_CPY(ptr,val,array_size) \
     for (size_t c = 0; c < (array_size); ++c) (ptr)->block_sizes[c] = val[c];
 #define BL_BED_SET_BLOCK_SIZES_AE(ptr,c,val)    ((ptr)->block_sizes[c] = (val))
 #define BL_BED_SET_BLOCK_STARTS(ptr,val)        ((ptr)->block_starts = (val))
-// FIXME: Assuming all elements should be copied
 #define BL_BED_SET_BLOCK_STARTS_CPY(ptr,val,array_size) \
     for (size_t c = 0; c < (array_size); ++c) (ptr)->block_starts[c] = val[c];
 #define BL_BED_SET_BLOCK_STARTS_AE(ptr,c,val)   ((ptr)->block_starts[c] = (val))
@@ -140,4 +135,27 @@ int bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_
 int bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature, bed_field_mask_t field_mask);
 void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], uint64_t last_start);
 int bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
+
+/* bed-mutators.c */
+int bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element);
+int bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size);
+int bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start);
+int bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end);
+int bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element);
+int bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size);
+int bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score);
+int bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand);
+int bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start);
+int bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end);
+int bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element);
+int bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size);
+int bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count);
+int bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t *new_block_sizes);
+int bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t new_block_sizes_element);
+int bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t *new_block_sizes, size_t array_size);
+int bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t *new_block_starts);
+int bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t new_block_starts_element);
+int bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t *new_block_starts, size_t array_size);
+int bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields);
+
 #endif  // _bed_h_

@@ -73,7 +73,7 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 
 OBJS    = overlap.o vcf.o sam.o bed.o gff.o \
 	  chrom-name-cmp.o pos-list.o sam-buff.o \
-	  bed-mutators.o
+	  bed-mutators.o gff-mutators.o overlap-mutators.o
 
 ############################################################################
 # Compile, link, and install options
