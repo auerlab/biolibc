@@ -38,12 +38,16 @@ pos-list.o: pos-list.c ../local/include/xtend.h \
 	${CC} -c ${CFLAGS} pos-list.c
 
 sam-buff-mutators.o: sam-buff-mutators.c sam-buff.h sam.h \
-  ../local/include/xtend.h ../local/include/xtend-protos.h
+  ../local/include/xtend.h ../local/include/xtend-protos.h biolibc.h
 	${CC} -c ${CFLAGS} sam-buff-mutators.c
 
 sam-buff.o: sam-buff.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam-buff.h sam.h biostring.h
+  ../local/include/xtend-protos.h sam-buff.h sam.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} sam-buff.c
+
+sam-mutators.o: sam-mutators.c sam.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h
+	${CC} -c ${CFLAGS} sam-mutators.c
 
 sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   sam.h biolibc.h

@@ -22,13 +22,13 @@ BL_SAM_POS(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_t structure
+ptr             Pointer to a bl_sam_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for pos.  Use this macro to reference the pos of
+Accessor macro for pos.  Use this macro to reference pos in
 a bl_sam_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_sam_t   bl_sam;
+bl_sam_t        bl_sam;
+uint64_t        pos;
 
 pos = BL_SAM_POS(&bl_sam);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam.h for a full list of macros.
