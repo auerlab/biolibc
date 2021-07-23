@@ -8,7 +8,9 @@
 #include <inttypes.h>
 #endif
 
+#ifndef _biolibc_h_
 #include "biolibc.h"
+#endif
 
 // 1-based, inclusive at both ends
 typedef struct

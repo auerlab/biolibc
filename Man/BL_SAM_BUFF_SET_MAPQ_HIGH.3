@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_SET_MAPQ_HIGH(ptr,mapq_high)
+BL_SAM_BUFF_SET_MAPQ_HIGH(ptr, new_mapq_high)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_sam_buff_t structure
-mapq_high        New value for ptr->mapq_high
+ptr             Pointer to a bl_sam_buff_t structure
+new_mapq_high   New value for mapq_high
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for mapq_high.  Use this macro to set the mapq_high of
+Mutator macro for mapq_high.  Use this macro to set mapq_high in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
+
+Note that there is an equivalent function bl_sam_buff_set_mapq_high(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_mapq_high is not validated by other means.
 
 .SH EXAMPLES
 
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        new_mapq_high;
 
 BL_SAM_BUFF_SET_MAPQ_HIGH(&bl_sam_buff, new_mapq_high);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_sam_buff_set_mapq_high(3)
+See biolibc/sam-buff.h for a full list of macros.
+.ad
+.fi

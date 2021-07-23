@@ -22,13 +22,13 @@ BL_SAM_BUFF_PREVIOUS_RNAME(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for previous_rname.  Use this macro to reference the previous_rname of
+Accessor macro for previous_rname.  Use this macro to reference previous_rname in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+char            previous_rname;
 
 previous_rname = BL_SAM_BUFF_PREVIOUS_RNAME(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

@@ -22,13 +22,13 @@ BL_SAM_BUFF_TOTAL_ALIGNMENTS(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for total_alignments.  Use this macro to reference the total_alignments of
+Accessor macro for total_alignments.  Use this macro to reference total_alignments in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        total_alignments;
 
 total_alignments = BL_SAM_BUFF_TOTAL_ALIGNMENTS(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

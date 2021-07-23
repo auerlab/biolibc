@@ -22,13 +22,13 @@ BL_SAM_BUFF_MAX_COUNT(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for max_count.  Use this macro to reference the max_count of
+Accessor macro for max_count.  Use this macro to reference max_count in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+size_t          max_count;
 
 max_count = BL_SAM_BUFF_MAX_COUNT(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

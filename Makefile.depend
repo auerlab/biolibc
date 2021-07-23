@@ -23,16 +23,23 @@ gff.o: gff.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   gff.h biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff.c
 
-overlap-mutators.o: overlap-mutators.c overlap.h
+overlap-mutators.o: overlap-mutators.c overlap.h biolibc.h
 	${CC} -c ${CFLAGS} overlap-mutators.c
 
 overlap.o: overlap.c ../local/include/xtend.h \
   ../local/include/xtend-protos.h biolibc.h overlap.h
 	${CC} -c ${CFLAGS} overlap.c
 
+pos-list-mutators.o: pos-list-mutators.c pos-list.h biolibc.h
+	${CC} -c ${CFLAGS} pos-list-mutators.c
+
 pos-list.o: pos-list.c ../local/include/xtend.h \
   ../local/include/xtend-protos.h pos-list.h biolibc.h
 	${CC} -c ${CFLAGS} pos-list.c
+
+sam-buff-mutators.o: sam-buff-mutators.c sam-buff.h sam.h \
+  ../local/include/xtend.h ../local/include/xtend-protos.h
+	${CC} -c ${CFLAGS} sam-buff-mutators.c
 
 sam-buff.o: sam-buff.c ../local/include/xtend.h \
   ../local/include/xtend-protos.h sam-buff.h sam.h biostring.h

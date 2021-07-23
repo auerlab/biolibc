@@ -22,13 +22,13 @@ BL_SAM_BUFF_DISCARDED_SCORE_SUM(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for discarded_score_sum.  Use this macro to reference the discarded_score_sum of
+Accessor macro for discarded_score_sum.  Use this macro to reference discarded_score_sum in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        discarded_score_sum;
 
 discarded_score_sum = BL_SAM_BUFF_DISCARDED_SCORE_SUM(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

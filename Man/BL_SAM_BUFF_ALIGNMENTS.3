@@ -15,21 +15,20 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_ALIGNMENTS(ptr,c)
+BL_SAM_BUFF_ALIGNMENTS(ptr)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
-c       Subscript to alignments array
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for alignments.  Use this macro to reference the alignments of
+Accessor macro for alignments.  Use this macro to reference alignments in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -40,9 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
-size_t          c;
+bl_sam_t **     alignments;
 
-alignment = BL_SAM_BUFF_ALIGNMENTS(&bl_sam_buff,c);
+alignments = BL_SAM_BUFF_ALIGNMENTS(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

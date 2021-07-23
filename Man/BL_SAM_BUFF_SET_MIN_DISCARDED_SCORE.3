@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_SET_MIN_DISCARDED_SCORE(ptr,min_discarded_score)
+BL_SAM_BUFF_SET_MIN_DISCARDED_SCORE(ptr, new_min_discarded_score)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_sam_buff_t structure
-min_discarded_score New value for ptr->min_discarded_score
+ptr             Pointer to a bl_sam_buff_t structure
+new_min_discarded_score New value for min_discarded_score
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for min_discarded_score.  Use this macro to set the min_discarded_score of
+Mutator macro for min_discarded_score.  Use this macro to set min_discarded_score in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
+
+Note that there is an equivalent function bl_sam_buff_set_min_discarded_score(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_min_discarded_score is not validated by other means.
 
 .SH EXAMPLES
 
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        new_min_discarded_score;
 
 BL_SAM_BUFF_SET_MIN_DISCARDED_SCORE(&bl_sam_buff, new_min_discarded_score);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_sam_buff_set_min_discarded_score(3)
+See biolibc/sam-buff.h for a full list of macros.
+.ad
+.fi

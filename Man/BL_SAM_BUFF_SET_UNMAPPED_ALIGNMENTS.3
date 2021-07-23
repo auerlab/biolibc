@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_SET_UNMAPPED_ALIGNMENTS(ptr,unmapped_alignments)
+BL_SAM_BUFF_SET_UNMAPPED_ALIGNMENTS(ptr, new_unmapped_alignments)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_sam_buff_t structure
-unmapped_alignments New value for ptr->unmapped_alignments
+ptr             Pointer to a bl_sam_buff_t structure
+new_unmapped_alignments New value for unmapped_alignments
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for unmapped_alignments.  Use this macro to set the unmapped_alignments of
+Mutator macro for unmapped_alignments.  Use this macro to set unmapped_alignments in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
+
+Note that there is an equivalent function bl_sam_buff_set_unmapped_alignments(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_unmapped_alignments is not validated by other means.
 
 .SH EXAMPLES
 
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        new_unmapped_alignments;
 
 BL_SAM_BUFF_SET_UNMAPPED_ALIGNMENTS(&bl_sam_buff, new_unmapped_alignments);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_sam_buff_set_unmapped_alignments(3)
+See biolibc/sam-buff.h for a full list of macros.
+.ad
+.fi

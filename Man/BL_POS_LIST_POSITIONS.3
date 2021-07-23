@@ -22,13 +22,13 @@ BL_POS_LIST_POSITIONS(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_pos_list_t structure
+ptr             Pointer to a bl_pos_list_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for positions.  Use this macro to reference the positions of
+Accessor macro for positions.  Use this macro to reference positions in
 a bl_pos_list_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_pos_list_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_pos_list_t   bl_pos_list;
+uint64_t *      positions;
 
 positions = BL_POS_LIST_POSITIONS(&bl_pos_list);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/pos-list.h for a full list of macros.

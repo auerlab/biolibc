@@ -22,13 +22,13 @@ BL_SAM_BUFF_MAPQ_MIN(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_sam_buff_t structure
+ptr             Pointer to a bl_sam_buff_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for mapq_min.  Use this macro to reference the mapq_min of
+Accessor macro for mapq_min.  Use this macro to reference mapq_min in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
@@ -39,8 +39,12 @@ preserve the API of functions and macros used to access it.
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        mapq_min;
 
 mapq_min = BL_SAM_BUFF_MAPQ_MIN(&bl_sam_buff);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/sam-buff.h for a full list of macros.

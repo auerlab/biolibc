@@ -15,33 +15,47 @@
 .PP
 .nf 
 .na
-BL_SAM_BUFF_SET_DISCARDED_TRAILING(ptr,discarded_trailing)
+BL_SAM_BUFF_SET_DISCARDED_TRAILING(ptr, new_discarded_trailing)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr              Pointer to a bl_sam_buff_t structure
-discarded_trailing New value for ptr->discarded_trailing
+ptr             Pointer to a bl_sam_buff_t structure
+new_discarded_trailing New value for discarded_trailing
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Mutator macro for discarded_trailing.  Use this macro to set the discarded_trailing of
+Mutator macro for discarded_trailing.  Use this macro to set discarded_trailing in
 a bl_sam_buff_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_sam_buff_t structure may change, effort is made to
 preserve the API of functions and macros used to access it.
+
+Note that there is an equivalent function bl_sam_buff_set_discarded_trailing(), which performs
+this function with data verification.  Use the function version for more
+robust code with a slight performance penalty if the value of
+new_discarded_trailing is not validated by other means.
 
 .SH EXAMPLES
 
 .nf
 .na
 bl_sam_buff_t   bl_sam_buff;
+uint64_t        new_discarded_trailing;
 
 BL_SAM_BUFF_SET_DISCARDED_TRAILING(&bl_sam_buff, new_discarded_trailing);
 .ad
 .fi
 
+.SH SEE ALSO
+
+.nf
+.na
+bl_sam_buff_set_discarded_trailing(3)
+See biolibc/sam-buff.h for a full list of macros.
+.ad
+.fi
