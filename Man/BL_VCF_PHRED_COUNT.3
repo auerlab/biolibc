@@ -22,13 +22,13 @@ BL_VCF_PHRED_COUNT(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_vcf_t structure
+ptr             Pointer to a bl_vcf_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for phred_count.  Use this macro to reference the phred_count of
+Accessor macro for phred_count.  Use this macro to reference phred_count in
 a bl_vcf_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_vcf_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_vcf_t   bl_vcf;
+bl_vcf_t        bl_vcf;
+size_t          phred_count;
 
 phred_count = BL_VCF_PHRED_COUNT(&bl_vcf);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/vcf.h for a full list of macros.

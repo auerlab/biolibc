@@ -49,7 +49,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from overlap.h
+ *  2021-07-23  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len)
@@ -105,7 +105,7 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from overlap.h
+ *  2021-07-23  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature2_len)
@@ -161,7 +161,7 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from overlap.h
+ *  2021-07-23  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_start)
@@ -217,7 +217,7 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from overlap.h
+ *  2021-07-23  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_end)
@@ -273,7 +273,7 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from overlap.h
+ *  2021-07-23  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_len)

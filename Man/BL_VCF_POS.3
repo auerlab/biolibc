@@ -22,13 +22,13 @@ BL_VCF_POS(ptr)
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_vcf_t structure
+ptr             Pointer to a bl_vcf_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for pos.  Use this macro to reference the pos of
+Accessor macro for pos.  Use this macro to reference pos in
 a bl_vcf_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_vcf_t structure may change, effort is made to
@@ -38,9 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_vcf_t   bl_vcf;
+bl_vcf_t        bl_vcf;
+uint64_t        pos;
 
 pos = BL_VCF_POS(&bl_vcf);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/vcf.h for a full list of macros.

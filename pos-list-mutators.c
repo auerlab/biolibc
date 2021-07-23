@@ -49,7 +49,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-23  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_array_size)
@@ -105,7 +105,7 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-23  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
@@ -161,7 +161,7 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-23  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions)
@@ -214,7 +214,7 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-23  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
@@ -268,7 +268,7 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-23  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions, size_t array_size)

@@ -15,21 +15,20 @@
 .PP
 .nf 
 .na
-BL_VCF_MULTI_SAMPLES(ptr,c)
+BL_VCF_MULTI_SAMPLES(ptr)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-ptr     Pointer to a bl_vcf_t structure
-c       Subscript to multi_samples array
+ptr             Pointer to a bl_vcf_t structure
 .ad
 .fi
 
 .SH DESCRIPTION
 
-Accessor macro for multi_samples.  Use this macro to reference the multi_samples of
+Accessor macro for multi_samples.  Use this macro to reference multi_samples in
 a bl_vcf_t structure from functions that are not members of the class.
 This allows separation of implementation from interface.  While the
 implementation of the bl_vcf_t structure may change, effort is made to
@@ -39,10 +38,13 @@ preserve the API of functions and macros used to access it.
 
 .nf
 .na
-bl_vcf_t    bl_vcf;
-size_t      c;
+bl_vcf_t        bl_vcf;
+char **         multi_samples;
 
-samples = BL_VCF_MULTI_SAMPLES(&bl_vcf, c);
+multi_samples = BL_VCF_MULTI_SAMPLES(&bl_vcf);
 .ad
 .fi
 
+.SH SEE ALSO
+
+See biolibc/vcf.h for a full list of macros.

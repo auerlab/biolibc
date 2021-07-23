@@ -16,7 +16,7 @@
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of "chrom" in a bl_bed_t
+ *      Mutator for an array element of chrom member in a bl_bed_t
  *      structure. Use this function to set an element of the array
  *      chrom in a bl_bed_t variable from non-member functions.
  *
@@ -46,7 +46,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element)
@@ -69,7 +69,7 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "chrom" member of a bl_bed_t structure.
+ *      Mutator for chrom member in a bl_bed_t structure.
  *      Use this function to set chrom in a bl_bed_t variable
  *      from non-member functions.  This function copies the array pointed to
  *      by new_chrom to ->chrom.
@@ -100,7 +100,7 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
@@ -112,7 +112,7 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
-	strlcpy(bl_bed_ptr->chrom, new_chrom, BL_CHROM_MAX_CHARS+1);
+	strlcpy(bl_bed_ptr->chrom, new_chrom, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -124,7 +124,7 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "chrom_start" member of a bl_bed_t structure.
+ *      Mutator for chrom_start member in a bl_bed_t structure.
  *      Use this function to set chrom_start in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -157,7 +157,7 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
@@ -180,7 +180,7 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "chrom_end" member of a bl_bed_t structure.
+ *      Mutator for chrom_end member in a bl_bed_t structure.
  *      Use this function to set chrom_end in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -213,7 +213,7 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
@@ -236,7 +236,7 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of "name" in a bl_bed_t
+ *      Mutator for an array element of name member in a bl_bed_t
  *      structure. Use this function to set an element of the array
  *      name in a bl_bed_t variable from non-member functions.
  *
@@ -266,7 +266,7 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element)
@@ -289,7 +289,7 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "name" member of a bl_bed_t structure.
+ *      Mutator for name member in a bl_bed_t structure.
  *      Use this function to set name in a bl_bed_t variable
  *      from non-member functions.  This function copies the array pointed to
  *      by new_name to ->name.
@@ -320,7 +320,7 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size)
@@ -332,7 +332,7 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
-	strlcpy(bl_bed_ptr->name, new_name, BL_BED_NAME_MAX_CHARS+1);
+	strlcpy(bl_bed_ptr->name, new_name, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -344,7 +344,7 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "score" member of a bl_bed_t structure.
+ *      Mutator for score member in a bl_bed_t structure.
  *      Use this function to set score in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -377,7 +377,7 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
@@ -400,7 +400,7 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "strand" member of a bl_bed_t structure.
+ *      Mutator for strand member in a bl_bed_t structure.
  *      Use this function to set strand in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -433,7 +433,7 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
@@ -456,7 +456,7 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "thick_start" member of a bl_bed_t structure.
+ *      Mutator for thick_start member in a bl_bed_t structure.
  *      Use this function to set thick_start in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -489,7 +489,7 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
@@ -512,7 +512,7 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "thick_end" member of a bl_bed_t structure.
+ *      Mutator for thick_end member in a bl_bed_t structure.
  *      Use this function to set thick_end in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -545,7 +545,7 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
@@ -568,7 +568,7 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of "item_rgb" in a bl_bed_t
+ *      Mutator for an array element of item_rgb member in a bl_bed_t
  *      structure. Use this function to set an element of the array
  *      item_rgb in a bl_bed_t variable from non-member functions.
  *
@@ -598,7 +598,7 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
@@ -621,7 +621,7 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "item_rgb" member of a bl_bed_t structure.
+ *      Mutator for item_rgb member in a bl_bed_t structure.
  *      Use this function to set item_rgb in a bl_bed_t variable
  *      from non-member functions.  This function copies the array pointed to
  *      by new_item_rgb to ->item_rgb.
@@ -652,7 +652,7 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
@@ -664,7 +664,7 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
-	strlcpy(bl_bed_ptr->item_rgb, new_item_rgb, BL_BED_ITEM_RGB_MAX_CHARS+1);
+	strlcpy(bl_bed_ptr->item_rgb, new_item_rgb, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -676,7 +676,7 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "block_count" member of a bl_bed_t structure.
+ *      Mutator for block_count member in a bl_bed_t structure.
  *      Use this function to set block_count in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -709,7 +709,7 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count)
@@ -732,7 +732,7 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "block_sizes" member of a bl_bed_t structure.
+ *      Mutator for block_sizes member in a bl_bed_t structure.
  *      Use this function to set block_sizes in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -765,7 +765,7 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
@@ -788,7 +788,7 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of "block_sizes" in a bl_bed_t
+ *      Mutator for an array element of block_sizes member in a bl_bed_t
  *      structure. Use this function to set an element of the array
  *      block_sizes in a bl_bed_t variable from non-member functions.
  *
@@ -818,7 +818,7 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_sizes_element)
@@ -841,7 +841,7 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "block_sizes" member of a bl_bed_t structure.
+ *      Mutator for block_sizes member in a bl_bed_t structure.
  *      Use this function to set block_sizes in a bl_bed_t variable
  *      from non-member functions.  This function copies the array pointed to
  *      by new_block_sizes to ->block_sizes.
@@ -872,7 +872,7 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes, size_t array_size)
@@ -901,7 +901,7 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "block_starts" member of a bl_bed_t structure.
+ *      Mutator for block_starts member in a bl_bed_t structure.
  *      Use this function to set block_starts in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -934,7 +934,7 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts)
@@ -957,7 +957,7 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of "block_starts" in a bl_bed_t
+ *      Mutator for an array element of block_starts member in a bl_bed_t
  *      structure. Use this function to set an element of the array
  *      block_starts in a bl_bed_t variable from non-member functions.
  *
@@ -987,7 +987,7 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
@@ -1010,7 +1010,7 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "block_starts" member of a bl_bed_t structure.
+ *      Mutator for block_starts member in a bl_bed_t structure.
  *      Use this function to set block_starts in a bl_bed_t variable
  *      from non-member functions.  This function copies the array pointed to
  *      by new_block_starts to ->block_starts.
@@ -1041,7 +1041,7 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts, size_t array_size)
@@ -1070,7 +1070,7 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for "fields" member of a bl_bed_t structure.
+ *      Mutator for fields member in a bl_bed_t structure.
  *      Use this function to set fields in a bl_bed_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
@@ -1103,7 +1103,7 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-22  gen-get-set Auto-generated from bed.h
+ *  2021-07-23  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields)

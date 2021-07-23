@@ -46,12 +46,16 @@ sam-buff.o: sam-buff.c ../local/include/xtend.h \
 	${CC} -c ${CFLAGS} sam-buff.c
 
 sam-mutators.o: sam-mutators.c sam.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h
+  ../local/include/xtend-protos.h biolibc.h
 	${CC} -c ${CFLAGS} sam-mutators.c
 
 sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   sam.h biolibc.h
 	${CC} -c ${CFLAGS} sam.c
+
+vcf-mutators.o: vcf-mutators.c vcf.h ../local/include/xtend.h \
+  ../local/include/xtend-protos.h sam.h biolibc.h
+	${CC} -c ${CFLAGS} vcf-mutators.c
 
 vcf.o: vcf.c ../local/include/xtend.h ../local/include/xtend-protos.h \
   vcf.h sam.h biolibc.h biostring.h
