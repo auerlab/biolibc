@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "bed.h"
 
 
@@ -52,8 +53,7 @@
 int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_chrom_element) )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -106,8 +106,7 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
 int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_chrom == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -220,13 +219,8 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->chrom_end = new_chrom_end;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->chrom_end = new_chrom_end;
+    return BL_DATA_OK;
 }
 
 
@@ -272,8 +266,7 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
 int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_name_element) )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -326,8 +319,7 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
 int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_name == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -383,8 +375,7 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
 int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_score > 1000 )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -439,8 +430,7 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
 int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( (new_strand != '+') && (new_strand != '-') && (new_strand != '.') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -495,14 +485,8 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
 int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->thick_start = new_thick_start;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->thick_start = new_thick_start;
+    return BL_DATA_OK;
 }
 
 
@@ -551,14 +535,8 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
 int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->thick_end = new_thick_end;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->thick_end = new_thick_end;
+    return BL_DATA_OK;
 }
 
 
@@ -604,8 +582,7 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
 int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isdigit(new_item_rgb_element) && (new_item_rgb_element != ',') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -658,8 +635,8 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
 int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    /* FIXME: Make sure content is reasonable (digits and commas at least) */
+    if ( new_item_rgb == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -715,14 +692,8 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
 int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->block_count = new_block_count;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->block_count = new_block_count;
+    return BL_DATA_OK;
 }
 
 
@@ -771,8 +742,7 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
 int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_block_sizes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -824,14 +794,8 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
 int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_sizes_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->block_sizes[c] = new_block_sizes_element;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->block_sizes[c] = new_block_sizes_element;
+    return BL_DATA_OK;
 }
 
 
@@ -878,8 +842,7 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
 int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_block_sizes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -940,8 +903,7 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
 int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_block_starts == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -993,14 +955,8 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
 int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_bed_ptr->block_starts[c] = new_block_starts_element;
-	return BL_DATA_OK;
-    }
+    bl_bed_ptr->block_starts[c] = new_block_starts_element;
+    return BL_DATA_OK;
 }
 
 
@@ -1047,8 +1003,7 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
 int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_block_starts == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1109,12 +1064,17 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
 int     bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
-    else
+    switch(new_fields)
     {
-	bl_bed_ptr->fields = new_fields;
-	return BL_DATA_OK;
+	case    3:
+	case    4:  // score
+	case    5:  // strand
+	case    7:  // thick_start and thick_end
+	case    8:  // item_rgb
+	case    11: // block*
+	    bl_bed_ptr->fields = new_fields;
+	    return BL_DATA_OK;
+	default:
+	    return BL_DATA_OUT_OF_RANGE;
     }
 }
