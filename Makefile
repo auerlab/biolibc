@@ -223,6 +223,7 @@ apple-install: apple common-install
 	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
+	${MKDIR} -p ${DESTDIR}${MANDIR}/man7
 	${INSTALL} -m 0444 Man/Macros/*.3 ${DESTDIR}${MANDIR}/man7
 
 test: all
