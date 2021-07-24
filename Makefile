@@ -212,6 +212,7 @@ install: all common-install
 	${INSTALL} -m 0555 ${DLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/${SONAME}
 	ln -sf ${DLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.so
+	${INSTALL} -m 0444 Man/Macros/*.3 ${DESTDIR}${MANDIR}/man3
 
 install-strip: install
 	${CHMOD} 0655 ${DESTDIR}${PREFIX}/lib/${DLIB}
@@ -222,6 +223,7 @@ apple-install: apple common-install
 	${INSTALL} -m 0555 ${DYLIB} ${DESTDIR}${PREFIX}/lib
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/${INSTALL_NAME}
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
+	${INSTALL} -m 0444 Man/Macros/*.3 ${DESTDIR}${MANDIR}/man7
 
 test: all
 	cc -I. ${CFLAGS} Bed-test/bed-test.c -o Bed-test/bed-test \
