@@ -878,11 +878,11 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  ***************************************************************************/
 
 void    bl_vcf_call_out_of_order(bl_vcf_t *vcf_call,
-			 char *previous_chrom, size_t previous_pos)
+			 char *previous_chrom, uint64_t previous_pos)
 
 {
     fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chrom and then position.\n");
-    fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
+    fprintf(stderr, "Found %s,%" PRIu64 " after %s,%" PRIu64 ".\n",
 	    BL_VCF_CHROM(vcf_call), BL_VCF_POS(vcf_call),
 	    previous_chrom, previous_pos);
     exit(EX_DATAERR);

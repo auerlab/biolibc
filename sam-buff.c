@@ -203,7 +203,7 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	fprintf(stderr,
 		"bl_sam_buff_add_alignment(): Hit buff_size=%zu, doubling buffer size.\n",
 		sam_buff->buff_size);
-	fprintf(stderr, "RNAME: %s  POS: %zu  LEN: %zu\n",
+	fprintf(stderr, "RNAME: %s  POS: %" PRIu64 " LEN: %zu\n",
 		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 		BL_SAM_SEQ_LEN(sam_alignment));
 	old_buff_size = sam_buff->buff_size;
@@ -245,7 +245,7 @@ void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignmen
 
 {
     fprintf(stderr, "Error: SAM input must be sorted by chrom and then position.\n");
-    fprintf(stderr, "Found %s,%zu after %s,%zu.\n",
+    fprintf(stderr, "Found %s,%" PRIu64 " after %s,%" PRIu64 ".\n",
 	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 	    sam_buff->previous_rname, sam_buff->previous_pos);
     exit(EX_DATAERR);

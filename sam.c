@@ -65,7 +65,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 	    flag_str[BL_SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
     size_t  len;
-    static size_t   previous_pos = 0;
+    static uint64_t   previous_pos = 0;
     int     delim;
     
     if ( field_mask & BL_SAM_FIELD_QNAME )
@@ -99,7 +99,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 		    flag_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
-	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    fprintf(stderr, "previous_pos = %" PRIu64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
@@ -143,7 +143,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
-	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    fprintf(stderr, "previous_pos = %" PRIu64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
 	previous_pos = sam_alignment->pos;
@@ -173,7 +173,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 		    mapq_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
-	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    fprintf(stderr, "previous_pos = %" PRIu64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
@@ -233,7 +233,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
-	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    fprintf(stderr, "previous_pos = %" PRIu64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
@@ -261,7 +261,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
 		    sam_alignment->qname, sam_alignment->rname);
-	    fprintf(stderr, "previous_pos = %zu\n", previous_pos);
+	    fprintf(stderr, "previous_pos = %" PRIu64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
@@ -332,7 +332,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
     
 	if ( (sam_alignment->qual_len != 1) &&
 	     (sam_alignment->seq_len != sam_alignment->qual_len) )
-	    fprintf(stderr, "bl_sam_read(): Warning: qual_len != seq_len for %s,%zu\n",
+	    fprintf(stderr, "bl_sam_read(): Warning: qual_len != seq_len for %s,%" PRIu64 "\n",
 		    sam_alignment->rname, sam_alignment->pos);
     }
     
@@ -342,7 +342,7 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
 	while ( getc(sam_stream) != '\n' )
 	    ;
 
-    /*fprintf(stderr,"bl_sam_read(): %s,%zu,%zu\n",
+    /*fprintf(stderr,"bl_sam_read(): %s,%" PRIu64 ",%zu\n",
 	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 	    BL_SAM_SEQ_LEN(sam_alignment));*/
     
@@ -556,7 +556,8 @@ int     bl_sam_write(FILE *sam_stream, bl_sam_t *sam_alignment,
 {
     int     count;
     
-    count = fprintf(sam_stream, "%s\t%u\t%s\t%zu\t%u\t%s\t%s\t%zu\t%zu\t%s\t%s\t%zu\t%zu\n",
+    count = fprintf(sam_stream, "%s\t%u\t%s\t%" PRIu64
+		    "\t%u\t%s\t%s\t%" PRIu64 "zu\t%zu\t%s\t%s\t%zu\t%zu\n",
 		    sam_alignment->qname,
 		    sam_alignment->flag,
 		    sam_alignment->rname,

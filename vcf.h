@@ -196,7 +196,7 @@ void bl_vcf_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t 
 vcf_field_mask_t bl_vcf_parse_field_spec(char *spec);
 _Bool bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
 _Bool bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
-void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chrom, size_t previous_pos);
+void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chrom, uint64_t previous_pos);
 
 /* vcf-mutators.c */
 int bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_element);
