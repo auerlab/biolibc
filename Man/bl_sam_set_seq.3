@@ -50,7 +50,9 @@ of new_seq is guaranteed by other means.
 bl_sam_t        bl_sam;
 char *          new_seq;
 
-bl_sam_set_seq(&bl_sam, new_seq);
+if ( bl_sam_set_seq(&bl_sam, new_seq) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

@@ -50,7 +50,9 @@ of new_flag is guaranteed by other means.
 bl_sam_t        bl_sam;
 unsigned        new_flag;
 
-bl_sam_set_flag(&bl_sam, new_flag);
+if ( bl_sam_set_flag(&bl_sam, new_flag) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

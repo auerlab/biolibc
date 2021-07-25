@@ -50,7 +50,9 @@ of new_overlap_len is guaranteed by other means.
 bl_overlap_t    bl_overlap;
 uint64_t        new_overlap_len;
 
-bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len);
+if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

@@ -30,7 +30,7 @@ new_thick_start The new value for thick_start
 
 .SH DESCRIPTION
 
-Mutator for "thick_start" member of a bl_bed_t structure.
+Mutator for thick_start member in a bl_bed_t structure.
 Use this function to set thick_start in a bl_bed_t variable
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
@@ -50,7 +50,9 @@ of new_thick_start is guaranteed by other means.
 bl_bed_t        bl_bed;
 uint64_t        new_thick_start;
 
-bl_bed_set_thick_start(&bl_bed, new_thick_start);
+if ( bl_bed_set_thick_start(&bl_bed, new_thick_start) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

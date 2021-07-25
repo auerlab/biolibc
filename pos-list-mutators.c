@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "pos-list.h"
 
 
@@ -42,14 +43,16 @@
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_array_size;
  *
- *      bl_pos_list_set_array_size(&bl_pos_list, new_array_size);
+ *      if ( bl_pos_list_set_array_size(&bl_pos_list, new_array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-25  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_array_size)
@@ -98,14 +101,16 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_count;
  *
- *      bl_pos_list_set_count(&bl_pos_list, new_count);
+ *      if ( bl_pos_list_set_count(&bl_pos_list, new_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-25  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
@@ -154,21 +159,23 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *      bl_pos_list_t   bl_pos_list;
  *      uint64_t *      new_positions;
  *
- *      bl_pos_list_set_positions(&bl_pos_list, new_positions);
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-25  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_positions == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -207,21 +214,23 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *      size_t          c;
  *      uint64_t *      new_positions_element;
  *
- *      bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element);
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_POS_LIST_SET_POSITIONS_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-25  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_positions_element) && (new_positions_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -261,21 +270,23 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *      uint64_t *      new_positions;
  *      size_t          array_size;
  *
- *      bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size);
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_POS_LIST_SET_POSITIONS(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from pos-list.h
+ *  2021-07-25  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_positions == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {

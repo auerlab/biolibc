@@ -49,7 +49,9 @@ bl_gff_t        bl_gff;
 char *          new_attributes;
 size_t          array_size;
 
-bl_gff_set_attributes(&bl_gff, new_attributes, array_size);
+if ( bl_gff_set_attributes(&bl_gff, new_attributes, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

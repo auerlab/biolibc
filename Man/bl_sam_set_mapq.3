@@ -50,7 +50,9 @@ of new_mapq is guaranteed by other means.
 bl_sam_t        bl_sam;
 unsigned char   new_mapq;
 
-bl_sam_set_mapq(&bl_sam, new_mapq);
+if ( bl_sam_set_mapq(&bl_sam, new_mapq) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

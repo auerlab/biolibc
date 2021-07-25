@@ -103,23 +103,29 @@ typedef unsigned int        sam_field_mask_t;
  *  as needed before adding to your code.
  */
 
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_QNAME_CPY(ptr,val,array_size) strlcpy((ptr)->qname,val,array_size)
 #define BL_SAM_SET_QNAME_AE(ptr,c,val)          ((ptr)->qname[c] = (val))
 #define BL_SAM_SET_FLAG(ptr,val)                ((ptr)->flag = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_RNAME_CPY(ptr,val,array_size) strlcpy((ptr)->rname,val,array_size)
 #define BL_SAM_SET_RNAME_AE(ptr,c,val)          ((ptr)->rname[c] = (val))
 #define BL_SAM_SET_POS(ptr,val)                 ((ptr)->pos = (val))
 #define BL_SAM_SET_MAPQ(ptr,val)                ((ptr)->mapq = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_CIGAR_CPY(ptr,val,array_size) strlcpy((ptr)->cigar,val,array_size)
 #define BL_SAM_SET_CIGAR_AE(ptr,c,val)          ((ptr)->cigar[c] = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_RNEXT_CPY(ptr,val,array_size) strlcpy((ptr)->rnext,val,array_size)
 #define BL_SAM_SET_RNEXT_AE(ptr,c,val)          ((ptr)->rnext[c] = (val))
 #define BL_SAM_SET_PNEXT(ptr,val)               ((ptr)->pnext = (val))
 #define BL_SAM_SET_TLEN(ptr,val)                ((ptr)->tlen = (val))
 #define BL_SAM_SET_SEQ(ptr,val)                 ((ptr)->seq = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_SEQ_CPY(ptr,val,array_size)  strlcpy((ptr)->seq,val,array_size)
 #define BL_SAM_SET_SEQ_AE(ptr,c,val)            ((ptr)->seq[c] = (val))
 #define BL_SAM_SET_QUAL(ptr,val)                ((ptr)->qual = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_SAM_SET_QUAL_CPY(ptr,val,array_size) strlcpy((ptr)->qual,val,array_size)
 #define BL_SAM_SET_QUAL_AE(ptr,c,val)           ((ptr)->qual[c] = (val))
 #define BL_SAM_SET_SEQ_LEN(ptr,val)             ((ptr)->seq_len = (val))

@@ -49,7 +49,9 @@ bl_vcf_t        bl_vcf;
 char            new_id;
 size_t          array_size;
 
-bl_vcf_set_id(&bl_vcf, new_id, array_size);
+if ( bl_vcf_set_id(&bl_vcf, new_id, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

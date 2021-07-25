@@ -57,6 +57,7 @@ typedef int bl_pos_list_sort_order_t;
 #define BL_POS_LIST_SET_ARRAY_SIZE(ptr,val)     ((ptr)->array_size = (val))
 #define BL_POS_LIST_SET_COUNT(ptr,val)          ((ptr)->count = (val))
 #define BL_POS_LIST_SET_POSITIONS(ptr,val)      ((ptr)->positions = (val))
+// FIXME: Assuming all elements should be copied
 #define BL_POS_LIST_SET_POSITIONS_CPY(ptr,val,array_size) \
     for (size_t c = 0; c < (array_size); ++c) (ptr)->positions[c] = val[c];
 #define BL_POS_LIST_SET_POSITIONS_AE(ptr,c,val) ((ptr)->positions[c] = (val))

@@ -48,7 +48,9 @@ bl_vcf_t        bl_vcf;
 size_t          c;
 char            new_qual_element;
 
-bl_vcf_set_qual(&bl_vcf, c, new_qual_element);
+if ( bl_vcf_set_qual(&bl_vcf, c, new_qual_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

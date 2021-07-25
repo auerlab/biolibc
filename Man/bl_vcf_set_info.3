@@ -50,7 +50,9 @@ of new_info is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 char *          new_info;
 
-bl_vcf_set_info(&bl_vcf, new_info);
+if ( bl_vcf_set_info(&bl_vcf, new_info) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

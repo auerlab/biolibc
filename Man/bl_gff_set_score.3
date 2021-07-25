@@ -50,7 +50,9 @@ of new_score is guaranteed by other means.
 bl_gff_t        bl_gff;
 double          new_score;
 
-bl_gff_set_score(&bl_gff, new_score);
+if ( bl_gff_set_score(&bl_gff, new_score) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

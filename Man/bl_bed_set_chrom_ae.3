@@ -31,7 +31,7 @@ new_chrom_element The new value for chrom[c]
 
 .SH DESCRIPTION
 
-Mutator for an array element of "chrom" in a bl_bed_t
+Mutator for an array element of chrom member in a bl_bed_t
 structure. Use this function to set an element of the array
 chrom in a bl_bed_t variable from non-member functions.
 
@@ -48,7 +48,9 @@ bl_bed_t        bl_bed;
 size_t          c;
 char            new_chrom_element;
 
-bl_bed_set_chrom(&bl_bed, c, new_chrom_element);
+if ( bl_bed_set_chrom(&bl_bed, c, new_chrom_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

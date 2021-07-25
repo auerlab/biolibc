@@ -48,7 +48,9 @@ bl_vcf_t        bl_vcf;
 size_t          c;
 char *          new_single_sample_element;
 
-bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element);
+if ( bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

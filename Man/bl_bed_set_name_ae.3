@@ -31,7 +31,7 @@ new_name_element The new value for name[c]
 
 .SH DESCRIPTION
 
-Mutator for an array element of "name" in a bl_bed_t
+Mutator for an array element of name member in a bl_bed_t
 structure. Use this function to set an element of the array
 name in a bl_bed_t variable from non-member functions.
 
@@ -48,7 +48,9 @@ bl_bed_t        bl_bed;
 size_t          c;
 char            new_name_element;
 
-bl_bed_set_name(&bl_bed, c, new_name_element);
+if ( bl_bed_set_name(&bl_bed, c, new_name_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

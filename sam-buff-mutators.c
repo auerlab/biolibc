@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "sam-buff.h"
 
 
@@ -42,14 +43,16 @@
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buff_size;
  *
- *      bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size);
+ *      if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buff_size)
@@ -98,21 +101,23 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *      bl_sam_buff_t   bl_sam_buff;
  *      bl_sam_t **     new_alignments;
  *
- *      bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments);
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_alignments == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -151,21 +156,23 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *      size_t          c;
  *      bl_sam_t **     new_alignments_element;
  *
- *      bl_sam_buff_set_alignments(&bl_sam_buff, c, new_alignments_element);
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, c, new_alignments_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_BUFF_SET_ALIGNMENTS_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, bl_sam_t * new_alignments_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_alignments_element == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -205,21 +212,23 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *      bl_sam_t **     new_alignments;
  *      size_t          array_size;
  *
- *      bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments, array_size);
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_BUFF_SET_ALIGNMENTS(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_alignments == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -267,14 +276,16 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buffered_count;
  *
- *      bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count);
+ *      if ( bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buffered_count)
@@ -323,14 +334,16 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_max_count;
  *
- *      bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count);
+ *      if ( bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max_count)
@@ -379,14 +392,16 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_previous_pos;
  *
- *      bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos);
+ *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_previous_pos)
@@ -432,21 +447,23 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *      size_t          c;
  *      char            new_previous_rname_element;
  *
- *      bl_sam_buff_set_previous_rname(&bl_sam_buff, c, new_previous_rname_element);
+ *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, c, new_previous_rname_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_BUFF_SET_PREVIOUS_RNAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, char new_previous_rname_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_previous_rname_element) && (new_previous_rname_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -486,21 +503,23 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *      char            new_previous_rname;
  *      size_t          array_size;
  *
- *      bl_sam_buff_set_previous_rname(&bl_sam_buff, new_previous_rname, array_size);
+ *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, new_previous_rname, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_BUFF_SET_PREVIOUS_RNAME(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char new_previous_rname[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_previous_rname == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -543,14 +562,16 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_min;
  *
- *      bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min);
+ *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_min)
@@ -599,14 +620,16 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_low;
  *
- *      bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low);
+ *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_low)
@@ -655,14 +678,16 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_high;
  *
- *      bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high);
+ *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_high)
@@ -711,14 +736,16 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_sum;
  *
- *      bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum);
+ *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_sum)
@@ -767,14 +794,16 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_reads_used;
  *
- *      bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used);
+ *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_reads_used)
@@ -823,14 +852,16 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_total_alignments;
  *
- *      bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments);
+ *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_total_alignments)
@@ -879,14 +910,16 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_trailing_alignments;
  *
- *      bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments);
+ *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_trailing_alignments)
@@ -935,14 +968,16 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_alignments;
  *
- *      bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments);
+ *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_alignments)
@@ -991,14 +1026,16 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_score_sum;
  *
- *      bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum);
+ *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_score_sum)
@@ -1047,14 +1084,16 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_trailing;
  *
- *      bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing);
+ *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_trailing)
@@ -1103,14 +1142,16 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_min_discarded_score;
  *
- *      bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score);
+ *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_min_discarded_score)
@@ -1159,14 +1200,16 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_max_discarded_score;
  *
- *      bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score);
+ *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_max_discarded_score)
@@ -1215,14 +1258,16 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_unmapped_alignments;
  *
- *      bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments);
+ *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam-buff.h
+ *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_unmapped_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_unmapped_alignments)

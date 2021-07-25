@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "overlap.h"
 
 
@@ -42,14 +43,16 @@
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_feature1_len;
  *
- *      bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len);
+ *      if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from overlap.h
+ *  2021-07-25  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len)
@@ -98,14 +101,16 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_feature2_len;
  *
- *      bl_overlap_set_feature2_len(&bl_overlap, new_feature2_len);
+ *      if ( bl_overlap_set_feature2_len(&bl_overlap, new_feature2_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from overlap.h
+ *  2021-07-25  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature2_len)
@@ -154,14 +159,16 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_start;
  *
- *      bl_overlap_set_overlap_start(&bl_overlap, new_overlap_start);
+ *      if ( bl_overlap_set_overlap_start(&bl_overlap, new_overlap_start) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from overlap.h
+ *  2021-07-25  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_start)
@@ -210,14 +217,16 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_end;
  *
- *      bl_overlap_set_overlap_end(&bl_overlap, new_overlap_end);
+ *      if ( bl_overlap_set_overlap_end(&bl_overlap, new_overlap_end) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from overlap.h
+ *  2021-07-25  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_end)
@@ -266,14 +275,16 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_len;
  *
- *      bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len);
+ *      if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from overlap.h
+ *  2021-07-25  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
 int     bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_len)

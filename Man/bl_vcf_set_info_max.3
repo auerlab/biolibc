@@ -50,7 +50,9 @@ of new_info_max is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 size_t          new_info_max;
 
-bl_vcf_set_info_max(&bl_vcf, new_info_max);
+if ( bl_vcf_set_info_max(&bl_vcf, new_info_max) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

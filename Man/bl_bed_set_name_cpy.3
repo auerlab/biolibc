@@ -31,7 +31,7 @@ array_size      Size of the name array.
 
 .SH DESCRIPTION
 
-Mutator for "name" member of a bl_bed_t structure.
+Mutator for name member in a bl_bed_t structure.
 Use this function to set name in a bl_bed_t variable
 from non-member functions.  This function copies the array pointed to
 by new_name to ->name.
@@ -49,7 +49,9 @@ bl_bed_t        bl_bed;
 char            new_name;
 size_t          array_size;
 
-bl_bed_set_name(&bl_bed, new_name, array_size);
+if ( bl_bed_set_name(&bl_bed, new_name, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

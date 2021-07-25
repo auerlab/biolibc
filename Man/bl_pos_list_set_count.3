@@ -50,7 +50,9 @@ of new_count is guaranteed by other means.
 bl_pos_list_t   bl_pos_list;
 size_t          new_count;
 
-bl_pos_list_set_count(&bl_pos_list, new_count);
+if ( bl_pos_list_set_count(&bl_pos_list, new_count) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

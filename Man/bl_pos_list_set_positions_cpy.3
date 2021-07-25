@@ -49,7 +49,9 @@ bl_pos_list_t   bl_pos_list;
 uint64_t *      new_positions;
 size_t          array_size;
 
-bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size);
+if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

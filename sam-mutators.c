@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "sam.h"
 
 
@@ -39,21 +40,23 @@
  *      size_t          c;
  *      char            new_qname_element;
  *
- *      bl_sam_set_qname(&bl_sam, c, new_qname_element);
+ *      if ( bl_sam_set_qname(&bl_sam, c, new_qname_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_QNAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_qname_element) && (new_qname_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -93,21 +96,23 @@ int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_eleme
  *      char            new_qname;
  *      size_t          array_size;
  *
- *      bl_sam_set_qname(&bl_sam, new_qname, array_size);
+ *      if ( bl_sam_set_qname(&bl_sam, new_qname, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_QNAME(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_qname == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -150,14 +155,16 @@ int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t arra
  *      bl_sam_t        bl_sam;
  *      unsigned        new_flag;
  *
- *      bl_sam_set_flag(&bl_sam, new_flag);
+ *      if ( bl_sam_set_flag(&bl_sam, new_flag) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
@@ -203,21 +210,23 @@ int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
  *      size_t          c;
  *      char            new_rname_element;
  *
- *      bl_sam_set_rname(&bl_sam, c, new_rname_element);
+ *      if ( bl_sam_set_rname(&bl_sam, c, new_rname_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_RNAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_rname_element) && (new_rname_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -257,21 +266,23 @@ int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_eleme
  *      char            new_rname;
  *      size_t          array_size;
  *
- *      bl_sam_set_rname(&bl_sam, new_rname, array_size);
+ *      if ( bl_sam_set_rname(&bl_sam, new_rname, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_RNAME(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_rname == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -314,14 +325,16 @@ int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t arra
  *      bl_sam_t        bl_sam;
  *      uint64_t        new_pos;
  *
- *      bl_sam_set_pos(&bl_sam, new_pos);
+ *      if ( bl_sam_set_pos(&bl_sam, new_pos) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
@@ -370,14 +383,16 @@ int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
  *      bl_sam_t        bl_sam;
  *      unsigned char   new_mapq;
  *
- *      bl_sam_set_mapq(&bl_sam, new_mapq);
+ *      if ( bl_sam_set_mapq(&bl_sam, new_mapq) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
@@ -423,21 +438,23 @@ int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
  *      size_t          c;
  *      char            new_cigar_element;
  *
- *      bl_sam_set_cigar(&bl_sam, c, new_cigar_element);
+ *      if ( bl_sam_set_cigar(&bl_sam, c, new_cigar_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_CIGAR_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_cigar_element) && (new_cigar_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -477,21 +494,23 @@ int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_eleme
  *      char            new_cigar;
  *      size_t          array_size;
  *
- *      bl_sam_set_cigar(&bl_sam, new_cigar, array_size);
+ *      if ( bl_sam_set_cigar(&bl_sam, new_cigar, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_CIGAR(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_cigar == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -531,21 +550,23 @@ int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t arra
  *      size_t          c;
  *      char            new_rnext_element;
  *
- *      bl_sam_set_rnext(&bl_sam, c, new_rnext_element);
+ *      if ( bl_sam_set_rnext(&bl_sam, c, new_rnext_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_RNEXT_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_rnext_element) && (new_rnext_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -585,21 +606,23 @@ int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_eleme
  *      char            new_rnext;
  *      size_t          array_size;
  *
- *      bl_sam_set_rnext(&bl_sam, new_rnext, array_size);
+ *      if ( bl_sam_set_rnext(&bl_sam, new_rnext, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_RNEXT(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_rnext == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -642,14 +665,16 @@ int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t arra
  *      bl_sam_t        bl_sam;
  *      uint64_t        new_pnext;
  *
- *      bl_sam_set_pnext(&bl_sam, new_pnext);
+ *      if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
@@ -698,14 +723,16 @@ int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
  *      bl_sam_t        bl_sam;
  *      long            new_tlen;
  *
- *      bl_sam_set_tlen(&bl_sam, new_tlen);
+ *      if ( bl_sam_set_tlen(&bl_sam, new_tlen) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
@@ -754,21 +781,23 @@ int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
  *      bl_sam_t        bl_sam;
  *      char *          new_seq;
  *
- *      bl_sam_set_seq(&bl_sam, new_seq);
+ *      if ( bl_sam_set_seq(&bl_sam, new_seq) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_seq == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -807,21 +836,23 @@ int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      bl_sam_set_seq(&bl_sam, c, new_seq_element);
+ *      if ( bl_sam_set_seq(&bl_sam, c, new_seq_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_SEQ_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_seq_element) && (new_seq_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -861,21 +892,23 @@ int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      bl_sam_set_seq(&bl_sam, new_seq, array_size);
+ *      if ( bl_sam_set_seq(&bl_sam, new_seq, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_SEQ(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_seq == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -918,21 +951,23 @@ int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_si
  *      bl_sam_t        bl_sam;
  *      char *          new_qual;
  *
- *      bl_sam_set_qual(&bl_sam, new_qual);
+ *      if ( bl_sam_set_qual(&bl_sam, new_qual) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_qual == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -971,21 +1006,23 @@ int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
  *      size_t          c;
  *      char *          new_qual_element;
  *
- *      bl_sam_set_qual(&bl_sam, c, new_qual_element);
+ *      if ( bl_sam_set_qual(&bl_sam, c, new_qual_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_QUAL_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_qual_element) && (new_qual_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1025,21 +1062,23 @@ int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_elemen
  *      char *          new_qual;
  *      size_t          array_size;
  *
- *      bl_sam_set_qual(&bl_sam, new_qual, array_size);
+ *      if ( bl_sam_set_qual(&bl_sam, new_qual, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_SAM_SET_QUAL(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_qual == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1082,14 +1121,16 @@ int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_
  *      bl_sam_t        bl_sam;
  *      size_t          new_seq_len;
  *
- *      bl_sam_set_seq_len(&bl_sam, new_seq_len);
+ *      if ( bl_sam_set_seq_len(&bl_sam, new_seq_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
@@ -1138,14 +1179,16 @@ int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
  *      bl_sam_t        bl_sam;
  *      size_t          new_qual_len;
  *
- *      bl_sam_set_qual_len(&bl_sam, new_qual_len);
+ *      if ( bl_sam_set_qual_len(&bl_sam, new_qual_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from sam.h
+ *  2021-07-25  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
 int     bl_sam_set_qual_len(bl_sam_t *bl_sam_ptr, size_t new_qual_len)

@@ -31,7 +31,7 @@ array_size      Size of the block_starts array.
 
 .SH DESCRIPTION
 
-Mutator for "block_starts" member of a bl_bed_t structure.
+Mutator for block_starts member in a bl_bed_t structure.
 Use this function to set block_starts in a bl_bed_t variable
 from non-member functions.  This function copies the array pointed to
 by new_block_starts to ->block_starts.
@@ -49,7 +49,9 @@ bl_bed_t        bl_bed;
 uint64_t *      new_block_starts;
 size_t          array_size;
 
-bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size);
+if ( bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

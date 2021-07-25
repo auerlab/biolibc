@@ -48,7 +48,9 @@ bl_gff_t        bl_gff;
 size_t          c;
 char            new_sequence_element;
 
-bl_gff_set_sequence(&bl_gff, c, new_sequence_element);
+if ( bl_gff_set_sequence(&bl_gff, c, new_sequence_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

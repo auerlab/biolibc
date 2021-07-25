@@ -50,7 +50,9 @@ of new_strand is guaranteed by other means.
 bl_gff_t        bl_gff;
 char            new_strand;
 
-bl_gff_set_strand(&bl_gff, new_strand);
+if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

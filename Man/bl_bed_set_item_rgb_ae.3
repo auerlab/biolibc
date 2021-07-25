@@ -31,7 +31,7 @@ new_item_rgb_element The new value for item_rgb[c]
 
 .SH DESCRIPTION
 
-Mutator for an array element of "item_rgb" in a bl_bed_t
+Mutator for an array element of item_rgb member in a bl_bed_t
 structure. Use this function to set an element of the array
 item_rgb in a bl_bed_t variable from non-member functions.
 
@@ -48,7 +48,9 @@ bl_bed_t        bl_bed;
 size_t          c;
 char            new_item_rgb_element;
 
-bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element);
+if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

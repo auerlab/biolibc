@@ -48,7 +48,9 @@ bl_vcf_t        bl_vcf;
 size_t          c;
 unsigned char * new_phreds_element;
 
-bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element);
+if ( bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

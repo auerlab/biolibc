@@ -50,7 +50,9 @@ of new_seq_len is guaranteed by other means.
 bl_sam_t        bl_sam;
 size_t          new_seq_len;
 
-bl_sam_set_seq_len(&bl_sam, new_seq_len);
+if ( bl_sam_set_seq_len(&bl_sam, new_seq_len) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

@@ -137,31 +137,34 @@ typedef unsigned int            vcf_field_mask_t;
  *  as needed before adding to your code.
  */
 
-#define BL_VCF_SET_CHROM_CPY(ptr,val,array_size) \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->chrom[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_CHROM_CPY(ptr,val,array_size) strlcpy((ptr)->chrom,val,array_size)
 #define BL_VCF_SET_CHROM_AE(ptr,c,val)          ((ptr)->chrom[c] = (val))
-#define BL_VCF_SET_ID_CPY(ptr,val,array_size)   \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->id[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_ID_CPY(ptr,val,array_size)   strlcpy((ptr)->id,val,array_size)
 #define BL_VCF_SET_ID_AE(ptr,c,val)             ((ptr)->id[c] = (val))
-#define BL_VCF_SET_REF_CPY(ptr,val,array_size)  \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->ref[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_REF_CPY(ptr,val,array_size)  strlcpy((ptr)->ref,val,array_size)
 #define BL_VCF_SET_REF_AE(ptr,c,val)            ((ptr)->ref[c] = (val))
-#define BL_VCF_SET_ALT_CPY(ptr,val,array_size)  \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->alt[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_ALT_CPY(ptr,val,array_size)  strlcpy((ptr)->alt,val,array_size)
 #define BL_VCF_SET_ALT_AE(ptr,c,val)            ((ptr)->alt[c] = (val))
-#define BL_VCF_SET_QUAL_CPY(ptr,val,array_size) \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->qual[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_QUAL_CPY(ptr,val,array_size) strlcpy((ptr)->qual,val,array_size)
 #define BL_VCF_SET_QUAL_AE(ptr,c,val)           ((ptr)->qual[c] = (val))
-#define BL_VCF_SET_FILTER_CPY(ptr,val,array_size) \
-    for (size_t c = 0; c < (array_size); ++c) (ptr)->filter[c] = val[c];
+// FIXME: Assuming char array is a null-terminated string
+#define BL_VCF_SET_FILTER_CPY(ptr,val,array_size) strlcpy((ptr)->filter,val,array_size)
 #define BL_VCF_SET_FILTER_AE(ptr,c,val)         ((ptr)->filter[c] = (val))
 #define BL_VCF_SET_INFO(ptr,val)                ((ptr)->info = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_VCF_SET_INFO_CPY(ptr,val,array_size) strlcpy((ptr)->info,val,array_size)
 #define BL_VCF_SET_INFO_AE(ptr,c,val)           ((ptr)->info[c] = (val))
 #define BL_VCF_SET_FORMAT(ptr,val)              ((ptr)->format = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_VCF_SET_FORMAT_CPY(ptr,val,array_size) strlcpy((ptr)->format,val,array_size)
 #define BL_VCF_SET_FORMAT_AE(ptr,c,val)         ((ptr)->format[c] = (val))
 #define BL_VCF_SET_SINGLE_SAMPLE(ptr,val)       ((ptr)->single_sample = (val))
+// FIXME: Assuming char array is a null-terminated string
 #define BL_VCF_SET_SINGLE_SAMPLE_CPY(ptr,val,array_size) strlcpy((ptr)->single_sample,val,array_size)
 #define BL_VCF_SET_SINGLE_SAMPLE_AE(ptr,c,val)  ((ptr)->single_sample[c] = (val))
 #define BL_VCF_SET_POS(ptr,val)                 ((ptr)->pos = (val))
@@ -173,10 +176,12 @@ typedef unsigned int            vcf_field_mask_t;
 #define BL_VCF_SET_ALT_COUNT(ptr,val)           ((ptr)->alt_count = (val))
 #define BL_VCF_SET_OTHER_COUNT(ptr,val)         ((ptr)->other_count = (val))
 #define BL_VCF_SET_MULTI_SAMPLES(ptr,val)       ((ptr)->multi_samples = (val))
+// FIXME: Assuming all elements should be copied
 #define BL_VCF_SET_MULTI_SAMPLES_CPY(ptr,val,array_size) \
     for (size_t c = 0; c < (array_size); ++c) (ptr)->multi_samples[c] = val[c];
-    #define BL_VCF_SET_MULTI_SAMPLES_AE(ptr,c,val)  ((ptr)->multi_samples[c] = (val))
+#define BL_VCF_SET_MULTI_SAMPLES_AE(ptr,c,val)  ((ptr)->multi_samples[c] = (val))
 #define BL_VCF_SET_PHREDS(ptr,val)              ((ptr)->phreds = (val))
+// FIXME: Assuming all elements should be copied
 #define BL_VCF_SET_PHREDS_CPY(ptr,val,array_size) \
     for (size_t c = 0; c < (array_size); ++c) (ptr)->phreds[c] = val[c];
 #define BL_VCF_SET_PHREDS_AE(ptr,c,val)         ((ptr)->phreds[c] = (val))

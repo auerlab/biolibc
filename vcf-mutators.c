@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "vcf.h"
 
 
@@ -39,21 +40,23 @@
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      bl_vcf_set_chrom(&bl_vcf, c, new_chrom_element);
+ *      if ( bl_vcf_set_chrom(&bl_vcf, c, new_chrom_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_CHROM_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_chrom_element) && (new_chrom_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -93,31 +96,28 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size);
+ *      if ( bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_CHROM(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_chrom == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->chrom[c] = new_chrom[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->chrom, new_chrom, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -152,21 +152,23 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *      size_t          c;
  *      char            new_id_element;
  *
- *      bl_vcf_set_id(&bl_vcf, c, new_id_element);
+ *      if ( bl_vcf_set_id(&bl_vcf, c, new_id_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_ID_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_id_element) && (new_id_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -206,31 +208,28 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *      char            new_id;
  *      size_t          array_size;
  *
- *      bl_vcf_set_id(&bl_vcf, new_id, array_size);
+ *      if ( bl_vcf_set_id(&bl_vcf, new_id, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_ID(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_id == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->id[c] = new_id[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->id, new_id, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -265,21 +264,23 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *      size_t          c;
  *      char            new_ref_element;
  *
- *      bl_vcf_set_ref(&bl_vcf, c, new_ref_element);
+ *      if ( bl_vcf_set_ref(&bl_vcf, c, new_ref_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_REF_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_ref_element) && (new_ref_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -319,31 +320,28 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *      char            new_ref;
  *      size_t          array_size;
  *
- *      bl_vcf_set_ref(&bl_vcf, new_ref, array_size);
+ *      if ( bl_vcf_set_ref(&bl_vcf, new_ref, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_REF(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_ref == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->ref[c] = new_ref[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->ref, new_ref, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -378,21 +376,23 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *      size_t          c;
  *      char            new_alt_element;
  *
- *      bl_vcf_set_alt(&bl_vcf, c, new_alt_element);
+ *      if ( bl_vcf_set_alt(&bl_vcf, c, new_alt_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_ALT_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_alt_element) && (new_alt_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -432,31 +432,28 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *      char            new_alt;
  *      size_t          array_size;
  *
- *      bl_vcf_set_alt(&bl_vcf, new_alt, array_size);
+ *      if ( bl_vcf_set_alt(&bl_vcf, new_alt, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_ALT(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_alt == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->alt[c] = new_alt[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->alt, new_alt, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -491,21 +488,23 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *      size_t          c;
  *      char            new_qual_element;
  *
- *      bl_vcf_set_qual(&bl_vcf, c, new_qual_element);
+ *      if ( bl_vcf_set_qual(&bl_vcf, c, new_qual_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_QUAL_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_qual_element) && (new_qual_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -545,31 +544,28 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *      char            new_qual;
  *      size_t          array_size;
  *
- *      bl_vcf_set_qual(&bl_vcf, new_qual, array_size);
+ *      if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_QUAL(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_qual == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->qual[c] = new_qual[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->qual, new_qual, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -604,21 +600,23 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *      size_t          c;
  *      char            new_filter_element;
  *
- *      bl_vcf_set_filter(&bl_vcf, c, new_filter_element);
+ *      if ( bl_vcf_set_filter(&bl_vcf, c, new_filter_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_FILTER_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_filter_element) && (new_filter_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -658,31 +656,28 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *      char            new_filter;
  *      size_t          array_size;
  *
- *      bl_vcf_set_filter(&bl_vcf, new_filter, array_size);
+ *      if ( bl_vcf_set_filter(&bl_vcf, new_filter, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_FILTER(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_filter == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->filter[c] = new_filter[c];
-	}
+	// FIXME: Assuming char array is a null-terminated string
+	strlcpy(bl_vcf_ptr->filter, new_filter, array_size);
 	return BL_DATA_OK;
     }
 }
@@ -720,21 +715,23 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *      bl_vcf_t        bl_vcf;
  *      char *          new_info;
  *
- *      bl_vcf_set_info(&bl_vcf, new_info);
+ *      if ( bl_vcf_set_info(&bl_vcf, new_info) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_info == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -773,14 +770,16 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *      size_t          c;
  *      char *          new_info_element;
  *
- *      bl_vcf_set_info(&bl_vcf, c, new_info_element);
+ *      if ( bl_vcf_set_info(&bl_vcf, c, new_info_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_INFO_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_element)
@@ -827,21 +826,23 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *      char *          new_info;
  *      size_t          array_size;
  *
- *      bl_vcf_set_info(&bl_vcf, new_info, array_size);
+ *      if ( bl_vcf_set_info(&bl_vcf, new_info, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_INFO(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_info == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -884,21 +885,23 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *      bl_vcf_t        bl_vcf;
  *      char *          new_format;
  *
- *      bl_vcf_set_format(&bl_vcf, new_format);
+ *      if ( bl_vcf_set_format(&bl_vcf, new_format) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_format == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -937,14 +940,16 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *      size_t          c;
  *      char *          new_format_element;
  *
- *      bl_vcf_set_format(&bl_vcf, c, new_format_element);
+ *      if ( bl_vcf_set_format(&bl_vcf, c, new_format_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_FORMAT_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_element)
@@ -991,21 +996,23 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *      char *          new_format;
  *      size_t          array_size;
  *
- *      bl_vcf_set_format(&bl_vcf, new_format, array_size);
+ *      if ( bl_vcf_set_format(&bl_vcf, new_format, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_FORMAT(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_format == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1048,21 +1055,23 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *      bl_vcf_t        bl_vcf;
  *      char *          new_single_sample;
  *
- *      bl_vcf_set_single_sample(&bl_vcf, new_single_sample);
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_single_sample == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1101,14 +1110,16 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *      size_t          c;
  *      char *          new_single_sample_element;
  *
- *      bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element);
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_SINGLE_SAMPLE_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_single_sample_element)
@@ -1155,21 +1166,23 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *      char *          new_single_sample;
  *      size_t          array_size;
  *
- *      bl_vcf_set_single_sample(&bl_vcf, new_single_sample, array_size);
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_SINGLE_SAMPLE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sample, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_single_sample == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1212,14 +1225,16 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *      bl_vcf_t        bl_vcf;
  *      uint64_t        new_pos;
  *
- *      bl_vcf_set_pos(&bl_vcf, new_pos);
+ *      if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
@@ -1268,14 +1283,16 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_len;
  *
- *      bl_vcf_set_info_len(&bl_vcf, new_info_len);
+ *      if ( bl_vcf_set_info_len(&bl_vcf, new_info_len) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
@@ -1324,14 +1341,16 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_max;
  *
- *      bl_vcf_set_info_max(&bl_vcf, new_info_max);
+ *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
@@ -1380,14 +1399,16 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_format_max;
  *
- *      bl_vcf_set_format_max(&bl_vcf, new_format_max);
+ *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
@@ -1436,14 +1457,16 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_sample_max;
  *
- *      bl_vcf_set_sample_max(&bl_vcf, new_sample_max);
+ *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
@@ -1492,14 +1515,16 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_ref_count;
  *
- *      bl_vcf_set_ref_count(&bl_vcf, new_ref_count);
+ *      if ( bl_vcf_set_ref_count(&bl_vcf, new_ref_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
@@ -1548,14 +1573,16 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_alt_count;
  *
- *      bl_vcf_set_alt_count(&bl_vcf, new_alt_count);
+ *      if ( bl_vcf_set_alt_count(&bl_vcf, new_alt_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
@@ -1604,14 +1631,16 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_other_count;
  *
- *      bl_vcf_set_other_count(&bl_vcf, new_other_count);
+ *      if ( bl_vcf_set_other_count(&bl_vcf, new_other_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
@@ -1660,21 +1689,23 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *      bl_vcf_t        bl_vcf;
  *      char **         new_multi_samples;
  *
- *      bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples);
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_multi_samples == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1713,21 +1744,23 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *      size_t          c;
  *      char **         new_multi_samples_element;
  *
- *      bl_vcf_set_multi_samples(&bl_vcf, c, new_multi_samples_element);
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, c, new_multi_samples_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_MULTI_SAMPLES_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_multi_samples_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_multi_samples_element == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1767,21 +1800,23 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *      char **         new_multi_samples;
  *      size_t          array_size;
  *
- *      bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples, array_size);
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_MULTI_SAMPLES(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_multi_samples == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1829,21 +1864,23 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *      bl_vcf_t        bl_vcf;
  *      unsigned char * new_phreds;
  *
- *      bl_vcf_set_phreds(&bl_vcf, new_phreds);
+ *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_phreds == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1882,14 +1919,16 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *      size_t          c;
  *      unsigned char * new_phreds_element;
  *
- *      bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element);
+ *      if ( bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_PHREDS_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_phreds_element)
@@ -1936,21 +1975,23 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *      unsigned char * new_phreds;
  *      size_t          array_size;
  *
- *      bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size);
+ *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_VCF_SET_PHREDS(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_phreds == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1998,14 +2039,16 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_count;
  *
- *      bl_vcf_set_phred_count(&bl_vcf, new_phred_count);
+ *      if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
@@ -2054,14 +2097,16 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_buff_size;
  *
- *      bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size);
+ *      if ( bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from vcf.h
+ *  2021-07-25  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phred_buff_size(bl_vcf_t *bl_vcf_ptr, size_t new_phred_buff_size)

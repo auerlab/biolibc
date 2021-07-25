@@ -49,7 +49,9 @@ bl_vcf_t        bl_vcf;
 unsigned char * new_phreds;
 size_t          array_size;
 
-bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size);
+if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

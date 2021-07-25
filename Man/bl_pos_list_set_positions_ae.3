@@ -48,7 +48,9 @@ bl_pos_list_t   bl_pos_list;
 size_t          c;
 uint64_t *      new_positions_element;
 
-bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element);
+if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

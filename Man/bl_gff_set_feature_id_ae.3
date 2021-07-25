@@ -48,7 +48,9 @@ bl_gff_t        bl_gff;
 size_t          c;
 char *          new_feature_id_element;
 
-bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element);
+if ( bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

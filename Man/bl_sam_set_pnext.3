@@ -50,7 +50,9 @@ of new_pnext is guaranteed by other means.
 bl_sam_t        bl_sam;
 uint64_t        new_pnext;
 
-bl_sam_set_pnext(&bl_sam, new_pnext);
+if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

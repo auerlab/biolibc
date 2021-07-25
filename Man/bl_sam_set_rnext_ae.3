@@ -48,7 +48,9 @@ bl_sam_t        bl_sam;
 size_t          c;
 char            new_rnext_element;
 
-bl_sam_set_rnext(&bl_sam, c, new_rnext_element);
+if ( bl_sam_set_rnext(&bl_sam, c, new_rnext_element) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

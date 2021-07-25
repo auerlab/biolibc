@@ -30,7 +30,7 @@ new_fields      The new value for fields
 
 .SH DESCRIPTION
 
-Mutator for "fields" member of a bl_bed_t structure.
+Mutator for fields member in a bl_bed_t structure.
 Use this function to set fields in a bl_bed_t variable
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
@@ -50,7 +50,9 @@ of new_fields is guaranteed by other means.
 bl_bed_t        bl_bed;
 unsigned short  new_fields;
 
-bl_bed_set_fields(&bl_bed, new_fields);
+if ( bl_bed_set_fields(&bl_bed, new_fields) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

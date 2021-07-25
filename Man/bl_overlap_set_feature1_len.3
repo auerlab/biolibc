@@ -50,7 +50,9 @@ of new_feature1_len is guaranteed by other means.
 bl_overlap_t    bl_overlap;
 uint64_t        new_feature1_len;
 
-bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len);
+if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

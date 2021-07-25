@@ -30,7 +30,7 @@ new_score       The new value for score
 
 .SH DESCRIPTION
 
-Mutator for "score" member of a bl_bed_t structure.
+Mutator for score member in a bl_bed_t structure.
 Use this function to set score in a bl_bed_t variable
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
@@ -50,7 +50,9 @@ of new_score is guaranteed by other means.
 bl_bed_t        bl_bed;
 unsigned short  new_score;
 
-bl_bed_set_score(&bl_bed, new_score);
+if ( bl_bed_set_score(&bl_bed, new_score) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

@@ -49,7 +49,9 @@ bl_vcf_t        bl_vcf;
 char            new_alt;
 size_t          array_size;
 
-bl_vcf_set_alt(&bl_vcf, new_alt, array_size);
+if ( bl_vcf_set_alt(&bl_vcf, new_alt, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

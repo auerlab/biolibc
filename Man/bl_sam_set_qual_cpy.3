@@ -49,7 +49,9 @@ bl_sam_t        bl_sam;
 char *          new_qual;
 size_t          array_size;
 
-bl_sam_set_qual(&bl_sam, new_qual, array_size);
+if ( bl_sam_set_qual(&bl_sam, new_qual, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

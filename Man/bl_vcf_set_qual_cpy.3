@@ -49,7 +49,9 @@ bl_vcf_t        bl_vcf;
 char            new_qual;
 size_t          array_size;
 
-bl_vcf_set_qual(&bl_vcf, new_qual, array_size);
+if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

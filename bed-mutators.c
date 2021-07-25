@@ -40,20 +40,23 @@
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      bl_bed_set_chrom(&bl_bed, c, new_chrom_element);
+ *      if ( bl_bed_set_chrom(&bl_bed, c, new_chrom_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_CHROM_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element)
 
 {
-    if ( !isprint(new_chrom_element) )
+    /* FIXME: Replace this with a proper sanity check */
+    if ( !isprint(new_chrom_element) && (new_chrom_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -93,19 +96,22 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      bl_bed_set_chrom(&bl_bed, new_chrom, array_size);
+ *      if ( bl_bed_set_chrom(&bl_bed, new_chrom, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_CHROM(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_chrom == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -149,14 +155,16 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_start;
  *
- *      bl_bed_set_chrom_start(&bl_bed, new_chrom_start);
+ *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
@@ -205,22 +213,29 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_end;
  *
- *      bl_bed_set_chrom_end(&bl_bed, new_chrom_end);
+ *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    bl_bed_ptr->chrom_end = new_chrom_end;
-    return BL_DATA_OK;
+    if ( 0 )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->chrom_end = new_chrom_end;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -253,20 +268,23 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *      size_t          c;
  *      char            new_name_element;
  *
- *      bl_bed_set_name(&bl_bed, c, new_name_element);
+ *      if ( bl_bed_set_name(&bl_bed, c, new_name_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_NAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element)
 
 {
-    if ( !isprint(new_name_element) )
+    /* FIXME: Replace this with a proper sanity check */
+    if ( !isprint(new_name_element) && (new_name_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -306,19 +324,22 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *      char            new_name;
  *      size_t          array_size;
  *
- *      bl_bed_set_name(&bl_bed, new_name, array_size);
+ *      if ( bl_bed_set_name(&bl_bed, new_name, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_NAME(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_name == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -362,20 +383,23 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_score;
  *
- *      bl_bed_set_score(&bl_bed, new_score);
+ *      if ( bl_bed_set_score(&bl_bed, new_score) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
 
 {
-    if ( new_score > 1000 )
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -417,20 +441,23 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *      bl_bed_t        bl_bed;
  *      char            new_strand;
  *
- *      bl_bed_set_strand(&bl_bed, new_strand);
+ *      if ( bl_bed_set_strand(&bl_bed, new_strand) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
 
 {
-    if ( (new_strand != '+') && (new_strand != '-') && (new_strand != '.') )
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -472,21 +499,29 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_start;
  *
- *      bl_bed_set_thick_start(&bl_bed, new_thick_start);
+ *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
 
 {
-    bl_bed_ptr->thick_start = new_thick_start;
-    return BL_DATA_OK;
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->thick_start = new_thick_start;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -522,21 +557,29 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_end;
  *
- *      bl_bed_set_thick_end(&bl_bed, new_thick_end);
+ *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
 
 {
-    bl_bed_ptr->thick_end = new_thick_end;
-    return BL_DATA_OK;
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->thick_end = new_thick_end;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -569,20 +612,23 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *      size_t          c;
  *      char            new_item_rgb_element;
  *
- *      bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element);
+ *      if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_ITEM_RGB_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
 
 {
-    if ( !isdigit(new_item_rgb_element) && (new_item_rgb_element != ',') )
+    /* FIXME: Replace this with a proper sanity check */
+    if ( !isprint(new_item_rgb_element) && (new_item_rgb_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -622,20 +668,22 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *      char            new_item_rgb;
  *      size_t          array_size;
  *
- *      bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size);
+ *      if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_ITEM_RGB(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
 
 {
-    /* FIXME: Make sure content is reasonable (digits and commas at least) */
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_item_rgb == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -679,21 +727,29 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_block_count;
  *
- *      bl_bed_set_block_count(&bl_bed, new_block_count);
+ *      if ( bl_bed_set_block_count(&bl_bed, new_block_count) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count)
 
 {
-    bl_bed_ptr->block_count = new_block_count;
-    return BL_DATA_OK;
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->block_count = new_block_count;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -729,19 +785,22 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_sizes;
  *
- *      bl_bed_set_block_sizes(&bl_bed, new_block_sizes);
+ *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_sizes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -781,21 +840,29 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *      size_t          c;
  *      uint64_t *      new_block_sizes_element;
  *
- *      bl_bed_set_block_sizes(&bl_bed, c, new_block_sizes_element);
+ *      if ( bl_bed_set_block_sizes(&bl_bed, c, new_block_sizes_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_BLOCK_SIZES_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_sizes_element)
 
 {
-    bl_bed_ptr->block_sizes[c] = new_block_sizes_element;
-    return BL_DATA_OK;
+    /* FIXME: Replace this with a proper sanity check */
+    if ( !isprint(new_block_sizes_element) && (new_block_sizes_element != '\0') )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->block_sizes[c] = new_block_sizes_element;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -829,19 +896,22 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *      uint64_t *      new_block_sizes;
  *      size_t          array_size;
  *
- *      bl_bed_set_block_sizes(&bl_bed, new_block_sizes, array_size);
+ *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_BLOCK_SIZES(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes, size_t array_size)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_sizes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -890,19 +960,22 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_starts;
  *
- *      bl_bed_set_block_starts(&bl_bed, new_block_starts);
+ *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_starts == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -942,21 +1015,29 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *      size_t          c;
  *      uint64_t *      new_block_starts_element;
  *
- *      bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element);
+ *      if ( bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_BLOCK_STARTS_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
 
 {
-    bl_bed_ptr->block_starts[c] = new_block_starts_element;
-    return BL_DATA_OK;
+    /* FIXME: Replace this with a proper sanity check */
+    if ( !isprint(new_block_starts_element) && (new_block_starts_element != '\0') )
+	return BL_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_bed_ptr->block_starts[c] = new_block_starts_element;
+	return BL_DATA_OK;
+    }
 }
 
 
@@ -990,19 +1071,22 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *      uint64_t *      new_block_starts;
  *      size_t          array_size;
  *
- *      bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size);
+ *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_BED_SET_BLOCK_STARTS(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts, size_t array_size)
 
 {
+    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_starts == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
@@ -1051,30 +1135,27 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_fields;
  *
- *      bl_bed_set_fields(&bl_bed, new_fields);
+ *      if ( bl_bed_set_fields(&bl_bed, new_fields) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from bed.h
+ *  2021-07-25  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields)
 
 {
-    switch(new_fields)
+    /* FIXME: Replace this with a proper sanity check */
+    if ( 0 )
+	return BL_DATA_OUT_OF_RANGE;
+    else
     {
-	case    3:
-	case    4:  // score
-	case    5:  // strand
-	case    7:  // thick_start and thick_end
-	case    8:  // item_rgb
-	case    11: // block*
-	    bl_bed_ptr->fields = new_fields;
-	    return BL_DATA_OK;
-	default:
-	    return BL_DATA_OUT_OF_RANGE;
+	bl_bed_ptr->fields = new_fields;
+	return BL_DATA_OK;
     }
 }

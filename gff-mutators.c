@@ -7,6 +7,7 @@
  ***************************************************************************/
 
 #include <string.h>
+#include <ctype.h>
 #include "gff.h"
 
 
@@ -39,21 +40,23 @@
  *      size_t          c;
  *      char            new_sequence_element;
  *
- *      bl_gff_set_sequence(&bl_gff, c, new_sequence_element);
+ *      if ( bl_gff_set_sequence(&bl_gff, c, new_sequence_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_SEQUENCE_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_sequence_element) && (new_sequence_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -93,21 +96,23 @@ int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence
  *      char            new_sequence;
  *      size_t          array_size;
  *
- *      bl_gff_set_sequence(&bl_gff, new_sequence, array_size);
+ *      if ( bl_gff_set_sequence(&bl_gff, new_sequence, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_SEQUENCE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_sequence == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -147,21 +152,23 @@ int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_
  *      size_t          c;
  *      char            new_source_element;
  *
- *      bl_gff_set_source(&bl_gff, c, new_source_element);
+ *      if ( bl_gff_set_source(&bl_gff, c, new_source_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_SOURCE_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_source_element) && (new_source_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -201,21 +208,23 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *      char            new_source;
  *      size_t          array_size;
  *
- *      bl_gff_set_source(&bl_gff, new_source, array_size);
+ *      if ( bl_gff_set_source(&bl_gff, new_source, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_SOURCE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_source == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -255,21 +264,23 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *      size_t          c;
  *      char            new_feature_element;
  *
- *      bl_gff_set_feature(&bl_gff, c, new_feature_element);
+ *      if ( bl_gff_set_feature(&bl_gff, c, new_feature_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_FEATURE_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_feature_element) && (new_feature_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -309,21 +320,23 @@ int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_e
  *      char            new_feature;
  *      size_t          array_size;
  *
- *      bl_gff_set_feature(&bl_gff, new_feature, array_size);
+ *      if ( bl_gff_set_feature(&bl_gff, new_feature, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_FEATURE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_feature == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -366,14 +379,16 @@ int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t 
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_start;
  *
- *      bl_gff_set_start(&bl_gff, new_start);
+ *      if ( bl_gff_set_start(&bl_gff, new_start) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
@@ -422,14 +437,16 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_end;
  *
- *      bl_gff_set_end(&bl_gff, new_end);
+ *      if ( bl_gff_set_end(&bl_gff, new_end) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
@@ -478,14 +495,16 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *      bl_gff_t        bl_gff;
  *      double          new_score;
  *
- *      bl_gff_set_score(&bl_gff, new_score);
+ *      if ( bl_gff_set_score(&bl_gff, new_score) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
@@ -534,14 +553,16 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *      bl_gff_t        bl_gff;
  *      char            new_strand;
  *
- *      bl_gff_set_strand(&bl_gff, new_strand);
+ *      if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
@@ -590,14 +611,16 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *      bl_gff_t        bl_gff;
  *      char            new_phase;
  *
- *      bl_gff_set_phase(&bl_gff, new_phase);
+ *      if ( bl_gff_set_phase(&bl_gff, new_phase) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
@@ -646,21 +669,23 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *      bl_gff_t        bl_gff;
  *      char *          new_attributes;
  *
- *      bl_gff_set_attributes(&bl_gff, new_attributes);
+ *      if ( bl_gff_set_attributes(&bl_gff, new_attributes) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_attributes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -699,21 +724,23 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *      size_t          c;
  *      char *          new_attributes_element;
  *
- *      bl_gff_set_attributes(&bl_gff, c, new_attributes_element);
+ *      if ( bl_gff_set_attributes(&bl_gff, c, new_attributes_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_ATTRIBUTES_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attributes_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_attributes_element) && (new_attributes_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -753,21 +780,23 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *      char *          new_attributes;
  *      size_t          array_size;
  *
- *      bl_gff_set_attributes(&bl_gff, new_attributes, array_size);
+ *      if ( bl_gff_set_attributes(&bl_gff, new_attributes, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_ATTRIBUTES(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_attributes == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -810,21 +839,23 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *      bl_gff_t        bl_gff;
  *      char *          new_feature_id;
  *
- *      bl_gff_set_feature_id(&bl_gff, new_feature_id);
+ *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_feature_id == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -863,21 +894,23 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *      size_t          c;
  *      char *          new_feature_id_element;
  *
- *      bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element);
+ *      if ( bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_FEATURE_ID_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_id_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_feature_id_element) && (new_feature_id_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -917,21 +950,23 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *      char *          new_feature_id;
  *      size_t          array_size;
  *
- *      bl_gff_set_feature_id(&bl_gff, new_feature_id, array_size);
+ *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_FEATURE_ID(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_feature_id == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -974,21 +1009,23 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *      bl_gff_t        bl_gff;
  *      char *          new_gene_name;
  *
- *      bl_gff_set_gene_name(&bl_gff, new_gene_name);
+ *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      (3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_gene_name == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1027,21 +1064,23 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *      size_t          c;
  *      char *          new_gene_name_element;
  *
- *      bl_gff_set_gene_name(&bl_gff, c, new_gene_name_element);
+ *      if ( bl_gff_set_gene_name(&bl_gff, c, new_gene_name_element) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_GENE_NAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_name_element)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( !isprint(new_gene_name_element) && (new_gene_name_element != '\0') )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {
@@ -1081,21 +1120,23 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *      char *          new_gene_name;
  *      size_t          array_size;
  *
- *      bl_gff_set_gene_name(&bl_gff, new_gene_name, array_size);
+ *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name, array_size) == BL_DATA_OK )
+ *      {
+ *      }
  *
  *  See also:
  *      BL_GFF_SET_GENE_NAME(3)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-23  gen-get-set Auto-generated from gff.h
+ *  2021-07-25  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char * new_gene_name, size_t array_size)
 
 {
     /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
+    if ( new_gene_name == NULL )
 	return BL_DATA_OUT_OF_RANGE;
     else
     {

@@ -50,7 +50,9 @@ of new_qual is guaranteed by other means.
 bl_sam_t        bl_sam;
 char *          new_qual;
 
-bl_sam_set_qual(&bl_sam, new_qual);
+if ( bl_sam_set_qual(&bl_sam, new_qual) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

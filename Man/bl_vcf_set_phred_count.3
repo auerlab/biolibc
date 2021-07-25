@@ -50,7 +50,9 @@ of new_phred_count is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 size_t          new_phred_count;
 
-bl_vcf_set_phred_count(&bl_vcf, new_phred_count);
+if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

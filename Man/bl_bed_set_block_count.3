@@ -30,7 +30,7 @@ new_block_count The new value for block_count
 
 .SH DESCRIPTION
 
-Mutator for "block_count" member of a bl_bed_t structure.
+Mutator for block_count member in a bl_bed_t structure.
 Use this function to set block_count in a bl_bed_t variable
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
@@ -50,7 +50,9 @@ of new_block_count is guaranteed by other means.
 bl_bed_t        bl_bed;
 unsigned short  new_block_count;
 
-bl_bed_set_block_count(&bl_bed, new_block_count);
+if ( bl_bed_set_block_count(&bl_bed, new_block_count) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

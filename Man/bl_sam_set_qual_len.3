@@ -50,7 +50,9 @@ of new_qual_len is guaranteed by other means.
 bl_sam_t        bl_sam;
 size_t          new_qual_len;
 
-bl_sam_set_qual_len(&bl_sam, new_qual_len);
+if ( bl_sam_set_qual_len(&bl_sam, new_qual_len) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 

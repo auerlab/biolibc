@@ -50,7 +50,9 @@ of new_phreds is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 unsigned char * new_phreds;
 
-bl_vcf_set_phreds(&bl_vcf, new_phreds);
+if ( bl_vcf_set_phreds(&bl_vcf, new_phreds) == BL_DATA_OK )
+{
+}
 .ad
 .fi
 
