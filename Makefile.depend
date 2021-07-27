@@ -9,7 +9,7 @@ bed.o: bed.c ../local/include/xtend.h ../local/include/xtend-protos.h \
 chrom-name-cmp.o: chrom-name-cmp.c biolibc.h
 	${CC} -c ${CFLAGS} chrom-name-cmp.c
 
-fasta.o: fasta.c
+fasta.o: fasta.c fasta.h biolibc.h
 	${CC} -c ${CFLAGS} fasta.c
 
 fastq.o: fastq.c

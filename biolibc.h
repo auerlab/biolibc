@@ -20,6 +20,7 @@
 #define BL_READ_GFF_TERMINATOR  -4
 #define BL_READ_EXTRA_COLS      -5
 #define BL_READ_MISMATCH        -6
+#define BL_READ_BAD_DATA        -7
 
 #define BL_WRITE_OK             0
 #define BL_WRITE_FAILURE        -1
