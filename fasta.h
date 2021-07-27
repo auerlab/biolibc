@@ -1,4 +1,8 @@
 
+#ifndef _biolibc_h_
+#include "biolibc.h"
+#endif
+
 typedef struct
 {
     char    *desc;
