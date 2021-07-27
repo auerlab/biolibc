@@ -65,6 +65,7 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
     /* Every record should begin with a '>' */
     if ( ch == '>' )    // Desc
     {
+	// FIXME: Reuse allocated memory if desc != NULL?
 	record->desc_array_size = 1024;
 	record->desc = xt_malloc(record->desc_array_size, sizeof(*record->desc));
 	if ( record->desc == NULL )
