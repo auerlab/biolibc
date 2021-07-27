@@ -24,7 +24,7 @@
  *      faster.
  *
  *  Arguments:
- *      name1, name2:   Names of two chroms
+ *      name1, name2    Names of two chroms
  *
  *  Returns:
  *      A value < 1 if name1 is numerically < name2

@@ -32,8 +32,8 @@
  *      
  *
  *  Arguments:
- *      bl_overlap_ptr  Pointer to the bl_bed_t structure to set
- *      new_feature1_len The new value for feature1_len
+ *      bl_overlap_ptr      Pointer to the bl_bed_t structure to set
+ *      new_feature1_len    The new value for feature1_len
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -90,8 +90,8 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      
  *
  *  Arguments:
- *      bl_overlap_ptr  Pointer to the bl_bed_t structure to set
- *      new_feature2_len The new value for feature2_len
+ *      bl_overlap_ptr      Pointer to the bl_bed_t structure to set
+ *      new_feature2_len    The new value for feature2_len
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -148,8 +148,8 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      
  *
  *  Arguments:
- *      bl_overlap_ptr  Pointer to the bl_bed_t structure to set
- *      new_overlap_start The new value for overlap_start
+ *      bl_overlap_ptr      Pointer to the bl_bed_t structure to set
+ *      new_overlap_start   The new value for overlap_start
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -206,8 +206,8 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *      
  *
  *  Arguments:
- *      bl_overlap_ptr  Pointer to the bl_bed_t structure to set
- *      new_overlap_end The new value for overlap_end
+ *      bl_overlap_ptr      Pointer to the bl_bed_t structure to set
+ *      new_overlap_end     The new value for overlap_end
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -264,8 +264,8 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *      
  *
  *  Arguments:
- *      bl_overlap_ptr  Pointer to the bl_bed_t structure to set
- *      new_overlap_len The new value for overlap_len
+ *      bl_overlap_ptr      Pointer to the bl_bed_t structure to set
+ *      new_overlap_len     The new value for overlap_len
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned

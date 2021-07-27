@@ -21,7 +21,7 @@
  *      file whose FILE pointer is returned.
  *
  *  Arguments:
- *      vcf_stream: FILE pointer of VCF stream to be read
+ *      vcf_stream  FILE pointer of VCF stream to be read
  *
  *  Returns:
  *      A FILE pointer to the temporary file with a copy of the header
@@ -91,10 +91,10 @@ FILE    *bl_vcf_skip_header(FILE *vcf_stream)
  *      with 150,000 samples can be processed in 15 separate passes.
  *
  *  Arguments:
- *      vcf_stream: FILE pointer to the VCF input stream
- *      sample_ids: Array if character pointers to receive sample IDs
- *      first_col:  First column from which a sample ID should be saved
- *      last_col:   Last column from which a sample ID should be saved
+ *      vcf_stream  FILE pointer to the VCF input stream
+ *      sample_ids  Array if character pointers to receive sample IDs
+ *      first_col   First column from which a sample ID should be saved
+ *      last_col    Last column from which a sample ID should be saved
  *
  *  See also:
  *      bl_vcf_skip_header(3)
@@ -168,9 +168,9 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
- *      vcf_stream: FILE stream for VCF input
- *      vcf_call:   Pointer to bl_vcf_t structure to receive fields
- *      field_mask: Bit mask indicating which fields should be stored
+ *      vcf_stream  FILE stream for VCF input
+ *      vcf_call    Pointer to bl_vcf_t structure to receive fields
+ *      field_mask  Bit mask indicating which fields should be stored
  *
  *  Returns:
  *      BL_READ_OK upon success
@@ -322,9 +322,9 @@ int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
- *      vcf_stream: FILE pointer to VCF input stream
- *      vcf_call:   bl_vcf_t structure to receive VCF data
- *      field_mask: Bit mask to indicate which fields to store
+ *      vcf_stream  FILE pointer to VCF input stream
+ *      vcf_call    bl_vcf_t structure to receive VCF data
+ *      field_mask  Bit mask to indicate which fields to store
  *
  *  Returns:
  *      BL_READ_OK upon success
@@ -388,9 +388,9 @@ int     bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
- *      vcf_stream: FILE pointer to the VCF output stream
- *      vcf_call:   Pointer to the bl_vcf_t structure to output
- *      field_mask: Bit mask indicating which fields to output
+ *      vcf_stream  FILE pointer to the VCF output stream
+ *      vcf_call    Pointer to the bl_vcf_t structure to output
+ *      field_mask  Bit mask indicating which fields to output
  *
  *  Returns:
  *      The number of items output (as returned by fprintf())
@@ -472,9 +472,9 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      BL_VCF_FIELD_FORMAT
  *
  *  Arguments:
- *      vcf_stream: FILE pointer to the VCF output stream
- *      vcf_call:   Pointer to the bl_vcf_t structure to output
- *      field_mask: Bit mask indicating which fields to output
+ *      vcf_stream  FILE pointer to the VCF output stream
+ *      vcf_call    Pointer to the bl_vcf_t structure to output
+ *      field_mask  Bit mask indicating which fields to output
  *
  *  Returns:
  *      The number of items output (as returned by fprintf())
@@ -505,8 +505,8 @@ int     bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *      Allocate an array for multiple samples in a VCF call.
  *
  *  Arguments:
- *      vcf_call:   Pointer to a bl_vcf_t structure with multiple samples
- *      samples:    The number of samples that must be accommodated
+ *      vcf_call    Pointer to a bl_vcf_t structure with multiple samples
+ *      samples     The number of samples that must be accommodated
  *
  *  Returns:
  *      Address of the allocated array (NULL if malloc failed)
@@ -623,7 +623,7 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
  *      Free all memory associated with a VCF call.
  *
  *  Arguments:
- *      vcf_call:   Pointer to the bl_vcf_t structure to free.
+ *      vcf_call    Pointer to the bl_vcf_t structure to free.
  *
  *  See also:
  *      bl_vcf_init(3), bl_vcf_sample_alloc(3)
@@ -652,10 +652,10 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
  *      sizes for some fields.
  *
  *  Arguments:
- *      vcf_call:   Pointer to the bl_vcf_t structure to initialize
- *      info_max:   Maximum size of INFO field in bytes
- *      format_max: Maximum size of FORMAT field in bytes
- *      sample_max: Maxixum size of SAMPLE field in bytes
+ *      vcf_call    Pointer to the bl_vcf_t structure to initialize
+ *      info_max    Maximum size of INFO field in bytes
+ *      format_max  Maximum size of FORMAT field in bytes
+ *      sample_max  Maxixum size of SAMPLE field in bytes
  *
  *  See also:
  *      bl_vcf_free(3), vcf_read_call(3), bl_vcf_sample_alloc(3)
@@ -720,7 +720,7 @@ void    bl_vcf_init(bl_vcf_t *vcf_call,
  *      Convert a comma-separated list of VCF fields to a field bit mask
  *
  *  Arguments:
- *      spec:   Character string containing comma-separated field list
+ *      spec    Character string containing comma-separated field list
  *
  *  Returns:
  *      A vcf_field_mask_t value with bits set for specified fields
@@ -780,8 +780,8 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
  *      alignment.
  *
  *  Arguments:
- *      vcf_call:   Pointer to bl_vcf_t structure containing VCF call
- *      sam_alignment:  Pointer to bl_sam_t structure containing alignment
+ *      vcf_call    Pointer to bl_vcf_t structure containing VCF call
+ *      sam_alignment   Pointer to bl_sam_t structure containing alignment
  *
  *  Returns:
  *      true if the call is within the alignment
@@ -820,8 +820,8 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
  *      chrom and higher position, or on a later chrom.
  *
  *  Arguments:
- *      vcf_call:   Pointer to bl_vcf_t structure containing VCF call
- *      sam_alignment:  Pointer to bl_sam_t structure containing alignment
+ *      vcf_call    Pointer to bl_vcf_t structure containing VCF call
+ *      sam_alignment   Pointer to bl_sam_t structure containing alignment
  *
  *  Returns:
  *      true if the call is downstream of the alignment
@@ -862,9 +862,9 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  *      Report VCF input sort error and terminate the process.
  *
  *  Arguments:
- *      vcf_call:   Pointer to bl_vcf_t structure with latest call
- *      previous_chrom:    Chromosome of previous VCF call
- *      previous_pos:           Position of previous VCF call
+ *      vcf_call        Pointer to bl_vcf_t structure with latest call
+ *      previous_chrom  Chromosome of previous VCF call
+ *      previous_pos    Position of previous VCF call
  *
  *  Returns:
  *      Does not return

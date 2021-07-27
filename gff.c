@@ -20,7 +20,7 @@
  *      the function returns a FILE pointer to the header stream.
  *
  *  Arguments:
- *      gff_stream: FILE pointer to the open GFF file
+ *      gff_stream  FILE pointer to the open GFF file
  *
  *  Returns:
  *      A FILE pointer to a temporary file containing a copy of the header
@@ -88,9 +88,9 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_stream:     A FILE stream from which to read the line
- *      gff_feature:    Pointer to a bl_gff_t structure
- *      field_mask:     Bit mask indicating which fields to store in gff_feature
+ *      gff_stream      A FILE stream from which to read the line
+ *      gff_feature     Pointer to a bl_gff_t structure
+ *      field_mask      Bit mask indicating which fields to store in gff_feature
  *
  *  Returns:
  *      BL_READ_OK on successful read
@@ -306,9 +306,9 @@ int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_stream:     FILE stream to which TSV gff line is written
- *      gff_feature:    Pointer to the bl_gff_t structure to output
- *      field_mask:     Bit mask indicating which fields to output
+ *      gff_stream      FILE stream to which TSV gff line is written
+ *      gff_feature     Pointer to the bl_gff_t structure to output
+ *      field_mask      Bit mask indicating which fields to output
  *
  *  Returns:
  *      BL_WRITE_OK on success
@@ -350,8 +350,8 @@ int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
  *      some information may be lost or filled in with appropriate markers.
  *
  *  Arguments:
- *      bed_feature: Pointer to the bl_bed_t structure to receive data
- *      gff_feature: Pointer to the bl_gff_t structure to copy
+ *      bed_feature  Pointer to the bl_bed_t structure to receive data
+ *      gff_feature  Pointer to the bl_gff_t structure to copy
  *
  *  See also:
  *      bl_bed_read(3), bl_gff_read(3)

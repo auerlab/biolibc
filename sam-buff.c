@@ -20,8 +20,8 @@
  *      always OK).
  *  
  *  Arguments:
- *      sam_buff:       Pointer to a SAM buffer with recent alignments
- *      sam_alignment:  Pointer to the most recently read alignment
+ *      sam_buff        Pointer to a SAM buffer with recent alignments
+ *      sam_alignment   Pointer to the most recently read alignment
  *
  *  See also:
  *      bl_sam_read(3)
@@ -73,8 +73,8 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
  *      bl_sam_buff_alignment_ok(3).
  *  
  *  Arguments:
- *      sam_buff:   Pointer to a the bl_sam_buff_t structure to initialize
- *      mapq_min:   User-selected minimum MAPQ value
+ *      sam_buff    Pointer to a the bl_sam_buff_t structure to initialize
+ *      mapq_min    User-selected minimum MAPQ value
  *
  *  See also:
  *      bl_sam_buff_check_order(3), bl_sam_read(3)
@@ -136,8 +136,8 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
  *      up to BL_SAM_BUFF_MAX_SIZE.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to bl_sam_buff_t structure where alignments are buffered
- *      sam_alignment:  New SAM alignment to add to buffer
+ *      sam_buff    Pointer to bl_sam_buff_t structure where alignments are buffered
+ *      sam_alignment   New SAM alignment to add to buffer
  *
  *  See also:
  *      bl_sam_buff_init(3), bl_sam_buff_check_order(3)
@@ -227,8 +227,8 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
  *      Report SAM input sort error and terminate process.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to bl_sam_buff_t structure
- *      sam_alignment:  Offending alignment out of order with previous
+ *      sam_buff        Pointer to bl_sam_buff_t structure
+ *      sam_alignment   Offending alignment out of order with previous
  *
  *  Returns:
  *      Does not return.
@@ -263,8 +263,8 @@ void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignmen
  *      memory allocated for the structure itself.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to the bl_sam_buff_t structure holding alignments
- *      c:          Index of the alignment to be freed (0-based)
+ *      sam_buff    Pointer to the bl_sam_buff_t structure holding alignments
+ *      c           Index of the alignment to be freed (0-based)
  *
  *  See also:
  *      bl_sam_buff_init(3), bl_sam_buff_add_alignment(3)
@@ -297,8 +297,8 @@ void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
  *      remaining elements forward nelem positions.
  *  
  *  Arguments:
- *      sam_buff:   Pointer to bl_sam_buff_t structure holding alignments
- *      nelem:      Number of alignments to free
+ *      sam_buff    Pointer to bl_sam_buff_t structure holding alignments
+ *      nelem       Number of alignments to free
  *
  *  See also:
  *      bl_sam_buff_free_alignment(3)
@@ -351,8 +351,8 @@ void    bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
  *      score of discarded alignments).
  *  
  *  Arguments:
- *      sam_buff:   Pointer to bl_sam_buff_t structure with quality specs
- *      sam_alignment:  Pointer to new alignment
+ *      sam_buff    Pointer to bl_sam_buff_t structure with quality specs
+ *      sam_alignment   Pointer to new alignment
  *
  *  Returns:
  *      true if the alignment meets the quality requirements

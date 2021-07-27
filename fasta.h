@@ -13,6 +13,7 @@ typedef struct
 	    seq_len;
 }   bl_fasta_t;
 
+#define BL_FASTA_INIT           { NULL, NULL, 0, 0, 0, 0 }
 #define BL_FASTA_LINE_UNLIMITED 0
 
 /*
@@ -62,4 +63,4 @@ typedef struct
 /* fasta.c */
 int bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record);
 int bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record, size_t chars_per_line);
-
+void bl_fasta_free(bl_fasta_t *record);

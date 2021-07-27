@@ -22,7 +22,7 @@
  *      is returned.
  *
  *  Arguments:
- *      stream: Pointer to the FILE structure for reading the BED stream
+ *      stream  Pointer to the FILE structure for reading the BED stream
  *
  *  Returns:
  *      Pointer to the FILE structure of the temporary file.
@@ -107,9 +107,9 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *      masks all three.
  *
  *  Arguments:
- *      bed_stream:     A FILE stream from which to read the line
- *      bed_feature:    Pointer to a bl_bed_t structure
- *      field_mask:     Bit mask indicating which fields to store in bed_feature
+ *      bed_stream      A FILE stream from which to read the line
+ *      bed_feature     Pointer to a bl_bed_t structure
+ *      field_mask      Bit mask indicating which fields to store in bed_feature
  *
  *  Returns:
  *      BL_READ_OK on successful read
@@ -466,9 +466,9 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
  *      masks all three.
  *
  *  Arguments:
- *      bed_stream:     FILE stream to which TSV bed line is written
- *      bed_feature:    Pointer to the bl_bed_t structure to output
- *      field_mask:     Bit mask indicating which fields to output
+ *      bed_stream      FILE stream to which TSV bed line is written
+ *      bed_feature     Pointer to the bl_bed_t structure to output
+ *      field_mask      Bit mask indicating which fields to output
  *
  *  Returns:
  *      BL_WRITE_OK on success
@@ -533,10 +533,9 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
  *      Make sure the BED input is sorted by chrom and start position.
  *
  *  Arguments:
- *      bed_feature:    Pointer to the BED structure containing the current
- *                      entry
- *      last_chrom:     Chromosome of the previous BED entry
- *      last_start:     Start position of the previous BED entry
+ *      bed_feature     Pointer to BED structure containing current entry
+ *      last_chrom      Chromosome of the previous BED entry
+ *      last_start      Start position of the previous BED entry
  *
  *  Returns:
  *      Nothing: Terminates process if input is out of order
@@ -588,9 +587,9 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
  *      BED).
  *
  *  Arguments:
- *      bed_feature:    Pointer to the bl_bed_t structure to compare
- *      gff_feature:    Pointer to the bl_gff_t structure to compare
- *      overlap:        Pointer to the bl_overlap_t structure to receive
+ *      bed_feature     Pointer to the bl_bed_t structure to compare
+ *      gff_feature     Pointer to the bl_gff_t structure to compare
+ *      overlap         Pointer to the bl_overlap_t structure to receive
  *                      comparison results
  *
  *  Returns:

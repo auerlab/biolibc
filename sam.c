@@ -33,9 +33,9 @@
  *      BL_SAM_FIELD_QUAL
  *
  *  Arguments:
- *      sam_stream:     A FILE stream from which to read the line
- *      sam_alignment:  Pointer to a bl_sam_t structure
- *      field_mask:     Bit mask indicating which fields to store in sam_alignment
+ *      sam_stream      A FILE stream from which to read the line
+ *      sam_alignment   Pointer to a bl_sam_t structure
+ *      field_mask      Bit mask indicating which fields to store in sam_alignment
  *
  *  Returns:
  *      BL_READ_OK on successful read
@@ -360,8 +360,8 @@ int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
  *      as needed.
  *
  *  Arguments:
- *      dest:   Pointer to bl_sam_t structure to receive copy
- *      src:    Pointer to bl_sam_t structure to be copied
+ *      dest    Pointer to bl_sam_t structure to receive copy
+ *      src     Pointer to bl_sam_t structure to be copied
  *
  *  See also:
  *      bl_sam_read(3), bl_sam_init(3), bl_sam_free(3)
@@ -419,7 +419,7 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
  *      bl_sam_init().
  *
  *  Arguments:
- *      sam_alignment:  Pointer to bl_sam_t structure to be freed.
+ *      sam_alignment   Pointer to bl_sam_t structure to be freed.
  *
  *  See also:
  *      bl_sam_read(3), bl_sam_init(3), bl_sam_copy(3)
@@ -455,9 +455,9 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
  *      other fields are unconditionally initialized to 0, NULL, or blank.
  *
  *  Arguments:
- *      sam_alignment:  Pointer to bl_sam_t structure to initialize
- *      seq_len:        Length of sequence and quality strings
- *      field_mask:     Bit mask indicating which fields will be used
+ *      sam_alignment   Pointer to bl_sam_t structure to initialize
+ *      seq_len         Length of sequence and quality strings
+ *      field_mask      Bit mask indicating which fields will be used
  *
  *  See also:
  *      bl_sam_read(3), bl_sam_free(3), bl_sam_copy(3)
@@ -535,9 +535,9 @@ void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
  *      BL_SAM_FIELD_QUAL
  *
  *  Arguments:
- *      sam_stream:     A FILE stream to which to write the line
- *      sam_alignment:  Pointer to a bl_sam_t structure
- *      field_mask:     Bit mask indicating which fields to store in sam_alignment
+ *      sam_stream      A FILE stream to which to write the line
+ *      sam_alignment   Pointer to a bl_sam_t structure
+ *      field_mask      Bit mask indicating which fields to store in sam_alignment
  *
  *  Returns:
  *      Number of items written (per fprintf() output)

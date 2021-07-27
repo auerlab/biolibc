@@ -29,7 +29,7 @@
  *  Arguments:
  *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
  *      c               Subscript to the sequence array
- *      new_sequence_element The new value for sequence[c]
+ *      new_sequence_element    The new value for sequence[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -253,7 +253,7 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *  Arguments:
  *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
  *      c               Subscript to the feature array
- *      new_feature_element The new value for feature[c]
+ *      new_feature_element     The new value for feature[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -713,7 +713,7 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *  Arguments:
  *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
  *      c               Subscript to the attributes array
- *      new_attributes_element The new value for attributes[c]
+ *      new_attributes_element  The new value for attributes[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -883,7 +883,7 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *  Arguments:
  *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
  *      c               Subscript to the feature_id array
- *      new_feature_id_element The new value for feature_id[c]
+ *      new_feature_id_element  The new value for feature_id[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -1053,7 +1053,7 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *  Arguments:
  *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
  *      c               Subscript to the gene_name array
- *      new_gene_name_element The new value for gene_name[c]
+ *      new_gene_name_element   The new value for gene_name[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned

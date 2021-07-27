@@ -85,9 +85,9 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *      of new_desc_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
- *      c               Subscript to the desc array
- *      new_desc_element The new value for desc[c]
+ *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
+ *      c                   Subscript to the desc array
+ *      new_desc_element    The new value for desc[c]
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned
@@ -372,7 +372,7 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
  *      new_desc_array_size The new value for desc_array_size
  *
  *  Returns:
@@ -430,8 +430,8 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
- *      new_seq_array_size The new value for seq_array_size
+ *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
+ *      new_seq_array_size  The new value for seq_array_size
  *
  *  Returns:
  *      BL_DATA_OK if the new value is acceptable and assigned

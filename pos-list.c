@@ -17,8 +17,8 @@
  *      if necessary.
  *
  *  Arguments:
- *      pos_list:   Pointer to the bl_pos_list_t structure to initialize
- *      array_size: Initial size of the array of positions
+ *      pos_list    Pointer to the bl_pos_list_t structure to initialize
+ *      array_size  Initial size of the array of positions
  *
  *  See also:
  *      bl_pos_list_add_position(3), bl_pos_list_free(3), bl_pos_list_from_csv(3),
@@ -60,7 +60,7 @@ void    bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size)
  *      and position count to 0.
  *
  *  Arguments:
- *      pos_list:   Pointer to the position_list_t structure to reset
+ *      pos_list    Pointer to the position_list_t structure to reset
  *
  *  See also:
  *      bl_pos_list_allocate(3), bl_pos_list_add_position(3), bl_pos_list_from_csv(3),
@@ -96,8 +96,8 @@ void    bl_pos_list_free(bl_pos_list_t *pos_list)
  *      Add another position to a pos_list, expanding the array if needed.
  *
  *  Arguments:
- *      pos_list:   Pointer to the bl_pos_list_t structure to add to
- *      position:   New position to be added to the list
+ *      pos_list    Pointer to the bl_pos_list_t structure to add to
+ *      position    New position to be added to the list
  *
  *  See also:
  *      bl_pos_list_allocate(3), bl_pos_list_free(3), bl_pos_list_from_csv(3),
@@ -139,9 +139,9 @@ int     bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position)
  *      it will be extended by bl_pos_list_add_position() if needed.
  *
  *  Arguments:
- *      pos_list:   Pointer to the bl_pos_list_t to receive the list
- *      list_str:   Character string containing comma-separated list of positions
- *      array_size: Initial array size
+ *      pos_list    Pointer to the bl_pos_list_t to receive the list
+ *      list_str    Character string containing comma-separated list of positions
+ *      array_size  Initial array size
  *
  *  Returns:
  *      The number of positions added to the list
@@ -219,8 +219,8 @@ int     position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2)
  *      Sort a position list in either ascending or descending order.
  *
  *  Arguments:
- *      pos_list:   Pointer to the position_list_t structure to sort
- *      order:      POS_LIST_ASCENDING or POS_LIST_DESCENDING
+ *      pos_list    Pointer to the position_list_t structure to sort
+ *      order       POS_LIST_ASCENDING or POS_LIST_DESCENDING
  *
  *  See also:
  *      bl_pos_list_allocate(3), bl_pos_list_add_position(3), bl_pos_list_free(3),

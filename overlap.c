@@ -16,10 +16,10 @@
  *      function.)
  *
  *  Arguments:
- *      feature1_len:     Length of feature 1
- *      feature2_len:     Length of feature 2
- *      overlap_start:   Start position of overlap relative to start of feature 1
- *      overlap_end:     End position of overlap relative to start of feature 1
+ *      feature1_len      Length of feature 1
+ *      feature2_len      Length of feature 2
+ *      overlap_start    Start position of overlap relative to start of feature 1
+ *      overlap_end      End position of overlap relative to start of feature 1
  *
  *  Returns:
  *      BL_DATA_OK upon success.
@@ -69,10 +69,10 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
  *      Print all fields in a bl_overlap_t structure for debugging.
  *
  *  Arguments:
- *      stream:     FILE stream to which data are printed (e.g. stderr)
- *      overlap:    Address of a bl_overlap_t structure
- *      feature1_name:    Name of field 1 to print with data
- *      feature2_name:    Name of field 2 to print with data
+ *      stream      FILE stream to which data are printed (e.g. stderr)
+ *      overlap     Address of a bl_overlap_t structure
+ *      feature1_name     Name of field 1 to print with data
+ *      feature2_name     Name of field 2 to print with data
  *
  *  Returns:
  *      Return status from fprintf(3)

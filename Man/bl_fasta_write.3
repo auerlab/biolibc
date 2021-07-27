@@ -6,7 +6,7 @@
 .nf
 .na
 #include <biolibc/fasta.h>
--lbiolibc
+-lbiolibc -lxtend
 .ad
 .fi
 
@@ -24,9 +24,9 @@ size_t max_line_len)
 .SH ARGUMENTS
 .nf
 .na
-fasta_stream:   FILE stream to which data are written
-record:         Pointer to a bl_fasta_t structure to be written
-max_line_len:   Maximum length of a sequence line in output
+fasta_stream    FILE stream to which data are written
+record          Pointer to a bl_fasta_t structure to be written
+max_line_len    Maximum length of a sequence line in output
 .ad
 .fi
 
@@ -40,12 +40,17 @@ BL_FASTA_LINE_UNLIMITED indicates no line length limit.
 .nf
 .na
 
+bl_fasta_t  rec = BL_FASTA_INIT;
+
 while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
-bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
+{
+    bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
+    bl_fasta_free(&rec);
+}
 .ad
 .fi
 
 .SH SEE ALSO
 
-bl_fasta_read(3), bl_fastq_read(3), bl_fastq_write(3)
+bl_fasta_read(3), bl_fastq_read(3), bl_fastq_write(3),
 

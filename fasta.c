@@ -10,17 +10,20 @@
 /***************************************************************************
  *  Library:
  *      #include <biolibc/fasta.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Read a FASTA record from a FILE stream.  Each record must begin
  *      with a description line (beginning with '>'), which is then
  *      followed by one or more lines of sequence data.  The end of the
  *      sequence is marked either by the next description line or EOF.
+ *      Memory is allocated for the description line and the sequence.
+ *      This memory should be freed as soon as possible by calling
+ *      bl_fasta_free(3).
  *  
  *  Arguments:
- *      fasta_stream:   FILE stream from which FASTA data are read
- *      record:         Pointer to a bl_fast_t structure to receive data
+ *      fasta_stream    FILE stream from which FASTA data are read
+ *      record          Pointer to a bl_fasta_t structure to receive data
  *
  *  Returns:
  *      BL_READ_OK upon successful read of description and sequence
@@ -28,13 +31,17 @@
  *      BL_READ_EOF if no more data are available
  *
  *  Examples:
- *      bl_fasta_t  rec;
+ *      bl_fasta_t  rec = BL_FASTA_INIT;
  *
  *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
+ *      {
  *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
+ *          bl_fasta_free(&rec);
+ *      }
  *
  *  See also:
- *      bl_fasta_write(3), bl_fastq_read(3), bl_fastq_write(3)
+ *      bl_fasta_write(3), bl_fastq_read(3), bl_fastq_write(3),
+ *      bl_fasta_free(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -143,7 +150,7 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 /***************************************************************************
  *  Library:
  *      #include <biolibc/fasta.h>
- *      -lbiolibc
+ *      -lbiolibc -lxtend
  *
  *  Description:
  *      Write a FASTA record to the specified FILE stream, writing at most
@@ -151,19 +158,25 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
  *      BL_FASTA_LINE_UNLIMITED indicates no line length limit.
  *  
  *  Arguments:
- *      fasta_stream:   FILE stream to which data are written
- *      record:         Pointer to a bl_fasta_t structure to be written
- *      max_line_len:   Maximum length of a sequence line in output
+ *      fasta_stream    FILE stream to which data are written
+ *      record          Pointer to a bl_fasta_t structure to be written
+ *      max_line_len    Maximum length of a sequence line in output
  *
  *  Returns:
  *      BL_WRITE_OK upon success, BL_WRITE_FAILURE if a write error occurs.
  *
  *  Examples:
+ *      bl_fasta_t  rec = BL_FASTA_INIT;
+ *
  *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
+ *      {
  *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
+ *          bl_fasta_free(&rec);
+ *      }
  *
  *  See also:
- *      bl_fasta_read(3), bl_fastq_read(3), bl_fastq_write(3)
+ *      bl_fasta_read(3), bl_fastq_read(3), bl_fastq_write(3),
+ *
  *
  *  History: 
  *  Date        Name        Modification
@@ -193,4 +206,41 @@ int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
 	    record->seq[c + max_line_len] = save_ch;
     }
     return BL_WRITE_OK;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/fast.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Free memory allocated by bl_fasta_read()
+ *  
+ *  Arguments:
+ *      record  Pointer to a previously populated bl_fasta_t structure
+ *
+ *  Examples:
+ *      bl_fasta_t  rec = BL_FASTA_INIT;
+ *
+ *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
+ *      {
+ *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
+ *          bl_fasta_free(&rec);
+ *      }
+ *
+ *  See also:
+ *      bl_fasta_read(3), bl_fasta_write(3)
+ *      bl_fastq_read(3), bl_fastq_write(3),
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-07-27  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_fasta_free(bl_fasta_t *record)
+
+{
+    free(record->seq);
+    free(record->desc);
 }
