@@ -17,8 +17,17 @@
  *      with a description line (beginning with '>'), which is then
  *      followed by one or more lines of sequence data.  The end of the
  *      sequence is marked either by the next description line or EOF.
- *      Memory is allocated for the description line and the sequence.
- *      This memory should be freed as soon as possible by calling
+ *      If desc_len and seq_len are 0 (e.g. the structure is initialized
+ *      with BL_FASTA_INIT or has been freed with bl_fasta_free(3), then
+ *      memory is allocated for the description and sequence.
+ *
+ *      Otherwise, the existing allocated buffers are reused.  Hence, when
+ *      reading many FASTA records of the same length, only one allocation
+ *      is needed.  In any case, the buffers are automatically enlarged if
+ *      they become full and automatically trimmed to the actual data size
+ *      after reading is complete.
+ *
+ *      Buffer memory should be freed as soon as possible by calling
  *      bl_fasta_free(3).
  *  
  *  Arguments:
@@ -34,10 +43,8 @@
  *      bl_fasta_t  rec = BL_FASTA_INIT;
  *
  *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
- *      {
  *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
- *          bl_fasta_free(&rec);
- *      }
+ *      bl_fasta_free(&rec);
  *
  *  See also:
  *      bl_fasta_write(3), bl_fastq_read(3), bl_fastq_write(3),
@@ -65,13 +72,15 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
     /* Every record should begin with a '>' */
     if ( ch == '>' )    // Desc
     {
-	// FIXME: Reuse allocated memory if desc != NULL?
-	record->desc_array_size = 1024;
-	record->desc = xt_malloc(record->desc_array_size, sizeof(*record->desc));
-	if ( record->desc == NULL )
+	if ( record->desc_array_size == 0 )
 	{
-	    fprintf(stderr, "bl_fasta_read(): Could not allocate desc.\n");
-	    exit(EX_UNAVAILABLE);
+	    record->desc_array_size = 1024;
+	    record->desc = xt_malloc(record->desc_array_size, sizeof(*record->desc));
+	    if ( record->desc == NULL )
+	    {
+		fprintf(stderr, "bl_fasta_read(): Could not allocate desc.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
 
 	p = record->desc;
@@ -94,9 +103,9 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	record->desc_len = p - record->desc;
 
 	/* Trim array */
-	record->desc = xt_realloc(record->desc, record->desc_len+1,
+	record->desc_array_size = record->desc_len + 1;
+	record->desc = xt_realloc(record->desc, record->desc_array_size,
 	    sizeof(*record->desc));
-	//printf("Trimmed desc to %zu\n", record->desc_len+1);
 	
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
@@ -107,12 +116,15 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	 *  Read sequence lines
 	 */
 	
-	record->seq_array_size = 1024;
-	record->seq = xt_malloc(record->seq_array_size, sizeof(*record->seq));
-	if ( record->seq == NULL )
+	if ( record->seq_array_size == 0 )
 	{
-	    fprintf(stderr, "bl_fasta_read(): Could not allocate seq.\n");
-	    exit(EX_UNAVAILABLE);
+	    record->seq_array_size = 1024;
+	    record->seq = xt_malloc(record->seq_array_size, sizeof(*record->seq));
+	    if ( record->seq == NULL )
+	    {
+		fprintf(stderr, "bl_fasta_read(): Could not allocate seq.\n");
+		exit(EX_UNAVAILABLE);
+	    }
 	}
 	p = record->seq;
 	do
@@ -135,9 +147,9 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	record->seq_len = p - record->seq;
 
 	/* Trim array */
-	record->seq = xt_realloc(record->seq, record->seq_len+1,
+	record->seq_array_size = record->seq_len + 1;
+	record->seq = xt_realloc(record->seq, record->seq_array_size,
 	    sizeof(*record->desc));
-	//printf("Trimmed sequence to %zu\n", record->seq_len+1);
 
 	if ( ch == '>' )
 	    ungetc(ch, fasta_stream);
@@ -170,10 +182,8 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
  *      bl_fasta_t  rec = BL_FASTA_INIT;
  *
  *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
- *      {
  *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
- *          bl_fasta_free(&rec);
- *      }
+ *      bl_fasta_free(&rec);
  *
  *  See also:
  *      bl_fasta_read(3), bl_fastq_read(3), bl_fastq_write(3),
@@ -225,10 +235,8 @@ int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
  *      bl_fasta_t  rec = BL_FASTA_INIT;
  *
  *      while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
- *      {
  *          bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
- *          bl_fasta_free(&rec);
- *      }
+ *      bl_fasta_free(&rec);
  *
  *  See also:
  *      bl_fasta_read(3), bl_fasta_write(3)
@@ -244,4 +252,7 @@ void    bl_fasta_free(bl_fasta_t *record)
 {
     free(record->seq);
     free(record->desc);
+    record->desc = record->seq = NULL;
+    record->desc_array_size = record->seq_array_size = 0;
+    record->desc_len = record->seq_len = 0;
 }

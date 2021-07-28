@@ -7,7 +7,7 @@ fi
 
 cd ..
 ./cave-man-install.sh
-cd Test
+cd Fasta-test
 
 printf "FASTA test:\n\n"
 cc -o fasta-test fasta-test.c -I../../local/include \

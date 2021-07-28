@@ -38,10 +38,8 @@ Free memory allocated by bl_fasta_read()
 bl_fasta_t  rec = BL_FASTA_INIT;
 
 while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
-{
     bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
-    bl_fasta_free(&rec);
-}
+bl_fasta_free(&rec);
 .ad
 .fi
 

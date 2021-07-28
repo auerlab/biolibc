@@ -34,8 +34,17 @@ Read a FASTA record from a FILE stream.  Each record must begin
 with a description line (beginning with '>'), which is then
 followed by one or more lines of sequence data.  The end of the
 sequence is marked either by the next description line or EOF.
-Memory is allocated for the description line and the sequence.
-This memory should be freed as soon as possible by calling
+If desc_len and seq_len are 0 (e.g. the structure is initialized
+with BL_FASTA_INIT or has been freed with bl_fasta_free(3), then
+memory is allocated for the description and sequence.
+
+Otherwise, the existing allocated buffers are reused.  Hence, when
+reading many FASTA records of the same length, only one allocation
+is needed.  In any case, the buffers are automatically enlarged if
+they become full and automatically trimmed to the actual data size
+after reading is complete.
+
+Buffer memory should be freed as soon as possible by calling
 bl_fasta_free(3).
 
 .SH EXAMPLES
@@ -45,10 +54,8 @@ bl_fasta_free(3).
 bl_fasta_t  rec = BL_FASTA_INIT;
 
 while ( bl_fasta_read(stdin, &rec) != BL_READ_EOF )
-{
     bl_fasta_write(stdout, &rec, BL_FASTA_LINE_UNLIMITED);
-    bl_fasta_free(&rec);
-}
+bl_fasta_free(&rec);
 .ad
 .fi
 
