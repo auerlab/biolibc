@@ -71,11 +71,11 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 ############################################################################
 # List object files that comprise BIN.
 
-OBJS    = overlap.o vcf.o sam.o bed.o gff.o fasta.o \
+OBJS    = overlap.o vcf.o sam.o bed.o gff.o fasta.o fastq.o \
 	  chrom-name-cmp.o pos-list.o sam-buff.o \
 	  bed-mutators.o gff-mutators.o overlap-mutators.o \
 	  pos-list-mutators.o sam-buff-mutators.o \
-	  sam-mutators.o vcf-mutators.o fasta-mutators.o
+	  sam-mutators.o vcf-mutators.o fasta-mutators.o fastq-mutators.o
 
 ############################################################################
 # Compile, link, and install options

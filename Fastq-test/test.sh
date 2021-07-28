@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+if [ $0 != ./test.sh ]; then
+    printf "Must be run as ./test.sh.\n"
+    exit 1
+fi
+
+cd ..
+./cave-man-install.sh
+cd Fastq-test
+
+printf "FASTQ test:\n\n"
+cc -o fastq-test fastq-test.c -I../../local/include \
+    -L../../local/lib -Wl,-rpath,../../local/lib -lbiolibc -lxtend
+./fastq-test < test.fastq > out.fastq
+if diff test.fastq out.fastq; then
+    printf "No differences found, test passed.\n"
+else
+    printf "Differences found, test failed.\n"
+fi
+rm -f fastq-test out.fastq
