@@ -4,7 +4,7 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <inttypes.h>   // PRIu64
-#include <xtend.h>
+#include <xtend.h>      // strlcpy() on Linux
 #include "gff.h"
 #include "bed.h"
 

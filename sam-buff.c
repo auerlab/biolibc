@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/param.h>  // MIN()
-#include <xtend.h>
+#include <xtend.h>      // strlcpy() on Linux
 #include <inttypes.h>
 #include "sam-buff.h"
 #include "biostring.h"
