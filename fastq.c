@@ -77,7 +77,6 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	 *  Read description
 	 */
 	
-	fprintf(stderr, "New record...\n");
 	if ( record->desc_array_size == 0 )
 	{
 	    record->desc_array_size = 1024;
@@ -112,7 +111,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	record->desc_array_size = record->desc_len + 1;
 	record->desc = xt_realloc(record->desc, record->desc_array_size,
 	    sizeof(*record->desc));
-	fprintf(stderr, "desc = %s\n", record->desc);
+	//fprintf(stderr, "desc = %s\n", record->desc);
 	
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
@@ -157,7 +156,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	record->seq_array_size = record->seq_len + 1;
 	record->seq = xt_realloc(record->seq, record->seq_array_size,
 	    sizeof(*record->desc));
-	fprintf(stderr, "seq = %s\n", record->seq);
+	//fprintf(stderr, "seq = %s\n", record->seq);
 
 	/* Should not encounter EOF while reading sequence lines */
 	/* Every sequence should be followed by a + separator line */
@@ -205,7 +204,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	record->plus_array_size = record->plus_len + 1;
 	record->plus = xt_realloc(record->plus, record->plus_array_size,
 	    sizeof(*record->plus));
-	fprintf(stderr, "plus = %s\n", record->plus);
+	//fprintf(stderr, "plus = %s\n", record->plus);
 	
 	/* Should not encounter EOF while reading plus line */
 	/* Every plus should be followed by at least one qual line */
@@ -252,7 +251,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	}   while ( ((ch = getc(fastq_stream)) != '@') && (ch != EOF) );
 	*p = '\0';
 	record->qual_len = p - record->qual;
-	fprintf(stderr, "qual = %s\n", record->qual);
+	//fprintf(stderr, "qual = %s\n", record->qual);
 	// No need to trim since qual must be the same size as seq
 
 	if ( ch == '@' )
