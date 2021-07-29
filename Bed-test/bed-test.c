@@ -9,16 +9,16 @@
 
 #include <stdio.h>
 #include <sysexits.h>
-#include "bedio.h"
+#include "bed.h"
 
 int     main(int argc,char *argv[])
 
 {
-    bed_feature_t   bed_feature;
+    bl_bed_t   bed_feature;
     
-    bed_skip_header(stdin);
-    while ( bed_read_feature(stdin, &bed_feature) != EOF )
-	bed_write_feature(stdout, &bed_feature, BED_FIELD_ALL);
+    bl_bed_skip_header(stdin);
+    while ( bl_bed_read(stdin, &bed_feature, BL_BED_FIELD_ALL) != EOF )
+	bl_bed_write(stdout, &bed_feature, BL_BED_FIELD_ALL);
     return EX_OK;
 }
 
