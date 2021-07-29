@@ -1,11 +1,9 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sysexits.h>
 #include <xtend.h>
 #include "fasta.h"
 #include "biolibc.h"
-
 
 /***************************************************************************
  *  Library:
