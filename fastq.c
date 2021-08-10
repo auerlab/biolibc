@@ -75,42 +75,14 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	/*
 	 *  Read description
 	 */
-	
-	if ( record->desc_array_size == 0 )
-	{
-	    record->desc_array_size = 1024;
-	    record->desc = xt_malloc(record->desc_array_size, sizeof(*record->desc));
-	    if ( record->desc == NULL )
-	    {
-		fprintf(stderr, "bl_fastq_read(): Could not allocate desc.\n");
-		exit(EX_UNAVAILABLE);
-	    }
-	}
 
-	len = 0;
-	while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
+	ch = dsv_read_field_malloc(fastq_stream, &record->desc,
+			    &record->desc_array_size, "", &record->desc_len);
+	if ( record->desc == NULL )
 	{
-	    record->desc[len++] = ch;
-	    if ( len == record->desc_array_size )
-	    {
-		record->desc_array_size += 1024;
-		record->desc = xt_realloc(record->desc, record->desc_array_size,
-		    sizeof(*record->desc));
-		if ( record->desc == NULL )
-		{
-		    fprintf(stderr, "bl_fastq_read(): Could not reallocate desc.\n");
-		    exit(EX_UNAVAILABLE);
-		}
-	    }
+	    fprintf(stderr, "bl_fastq_read(): Could not allocate desc.\n");
+	    exit(EX_UNAVAILABLE);
 	}
-	record->desc[len] = '\0';
-	record->desc_len = len;
-
-	/* Trim array */
-	record->desc_array_size = record->desc_len + 1;
-	record->desc = xt_realloc(record->desc, record->desc_array_size,
-	    sizeof(*record->desc));
-	//fprintf(stderr, "desc = %s\n", record->desc);
 	
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
@@ -118,7 +90,8 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    return BL_READ_TRUNCATED;
 
 	/*
-	 *  Read sequence lines
+	 *  Read sequence lines.  May span multiple lines so can't use
+	 *  dsv_read_field_malloc().
 	 */
 	
 	if ( record->seq_array_size == 0 )
@@ -171,41 +144,13 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	if ( ch != '+' )
 	    return BL_READ_BAD_DATA;
 	
-	if ( record->plus_array_size == 0 )
+	ch = dsv_read_field_malloc(fastq_stream, &record->plus,
+			    &record->plus_array_size, "", &record->plus_len);
+	if ( record->plus == NULL )
 	{
-	    record->plus_array_size = 1024;
-	    record->plus = xt_malloc(record->plus_array_size, sizeof(*record->plus));
-	    if ( record->plus == NULL )
-	    {
-		fprintf(stderr, "bl_fastq_read(): Could not allocate plus.\n");
-		exit(EX_UNAVAILABLE);
-	    }
+	    fprintf(stderr, "bl_fastq_read(): Could not allocate plus.\n");
+	    exit(EX_UNAVAILABLE);
 	}
-
-	len = 0;
-	while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
-	{
-	    record->plus[len++] = ch;
-	    if ( len == record->plus_array_size )
-	    {
-		record->plus_array_size += 1024;
-		record->plus = xt_realloc(record->plus, record->plus_array_size,
-		    sizeof(*record->plus));
-		if ( record->plus == NULL )
-		{
-		    fprintf(stderr, "bl_fastq_read(): Could not reallocate plus.\n");
-		    exit(EX_UNAVAILABLE);
-		}
-	    }
-	}
-	record->plus[len] = '\0';
-	record->plus_len = len;
-
-	/* Trim array */
-	record->plus_array_size = record->plus_len + 1;
-	record->plus = xt_realloc(record->plus, record->plus_array_size,
-	    sizeof(*record->plus));
-	//fprintf(stderr, "plus = %s\n", record->plus);
 	
 	/* Should not encounter EOF while reading plus line */
 	/* Every plus should be followed by at least one qual line */
@@ -213,7 +158,8 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    return BL_READ_TRUNCATED;
 
 	/*
-	 *  Read quality string
+	 *  Read quality string.  May span multiple lines so can't use
+	 *  dsv_read_field_malloc().
 	 */
 	
 	if ( record->qual_array_size == 0 )
@@ -248,7 +194,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		}
 	    }
 	    if ( ch == EOF )
-		return BL_READ_BAD_DATA;
+		return BL_READ_TRUNCATED;
 	    
 	}   while ( ((ch = getc(fastq_stream)) != '@') && (ch != EOF) );
 	record->qual[len] = '\0';
