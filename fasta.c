@@ -57,7 +57,7 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 
 {
     int     ch;
-    char    *p;
+    size_t  len;
     
     /* Skip comment lines */
     while ( (ch = getc(fasta_stream)) == ';' )
@@ -81,11 +81,11 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	    }
 	}
 
-	p = record->desc;
+	len = 0;
 	while ( ((ch = getc(fasta_stream)) != '\n') && (ch != EOF) )
 	{
-	    *p++ = ch;
-	    if ( p - record->desc == record->desc_array_size )
+	    record->desc[len++] = ch;
+	    if ( len == record->desc_array_size )
 	    {
 		record->desc_array_size *= 2;
 		record->desc = xt_realloc(record->desc, record->desc_array_size,
@@ -97,8 +97,8 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 		}
 	    }
 	}
-	*p = '\0';
-	record->desc_len = p - record->desc;
+	record->desc[len] = '\0';
+	record->desc_len = len;
 
 	/* Trim array */
 	record->desc_array_size = record->desc_len + 1;
@@ -124,12 +124,13 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	p = record->seq;
+	
+	len = 0;
 	do
 	{
 	    if ( ch != '\n' )
-		*p++ = ch;
-	    if ( p - record->seq == record->seq_array_size )
+		record->seq[len++] = ch;
+	    if ( len == record->seq_array_size )
 	    {
 		record->seq_array_size *= 2;
 		record->seq = xt_realloc(record->seq, record->seq_array_size,
@@ -141,8 +142,8 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 		}
 	    }
 	}   while ( ((ch = getc(fasta_stream)) != '>') && (ch != EOF) );
-	*p = '\0';
-	record->seq_len = p - record->seq;
+	record->seq[len] = '\0';
+	record->seq_len = len;
 
 	/* Trim array */
 	record->seq_array_size = record->seq_len + 1;

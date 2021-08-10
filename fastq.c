@@ -59,7 +59,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 
 {
     int     ch;
-    char    *p;
+    size_t  len;
     
     /* Skip comment lines */
     while ( (ch = getc(fastq_stream)) == ';' )
@@ -87,13 +87,13 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    }
 	}
 
-	p = record->desc;
+	len = 0;
 	while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
 	{
-	    *p++ = ch;
-	    if ( p - record->desc == record->desc_array_size )
+	    record->desc[len++] = ch;
+	    if ( len == record->desc_array_size )
 	    {
-		record->desc_array_size *= 2;
+		record->desc_array_size += 1024;
 		record->desc = xt_realloc(record->desc, record->desc_array_size,
 		    sizeof(*record->desc));
 		if ( record->desc == NULL )
@@ -103,8 +103,8 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		}
 	    }
 	}
-	*p = '\0';
-	record->desc_len = p - record->desc;
+	record->desc[len] = '\0';
+	record->desc_len = len;
 
 	/* Trim array */
 	record->desc_array_size = record->desc_len + 1;
@@ -124,21 +124,23 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	if ( record->seq_array_size == 0 )
 	{
 	    record->seq_array_size = 1024;
-	    record->seq = xt_malloc(record->seq_array_size, sizeof(*record->seq));
+	    record->seq = xt_malloc(record->seq_array_size,
+				    sizeof(*record->seq));
 	    if ( record->seq == NULL )
 	    {
 		fprintf(stderr, "bl_fastq_read(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	p = record->seq;
+	
+	len = 0;
 	do
 	{
 	    if ( ch != '\n' )
-		*p++ = ch;
-	    if ( p - record->seq == record->seq_array_size )
+		record->seq[len++] = ch;
+	    if ( len == record->seq_array_size )
 	    {
-		record->seq_array_size *= 2;
+		record->seq_array_size += 1024;
 		record->seq = xt_realloc(record->seq, record->seq_array_size,
 		    sizeof(*record->seq));
 		if ( record->seq == NULL )
@@ -148,13 +150,13 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		}
 	    }
 	}   while ( ((ch = getc(fastq_stream)) != '+') && (ch != EOF) );
-	*p = '\0';
-	record->seq_len = p - record->seq;
+	record->seq[len] = '\0';
+	record->seq_len = len;
 
 	/* Trim array */
 	record->seq_array_size = record->seq_len + 1;
 	record->seq = xt_realloc(record->seq, record->seq_array_size,
-	    sizeof(*record->desc));
+	    sizeof(*record->seq));
 	//fprintf(stderr, "seq = %s\n", record->seq);
 
 	/* Should not encounter EOF while reading sequence lines */
@@ -180,13 +182,13 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    }
 	}
 
-	p = record->plus;
+	len = 0;
 	while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
 	{
-	    *p++ = ch;
-	    if ( p - record->plus == record->plus_array_size )
+	    record->plus[len++] = ch;
+	    if ( len == record->plus_array_size )
 	    {
-		record->plus_array_size *= 2;
+		record->plus_array_size += 1024;
 		record->plus = xt_realloc(record->plus, record->plus_array_size,
 		    sizeof(*record->plus));
 		if ( record->plus == NULL )
@@ -196,8 +198,8 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		}
 	    }
 	}
-	*p = '\0';
-	record->plus_len = p - record->plus;
+	record->plus[len] = '\0';
+	record->plus_len = len;
 
 	/* Trim array */
 	record->plus_array_size = record->plus_len + 1;
@@ -225,16 +227,17 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	p = record->qual;
+	
+	len = 0;
 	do
 	{
 	    /* Read at least one full line, since '@' can be a quality score */
 	    while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
 	    {
-		*p++ = ch;
-		if ( p - record->qual == record->qual_array_size )
+		record->qual[len++] = ch;
+		if ( len == record->qual_array_size )
 		{
-		    record->qual_array_size *= 2;
+		    record->qual_array_size += 1024;
 		    record->qual = xt_realloc(record->qual, record->qual_array_size,
 			sizeof(*record->qual));
 		    if ( record->qual == NULL )
@@ -248,13 +251,14 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		return BL_READ_BAD_DATA;
 	    
 	}   while ( ((ch = getc(fastq_stream)) != '@') && (ch != EOF) );
-	*p = '\0';
-	record->qual_len = p - record->qual;
+	record->qual[len] = '\0';
+	record->qual_len = len;
 	//fprintf(stderr, "qual = %s\n", record->qual);
 	// No need to trim since qual must be the same size as seq
 
 	if ( ch == '@' )
 	    ungetc(ch, fastq_stream);
+
 	return BL_READ_OK;
     }
     else
