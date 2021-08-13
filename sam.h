@@ -6,7 +6,7 @@
 #endif
 
 #ifndef __xtend_h__
-#include <xtend.h>
+//#include <xtend.h>
 #endif
 
 #ifndef _biolibc_h_

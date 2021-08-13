@@ -2,6 +2,10 @@
 #ifndef _sam_buff_h_
 #define _sam_buff_h_
 
+#ifndef __bool_true_false_are_defined
+#include <stdbool.h>
+#endif
+
 #ifndef sam_h_
 #include "sam.h"
 #endif

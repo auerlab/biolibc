@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
-#include <inttypes.h>   // PRIu64
-#include <xtend.h>      // strlcpy() on Linux
+#include <inttypes.h>       // PRIu64
+#include <xtend/string.h>   // strlcpy() on Linux
+#include <xtend/dsv.h>
 #include "gff.h"
 #include "bed.h"
 

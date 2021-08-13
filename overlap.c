@@ -1,6 +1,6 @@
 #include <string.h>
 #include <sys/stat.h>
-#include <xtend.h>      // strlcpy() on Linux
+#include <xtend/string.h>      // strlcpy() on Linux
 #include "biolibc.h"
 #include "overlap.h"
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <string.h>
-#include <xtend.h>
+#include <xtend/mem.h>
 #include "pos-list.h"
 #include "biolibc.h"
 

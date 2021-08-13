@@ -8,7 +8,7 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend.h>      // strlcpy() on Linux
+#include <xtend/string.h>      // strlcpy() on Linux
 #include "bed.h"
 
 

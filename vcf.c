@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
-#include <xtend.h>
+#include <xtend/dsv.h>
+#include <xtend/string.h>   // ltostrn()
+#include <xtend/mem.h>
 #include "vcf.h"
 #include "biostring.h"
 

@@ -1,68 +1,71 @@
-bed-mutators.o: bed-mutators.c bed.h biolibc.h gff.h \
-  ../local/include/xtend.h ../local/include/xtend-protos.h overlap.h
+bed-mutators.o: bed-mutators.c ../local/include/xtend/string.h bed.h \
+  biolibc.h gff.h overlap.h
 	${CC} -c ${CFLAGS} bed-mutators.c
 
-bed.o: bed.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+bed.o: bed.c ../local/include/xtend/dsv.h ../local/include/xtend/mem.h \
   bed.h biolibc.h gff.h overlap.h biostring.h
 	${CC} -c ${CFLAGS} bed.c
 
 chrom-name-cmp.o: chrom-name-cmp.c biolibc.h
 	${CC} -c ${CFLAGS} chrom-name-cmp.c
 
-fasta-mutators.o: fasta-mutators.c fasta.h biolibc.h
+fasta-mutators.o: fasta-mutators.c ../local/include/xtend/string.h \
+  fasta.h biolibc.h
 	${CC} -c ${CFLAGS} fasta-mutators.c
 
-fasta.o: fasta.c ../local/include/xtend.h ../local/include/xtend-protos.h \
-  fasta.h biolibc.h
+fasta.o: fasta.c ../local/include/xtend/dsv.h \
+  ../local/include/xtend/mem.h fasta.h biolibc.h
 	${CC} -c ${CFLAGS} fasta.c
 
-fastq.o: fastq.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+fastq-mutators.o: fastq-mutators.c ../local/include/xtend/string.h \
   fastq.h biolibc.h
+	${CC} -c ${CFLAGS} fastq-mutators.c
+
+fastq.o: fastq.c ../local/include/xtend/dsv.h \
+  ../local/include/xtend/mem.h fastq.h biolibc.h
 	${CC} -c ${CFLAGS} fastq.c
 
-gff-mutators.o: gff-mutators.c gff.h biolibc.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h bed.h overlap.h
+gff-mutators.o: gff-mutators.c ../local/include/xtend/string.h gff.h \
+  biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff-mutators.c
 
-gff.o: gff.c ../local/include/xtend.h ../local/include/xtend-protos.h \
+gff.o: gff.c ../local/include/xtend/string.h ../local/include/xtend/dsv.h \
   gff.h biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff.c
 
 overlap-mutators.o: overlap-mutators.c overlap.h biolibc.h
 	${CC} -c ${CFLAGS} overlap-mutators.c
 
-overlap.o: overlap.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h biolibc.h overlap.h
+overlap.o: overlap.c ../local/include/xtend/string.h biolibc.h overlap.h
 	${CC} -c ${CFLAGS} overlap.c
 
 pos-list-mutators.o: pos-list-mutators.c pos-list.h biolibc.h
 	${CC} -c ${CFLAGS} pos-list-mutators.c
 
-pos-list.o: pos-list.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h pos-list.h biolibc.h
+pos-list.o: pos-list.c ../local/include/xtend/mem.h pos-list.h biolibc.h
 	${CC} -c ${CFLAGS} pos-list.c
 
-sam-buff-mutators.o: sam-buff-mutators.c sam-buff.h sam.h \
-  ../local/include/xtend.h ../local/include/xtend-protos.h biolibc.h
+sam-buff-mutators.o: sam-buff-mutators.c ../local/include/xtend/string.h \
+  sam-buff.h sam.h biolibc.h
 	${CC} -c ${CFLAGS} sam-buff-mutators.c
 
-sam-buff.o: sam-buff.c ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam-buff.h sam.h biolibc.h biostring.h
+sam-buff.o: sam-buff.c ../local/include/xtend/string.h \
+  ../local/include/xtend/mem.h sam-buff.h sam.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} sam-buff.c
 
-sam-mutators.o: sam-mutators.c sam.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h biolibc.h
+sam-mutators.o: sam-mutators.c ../local/include/xtend/string.h sam.h \
+  biolibc.h
 	${CC} -c ${CFLAGS} sam-mutators.c
 
-sam.o: sam.c ../local/include/xtend.h ../local/include/xtend-protos.h \
-  sam.h biolibc.h
+sam.o: sam.c ../local/include/xtend/string.h ../local/include/xtend/dsv.h \
+  ../local/include/xtend/mem.h sam.h biolibc.h
 	${CC} -c ${CFLAGS} sam.c
 
-vcf-mutators.o: vcf-mutators.c vcf.h ../local/include/xtend.h \
-  ../local/include/xtend-protos.h sam.h biolibc.h
+vcf-mutators.o: vcf-mutators.c ../local/include/xtend/string.h vcf.h \
+  sam.h biolibc.h
 	${CC} -c ${CFLAGS} vcf-mutators.c
 
-vcf.o: vcf.c ../local/include/xtend.h ../local/include/xtend-protos.h \
-  vcf.h sam.h biolibc.h biostring.h
+vcf.o: vcf.c ../local/include/xtend/dsv.h ../local/include/xtend/string.h \
+  ../local/include/xtend/mem.h vcf.h sam.h biolibc.h biostring.h
 	${CC} -c ${CFLAGS} vcf.c
 

@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/param.h>  // MIN()
-#include <xtend.h>      // strlcpy() on Linux
+#include <xtend/string.h>      // strlcpy() on Linux
+#include <xtend/mem.h>
 #include <inttypes.h>
 #include "sam-buff.h"
 #include "biostring.h"

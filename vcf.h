@@ -2,7 +2,7 @@
 #define _vcf_h_
 
 #ifndef _xtend_h_
-#include <xtend.h>
+//#include <xtend.h>
 #endif
 
 #ifndef _sam_h_

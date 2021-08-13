@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
-#include <xtend.h>      // strlcpy() on Linux
+#include <xtend/string.h>      // strlcpy() on Linux
+#include <xtend/dsv.h>
+#include <xtend/mem.h>
 #include "sam.h"
 #include "biolibc.h"
 

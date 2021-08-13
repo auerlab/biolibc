@@ -6,7 +6,7 @@
 #endif
 
 #ifndef _xtend_h_
-#include <xtend.h>  // strlcpy() on Linux
+//#include <xtend.h>  // strlcpy() on Linux
 #endif
 
 #define BL_GFF_SCORE_MAX_DIGITS        64       // Floating point

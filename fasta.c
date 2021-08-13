@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sysexits.h>
-#include <xtend.h>
+#include <xtend/dsv.h>
+#include <xtend/mem.h>
 #include "fasta.h"
 #include "biolibc.h"
 

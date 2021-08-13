@@ -5,7 +5,8 @@
 #include <stdbool.h>
 #include <inttypes.h>   // PRIu64
 #include <sys/param.h>  // MAX(), MIN()
-#include <xtend.h>      // DSV
+#include <xtend/dsv.h>
+#include <xtend/mem.h>
 #include "bed.h"
 #include "gff.h"
 #include "biostring.h"
