@@ -70,46 +70,19 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
     /* Every record should begin with a '>' */
     if ( ch == '>' )    // Desc
     {
-	if ( record->desc_array_size == 0 )
+	ch = dsv_read_field_malloc(fasta_stream, &record->desc,
+			    &record->desc_array_size, "", &record->desc_len);
+	if ( record->desc == NULL )
 	{
-	    record->desc_array_size = 1024;
-	    record->desc = xt_malloc(record->desc_array_size, sizeof(*record->desc));
-	    if ( record->desc == NULL )
-	    {
-		fprintf(stderr, "bl_fasta_read(): Could not allocate desc.\n");
-		exit(EX_UNAVAILABLE);
-	    }
+	    fprintf(stderr, "bl_fasta_read(): Could not allocate desc.\n");
+	    exit(EX_UNAVAILABLE);
 	}
-
-	len = 0;
-	while ( ((ch = getc(fasta_stream)) != '\n') && (ch != EOF) )
-	{
-	    record->desc[len++] = ch;
-	    if ( len == record->desc_array_size )
-	    {
-		record->desc_array_size *= 2;
-		record->desc = xt_realloc(record->desc, record->desc_array_size,
-		    sizeof(*record->desc));
-		if ( record->desc == NULL )
-		{
-		    fprintf(stderr, "bl_fasta_read(): Could not reallocate desc.\n");
-		    exit(EX_UNAVAILABLE);
-		}
-	    }
-	}
-	record->desc[len] = '\0';
-	record->desc_len = len;
-
-	/* Trim array */
-	record->desc_array_size = record->desc_len + 1;
-	record->desc = xt_realloc(record->desc, record->desc_array_size,
-	    sizeof(*record->desc));
 	
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
 	if ( ch == EOF )
 	    return BL_READ_TRUNCATED;
-
+	
 	/*
 	 *  Read sequence lines
 	 */
