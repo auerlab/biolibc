@@ -259,13 +259,18 @@ int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
     
     for (c = 0; c < record->seq_len; c += max_line_len)
     {
+	// Temporarily null-terminate segment of string to be printed
 	if ( record->seq_len - c > max_line_len )
 	{
 	    save_ch = record->seq[c + max_line_len];
 	    record->seq[c + max_line_len] = '\0';
 	}
+	
+	// Print segment
 	if ( fprintf(fastq_stream, "%s\n", record->seq + c) < 0 )
 	    return BL_WRITE_FAILURE;
+
+	// Remove temporary null-termination
 	if ( record->seq_len - c > max_line_len )
 	    record->seq[c + max_line_len] = save_ch;
     }
@@ -275,13 +280,18 @@ int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
     
     for (c = 0; c < record->qual_len; c += max_line_len)
     {
+	// Temporarily null-terminate segment of string to be printed
 	if ( record->qual_len - c > max_line_len )
 	{
 	    save_ch = record->qual[c + max_line_len];
 	    record->qual[c + max_line_len] = '\0';
 	}
+
+	// Print segment
 	if ( fprintf(fastq_stream, "%s\n", record->qual + c) < 0 )
 	    return BL_WRITE_FAILURE;
+
+	// Remove temporary null-termination
 	if ( record->qual_len - c > max_line_len )
 	    record->qual[c + max_line_len] = save_ch;
     }

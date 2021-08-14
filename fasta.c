@@ -179,13 +179,18 @@ int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
     
     for (c = 0; c < record->seq_len; c += max_line_len)
     {
+	// Temporarily null-terminate segment of string to be printed
 	if ( record->seq_len - c > max_line_len )
 	{
 	    save_ch = record->seq[c + max_line_len];
 	    record->seq[c + max_line_len] = '\0';
 	}
+	
+	// Print segment
 	if ( fprintf(fasta_stream, "%s\n", record->seq + c) < 0 )
 	    return BL_WRITE_FAILURE;
+	
+	// Remove temporary null-termination
 	if ( record->seq_len - c > max_line_len )
 	    record->seq[c + max_line_len] = save_ch;
     }
