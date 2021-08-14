@@ -11,7 +11,7 @@
 
 #define BL_GFF_SCORE_MAX_DIGITS        64       // Floating point
 #define BL_GFF_SOURCE_MAX_CHARS        1024     // Guess
-#define BL_GFF_FEATURE_MAX_CHARS       1024     // Guess
+#define BL_GFF_FEATURE_MAX_CHARS       256      // Guess
 #define BL_GFF_STRAND_MAX_CHARS        2
 #define BL_GFF_LINE_MAX_CHARS          4096
 #define BL_GFF_PHASE_MAX_DIGITS        2
