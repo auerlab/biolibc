@@ -11,8 +11,8 @@
 #include <sysexits.h>
 #include <string.h>
 #include <xtend/string.h>
-#include <biolibc/fastq.h>
-#include <biolibc/biolibc.h>
+#include "fastq.h"
+#include "biolibc.h"
 
 int     main(int argc, char *argv[])
 
