@@ -88,3 +88,4 @@ typedef struct
 int bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record);
 int bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record, size_t chars_per_line);
 void bl_fastq_free(bl_fastq_t *record);
+void bl_fastq_init(bl_fastq_t *record);

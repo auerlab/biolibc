@@ -35,7 +35,8 @@ with a description line (beginning with '>'), which is then
 followed by one or more lines of sequence data.  The end of the
 sequence is marked either by the next description line or EOF.
 If desc_len and seq_len are 0 (e.g. the structure is initialized
-with BL_FASTA_INIT or has been freed with bl_fasta_free(3), then
+with BL_FASTA_INIT or bl_fasta_init(3), or has been freed with
+bl_fasta_free(3), then
 memory is allocated for the description and sequence.
 
 Otherwise, the existing allocated buffers are reused.  Hence, when

@@ -36,8 +36,8 @@ followed by one or more lines of sequence data, a separator line
 beginning with '+', and a line of quality scores.  The end of the
 sequence is marked either by the next description line or EOF.
 If desc_len and seq_len are 0 (e.g. the structure is initialized
-with BL_FASTQ_INIT or has been freed with bl_fastq_free(3), then
-memory is allocated for each line.
+with BL_FASTQ_INIT or bl_fastq_init(3), has been freed with
+bl_fastq_free(3), then memory is allocated for each line.
 
 Otherwise, the existing allocated buffers are reused.  Hence, when
 reading many FASTQ records of the same length, only one allocation

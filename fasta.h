@@ -64,3 +64,4 @@ typedef struct
 int bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record);
 int bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record, size_t chars_per_line);
 void bl_fasta_free(bl_fasta_t *record);
+void bl_fasta_init(bl_fasta_t *record);

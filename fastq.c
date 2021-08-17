@@ -19,8 +19,8 @@
  *      beginning with '+', and a line of quality scores.  The end of the
  *      sequence is marked either by the next description line or EOF.
  *      If desc_len and seq_len are 0 (e.g. the structure is initialized
- *      with BL_FASTQ_INIT or has been freed with bl_fastq_free(3), then
- *      memory is allocated for each line.
+ *      with BL_FASTQ_INIT or bl_fastq_init(3), has been freed with
+ *      bl_fastq_free(3), then memory is allocated for each line.
  *
  *      Otherwise, the existing allocated buffers are reused.  Hence, when
  *      reading many FASTQ records of the same length, only one allocation
@@ -260,46 +260,62 @@ int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
     size_t  c;
     int     save_ch;
     
-    if ( fprintf(fastq_stream, "@%s\n", record->desc) < 0 )
+    if ( fprintf(fastq_stream, "%s\n", record->desc) < 0 )
 	return BL_WRITE_FAILURE;
     
-    for (c = 0; c < record->seq_len; c += max_line_len)
+    if ( max_line_len == BL_FASTQ_LINE_UNLIMITED )
     {
-	// Temporarily null-terminate segment of string to be printed
-	if ( record->seq_len - c > max_line_len )
-	{
-	    save_ch = record->seq[c + max_line_len];
-	    record->seq[c + max_line_len] = '\0';
-	}
-	
-	// Print segment
-	if ( fprintf(fastq_stream, "%s\n", record->seq + c) < 0 )
+	if ( fprintf(fastq_stream, "%s\n", record->seq) < 0 )
 	    return BL_WRITE_FAILURE;
-
-	// Remove temporary null-termination
-	if ( record->seq_len - c > max_line_len )
-	    record->seq[c + max_line_len] = save_ch;
+    }
+    else
+    {
+	for (c = 0; c < record->seq_len; c += max_line_len)
+	{
+	    // Temporarily null-terminate segment of string to be printed
+	    if ( record->seq_len - c > max_line_len )
+	    {
+		save_ch = record->seq[c + max_line_len];
+		record->seq[c + max_line_len] = '\0';
+	    }
+	    
+	    // Print segment
+	    if ( fprintf(fastq_stream, "%s\n", record->seq + c) < 0 )
+		return BL_WRITE_FAILURE;
+    
+	    // Remove temporary null-termination
+	    if ( record->seq_len - c > max_line_len )
+		record->seq[c + max_line_len] = save_ch;
+	}
     }
     
-    if ( fprintf(fastq_stream, "+%s\n", record->plus) < 0 )
+    if ( fprintf(fastq_stream, "%s\n", record->plus) < 0 )
 	return BL_WRITE_FAILURE;
     
-    for (c = 0; c < record->qual_len; c += max_line_len)
+    if ( max_line_len == BL_FASTQ_LINE_UNLIMITED )
     {
-	// Temporarily null-terminate segment of string to be printed
-	if ( record->qual_len - c > max_line_len )
-	{
-	    save_ch = record->qual[c + max_line_len];
-	    record->qual[c + max_line_len] = '\0';
-	}
-
-	// Print segment
-	if ( fprintf(fastq_stream, "%s\n", record->qual + c) < 0 )
+	if ( fprintf(fastq_stream, "%s\n", record->qual) < 0 )
 	    return BL_WRITE_FAILURE;
-
-	// Remove temporary null-termination
-	if ( record->qual_len - c > max_line_len )
-	    record->qual[c + max_line_len] = save_ch;
+    }
+    else
+    {
+	for (c = 0; c < record->qual_len; c += max_line_len)
+	{
+	    // Temporarily null-terminate segment of string to be printed
+	    if ( record->qual_len - c > max_line_len )
+	    {
+		save_ch = record->qual[c + max_line_len];
+		record->qual[c + max_line_len] = '\0';
+	    }
+    
+	    // Print segment
+	    if ( fprintf(fastq_stream, "%s\n", record->qual + c) < 0 )
+		return BL_WRITE_FAILURE;
+    
+	    // Remove temporary null-termination
+	    if ( record->qual_len - c > max_line_len )
+		record->qual[c + max_line_len] = save_ch;
+	}
     }
     
     return BL_WRITE_OK;
@@ -308,7 +324,7 @@ int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
 
 /***************************************************************************
  *  Library:
- *      #include <biolibc/fast.h>
+ *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
  *
  *  Description:
@@ -340,6 +356,44 @@ void    bl_fastq_free(bl_fastq_t *record)
     free(record->desc);
     free(record->plus);
     free(record->qual);
+    record->desc = record->seq = record->plus = record->qual = NULL;
+    record->desc_array_size = record->seq_array_size = 
+	record->plus_array_size = record->qual_array_size = 0;
+    record->desc_len = record->seq_len = 
+	record->plus_len = record->qual_len = 0;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Initialize a bl_fastq_t structure.  This must be done before
+ *      passing it to bl_fastq_read() for the first time, so that
+ *      bl_fastq_read() will know to allocate memory for the fields.
+ *  
+ *  Arguments:
+ *      record  Pointer to the bl_fastq_t structure to initialize.
+ *
+ *  Examples:
+ *      bl_fastq_t  rec;
+ *
+ *      bl_fastq_init(&rec);
+ *      bl_fastq_read(stdin, &rec);
+ *
+ *  See also:
+ *      bl_fastq_read(3), bl_fastq_write(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-08-17  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_fastq_init(bl_fastq_t *record)
+
+{
     record->desc = record->seq = record->plus = record->qual = NULL;
     record->desc_array_size = record->seq_array_size = 
 	record->plus_array_size = record->qual_array_size = 0;

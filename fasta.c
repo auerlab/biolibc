@@ -17,7 +17,8 @@
  *      followed by one or more lines of sequence data.  The end of the
  *      sequence is marked either by the next description line or EOF.
  *      If desc_len and seq_len are 0 (e.g. the structure is initialized
- *      with BL_FASTA_INIT or has been freed with bl_fasta_free(3), then
+ *      with BL_FASTA_INIT or bl_fasta_init(3), or has been freed with
+ *      bl_fasta_free(3), then
  *      memory is allocated for the description and sequence.
  *
  *      Otherwise, the existing allocated buffers are reused.  Hence, when
@@ -175,7 +176,7 @@ int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
     size_t  c;
     int     save_ch;
     
-    if ( fprintf(fasta_stream, ">%s\n", record->desc) < 0 )
+    if ( fprintf(fasta_stream, "%s\n", record->desc) < 0 )
 	return BL_WRITE_FAILURE;
     
     for (c = 0; c < record->seq_len; c += max_line_len)
@@ -231,6 +232,42 @@ void    bl_fasta_free(bl_fasta_t *record)
 {
     free(record->seq);
     free(record->desc);
+    record->desc = record->seq = NULL;
+    record->desc_array_size = record->seq_array_size = 0;
+    record->desc_len = record->seq_len = 0;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/fasta.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Initialize a bl_fasta_t structure.  This must be done before
+ *      passing it to bl_fasta_read() for the first time, so that
+ *      bl_fasta_read() will know to allocate memory for the fields.
+ *  
+ *  Arguments:
+ *      record  Pointer to the bl_fasta_t structure to initialize.
+ *
+ *  Examples:
+ *      bl_fasta_t  rec;
+ *
+ *      bl_fasta_init(&rec);
+ *      bl_fasta_read(stdin, &rec);
+ *
+ *  See also:
+ *      bl_fasta_read(3), bl_fasta_write(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2021-08-17  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_fasta_init(bl_fasta_t *record)
+
+{
     record->desc = record->seq = NULL;
     record->desc_array_size = record->seq_array_size = 0;
     record->desc_len = record->seq_len = 0;
