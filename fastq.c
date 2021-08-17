@@ -77,6 +77,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	 *  Read description
 	 */
 
+	ungetc(ch, fastq_stream);
 	ch = dsv_read_field_malloc(fastq_stream, &record->desc,
 			    &record->desc_array_size, "", &record->desc_len);
 	if ( record->desc == NULL )

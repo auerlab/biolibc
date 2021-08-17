@@ -71,6 +71,7 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
     /* Every record should begin with a '>' */
     if ( ch == '>' )    // Desc
     {
+	ungetc(ch, fasta_stream);
 	ch = dsv_read_field_malloc(fasta_stream, &record->desc,
 			    &record->desc_array_size, "", &record->desc_len);
 	if ( record->desc == NULL )
