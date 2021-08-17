@@ -128,7 +128,11 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	record->seq[len] = '\0';
 	record->seq_len = len;
 
-	/* Trim array */
+	/* 
+	 * Trim array.  realloc() can carry a significant cost, but it does
+	 * not affect overall performance here, probably because I/O is
+	 * the major bottleneck.
+	 */
 	record->seq_array_size = record->seq_len + 1;
 	record->seq = xt_realloc(record->seq, record->seq_array_size,
 	    sizeof(*record->seq));
