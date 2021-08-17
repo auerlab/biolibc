@@ -146,6 +146,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	if ( ch != '+' )
 	    return BL_READ_BAD_DATA;
 	
+	ungetc(ch, fastq_stream);
 	ch = dsv_read_field_malloc(fastq_stream, &record->plus,
 			    &record->plus_array_size, "", &record->plus_len);
 	if ( record->plus == NULL )
