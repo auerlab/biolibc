@@ -90,6 +90,11 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	/* Every description should be followed by at least one seq line */
 	if ( ch == EOF )
 	    return BL_READ_TRUNCATED;
+	else if ( ch != '\n' )
+	{
+	    fprintf(stderr, "bl_fastq_read(): Bad data after %s\n", record->desc);
+	    return BL_READ_BAD_DATA;
+	}
 
 	/*
 	 *  Read sequence lines.  May span multiple lines so can't use
@@ -133,24 +138,30 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	 * not affect overall performance here, probably because I/O is
 	 * the major bottleneck.
 	 */
-	record->seq_array_size = record->seq_len + 1;
-	record->seq = xt_realloc(record->seq, record->seq_array_size,
-	    sizeof(*record->seq));
+	if ( record->seq_array_size != record->seq_len + 1 )
+	{
+	    record->seq_array_size = record->seq_len + 1;
+	    record->seq = xt_realloc(record->seq, record->seq_array_size,
+		sizeof(*record->seq));
+	}
 	//fprintf(stderr, "seq = %s\n", record->seq);
 
 	/* Should not encounter EOF while reading sequence lines */
 	/* Every sequence should be followed by a + separator line */
 	if ( ch == EOF )
 	    return BL_READ_TRUNCATED;
+	else if (ch != '+')
+	{
+	    fprintf(stderr, "bl_fasq_read(): Bad data after seq %s\n", record->seq);
+	    return BL_READ_BAD_DATA;
+	}
+	// Put '+' back so it's read into plus field
+	ungetc(ch, fastq_stream);
 	    
 	/*
 	 *  Read + separator
 	 */
 	
-	if ( ch != '+' )
-	    return BL_READ_BAD_DATA;
-	
-	ungetc(ch, fastq_stream);
 	ch = dsv_read_field_malloc(fastq_stream, &record->plus,
 			    &record->plus_array_size, "", &record->plus_len);
 	if ( record->plus == NULL )
@@ -163,12 +174,20 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	/* Every plus should be followed by at least one qual line */
 	if ( ch == EOF )
 	    return BL_READ_TRUNCATED;
+	else if ( ch != '\n' )
+	{
+	    fprintf(stderr, "bl_fasq_read(): Bad data after plus %s\n",
+		    record->plus);
+	    return BL_READ_BAD_DATA;
+	}
 
 	/*
 	 *  Read quality string.  May span multiple lines so can't use
 	 *  dsv_read_field_malloc().
 	 */
-	
+
+	// FIXME: This could be problematic with bad data where qual len
+	// doesn't match seq len
 	if ( record->qual_array_size == 0 )
 	{
 	    // Must match sequence len and no need to trim
@@ -200,17 +219,22 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		    }
 		}
 	    }
-	    if ( ch == EOF )
-		return BL_READ_TRUNCATED;
-	    
 	}   while ( ((ch = getc(fastq_stream)) != '@') && (ch != EOF) );
 	record->qual[len] = '\0';
 	record->qual_len = len;
 	//fprintf(stderr, "qual = %s\n", record->qual);
 	// No need to trim since qual must be the same size as seq
 
-	if ( ch == '@' )
-	    ungetc(ch, fastq_stream);
+	if ( ch == EOF )
+	    return BL_READ_TRUNCATED;
+	else if ( ch != '@' )
+	{
+	    fprintf(stderr, "bl_fasq_read(): Bad data after plus %s\n",
+		    record->plus);
+	    return BL_READ_BAD_DATA;
+	}
+	// Put '@' back so it's read into next desc
+	ungetc(ch, fastq_stream);
 
 	return BL_READ_OK;
     }
