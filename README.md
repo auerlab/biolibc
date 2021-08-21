@@ -22,6 +22,9 @@ Structures are treated as classes, with accessor and mutator functions
 structure members directly.  Since the C language cannot enforce this, it's
 up to application programmers to exercise self-discipline.
 
+For detailed coding standards, see
+https://github.com/outpaddling/Coding-Standards/.
+
 ## Building and installing
 
 biolibc is intended to build cleanly in any POSIX environment on
