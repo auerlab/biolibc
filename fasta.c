@@ -92,7 +92,9 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	
 	if ( record->seq_array_size == 0 )
 	{
-	    record->seq_array_size = 1024;
+	    // 128 MiB will hold many chromosomes and minimize reallocs
+	    record->seq_array_size = 128 * 1024 * 1024;
+	    //fprintf(stderr, "Allocating initial array of %zu\n", record->seq_array_size);
 	    record->seq = xt_malloc(record->seq_array_size, sizeof(*record->seq));
 	    if ( record->seq == NULL )
 	    {
@@ -106,9 +108,10 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	{
 	    if ( ch != '\n' )
 		record->seq[len++] = ch;
-	    if ( len == record->seq_array_size )
+	    if ( len == record->seq_array_size - 1 )
 	    {
 		record->seq_array_size *= 2;
+		//fprintf(stderr, "Reallocating to %zu\n", record->seq_array_size);
 		record->seq = xt_realloc(record->seq, record->seq_array_size,
 		    sizeof(*record->seq));
 		if ( record->seq == NULL )
@@ -122,10 +125,12 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	record->seq_len = len;
 
 	/* Trim array */
-	record->seq_array_size = record->seq_len + 1;
-	record->seq = xt_realloc(record->seq, record->seq_array_size,
-	    sizeof(*record->desc));
-
+	if ( record->seq_array_size != record->seq_len + 1 )
+	{
+	    record->seq_array_size = record->seq_len + 1;
+	    record->seq = xt_realloc(record->seq, record->seq_array_size,
+		sizeof(*record->desc));
+	}
 	if ( ch == '>' )
 	    ungetc(ch, fasta_stream);
 	return BL_READ_OK;

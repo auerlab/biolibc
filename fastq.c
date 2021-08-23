@@ -103,6 +103,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	
 	if ( record->seq_array_size == 0 )
 	{
+	    // Easily hold a short read sequence and minimize reallocs for long
 	    record->seq_array_size = 1024;
 	    record->seq = xt_malloc(record->seq_array_size,
 				    sizeof(*record->seq));
@@ -118,9 +119,9 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	{
 	    if ( ch != '\n' )
 		record->seq[len++] = ch;
-	    if ( len == record->seq_array_size )
+	    if ( len == record->seq_array_size - 1 )
 	    {
-		record->seq_array_size += 1024;
+		record->seq_array_size *= 2;
 		record->seq = xt_realloc(record->seq, record->seq_array_size,
 		    sizeof(*record->seq));
 		if ( record->seq == NULL )
@@ -207,9 +208,9 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
 	    {
 		record->qual[len++] = ch;
-		if ( len == record->qual_array_size )
+		if ( len == record->qual_array_size - 1 )
 		{
-		    record->qual_array_size += 1024;
+		    record->qual_array_size *= 2;
 		    record->qual = xt_realloc(record->qual, record->qual_array_size,
 			sizeof(*record->qual));
 		    if ( record->qual == NULL )
