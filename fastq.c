@@ -63,8 +63,8 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
     size_t  len;
     
     /* Skip comment lines */
-    while ( (ch = getc(fastq_stream)) == ';' )
-	while ( getc(fastq_stream) != '\n' )
+    while ( ((ch = getc(fastq_stream)) == ';') && (ch != EOF) )
+	while ( ((ch = getc(fastq_stream)) != '\n') && (ch != EOF) )
 	    ;
     
     if ( ch == EOF )

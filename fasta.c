@@ -62,8 +62,8 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
     size_t  len;
     
     /* Skip comment lines */
-    while ( (ch = getc(fasta_stream)) == ';' )
-	while ( getc(fasta_stream) != '\n' )
+    while ( ((ch = getc(fasta_stream)) == ';') && (ch != EOF) )
+	while ( ((ch = getc(fasta_stream)) != '\n') && (ch != EOF) )
 	    ;
     
     if ( ch == EOF )

@@ -25,6 +25,9 @@ fastq.o: fastq.c ../local/include/xtend/dsv.h \
   ../local/include/xtend/mem.h fastq.h biolibc.h
 	${CC} -c ${CFLAGS} fastq.c
 
+fastx.o: fastx.c fastx.h fasta.h biolibc.h fastq.h
+	${CC} -c ${CFLAGS} fastx.c
+
 gff-mutators.o: gff-mutators.c ../local/include/xtend/string.h gff.h \
   biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff-mutators.c
