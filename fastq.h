@@ -20,6 +20,8 @@ typedef struct
 }   bl_fastq_t;
 
 #define BL_FASTQ_INIT           { NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0 }
+
+// Must be same as BL_FASTA_LINE_UNLIMITED
 #define BL_FASTQ_LINE_UNLIMITED 0
 
 /*

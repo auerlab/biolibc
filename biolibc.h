@@ -21,6 +21,7 @@
 #define BL_READ_EXTRA_COLS      -5
 #define BL_READ_MISMATCH        -6
 #define BL_READ_BAD_DATA        -7
+#define BL_READ_UNKNOWN_FORMAT  -8
 
 #define BL_WRITE_OK             0
 #define BL_WRITE_FAILURE        -1
