@@ -8,8 +8,8 @@ processing biological data.
 Like libc, it consists of numerous disparate, general-purpose functions which
 could be used by a wide variety of applications.
 
-These include functions for streaming common file formats such as SAM and
-VCF, string functions specific to bioinformatics, etc.
+These include functions for streaming common file formats such as BED, GFF,
+FASTA, FASTQ, SAM and VCF, string functions specific to bioinformatics, etc.
 
 ## Design and Implementation
 
