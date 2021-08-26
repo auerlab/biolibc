@@ -58,7 +58,8 @@
 int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 
 {
-    int     ch;
+    int     ch,
+	    last_ch;
     size_t  len;
     
     /* Skip comment lines */
@@ -84,7 +85,11 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
 	if ( ch == EOF )
+	{
+	    fprintf(stderr, "bl_fasta_read(): Record truncated in desc %s.\n",
+		    record->desc);
 	    return BL_READ_TRUNCATED;
+	}
 	
 	/*
 	 *  Read sequence lines
@@ -111,7 +116,6 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 	    if ( len == record->seq_array_size - 1 )
 	    {
 		record->seq_array_size *= 2;
-		//fprintf(stderr, "Reallocating to %zu\n", record->seq_array_size);
 		record->seq = xt_realloc(record->seq, record->seq_array_size,
 		    sizeof(*record->seq));
 		if ( record->seq == NULL )
@@ -120,9 +124,14 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
 		    exit(EX_UNAVAILABLE);
 		}
 	    }
+	    last_ch = ch;
 	}   while ( ((ch = getc(fasta_stream)) != '>') && (ch != EOF) );
 	record->seq[len] = '\0';
 	record->seq_len = len;
+	
+	if ( last_ch != '\n' )
+	    fprintf(stderr, "bl_fasta_read(): Missing newline at end of seq %s.\n",
+		    record->seq);
 
 	/* Trim array */
 	if ( record->seq_array_size != record->seq_len + 1 )

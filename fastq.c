@@ -59,7 +59,8 @@
 int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 
 {
-    int     ch;
+    int     ch,
+	    last_ch;
     size_t  len;
     
     /* Skip comment lines */
@@ -89,10 +90,14 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	/* Should not encounter EOF while reading description line */
 	/* Every description should be followed by at least one seq line */
 	if ( ch == EOF )
+	{
+	    fprintf(stderr, "bl_fastq_read(): Record truncated in desc %s.\n",
+		    record->desc);
 	    return BL_READ_TRUNCATED;
+	}
 	else if ( ch != '\n' )
 	{
-	    fprintf(stderr, "bl_fastq_read(): Bad data after %s\n", record->desc);
+	    fprintf(stderr, "bl_fastq_read(): Bad data after desc %s\n", record->desc);
 	    return BL_READ_BAD_DATA;
 	}
 
@@ -130,9 +135,14 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		    exit(EX_UNAVAILABLE);
 		}
 	    }
+	    last_ch = ch;
 	}   while ( ((ch = getc(fastq_stream)) != '+') && (ch != EOF) );
 	record->seq[len] = '\0';
 	record->seq_len = len;
+
+	if ( last_ch != '\n' )
+	    fprintf(stderr, "bl_fasta_read(): Missing newline at end of qual %s.\n",
+		    record->qual);
 
 	/* 
 	 * Trim array.  realloc() can carry a significant cost, but it does
@@ -145,12 +155,15 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	    record->seq = xt_realloc(record->seq, record->seq_array_size,
 		sizeof(*record->seq));
 	}
-	//fprintf(stderr, "seq = %s\n", record->seq);
 
 	/* Should not encounter EOF while reading sequence lines */
 	/* Every sequence should be followed by a + separator line */
 	if ( ch == EOF )
+	{
+	    fprintf(stderr, "bl_fastq_read(): Record truncated in seq %s.\n",
+		    record->seq);
 	    return BL_READ_TRUNCATED;
+	}
 	else if (ch != '+')
 	{
 	    fprintf(stderr, "bl_fasq_read(): Bad data after seq %s\n", record->seq);
@@ -174,7 +187,11 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 	/* Should not encounter EOF while reading plus line */
 	/* Every plus should be followed by at least one qual line */
 	if ( ch == EOF )
+	{
+	    fprintf(stderr, "bl_fastq_read(): Record truncated in plus %s.\n",
+		    record->plus);
 	    return BL_READ_TRUNCATED;
+	}
 	else if ( ch != '\n' )
 	{
 	    fprintf(stderr, "bl_fasq_read(): Bad data after plus %s\n",
@@ -220,22 +237,23 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
 		    }
 		}
 	    }
+	    last_ch = ch;
 	}   while ( ((ch = getc(fastq_stream)) != '@') && (ch != EOF) );
 	record->qual[len] = '\0';
 	record->qual_len = len;
-	//fprintf(stderr, "qual = %s\n", record->qual);
-	// No need to trim since qual must be the same size as seq
+	
+	if ( last_ch != '\n' )
+	    fprintf(stderr, "bl_fasta_read(): Missing newline at end of qual %s.\n",
+		    record->qual);
 
-	if ( ch == EOF )
-	    return BL_READ_TRUNCATED;
-	else if ( ch != '@' )
-	{
-	    fprintf(stderr, "bl_fasq_read(): Bad data after plus %s\n",
-		    record->plus);
-	    return BL_READ_BAD_DATA;
-	}
+	/*
+	 *  This is where EOF should occur since we read past newlines
+	 *  No need to trim since qual must be the same size as seq
+	 */
+
 	// Put '@' back so it's read into next desc
-	ungetc(ch, fastq_stream);
+	if ( ch == '@' )
+	    ungetc(ch, fastq_stream);
 
 	return BL_READ_OK;
     }
