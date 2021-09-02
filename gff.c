@@ -382,9 +382,9 @@ void    bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
     snprintf(name, BL_BED_NAME_MAX_CHARS + 1, "%s", BL_GFF_FEATURE(gff_feature));
     BL_BED_SET_NAME_CPY(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
     BL_BED_SET_SCORE(bed_feature, 0);  // FIXME: Take as arg?
-    if ( BL_BED_SET_STRAND(bed_feature, strand) != BL_DATA_OK )
+    if ( bl_bed_set_strand(bed_feature, strand) != BL_DATA_OK )
     {
-	fputs("bl_gff_to_bed().\n", stderr);
+	fputs("bl_gff_to_bed(): bl_bed_set_strand() failed.\n", stderr);
 	exit(EX_DATAERR);
     }
 }
