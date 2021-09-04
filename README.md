@@ -2,14 +2,23 @@
 
 ## Description
 
-Biolibc is a library of fast, memory-efficient, low-level functions for
-processing biological data.
+Biolibc is a library of fast, memory-efficient functions for processing
+biological data.
 
 Like libc, it consists of numerous disparate, general-purpose functions which
 could be used by a wide variety of applications.
 
 These include functions for streaming common file formats such as BED, GFF,
 FASTA, FASTQ, SAM and VCF, string functions specific to bioinformatics, etc.
+
+Biolibc allows you to code in C at a higher level by providing the basic
+building blocks and additional software layers commonly needed in
+bioinformatics programming.  Using C and biolibc, you can write near-optimal,
+simple programs that are orders of magnitude faster than scripting
+languages such as Perl, Python, and R, with about the same effort.  See the
+[Research Computing User's Guide](https://acadix.biz/publications.php)
+under "Programming for Performance" -> "Software Development" ->
+"Language Selection" -> "Compiled vs Interpreted Languages".
 
 ## Design and Implementation
 
