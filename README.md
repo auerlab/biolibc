@@ -14,10 +14,11 @@ FASTA, FASTQ, SAM and VCF, string functions specific to bioinformatics, etc.
 Biolibc allows you to code in C at a higher level by providing the basic
 building blocks and additional software layers commonly needed in
 bioinformatics programming.  Using C and biolibc, you can write simple,
-near-optimal, C programs that may be orders of magnitude faster than scripting
-languages such as Perl, Python, and R, with about the same effort.
+near-optimal C programs that may be orders of magnitude faster than scripting
+languages such as Perl, Python, and R, while requiring about the same effort.
 [fastx-derep.c](https://github.com/auerlab/biolibc-tools/blob/main/fastx-derep.c)
-offers a good example.
+offers a good example of how the right libraries eliminate the need for
+low-level programming in C.
 
 See the
 [Research Computing User's Guide](https://acadix.biz/publications.php)
