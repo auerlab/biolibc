@@ -23,7 +23,8 @@ low-level programming in C.
 See the
 [Research Computing User's Guide](https://acadix.biz/publications.php)
 under "Programming for Performance" -> "Software Development" ->
-"Language Selection" -> "Compiled vs Interpreted Languages".
+"Language Selection" -> "Compiled vs Interpreted Languages" for a basic
+comparison of language performance.
 
 ## Design and Implementation
 
