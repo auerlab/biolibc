@@ -188,7 +188,7 @@ int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
 
 {
     size_t  c;
-    int     save_ch;
+    int     save_ch = ' ';  // Silence false uninit warning on CentOS
     
     if ( fprintf(fasta_stream, "%s\n", record->desc) < 0 )
 	return BL_WRITE_FAILURE;

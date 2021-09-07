@@ -301,7 +301,7 @@ int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
 
 {
     size_t  c;
-    int     save_ch;
+    int     save_ch = ' ';  // Silence false uninit warning on CentOS
     
     if ( fprintf(fastq_stream, "%s\n", record->desc) < 0 )
 	return BL_WRITE_FAILURE;
