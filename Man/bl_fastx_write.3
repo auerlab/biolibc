@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/fasta.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_fastx_write(FILE *fastx_stream, bl_fastx_t *record,
 size_t max_line_len)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -40,6 +32,10 @@ or other means.  Previously used
 variables may be reused to process another record in the same
 format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);
 See bl_fasta_write(3) and bl_fastq_write(3) for further details.
+
+.SH RETURN VALUES
+
+BL_WRITE_OK upon success, BL_WRITE_FAILURE if a write error occurs.
 
 .SH EXAMPLES
 .nf

@@ -3,28 +3,20 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_call:   Pointer to bl_vcf_t structure containing VCF call
-sam_alignment:  Pointer to bl_sam_t structure containing alignment
+vcf_call    Pointer to bl_vcf_t structure containing VCF call
+sam_alignment   Pointer to bl_sam_t structure containing alignment
 .ad
 .fi
 
@@ -33,6 +25,11 @@ sam_alignment:  Pointer to bl_sam_t structure containing alignment
 Determine if a VCF call is within a SAM alignment, i.e. on the
 same chrom and between the start and end positions of the
 alignment.
+
+.SH RETURN VALUES
+
+true if the call is within the alignment
+false otherwise
 
 .SH SEE ALSO
 

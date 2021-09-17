@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/gff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
 gff_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-gff_stream:     A FILE stream from which to read the line
-gff_feature:    Pointer to a bl_gff_t structure
-field_mask:     Bit mask indicating which fields to store in gff_feature
+gff_stream      A FILE stream from which to read the line
+gff_feature     Pointer to a bl_gff_t structure
+field_mask      Bit mask indicating which fields to store in gff_feature
 .ad
 .fi
 
@@ -42,13 +34,19 @@ marker, such as '.'.  Possible mask values are:
 BL_GFF_FIELD_ALL
 BL_GFF_FIELD_SEQUENCE
 BL_GFF_FIELD_SOURCE
-BL_GFF_FIELD_NAME
-BL_GFF_FIELD_CHROM_START
-BL_GFF_FIELD_CHROM_END
+BL_GFF_FIELD_FEATURE
+BL_GFF_FIELD_START
+BL_GFF_FIELD_END
 BL_GFF_FIELD_SCORE
 BL_GFF_FIELD_STRAND
 BL_GFF_FIELD_PHASE
 BL_GFF_FIELD_ATTRIBUTES
+
+.SH RETURN VALUES
+
+BL_READ_OK on successful read
+BL_READ_EOF if EOF is encountered after a complete feature
+BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
 
 .SH EXAMPLES
 .nf
@@ -56,7 +54,7 @@ BL_GFF_FIELD_ATTRIBUTES
 
 bl_gff_read(stdin, &gff_feature, BL_GFF_FIELD_ALL);
 bl_gff_read(gff_stream, &gff_feature,
-BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_CHROM_START|BL_GFF_FIELD_CHROM_END);
+                 BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi
 

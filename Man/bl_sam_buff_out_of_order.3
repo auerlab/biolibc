@@ -3,34 +3,30 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/sam-buff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_buff:   Pointer to bl_sam_buff_t structure
-sam_alignment:  Offending alignment out of order with previous
+sam_buff        Pointer to bl_sam_buff_t structure
+sam_alignment   Offending alignment out of order with previous
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Report SAM input sort error and terminate process.
+
+.SH RETURN VALUES
+
+Does not return.
 
 .SH SEE ALSO
 

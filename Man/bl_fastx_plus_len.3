@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/fastx.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 size_t  bl_fastx_plus_len(bl_fastx_t *record)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -36,6 +28,10 @@ if the fastx stream is FASTA, a warning is generated and 0
 is returned.  Previously used
 variables may be reused to process another record in the same
 format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);
+
+.SH RETURN VALUES
+
+Length of the + string
 
 .SH EXAMPLES
 .nf

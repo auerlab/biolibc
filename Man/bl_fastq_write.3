@@ -3,23 +3,15 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/fastq.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
 size_t max_line_len)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -35,6 +27,10 @@ max_line_len    Maximum length of a sequence line in output
 Write a FASTQ record to the specified FILE stream, writing at most
 max_line_len sequence characters per line.  The special value
 BL_FASTQ_LINE_UNLIMITED indicates no line length limit.
+
+.SH RETURN VALUES
+
+BL_WRITE_OK upon success, BL_WRITE_FAILURE if a write error occurs.
 
 .SH EXAMPLES
 .nf

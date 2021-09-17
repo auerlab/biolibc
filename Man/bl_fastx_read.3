@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/fastx.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_fastx_read(FILE *fastx_stream, bl_fastx_t *record)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -35,6 +27,12 @@ bl_read_fasta(3) or bl_read_fastq(3).  The bl_fastx_t structure
 must first be initialized by assigning it BL_FASTX_INIT and
 calling bl_fastx_init(3).
 See bl_fasta_read(3) and bl_fastq_read(3) for further details.
+
+.SH RETURN VALUES
+
+BL_READ_OK upon successful read of description and sequence
+BL_READ_BAD_DATA if something is amiss with input format
+BL_READ_EOF if no more data are available
 
 .SH EXAMPLES
 .nf

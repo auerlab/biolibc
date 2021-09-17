@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/bed.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
 bed_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_stream:     FILE stream to which TSV bed line is written
-bed_feature:    Pointer to the bl_bed_t structure to output
-field_mask:     Bit mask indicating which fields to output
+bed_stream      FILE stream to which TSV bed line is written
+bed_feature     Pointer to the bl_bed_t structure to output
+field_mask      Bit mask indicating which fields to output
 .ad
 .fi
 
@@ -55,13 +47,18 @@ selects both of them.  Likewise, blockCount, blockSizes and
 blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
 masks all three.
 
+.SH RETURN VALUES
+
+BL_WRITE_OK on success
+BL_WRITE_ERROR on failure (errno may provide more information)
+
 .SH EXAMPLES
 .nf
 .na
 
 bl_bed_write(stdout, &bed_feature, BL_BED_FIELD_ALL);
 bl_bed_write(bed_stream, &bed_feature,
-BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
+                  BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
 .ad
 .fi
 

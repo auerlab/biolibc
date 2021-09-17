@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/bed.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
 bed_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_stream:     A FILE stream from which to read the line
-bed_feature:    Pointer to a bl_bed_t structure
-field_mask:     Bit mask indicating which fields to store in bed_feature
+bed_stream      A FILE stream from which to read the line
+bed_feature     Pointer to a bl_bed_t structure
+field_mask      Bit mask indicating which fields to store in bed_feature
 .ad
 .fi
 
@@ -56,13 +48,19 @@ selects both of them.  Likewise, blockCount, blockSizes and
 blockStarts must all be present or omitted, so BL_BED_FIELD_BLOCK
 masks all three.
 
+.SH RETURN VALUES
+
+BL_READ_OK on successful read
+BL_READ_EOF if EOF is encountered at the start of a line
+BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
+
 .SH EXAMPLES
 .nf
 .na
 
 bl_bed_read(stdin, &bed_feature, BL_BED_FIELD_ALL);
 bl_bed_read(bed_stream, &bed_feature,
-BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
+                 BL_BED_FIELD_NAME|BL_BED_FIELD_SCORE);
 .ad
 .fi
 

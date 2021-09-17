@@ -3,28 +3,20 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/sam-buff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_buff:   Pointer to the bl_sam_buff_t structure holding alignments
-c:          Index of the alignment to be freed (0-based)
+sam_buff    Pointer to the bl_sam_buff_t structure holding alignments
+c           Index of the alignment to be freed (0-based)
 .ad
 .fi
 

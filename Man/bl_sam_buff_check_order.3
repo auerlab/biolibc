@@ -3,29 +3,21 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/sam-buff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
 bl_sam_t *sam_alignment)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_buff:       Pointer to a SAM buffer with recent alignments
-sam_alignment:  Pointer to the most recently read alignment
+sam_buff        Pointer to a SAM buffer with recent alignments
+sam_alignment   Pointer to the most recently read alignment
 .ad
 .fi
 

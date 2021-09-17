@@ -3,22 +3,14 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/fastq.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -47,6 +39,12 @@ after reading is complete.
 
 Buffer memory should be freed as soon as possible by calling
 bl_fastq_free(3).
+
+.SH RETURN VALUES
+
+BL_READ_OK upon successful read of description and sequence
+BL_READ_BAD_DATA if something is amiss with input format
+BL_READ_EOF if no more data are available
 
 .SH EXAMPLES
 .nf

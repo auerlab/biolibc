@@ -3,36 +3,32 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_vcf_call_out_of_order(bl_vcf_t *vcf_call,
-char *previous_chrom, size_t previous_pos)
-.ad
-.fi
+char *previous_chrom, uint64_t previous_pos)
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_call:   Pointer to bl_vcf_t structure with latest call
-previous_chrom:    Chromosome of previous VCF call
-previous_pos:           Position of previous VCF call
+vcf_call        Pointer to bl_vcf_t structure with latest call
+previous_chrom  Chromosome of previous VCF call
+previous_pos    Position of previous VCF call
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Report VCF input sort error and terminate the process.
+
+.SH RETURN VALUES
+
+Does not return
 
 .SH SEE ALSO
 

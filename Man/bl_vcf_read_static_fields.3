@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
 vcf_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_stream: FILE stream for VCF input
-vcf_call:   Pointer to bl_vcf_t structure to receive fields
-field_mask: Bit mask indicating which fields should be stored
+vcf_stream  FILE stream for VCF input
+vcf_call    Pointer to bl_vcf_t structure to receive fields
+field_mask  Bit mask indicating which fields should be stored
 .ad
 .fi
 
@@ -51,6 +43,12 @@ BL_VCF_FIELD_FILTER
 BL_VCF_FIELD_INFO
 BL_VCF_FIELD_FORMAT
 
+.SH RETURN VALUES
+
+BL_READ_OK upon success
+BL_READ_TRUNCATED if EOF is encountered while reading a call
+BL_READ_EOF if EOF is encountered between calls as it should be
+
 .SH EXAMPLES
 .nf
 .na
@@ -63,7 +61,7 @@ size_t      len;
 bl_vcf_read_static_fields(stream, &vcf_call, BL_VCF_FIELD_ALL);
 while ( tsv_read_field(stream, sample_data, MAX_CHARS, &len) != 'n' )
 {
-...
+    ...
 }
 .ad
 .fi

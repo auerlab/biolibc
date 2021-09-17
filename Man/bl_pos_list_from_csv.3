@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/pos-list.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
 size_t array_size)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-pos_list:   Pointer to the bl_pos_list_t to receive the list
-list_str:   Character string containing comma-separated list of positions
-array_size: Initial array size
+pos_list    Pointer to the bl_pos_list_t to receive the list
+list_str    Character string containing comma-separated list of positions
+array_size  Initial array size
 .ad
 .fi
 
@@ -36,6 +28,10 @@ Convert a comma-separated list of positions to a bl_pos_list_t list.
 The array_size argument should be your best guess at the final size
 of the list.  Choosing a large enough value is not critical since
 it will be extended by bl_pos_list_add_position() if needed.
+
+.SH RETURN VALUES
+
+The number of positions added to the list
 
 .SH SEE ALSO
 

@@ -3,28 +3,20 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/sam-buff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_buff:   Pointer to a the bl_sam_buff_t structure to initialize
-mapq_min:   User-selected minimum MAPQ value
+sam_buff    Pointer to a the bl_sam_buff_t structure to initialize
+mapq_min    User-selected minimum MAPQ value
 .ad
 .fi
 

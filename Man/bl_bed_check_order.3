@@ -3,37 +3,32 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/bed.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
 uint64_t last_start)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-bed_feature:    Pointer to the BED structure containing the current
-entry
-last_chrom:     Chromosome of the previous BED entry
-last_start:     Start position of the previous BED entry
+bed_feature     Pointer to BED structure containing current entry
+last_chrom      Chromosome of the previous BED entry
+last_start      Start position of the previous BED entry
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Make sure the BED input is sorted by chrom and start position.
+
+.SH RETURN VALUES
+
+Nothing: Terminates process if input is out of order
 
 .SH SEE ALSO
 

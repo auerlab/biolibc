@@ -3,31 +3,23 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 size_t first_col, size_t last_col)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_stream: FILE pointer to the VCF input stream
-sample_ids: Array if character pointers to receive sample IDs
-first_col:  First column from which a sample ID should be saved
-last_col:   Last column from which a sample ID should be saved
+vcf_stream  FILE pointer to the VCF input stream
+sample_ids  Array if character pointers to receive sample IDs
+first_col   First column from which a sample ID should be saved
+last_col    Last column from which a sample ID should be saved
 .ad
 .fi
 

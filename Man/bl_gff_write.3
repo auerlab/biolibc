@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/gff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
 gff_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-gff_stream:     FILE stream to which TSV gff line is written
-gff_feature:    Pointer to the bl_gff_t structure to output
-field_mask:     Bit mask indicating which fields to output
+gff_stream      FILE stream to which TSV gff line is written
+gff_feature     Pointer to the bl_gff_t structure to output
+field_mask      Bit mask indicating which fields to output
 .ad
 .fi
 
@@ -43,13 +35,18 @@ Possible mask values are:
 BL_GFF_FIELD_ALL
 BL_GFF_FIELD_SEQUENCE
 BL_GFF_FIELD_SOURCE
-BL_GFF_FIELD_NAME
-BL_GFF_FIELD_CHROM_START
-BL_GFF_FIELD_CHROM_END
+BL_GFF_FIELD_FEATURE
+BL_GFF_FIELD_START
+BL_GFF_FIELD_END
 BL_GFF_FIELD_SCORE
 BL_GFF_FIELD_STRAND
 BL_GFF_FIELD_PHASE
 BL_GFF_FIELD_ATTRIBUTES
+
+.SH RETURN VALUES
+
+BL_WRITE_OK on success
+BL_WRITE_ERROR on failure (errno may provide more information)
 
 .SH EXAMPLES
 .nf
@@ -57,7 +54,7 @@ BL_GFF_FIELD_ATTRIBUTES
 
 bl_gff_write(stdout, &gff_feature, BL_GFF_FIELD_ALL);
 bl_gff_write(gff_stream, &gff_feature,
-BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_CHROM_START|BL_GFF_FIELD_CHROM_END);
+                  BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi
 

@@ -3,37 +3,33 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/overlap.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_overlap_print(FILE *stream, bl_overlap_t *overlap,
 char *feature1_name, char *feature2_name)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-stream:     FILE stream to which data are printed (e.g. stderr)
-overlap:    Address of a bl_overlap_t structure
-feature1_name:    Name of field 1 to print with data
-feature2_name:    Name of field 2 to print with data
+stream      FILE stream to which data are printed (e.g. stderr)
+overlap     Address of a bl_overlap_t structure
+feature1_name     Name of field 1 to print with data
+feature2_name     Name of field 2 to print with data
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Print all fields in a bl_overlap_t structure for debugging.
+
+.SH RETURN VALUES
+
+Return status from fprintf(3)
 
 .SH SEE ALSO
 

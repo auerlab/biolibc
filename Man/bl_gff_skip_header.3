@@ -3,27 +3,19 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/gff.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 FILE    *bl_gff_skip_header(FILE *gff_stream)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-gff_stream: FILE pointer to the open GFF file
+gff_stream  FILE pointer to the open GFF file
 .ad
 .fi
 
@@ -33,6 +25,10 @@ Skip over header lines in gff input stream.  The FILE pointer
 gff_stream is advanced to the first character of the first line
 after the header.  The header is copied to a temporary file and and
 the function returns a FILE pointer to the header stream.
+
+.SH RETURN VALUES
+
+A FILE pointer to a temporary file containing a copy of the header
 
 .SH SEE ALSO
 

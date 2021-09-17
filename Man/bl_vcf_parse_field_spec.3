@@ -3,33 +3,29 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-spec:   Character string containing comma-separated field list
+spec    Character string containing comma-separated field list
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Convert a comma-separated list of VCF fields to a field bit mask
+
+.SH RETURN VALUES
+
+A vcf_field_mask_t value with bits set for specified fields
 
 .SH SEE ALSO
 

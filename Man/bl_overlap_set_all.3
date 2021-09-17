@@ -3,32 +3,24 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/overlap.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_overlap_set_all(bl_overlap_t *overlap,
 uint64_t feature1_len, uint64_t feature2_len,
 uint64_t overlap_start, uint64_t overlap_end)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-feature1_len:     Length of feature 1
-feature2_len:     Length of feature 2
-overlap_start:   Start position of overlap relative to start of feature 1
-overlap_end:     End position of overlap relative to start of feature 1
+feature1_len      Length of feature 1
+feature2_len      Length of feature 2
+overlap_start    Start position of overlap relative to start of feature 1
+overlap_end      End position of overlap relative to start of feature 1
 .ad
 .fi
 
@@ -39,19 +31,24 @@ positions are 1-based regardless of the feature type.  (BED file
 positions are 0-based and must be adjusted before passed to this
 function.)
 
+.SH RETURN VALUES
+
+BL_DATA_OK upon success.
+BL_DATA_INVALID is arguments don't make sense.
+
 .SH EXAMPLES
 .nf
 .na
 
-bed_start = BL_BED_CHROM_START(bed_feature);
-bed_end = BL_BED_CHROM_END(bed_feature);
-gff_start = BL_GFF_CHROM_START(gff_feature);
-gff_end = BL_GFF_CHROM_END(gff_feature);
-bed_len = bed_end - bed_start;
-gff_len = gff_end - gff_start + 1;
-bl_overlap_set_all(overlap, bed_len, gff_len,
-MAX(bed_start+1, gff_start),
-MIN(bed_end, gff_end));
+    bed_start = BL_BED_CHROM_START(bed_feature);
+    bed_end = BL_BED_CHROM_END(bed_feature);
+    gff_start = BL_GFF_CHROM_START(gff_feature);
+    gff_end = BL_GFF_CHROM_END(gff_feature);
+    bed_len = bed_end - bed_start;
+    gff_len = gff_end - gff_start + 1;
+    bl_overlap_set_all(overlap, bed_len, gff_len,
+                    MAX(bed_start+1, gff_start),
+                    MIN(bed_end, gff_end));
 .ad
 .fi
 

@@ -3,31 +3,23 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 void    bl_vcf_init(bl_vcf_t *vcf_call,
 size_t info_max, size_t format_max, size_t sample_max)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_call:   Pointer to the bl_vcf_t structure to initialize
-info_max:   Maximum size of INFO field in bytes
-format_max: Maximum size of FORMAT field in bytes
-sample_max: Maxixum size of SAMPLE field in bytes
+vcf_call    Pointer to the bl_vcf_t structure to initialize
+info_max    Maximum size of INFO field in bytes
+format_max  Maximum size of FORMAT field in bytes
+sample_max  Maxixum size of SAMPLE field in bytes
 .ad
 .fi
 

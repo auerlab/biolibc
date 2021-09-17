@@ -3,27 +3,19 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/biolibc.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_chrom_name_cmp(const char *name1, const char *name2)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-name1, name2:   Names of two chroms
+name1, name2    Names of two chroms
 .ad
 .fi
 
@@ -40,6 +32,12 @@ numbers, they are converted to integers and compared numerically.
 Use bl_chrom_name_cmp() only if you need to know which string is
 < or >.  If only checking for equality/inequality, strcmp() will be
 faster.
+
+.SH RETURN VALUES
+
+A value < 1 if name1 is numerically < name2
+A value > 1 if name1 is numerically > name2
+0 if name1 == name2
 
 .SH SEE ALSO
 

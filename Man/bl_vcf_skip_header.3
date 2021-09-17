@@ -3,27 +3,19 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/vcf.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 FILE    *bl_vcf_skip_header(FILE *vcf_stream)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-vcf_stream: FILE pointer of VCF stream to be read
+vcf_stream  FILE pointer of VCF stream to be read
 .ad
 .fi
 
@@ -35,6 +27,10 @@ or the first character of the header line starting with #CHROM if
 one is present.  The header line is typically read using
 bl_vcf_get_sample_ids(3). The skipped header is copied to a temporary
 file whose FILE pointer is returned.
+
+.SH RETURN VALUES
+
+A FILE pointer to the temporary file with a copy of the header
 
 .SH SEE ALSO
 

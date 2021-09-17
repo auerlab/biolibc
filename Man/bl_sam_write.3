@@ -3,30 +3,22 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
-.nf
-.na
 #include <biolibc/sam.h>
 -lbiolibc -lxtend
-.ad
-.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_sam_write(FILE *sam_stream, bl_sam_t *sam_alignment,
 sam_field_mask_t field_mask)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
 .na
-sam_stream:     A FILE stream to which to write the line
-sam_alignment:  Pointer to a bl_sam_t structure
-field_mask:     Bit mask indicating which fields to store in sam_alignment
+sam_stream      A FILE stream to which to write the line
+sam_alignment   Pointer to a bl_sam_t structure
+field_mask      Bit mask indicating which fields to store in sam_alignment
 .ad
 .fi
 
@@ -50,6 +42,10 @@ BL_SAM_FIELD_PNEXT
 BL_SAM_FIELD_TLEN
 BL_SAM_FIELD_SEQ
 BL_SAM_FIELD_QUAL
+
+.SH RETURN VALUES
+
+Number of items written (per fprintf() output)
 
 .SH SEE ALSO
 
