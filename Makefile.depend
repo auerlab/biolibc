@@ -36,6 +36,9 @@ gff.o: gff.c ../local/include/xtend/string.h ../local/include/xtend/dsv.h \
   gff.h biolibc.h bed.h overlap.h
 	${CC} -c ${CFLAGS} gff.c
 
+orf.o: orf.c translate.h
+	${CC} -c ${CFLAGS} orf.c
+
 overlap-mutators.o: overlap-mutators.c overlap.h biolibc.h
 	${CC} -c ${CFLAGS} overlap-mutators.c
 
