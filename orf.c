@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <sysexits.h>
 #include <ctype.h>
 #include "translate.h"
 
@@ -10,7 +9,18 @@
  *
  *  Description:
  *      Locate the next start codon in stream and report its position in
- *      the input.  Reported positions are 1-based.
+ *      the input.  Reported positions are 0-based offsets from the file
+ *      position at the time of the call.  Hence, to find the absolute
+ *      positions of codons within a file stream across multiple calls to
+ *      next_start_codon() or next_stop_codon(), their return values should
+ *      added to the previous return value + 3 (the size of the previous
+ *      codon).  For example, givent the following input:
+ *
+ *      acaucauguucguggugacc
+ *
+ *      A call to next_start_codon() will return 5 (off set of AUG from the
+ *      beginning of the sequence and a subsequent call to next_stop_codon()
+ *      will return 7 (offset of UGA from the first base after the AUG).
  *  
  *  Arguments:
  *      rna_stream  FILE stream containing RNA sequence data
@@ -42,10 +52,11 @@
  *  2021-10-17  Jason Bacon Begin
  ***************************************************************************/
 
-unsigned long   next_start_codon(FILE *rna_stream)
+long    next_start_codon(FILE *rna_stream)
 
 {
     int     ch;
+    long    pos = 0;
     
     /*
      *  Not actually scanning to EOF.  Returns from inside loop if
@@ -55,26 +66,25 @@ unsigned long   next_start_codon(FILE *rna_stream)
     
     while ( !feof(rna_stream) )
     {
-	while ( ((ch = getc(rna_stream)) != EOF) && (tolower(ch) != 'a') )
-	    ;
-	if ( ch == EOF )
-	    return EOF;
-	if ( tolower(ch = getc(rna_stream)) == 'u' )
+	while ( ((ch = toupper(getc(rna_stream))) != EOF) && (ch != 'A') )
+	    ++pos;
+	if ( ch != EOF )
 	{
-	    if ( tolower(ch = getc(rna_stream)) == 'g' )
-		return ftell(rna_stream) - 2;
-	    else if ( ch == EOF )
-		return EOF;
-	    else
+	    ++pos;  // Count the 'A'
+	    if ( ((ch = toupper(getc(rna_stream))) == 'U') || (ch == 'T') )
+	    {
+		if ( (ch = toupper(getc(rna_stream))) == 'G' )
+		    return pos;
+		else if ( ch != EOF )
+		    ungetc(ch, rna_stream);
+	    }
+	    else if ( ch != EOF )
 		ungetc(ch, rna_stream);
 	}
-	else if ( ch == EOF )
-	    return EOF;
-	else
-	    ungetc(ch, rna_stream);
     }
     return EOF;
 }
+
 
 /***************************************************************************
  *  Library:
@@ -83,7 +93,18 @@ unsigned long   next_start_codon(FILE *rna_stream)
  *
  *  Description:
  *      Locate the next stop codon in stream and report its position in
- *      the input.  Reported positions are 1-based.
+ *      the input.  Reported positions are 0-based offsets from the file
+ *      position at the time of the call.  Hence, to find the absolute
+ *      positions of codons within a file stream across multiple calls to
+ *      next_start_codon() or next_stop_codon(), their return values should
+ *      added to the previous return value + 3 (the size of the previous
+ *      codon).  For example, givent the following input:
+ *
+ *      acaucauguucguggugacc
+ *
+ *      A call to next_start_codon() will return 5 (off set of AUG from the
+ *      beginning of the sequence and a subsequent call to next_stop_codon()
+ *      will return 7 (offset of UGA from the first base after the AUG).
  *  
  *  Arguments:
  *      rna_stream  FILE stream containing RNA sequence data
@@ -115,10 +136,13 @@ unsigned long   next_start_codon(FILE *rna_stream)
  *  2021-10-17  Jason Bacon Begin
  ***************************************************************************/
 
-unsigned long   next_stop_codon(FILE *rna_stream, char codon[4])
+long    next_stop_codon(FILE *rna_stream, char codon[4])
 
 {
-    int     ch1, ch2, ch3;
+    int     ch1,
+	    ch2,
+	    ch3;
+    long    pos = 0;
     
     /*
      *  Not actually scanning to EOF.  Returns from inside loop if
@@ -126,42 +150,40 @@ unsigned long   next_stop_codon(FILE *rna_stream, char codon[4])
      *  Valid codons are UAG, UAA, UGA.
      */
     
+    // Blank and null-terminate
     codon[0] = codon[3] = '\0';
     
     while ( !feof(rna_stream) )
     {
-	while ( ((ch1 = tolower(getc(rna_stream))) != EOF) && (ch1 != 'u') )
-	    ;
-	if ( ch1 == EOF )
-	    return EOF;
-	if ( (ch2 = tolower(getc(rna_stream))) == 'a' )
+	while ( ((ch1 = toupper(getc(rna_stream))) != EOF) &&
+		(ch1 != 'U') && (ch1 != 'T') )
+	    ++pos;
+	if ( ch1 != EOF )
 	{
-	    if ( (ch3 = tolower(getc(rna_stream))) == 'g' || (ch3 == 'a') )
+	    ++pos;  // Count the 'U' or 'T'
+	    if ( (ch2 = toupper(getc(rna_stream))) == 'A' )
 	    {
-		codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
-		return ftell(rna_stream) - 2;
+		if ( (ch3 = toupper(getc(rna_stream))) == 'G' || (ch3 == 'A') )
+		{
+		    codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
+		    return pos;
+		}
+		else if ( ch3 != EOF )
+		    ungetc(ch3, rna_stream);
 	    }
-	    else if ( ch3 == EOF )
-		return EOF;
-	    else
-		ungetc(ch3, rna_stream);
-	}
-	else if ( ch2 == 'g' )
-	{
-	    if ( (ch3 = tolower(getc(rna_stream))) == 'a' )
+	    else if ( ch2 == 'G' )
 	    {
-		codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
-		return ftell(rna_stream) - 2;
+		if ( (ch3 = toupper(getc(rna_stream))) == 'A' )
+		{
+		    codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
+		    return pos;
+		}
+		else if ( ch3 != EOF )
+		    ungetc(ch3, rna_stream);
 	    }
-	    else if ( ch3 == EOF )
-		return EOF;
-	    else
-		ungetc(ch3, rna_stream);
+	    else if ( ch2 != EOF )
+		ungetc(ch2, rna_stream);
 	}
-	else if ( ch2 == EOF )
-	    return EOF;
-	else
-	    ungetc(ch2, rna_stream);
     }
     return EOF;
 }
