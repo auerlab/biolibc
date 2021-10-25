@@ -14,7 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-unsigned long   next_start_codon(FILE *rna_stream)
+long    next_start_codon(FILE *rna_stream)
 
 .SH ARGUMENTS
 .nf
@@ -26,7 +26,18 @@ rna_stream  FILE stream containing RNA sequence data
 .SH DESCRIPTION
 
 Locate the next start codon in stream and report its position in
-the input.  Reported positions are 1-based.
+the input.  Reported positions are 0-based offsets from the file
+position at the time of the call.  Hence, to find the absolute
+positions of codons within a file stream across multiple calls to
+next_start_codon() or next_stop_codon(), their return values should
+added to the previous return value + 3 (the size of the previous
+codon).  For example, givent the following input:
+
+acaucauguucguggugacc
+
+A call to next_start_codon() will return 5 (off set of AUG from the
+beginning of the sequence and a subsequent call to next_stop_codon()
+will return 7 (offset of UGA from the first base after the AUG).
 
 .SH RETURN VALUES
 
