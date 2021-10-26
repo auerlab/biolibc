@@ -14,12 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-long    next_start_codon(FILE *rna_stream)
+long    next_start_codon(FILE *rna_stream, char codon[4])
 
 .SH ARGUMENTS
 .nf
 .na
 rna_stream  FILE stream containing RNA sequence data
+codon       4-character buffer to receive codon sequence
+Set to "" if no codon found
 .ad
 .fi
 

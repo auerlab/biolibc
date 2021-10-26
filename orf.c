@@ -24,6 +24,8 @@
  *  
  *  Arguments:
  *      rna_stream  FILE stream containing RNA sequence data
+ *      codon       4-character buffer to receive codon sequence
+ *                  Set to "" if no codon found
  *
  *  Returns:
  *      1-based position of the next start codon within the stream
@@ -52,11 +54,16 @@
  *  2021-10-17  Jason Bacon Begin
  ***************************************************************************/
 
-long    next_start_codon(FILE *rna_stream)
+long    next_start_codon(FILE *rna_stream, char codon[4])
 
 {
-    int     ch;
+    int     ch1,
+	    ch2,
+	    ch3;
     long    pos = 0;
+    
+    // Blank and null-terminate
+    codon[0] = codon[3] = '\0';
     
     /*
      *  Not actually scanning to EOF.  Returns from inside loop if
@@ -66,20 +73,26 @@ long    next_start_codon(FILE *rna_stream)
     
     while ( !feof(rna_stream) )
     {
-	while ( ((ch = toupper(getc(rna_stream))) != EOF) && (ch != 'A') )
+	while ( ((ch1 = toupper(getc(rna_stream))) != EOF) && (ch1 != 'A') )
 	    ++pos;
-	if ( ch != EOF )
+	if ( ch1 != EOF )
 	{
 	    ++pos;  // Count the 'A'
-	    if ( ((ch = toupper(getc(rna_stream))) == 'U') || (ch == 'T') )
+	    if ( ((ch2 = toupper(getc(rna_stream))) == 'U') || (ch2 == 'T') )
 	    {
-		if ( (ch = toupper(getc(rna_stream))) == 'G' )
-		    return pos;
-		else if ( ch != EOF )
-		    ungetc(ch, rna_stream);
+		if ( (ch3 = toupper(getc(rna_stream))) == 'G' )
+		{
+		    codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
+		    return pos - 1;
+		}
+		else if ( ch3 != EOF )
+		{
+		    ungetc(ch3, rna_stream);
+		    ungetc(ch2, rna_stream);
+		}
 	    }
-	    else if ( ch != EOF )
-		ungetc(ch, rna_stream);
+	    else if ( ch2 != EOF )
+		ungetc(ch2, rna_stream);
 	}
     }
     return EOF;
@@ -108,6 +121,8 @@ long    next_start_codon(FILE *rna_stream)
  *  
  *  Arguments:
  *      rna_stream  FILE stream containing RNA sequence data
+ *      codon       4-character buffer to receive codon sequence
+ *                  Set to "" if no codon found
  *
  *  Returns:
  *      1-based position of the next stop codon within the stream
@@ -144,14 +159,14 @@ long    next_stop_codon(FILE *rna_stream, char codon[4])
 	    ch3;
     long    pos = 0;
     
+    // Blank and null-terminate
+    codon[0] = codon[3] = '\0';
+    
     /*
      *  Not actually scanning to EOF.  Returns from inside loop if
      *  stop codon is found.
      *  Valid codons are UAG, UAA, UGA.
      */
-    
-    // Blank and null-terminate
-    codon[0] = codon[3] = '\0';
     
     while ( !feof(rna_stream) )
     {
@@ -166,20 +181,26 @@ long    next_stop_codon(FILE *rna_stream, char codon[4])
 		if ( (ch3 = toupper(getc(rna_stream))) == 'G' || (ch3 == 'A') )
 		{
 		    codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
-		    return pos;
+		    return pos - 1;
 		}
 		else if ( ch3 != EOF )
+		{
 		    ungetc(ch3, rna_stream);
+		    ungetc(ch2, rna_stream);
+		}
 	    }
 	    else if ( ch2 == 'G' )
 	    {
 		if ( (ch3 = toupper(getc(rna_stream))) == 'A' )
 		{
 		    codon[0] = ch1; codon[1] = ch2; codon[2] = ch3;
-		    return pos;
+		    return pos - 1;
 		}
 		else if ( ch3 != EOF )
+		{
 		    ungetc(ch3, rna_stream);
+		    ungetc(ch2, rna_stream);
+		}
 	    }
 	    else if ( ch2 != EOF )
 		ungetc(ch2, rna_stream);
