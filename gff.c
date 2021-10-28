@@ -111,8 +111,8 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
-			 gff_field_mask_t field_mask)
+int     bl_gff_read(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
+		    FILE *gff_stream)
 
 {
     char    *end,
@@ -328,8 +328,8 @@ int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
-				gff_field_mask_t field_mask)
+int     bl_gff_write(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
+		     FILE *gff_stream)
 
 {
     return fprintf(gff_stream,
@@ -362,11 +362,15 @@ int     bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature,
  *  2021-04-19  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
+void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
 
 {
     char    name[BL_BED_NAME_MAX_CHARS + 1],
 	    strand = BL_GFF_STRAND(gff_feature);
+    
+    // Update this if/when more fields are converted
+    bl_bed_set_fields(bed_feature, 6);
+    bl_bed_set_score(bed_feature, 0);
     
     BL_BED_SET_CHROM_CPY(bed_feature, BL_GFF_SEQUENCE(gff_feature), BL_CHROM_MAX_CHARS + 1);
     /*

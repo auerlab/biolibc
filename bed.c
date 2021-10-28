@@ -130,8 +130,8 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
-			 bed_field_mask_t field_mask)
+int     bl_bed_read(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
+		    FILE *bed_stream)
 
 {
     char    *end,
@@ -488,8 +488,8 @@ int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
-				bed_field_mask_t field_mask)
+int     bl_bed_write(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
+		     FILE *bed_stream)
 
 {
     unsigned    c;
@@ -550,7 +550,7 @@ int     bl_bed_write(FILE *bed_stream, bl_bed_t *bed_feature,
  ***************************************************************************/
 
 void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
-			uint64_t last_start)
+			   uint64_t last_start)
 
 {
     if ( bl_chrom_name_cmp(bed_feature->chrom, last_chrom) == 0 )
@@ -610,7 +610,7 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
  ***************************************************************************/
 
 int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
-		    bl_overlap_t *overlap)
+		       bl_overlap_t *overlap)
 
 {
     int         chrom_cmp;

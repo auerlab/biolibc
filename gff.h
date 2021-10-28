@@ -128,9 +128,9 @@ typedef unsigned int            gff_field_mask_t;
 
 /* gff.c */
 FILE *bl_gff_skip_header(FILE *gff_stream);
-int bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
-int bl_gff_write(FILE *gff_stream, bl_gff_t *gff_feature, gff_field_mask_t field_mask);
-void bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature);
+int bl_gff_read(bl_gff_t *gff_feature, gff_field_mask_t field_mask, FILE *gff_stream);
+int bl_gff_write(bl_gff_t *gff_feature, gff_field_mask_t field_mask, FILE *gff_stream);
+void bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature);
 
 /* gff-mutators.c */
 int bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence_element);
