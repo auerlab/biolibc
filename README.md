@@ -8,10 +8,13 @@ biological data.
 Like libc, it consists of numerous disparate, general-purpose functions which
 could be used by a wide variety of applications.
 
-These include functions for streaming common file formats such as BED, GFF,
-FASTA, FASTQ, SAM and VCF, string functions specific to bioinformatics, etc.
+These include functions for reading and writing common file formats such as
+BED, GFF, FASTA, FASTQ, SAM and VCF, string functions specific to
+bioinformatics such as chromosome_name_cmp(), detecting feature overlaps,
+etc.
 
-Biolibc allows you to code in C at a higher level by providing the basic
+Biolibc, and the more generic [libxtend](https://github.com/outpaddling/libxtend),
+allow you to code in C at a higher level by providing the basic
 building blocks and additional software layers commonly needed in
 bioinformatics programming.  Using C and biolibc, you can write simple,
 near-optimal C programs that may be orders of magnitude faster than scripting
