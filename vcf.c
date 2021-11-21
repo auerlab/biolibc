@@ -738,11 +738,16 @@ void    bl_vcf_init(bl_vcf_t *vcf_call,
 vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
 
 {
-    vcf_field_mask_t    field_mask = BL_VCF_FIELD_ALL;
+    vcf_field_mask_t    field_mask;
     char            *field_name;
     
-    if ( strcmp("spec", "all") != 0 )
+    if ( strcmp(spec, "all") == 0 )
     {
+	field_mask = BL_VCF_FIELD_ALL;
+    }
+    else
+    {
+	field_mask = 0x0;
 	while ((field_name = strsep(&spec, ",")) != NULL)
 	{
 	    if ( strcmp(field_name, "chrom") == 0 )
