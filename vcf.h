@@ -52,6 +52,7 @@ typedef struct
     size_t      info_len,
 		info_max,
 		format_max,
+		format_len,
 		sample_max;
     unsigned    ref_count,
 		alt_count,
