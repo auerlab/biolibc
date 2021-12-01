@@ -33,9 +33,8 @@ of how the right libraries eliminate the need for low-level programming in C.
 
 See the
 [Research Computing User's Guide](https://acadix.biz/publications.php)
-under "Programming for Performance" -> "Software Development" ->
-"Language Selection" -> "Compiled vs Interpreted Languages" for a basic
-comparison of language performance.
+[Compiled vs Interpreted Languages section](https://acadix.biz/RCUG/HTML/lang-selection.html#compiled-interpreted)
+for a comparison of language performance.
 
 ## Design and Implementation
 
