@@ -85,12 +85,14 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
+void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min,
+			 size_t max_alignments)
 
 {
     size_t  c;
     
     sam_buff->buff_size = BL_SAM_BUFF_START_SIZE;
+    sam_buff->max_alignments = max_alignments;
     sam_buff->buffered_count = 0;
     sam_buff->max_count = 0;
     sam_buff->previous_pos = 0;
@@ -148,7 +150,7 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min)
  *  2020-05-27  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
+int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 			       bl_sam_t *sam_alignment)
 
 {
@@ -189,14 +191,14 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	// fprintf(stderr, "sam_buff->max_count = %zu\n", sam_buff->max_count);
     }
     
-    if ( sam_buff->buffered_count == BL_SAM_BUFF_MAX_SIZE )
+    if ( sam_buff->buffered_count == sam_buff->max_alignments )
     {
 	fprintf(stderr,
-		"bl_sam_buff_add_alignment(): Hit BL_SAM_BUFF_MAX_SIZE=%u.\n",
-		BL_SAM_BUFF_MAX_SIZE);
-	fprintf(stderr, "Terminating to prevent runaway memory use.\n");
+		"bl_sam_buff_add_alignment(): Hit maximum alignments=%zu.\n",
+		sam_buff->max_alignments);
+	fprintf(stderr, "Aborting add to prevent runaway memory use.\n");
 	fprintf(stderr, "Check your SAM input.\n");
-	exit(EX_DATAERR);
+	return BL_SAM_BUFF_ADD_FAILED;
     }
     
     if ( sam_buff->buffered_count == sam_buff->buff_size )
@@ -216,6 +218,7 @@ void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	for (c = old_buff_size; c < sam_buff->buff_size; ++c)
 	    sam_buff->alignments[c] = NULL;
     }
+    return BL_SAM_BUFF_OK;
 }
 
 

@@ -33,8 +33,10 @@
     >262144       12
     >524288        0
 */
-#define     BL_SAM_BUFF_START_SIZE     4096
-#define     BL_SAM_BUFF_MAX_SIZE       524288
+#define BL_SAM_BUFF_START_SIZE  4096
+
+#define BL_SAM_BUFF_OK          0
+#define BL_SAM_BUFF_ADD_FAILED  1
 
 /*
  *  Copied from htslib/sam.h to avoid an htslib dependency.  It should be
@@ -46,7 +48,8 @@
 // FIXME: Move this to samio when complete?
 typedef struct
 {
-    size_t      buff_size;;
+    size_t      buff_size;
+    size_t      max_alignments;
     bl_sam_t    **alignments;
     size_t      buffered_count;
     size_t      max_count;
@@ -148,8 +151,8 @@ typedef struct
 
 /* sam-buff.c */
 void bl_sam_buff_check_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
-void bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min);
-void bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
+void bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min, size_t max_alignments);
+int bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 void bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignment);
 void bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c);
 void bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem);
