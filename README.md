@@ -4,12 +4,23 @@
 
 Many bioinformatics pipelines are essentially made of mud and straw;
 quick-and-dirty single-use scripts written in various interpreted languages,
-with little or no meaningful error reporting and generally poor performance
-and memory efficiency.
+with little or no meaningful error reporting and generally poor performance.
 
-Biolibc is a collection of high-quality bricks that can be used to replace
-such scripts with highly efficient, robust software applications that are
-easy to use and will serve the field for many years.
+Biolibc is a collection of high-quality bricks that can be used to build
+efficient, robust software applications to take the place of such scripts.
+Using biolibc, you can develop permanent solutions that are easy to use and
+install, with near-optimal performance,
+so that no one ever need reinvent that particular wheel.
+
+For some examples, see
+[biolibc-tools](https://github.com/auerlab/biolibc-tools),
+[vcf-split](https://github.com/auerlab/vcf-split),
+[ad2vcf](https://github.com/auerlab/ad2vcf),
+[vcf2hap](https://github.com/auerlab/vcf2hap),
+[haploh-vcf-depths](https://github.com/auerlab/haploh-vcf-depths),
+[peak-classifier](https://github.com/auerlab/peak-classifier),
+[generand](https://github.com/auerlab/generand),
+and [ad-matrix](https://github.com/auerlab/ad-matrix).
 
 In more technical terms, biolibc is a library of fast, memory-efficient C
 functions for processing biological data.  Like libc, it consists of numerous
