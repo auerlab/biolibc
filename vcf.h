@@ -190,7 +190,7 @@ typedef unsigned int            vcf_field_mask_t;
 #define BL_VCF_SET_PHRED_BUFF_SIZE(ptr,val)     ((ptr)->phred_buff_size = (val))
 
 /* vcf.c */
-FILE *bl_vcf_skip_header(FILE *vcf_stream);
+int bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **header_stream);
 void bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
 int bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
 int bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);

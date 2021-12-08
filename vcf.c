@@ -36,39 +36,63 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-FILE    *bl_vcf_skip_header(FILE *vcf_stream)
+int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
 
 {
-    char    start[7] = "xxxxxx";
-    size_t  count;
-    int     ch;
-    FILE    *header_stream = tmpfile();
+    int     ch,
+	    c,
+	    count;
+    char    start[6];
 
     /*
      *  Copy header to a nameless temp file and return the FILE *.
      *  This can be used by tools like vcf-split to replicate the
      *  header in output files.
      */
+
+    *meta_stream = tmpfile();
     
-    while ( ((count=fread(start, 6, 1, vcf_stream)) == 1) && 
-	    (memcmp(start, "#CHROM", 6) != 0) )
+    while ( (ch = getc(vcf_stream)) == '#' )
     {
-	fwrite(start, 6, 1, header_stream);
-	do
+	count = fread(start, 1, 5, vcf_stream);
+	
+	// Put back "CHROM" or whatever was read regardless
+	for (c = count - 1; c >= 0; --c)
+	    ungetc(start[c], vcf_stream);
+	// Something is seriously wrong if we don't find at least 5 chars
+	if ( count != 5 )
+	    return BL_READ_TRUNCATED;
+	
+	if ( memcmp(start, "CHROM", 5) == 0 )
 	{
-	    ch = getc(vcf_stream);
-	    putc(ch, header_stream);
-	}   while ( ch != '\n' );
+	    // After return, read should start with #CHROM
+	    fputs("Found #CHROM.\n", stderr);
+	    ungetc(ch, vcf_stream);
+	    rewind(*meta_stream);
+	    return BL_READ_OK;
+	}
+	else
+	{
+	    // No #CHROM, transfer entire line to temp file
+	    putc('#', *meta_stream);
+	    do
+	    {
+		ch = getc(vcf_stream);
+		putc(ch, *meta_stream);
+	    }   while ( (ch != '\n') && (ch != EOF) );
+	    if ( ch == EOF )
+	    {
+		fprintf(stderr,
+		    "bl_vcf_skip_header(): EOF reached reading meta-data.\n");
+		rewind(*meta_stream);
+		return BL_READ_TRUNCATED;
+	    }
+	}
     }
     
-    // puts(start);
-    if ( count == 0 )
-    {
-	fprintf(stderr, "bl_vcf_skip_header(): No #CHROM header found.\n");
-	exit(EX_DATAERR);
-    }
-    rewind(header_stream);
-    return header_stream;
+    fprintf(stderr, "bl_vcf_skip_header(): Warning: No #CHROM found in header.\n");
+    rewind(*meta_stream);
+    return BL_READ_OK;
 }
 
 
