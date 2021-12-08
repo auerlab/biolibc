@@ -66,7 +66,6 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
 	if ( memcmp(start, "CHROM", 5) == 0 )
 	{
 	    // After return, read should start with #CHROM
-	    fputs("Found #CHROM.\n", stderr);
 	    ungetc(ch, vcf_stream);
 	    rewind(*meta_stream);
 	    return BL_READ_OK;
