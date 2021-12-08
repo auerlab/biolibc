@@ -1,2 +1,2 @@
-Start codon at 9.
-Stop codon uaa at 33.
+Start codon AUG at 8.
+Stop codon UAA at 21.

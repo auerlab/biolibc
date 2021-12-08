@@ -15,7 +15,7 @@ cc -o orf-test orf-test.c -I../../local/include \
 ./orf-test < orf.txt > out.txt
 if diff correct.txt out.txt; then
     printf "No differences found, test passed.\n"
+    rm -f orf-test out.txt
 else
     printf "Differences found, test failed.\n"
 fi
-rm -f orf-test out.txt

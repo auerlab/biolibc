@@ -55,12 +55,12 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
      *  header in output files.
      */
     
-    while ( ((count=fread(start, 6, 1, bed_stream)) == 1) && 
-	    ((memcmp(start, "browser", 6) == 0) ||
+    while ( ((count=fread(start, 1, 7, bed_stream)) == 7) && 
+	    ((memcmp(start, "browser", 7) == 0) ||
 	    (memcmp(start, "track", 5) == 0) ||
 	    (*start == '#')) )
     {
-	fwrite(start, 6, 1, header_stream);
+	fwrite(start, count, 1, header_stream);
 	do
 	{
 	    ch = getc(bed_stream);
@@ -69,9 +69,8 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
     }
     
     // Rewind to start of first non-header line
-    if ( count == 1 )
-	for (c = 5; c >= 0; --c)
-	    ungetc(start[c], bed_stream);
+    for (c = count - 1; c >= 0; --c)
+	ungetc(start[c], bed_stream);
     rewind(header_stream);
     return header_stream;
 }

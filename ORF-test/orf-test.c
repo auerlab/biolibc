@@ -18,10 +18,10 @@ int     main(int argc,char *argv[])
     unsigned long   pos;
     char            codon[4];
     
-    if ( (pos = next_start_codon(stdin)) != EOF )
+    if ( (pos = bl_next_start_codon(stdin, codon)) != EOF )
     {
-	printf("Start codon at %lu.\n", pos);
-	if ( (pos = next_stop_codon(stdin, codon)) != EOF )
+	printf("Start codon %s at %lu.\n", codon, pos);
+	if ( (pos = bl_next_stop_codon(stdin, codon)) != EOF )
 	    printf("Stop codon %s at %lu.\n", codon, pos);
 	else
 	    puts("No stop codon found.");

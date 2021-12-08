@@ -3,15 +3,19 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <biolibc/gff.h>
 -lbiolibc -lxtend
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_read(FILE *gff_stream, bl_gff_t *gff_feature,
-gff_field_mask_t field_mask)
+int     bl_gff_read(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
+FILE *gff_stream)
 
 .SH ARGUMENTS
 .nf

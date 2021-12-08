@@ -3,14 +3,18 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <biolibc/gff.h>
 -lbiolibc -lxtend
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-void    bl_gff_to_bed(bl_bed_t *bed_feature, bl_gff_t *gff_feature)
+void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
 
 .SH ARGUMENTS
 .nf

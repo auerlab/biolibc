@@ -54,7 +54,7 @@
  *  2021-10-17  Jason Bacon Begin
  ***************************************************************************/
 
-long    next_start_codon(FILE *rna_stream, char codon[4])
+long    bl_next_start_codon(FILE *rna_stream, char codon[4])
 
 {
     int     ch1,
@@ -151,7 +151,7 @@ long    next_start_codon(FILE *rna_stream, char codon[4])
  *  2021-10-17  Jason Bacon Begin
  ***************************************************************************/
 
-long    next_stop_codon(FILE *rna_stream, char codon[4])
+long    bl_next_stop_codon(FILE *rna_stream, char codon[4])
 
 {
     int     ch1,

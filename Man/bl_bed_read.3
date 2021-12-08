@@ -3,15 +3,19 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <biolibc/bed.h>
 -lbiolibc -lxtend
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_bed_read(FILE *bed_stream, bl_bed_t *bed_feature,
-bed_field_mask_t field_mask)
+int     bl_bed_read(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
+FILE *bed_stream)
 
 .SH ARGUMENTS
 .nf

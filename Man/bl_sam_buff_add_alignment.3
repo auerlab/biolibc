@@ -3,14 +3,18 @@
 
 .SH LIBRARY
 \" Indicate #includes, library name, -L and -l flags
+.nf
+.na
 #include <biolibc/sam-buff.h>
 -lbiolibc -lxtend
+.ad
+.fi
 
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-void    bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
+int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 bl_sam_t *sam_alignment)
 
 .SH ARGUMENTS
