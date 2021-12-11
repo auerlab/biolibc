@@ -372,20 +372,20 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
     bl_bed_set_fields(bed_feature, 6);
     bl_bed_set_score(bed_feature, 0);
     
-    BL_BED_SET_CHROM_CPY(bed_feature, BL_GFF_SEQUENCE(gff_feature), BL_CHROM_MAX_CHARS + 1);
+    bl_bed_set_chrom_cpy(bed_feature, BL_GFF_SEQUENCE(gff_feature), BL_CHROM_MAX_CHARS + 1);
     /*
      *  BED start is 0-based and inclusive
      *  GFF is 1-based and inclusive
      */
-    BL_BED_SET_CHROM_START(bed_feature, BL_GFF_START(gff_feature) - 1);
+    bl_bed_set_chrom_start(bed_feature, BL_GFF_START(gff_feature) - 1);
     /*
      *  BED end is 0-base and inclusive (or 1-based and non-inclusive)
      *  GFF is the same
      */
-    BL_BED_SET_CHROM_END(bed_feature, BL_GFF_END(gff_feature));
+    bl_bed_set_chrom_end(bed_feature, BL_GFF_END(gff_feature));
     snprintf(name, BL_BED_NAME_MAX_CHARS + 1, "%s", BL_GFF_FEATURE(gff_feature));
-    BL_BED_SET_NAME_CPY(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
-    BL_BED_SET_SCORE(bed_feature, 0);  // FIXME: Take as arg?
+    bl_bed_set_name_cpy(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
+    bl_bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
     if ( bl_bed_set_strand(bed_feature, strand) != BL_DATA_OK )
     {
 	fputs("bl_gff_to_bed(): bl_bed_set_strand() failed.\n", stderr);
