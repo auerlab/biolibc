@@ -1,5 +1,8 @@
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_FASTA_H_
+#define _BIOLIBC_FASTA_H_
+
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -52,3 +55,5 @@ int bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_array
 int bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_array_size);
 int bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len);
 int bl_fasta_set_seq_len(bl_fasta_t *bl_fasta_ptr, size_t new_seq_len);
+
+#endif // _BIOLIBC_FASTA_H_

@@ -1,4 +1,7 @@
 
+#ifndef _BIOLIBC_POS_LIST_H_
+#define _BIOLIBC_POS_LIST_H_
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
@@ -7,7 +10,7 @@
 #include <stdint.h>
 #endif
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -55,3 +58,5 @@ int bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count);
 int bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t *new_positions);
 int bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t new_positions_element);
 int bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t *new_positions, size_t array_size);
+
+#endif  // _BIOLIBC_POS_LIST_H_

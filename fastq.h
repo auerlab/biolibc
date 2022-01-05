@@ -1,5 +1,8 @@
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_FASTQ_H_
+#define _BIOLIBC_FASTQ_H_
+
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -78,3 +81,5 @@ int bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len);
 int bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len);
 int bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len);
 int bl_fastq_set_qual_len(bl_fastq_t *bl_fastq_ptr, size_t new_qual_len);
+
+#endif  // _BIOLIBC_FASTQ_H_

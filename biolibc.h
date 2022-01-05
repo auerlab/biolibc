@@ -1,5 +1,5 @@
-#ifndef _biolibc_h_
-#define _biolibc_h_
+#ifndef _BIOLIBC_H_
+#define _BIOLIBC_H_
 
 #ifndef _STDIO_H_
 #include <stdio.h>          // FILE
@@ -35,4 +35,4 @@
 
 #define BL_CMD_MAX              4096    // Arbitrary
 
-#endif  // _biolibc_h_
+#endif  // _BIOLIBC_H_

@@ -1,7 +1,7 @@
-#ifndef _bed_h_
-#define _bed_h_
+#ifndef _BIOLIBC_BED_H_
+#define _BIOLIBC_BED_H_
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -84,7 +84,7 @@ typedef unsigned int            bed_field_mask_t;
 #define BL_BED_FIELDS(ptr)              ((ptr)->fields)
 
 // After bl_bed_t def for prototypes
-#ifndef _gff_h_
+#ifndef _BIOLIBC_GFF_H_
 #include "gff.h"
 #endif
 
@@ -121,4 +121,4 @@ int bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t new_bloc
 int bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t *new_block_starts, size_t array_size);
 int bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields);
 
-#endif  // _bed_h_
+#endif  // _BIOLIBC_BED_H_

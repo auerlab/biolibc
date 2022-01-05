@@ -1,9 +1,9 @@
 
-#ifndef _FASTA_H_
+#ifndef _BIOLIBC_FASTA_H_
 #include "fasta.h"
 #endif
 
-#ifndef _FASTQ_H_
+#ifndef _BIOLIBC_FASTQ_H_
 #include "fastq.h"
 #endif
 

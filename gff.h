@@ -1,12 +1,8 @@
-#ifndef _gff_h_
-#define _gff_h_
+#ifndef _BIOLIBC_GFF_H__
+#define _BIOLIBC_GFF_H__
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
-#endif
-
-#ifndef _xtend_h_
-//#include <xtend.h>  // strlcpy() on Linux
 #endif
 
 #define BL_GFF_SCORE_MAX_DIGITS        64       // Floating point
@@ -87,7 +83,7 @@ typedef unsigned int            gff_field_mask_t;
 #define BL_GFF_GENE_NAME_AE(ptr,c)      ((ptr)->gene_name[c])
 
 // After bl_gff_t for prototypes
-#ifndef _bed_h_
+#ifndef _BIOLIBC_BED_H_
 #include "bed.h"
 #endif
 
@@ -119,4 +115,4 @@ int bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char *new_gene_name);
 int bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_gene_name_element);
 int bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char *new_gene_name, size_t array_size);
 
-#endif  // _gff_h_
+#endif  // _BIOLIBC_GFF_H__

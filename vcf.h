@@ -1,15 +1,11 @@
-#ifndef _vcf_h_
-#define _vcf_h_
+#ifndef _BIOLIBC_VCF_H_
+#define _BIOLIBC_VCF_H_
 
-#ifndef _xtend_h_
-//#include <xtend.h>
-#endif
-
-#ifndef _sam_h_
+#ifndef _BIOLIBC_SAM_H_
 #include "sam.h"
 #endif
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -178,4 +174,4 @@ int bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char *new_phreds, size_
 int bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count);
 int bl_vcf_set_phred_buff_size(bl_vcf_t *bl_vcf_ptr, size_t new_phred_buff_size);
 
-#endif // _vcf_h_
+#endif // _BIOLIBC_VCF_H_

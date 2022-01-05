@@ -1,4 +1,5 @@
-#ifndef _bl_overlap_h_
+#ifndef _BIOLIBC_OVERLAP_H_
+#define _BIOLIBC_OVERLAP_H_
 
 #ifndef _STDIO_H_
 #include <stdio.h>
@@ -8,7 +9,7 @@
 #include <inttypes.h>
 #endif
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -49,4 +50,4 @@ int bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_over
 int bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_end);
 int bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_len);
 
-#endif // _bl_overlap_h_
+#endif // _BIOLIBC_OVERLAP_H_

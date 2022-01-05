@@ -1,16 +1,16 @@
 
-#ifndef _sam_buff_h_
-#define _sam_buff_h_
+#ifndef _BIOLIBC_SAM_BUFF_H_
+#define _BIOLIBC_SAM_BUFF_H_
 
 #ifndef __bool_true_false_are_defined
 #include <stdbool.h>
 #endif
 
-#ifndef sam_h_
+#ifndef _BIOLIBC_SAM_H_
 #include "sam.h"
 #endif
 
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -142,4 +142,4 @@ int bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t
 int bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_max_discarded_score);
 int bl_sam_buff_set_unmapped_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_unmapped_alignments);
 
-#endif  // _sam_buff_h_
+#endif  // _BIOLIBC_SAM_BUFF_H_

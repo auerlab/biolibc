@@ -1,15 +1,11 @@
-#ifndef _sam_h_
-#define _sam_h_
+#ifndef _BIOLIBC_SAM_H_
+#define _BIOLIBC_SAM_H_
 
 #ifndef _INTTYPES_H
 #include <inttypes.h>
 #endif
 
-#ifndef __xtend_h__
-//#include <xtend.h>
-#endif
-
-#ifndef _biolibc_h_
+#ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
 
@@ -119,4 +115,4 @@ int bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char *new_qual, size_t array_size)
 int bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len);
 int bl_sam_set_qual_len(bl_sam_t *bl_sam_ptr, size_t new_qual_len);
 
-#endif // _sam_h_
+#endif // _BIOLIBC_SAM_H_
