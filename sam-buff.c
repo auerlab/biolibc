@@ -378,8 +378,9 @@ bool    bl_sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
     {
 	++sam_buff->unmapped_alignments;
 #ifdef DEBUG
-	fprintf(stderr, "Discarding unmapped read: %s,%zu\n",
-		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment));
+	fprintf(stderr, "Discarding unmapped read: %s,%zu,0x%04x\n",
+		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
+		BL_SAM_FLAG(sam_alignment));
 #endif
 	return false;
     }

@@ -26,7 +26,7 @@ Darwin)
     ;;
 
 *)
-    export CFLAGS="-Wall -g -O"
+    export CFLAGS="-Wall -g -O -DDEBUG"
     LIBDIR=$(realpath $LOCALBASE/lib)
     export LDFLAGS="-L$LIBDIR -Wl,-rpath,$LIBDIR:/usr/lib:/lib"
     install=install
