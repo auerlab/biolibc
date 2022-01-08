@@ -222,8 +222,8 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *  2019-12-08  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
-			       vcf_field_mask_t field_mask)
+int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream, 
+	    vcf_field_mask_t field_mask)
 
 {
     char    *end,
@@ -430,14 +430,14 @@ int     bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *  2019-12-11  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
-			 vcf_field_mask_t field_mask)
+int     bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
+	    vcf_field_mask_t field_mask)
 
 {
     size_t  len;
     int     status;
     
-    status = bl_vcf_read_static_fields(vcf_stream, vcf_call, field_mask);
+    status = bl_vcf_read_static_fields(vcf_call, vcf_stream, field_mask);
     if ( status == BL_READ_OK )
     {
 	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
@@ -494,8 +494,8 @@ int     bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
-				vcf_field_mask_t field_mask)
+int     bl_vcf_write_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
+	    vcf_field_mask_t field_mask)
 
 {
     char    *chrom = ".",
@@ -578,11 +578,11 @@ int     bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call,
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call,
-			  vcf_field_mask_t field_mask)
+int     bl_vcf_write_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
+	    vcf_field_mask_t field_mask)
 
 {
-    bl_vcf_write_static_fields(vcf_stream, vcf_call, field_mask);
+    bl_vcf_write_static_fields(vcf_call, vcf_stream, field_mask);
     return fprintf(vcf_stream, "%s\n", vcf_call->single_sample);
 }
 
@@ -757,7 +757,7 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
  ***************************************************************************/
 
 void    bl_vcf_init(bl_vcf_t *vcf_call,
-		      size_t info_max, size_t format_max, size_t sample_max)
+	    size_t info_max, size_t format_max, size_t sample_max)
 
 {
     vcf_call->chrom[0] = '\0';
@@ -932,7 +932,7 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
  ***************************************************************************/
 
 bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
-					 bl_sam_t *alignment)
+	    bl_sam_t *alignment)
 
 {
     /*fprintf(stderr, "bl_vcf_call_downstream_of_alignment(): %s,%zu,%zu %s,%zu\n",
@@ -974,7 +974,7 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
  ***************************************************************************/
 
 void    bl_vcf_call_out_of_order(bl_vcf_t *vcf_call,
-			 char *previous_chrom, uint64_t previous_pos)
+	    char *previous_chrom, uint64_t previous_pos)
 
 {
     fprintf(stderr, "ad2vcf: Error: VCF input must be sorted by chrom and then position.\n");

@@ -41,7 +41,7 @@
  *  2021-07-27  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fastx_read(FILE *fastx_stream, bl_fastx_t *record)
+int     bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream)
 
 {
     switch(BL_FASTX_FORMAT(record))
@@ -97,8 +97,8 @@ int     bl_fastx_read(FILE *fastx_stream, bl_fastx_t *record)
  *  2021-07-27  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fastx_write(FILE *fastx_stream, bl_fastx_t *record,
-		       size_t max_line_len)
+int     bl_fastx_write(bl_fastx_t *record, FILE *fastx_stream,
+	    size_t max_line_len)
 
 {
     switch(BL_FASTX_FORMAT(record))
@@ -190,7 +190,7 @@ void    bl_fastx_free(bl_fastx_t *record)
  *  2021-08-17  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_fastx_init(FILE *fastx_stream, bl_fastx_t *record)
+void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
 
 {
     int     ch;

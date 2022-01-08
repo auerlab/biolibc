@@ -57,7 +57,7 @@
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment,
+int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 			   sam_field_mask_t field_mask)
 
 {
@@ -552,7 +552,7 @@ void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_write(FILE *sam_stream, bl_sam_t *sam_alignment,
+int     bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream,
 			   sam_field_mask_t field_mask)
 
 {

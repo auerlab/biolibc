@@ -86,11 +86,11 @@ typedef unsigned int        sam_field_mask_t;
 #define BL_SAM_QUAL_LEN(ptr)            ((ptr)->qual_len)
 
 /* sam.c */
-int bl_sam_read(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
+int bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
 void bl_sam_copy(bl_sam_t *dest, bl_sam_t *src);
 void bl_sam_free(bl_sam_t *sam_alignment);
 void bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
-int bl_sam_write(FILE *sam_stream, bl_sam_t *sam_alignment, sam_field_mask_t field_mask);
+int bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
 
 /* sam-mutators.c */
 int bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_element);

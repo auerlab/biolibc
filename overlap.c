@@ -85,7 +85,7 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_overlap_print(FILE *stream, bl_overlap_t *overlap,
+int     bl_overlap_print(bl_overlap_t *overlap, FILE *stream,
 			  char *feature1_name, char *feature2_name)
 
 {

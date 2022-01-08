@@ -28,10 +28,10 @@ typedef struct
 #define BL_FASTX_LINE_UNLIMITED BL_FASTA_LINE_UNLIMITED
 
 /* fastx.c */
-int bl_fastx_read(FILE *fastx_stream, bl_fastx_t *record);
-int bl_fastx_write(FILE *fastx_stream, bl_fastx_t *record, size_t max_line_len);
+int bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream);
+int bl_fastx_write(bl_fastx_t *record, FILE *fastx_stream, size_t max_line_len);
 void bl_fastx_free(bl_fastx_t *record);
-void bl_fastx_init(FILE *fastx_stream, bl_fastx_t *record);
+void bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream);
 char *bl_fastx_desc(bl_fastx_t *record);
 size_t bl_fastx_desc_len(bl_fastx_t *record);
 char *bl_fastx_seq(bl_fastx_t *record);

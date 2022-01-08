@@ -123,10 +123,10 @@ typedef unsigned int            vcf_field_mask_t;
 /* vcf.c */
 int bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **header_stream);
 void bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
-int bl_vcf_read_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int bl_vcf_read_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int bl_vcf_write_static_fields(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
-int bl_vcf_write_ss_call(FILE *vcf_stream, bl_vcf_t *vcf_call, vcf_field_mask_t field_mask);
+int bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
+int bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
+int bl_vcf_write_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
+int bl_vcf_write_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
 char **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples);
 void bl_vcf_free(bl_vcf_t *vcf_call);
 void bl_vcf_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t sample_max);

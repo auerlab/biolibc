@@ -41,7 +41,7 @@ typedef struct
 
 /* overlap.c */
 int bl_overlap_set_all(bl_overlap_t *overlap, uint64_t feature1_len, uint64_t feature2_len, uint64_t overlap_start, uint64_t overlap_end);
-int bl_overlap_print(FILE *stream, bl_overlap_t *overlap, char *feature1_name, char *feature2_name);
+int bl_overlap_print(bl_overlap_t *overlap, FILE *stream, char *feature1_name, char *feature2_name);
 
 /* overlap-mutators.c */
 int bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len);
