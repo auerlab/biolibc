@@ -55,10 +55,15 @@ typedef struct
 #define BL_FASTQ_QUAL_LEN(ptr)          ((ptr)->qual_len)
 
 /* fastq.c */
-int bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record);
-int bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record, size_t chars_per_line);
+int bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream);
+int bl_fastq_write(bl_fastq_t *record, FILE *fastq_stream, size_t max_line_len);
 void bl_fastq_free(bl_fastq_t *record);
 void bl_fastq_init(bl_fastq_t *record);
+size_t bl_fastq_find_adapter_smart(const bl_fastq_t *read, const char *adapter, size_t min_match, unsigned max_mismatch_percent);
+size_t bl_fastq_find_adapter_exact(const bl_fastq_t *read, const char *adapter, size_t min_match, unsigned max_mismatch_percent);
+size_t bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len);
+size_t bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual, unsigned phred_base);
+size_t bl_fastq_name_cmp(bl_fastq_t *read1, bl_fastq_t *read2);
 
 /* fastq-mutators.c */
 int bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char *new_desc);

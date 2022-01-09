@@ -55,7 +55,7 @@
  *  2021-07-27  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
+int     bl_fasta_read(bl_fasta_t *record, FILE *fasta_stream)
 
 {
     int     ch,
@@ -183,8 +183,8 @@ int     bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record)
  *  2021-07-27  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record,
-		       size_t max_line_len)
+int     bl_fasta_write(bl_fasta_t *record, FILE *fasta_stream,
+	    size_t max_line_len)
 
 {
     size_t  c;

@@ -48,10 +48,10 @@ int     bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream)
     {
 	case BL_FASTX_FORMAT_FASTA:
 	    record->format = BL_FASTX_FORMAT_FASTA;
-	    return bl_fasta_read(fastx_stream, &record->fasta);
+	    return bl_fasta_read(&record->fasta, fastx_stream);
 	case BL_FASTX_FORMAT_FASTQ:
 	    record->format = BL_FASTX_FORMAT_FASTQ;
-	    return bl_fastq_read(fastx_stream, &record->fastq);
+	    return bl_fastq_read(&record->fastq, fastx_stream);
     }
     fprintf(stderr, "bl_fastx_read(): Input format is unknown.  Call bl_fastx_init() first.\n");
     return BL_READ_UNKNOWN_FORMAT;
@@ -104,10 +104,10 @@ int     bl_fastx_write(bl_fastx_t *record, FILE *fastx_stream,
     switch(BL_FASTX_FORMAT(record))
     {
 	case BL_FASTX_FORMAT_FASTA:
-	    return bl_fasta_write(fastx_stream, &record->fasta, max_line_len);
+	    return bl_fasta_write(&record->fasta, fastx_stream, max_line_len);
 	    break;
 	case BL_FASTX_FORMAT_FASTQ:
-	    return bl_fastq_write(fastx_stream, &record->fastq, max_line_len);
+	    return bl_fastq_write(&record->fastq, fastx_stream, max_line_len);
 	    break;
     }
     fprintf(stderr, "bl_fasta_write(): File format is unknown.\n");

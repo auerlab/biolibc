@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <sysexits.h>
+#include <sys/param.h>  // MIN()
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
 #include "fastq.h"
 #include "biolibc.h"
-
 
 /***************************************************************************
  *  Library:
@@ -56,7 +58,7 @@
  *  2021-07-28  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
+int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 
 {
     int     ch,
@@ -296,7 +298,7 @@ int     bl_fastq_read(FILE *fastq_stream, bl_fastq_t *record)
  *  2021-07-28  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_fastq_write(FILE *fastq_stream, bl_fastq_t *record,
+int     bl_fastq_write(bl_fastq_t *record, FILE *fastq_stream,
 		       size_t max_line_len)
 
 {
@@ -443,3 +445,424 @@ void    bl_fastq_init(bl_fastq_t *record)
     record->desc_len = record->seq_len = 
 	record->plus_len = record->qual_len = 0;
 }
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Locate adapter (or a portion thereof if the end of the read is
+ *      reached) in a FASTQ sequence.
+ *
+ *      The content of adapter is assumed to be all upper case.  This
+ *      improves speed by avoiding millions of redundant toupper()
+ *      conversions on the same string.  Use strlupper(3) or strupper(3)
+ *      before calling this function if necessary.
+ *
+ *      A minimum of min_match bases must match between the adapter and
+ *      the read.  This mainly matters near the end of a read, where
+ *      remaining bases are fewer than the length of the adapter.
+ *
+ *      A maximum of max_mismatch_percent mismatched bases are tolerated
+ *      to allow for read errors in the adapter, which do happen, albeit
+ *      rarely.  This is taken as a percent of the adapter length, or the
+ *      remaining bases in the sequence, whichever is smaller.
+ *      Note that the NUMBER of mismatched bases tolerated is
+ *      truncated from the percent calculation.  E.g. using 10% tolerance,
+ *      0 mismatched base is tolerated among 9 total bases, 1 among 10.
+ *
+ *      Higher values of max_mismatch_percent will results in slightly
+ *      longer run times, more adapters detected, and a higher risk of
+ *      false-positives (falsely identifying natural sequences as adapters).
+ *
+ *      Indels (insertions and deletions) are not currently handled.
+ *
+ *      Note that adapter matching is not an exact science.  We cannot remove
+ *      every adapter without also removing many natural sequences, since
+ *      it is impossible to know whether any given sequence is really an
+ *      adapter or naturally occurring.  The best we can do is guestimate
+ *      what will remove the most adapters and fewest natural sequences.
+ *      It is also not usually important to remove every adapter, but only to
+ *      minimize adapter contamination.  Failing to align a small percentage
+ *      of sequences due to adapter contamination will not change the story
+ *      told by the downstream analysis.  Nor will erroneously trimming off
+ *      the 3' end of a small percentage of reads containing natural
+ *      sequences resembling adapters.  Just trimming exact matches of
+ *      the adapter sequence will generally remove 99% or more of the
+ *      adapter contamination and minimize false-positives.  Tolerating
+ *      1 or 2 differences has been shown to do slightly better overall.
+ *
+ *  Arguments:
+ *      read        FASTQ read to be searched
+ *      adapter     Adapter sequence to be located
+ *      min_match   Minimum number of characters to match in adapter
+ *      max_mismatch_percent    Maximum percent of unequal bases in overlap
+ *
+ *  Returns:
+ *      Index of adapter sequence if found, index of null terminator otherwise
+ *
+ *  Examples:
+ *      bl_fastq_t  read;
+ *      char        *adapter;
+ *      size_t      index;
+ *
+ *      index = bl_fastq_find_adapter_smart(&read, adapter, 3, 10);
+ *      if ( BL_FASTQ_SEQ_AE(&read, index) != '\0' )
+ *          bl_fastq_3p_trim(&read, index);
+ *
+ *  See also:
+ *      bl_fastq_find_adapter_exact(3), bl_fastq_3p_trim(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  bl_fastq_find_adapter_smart(const bl_fastq_t *read,
+	    const char *adapter, size_t min_match,
+	    unsigned max_mismatch_percent)
+
+{
+    size_t      match, mismatch, max_mismatch,
+		adapter_len = strlen(adapter),
+		start, rc, ac,
+		md, adapter_mm;
+    
+    // Start at 5' end assuming 5' adapters already removed
+    // Cutadapt uses a semiglobal alignment algorithm to find adapters.
+    // Not sure what the benefit of this is over exact matching. I would
+    // assume that errors in adapter sequences are extremely rare.
+    // https://cutadapt.readthedocs.io/en/stable/algorithms.html#quality-trimming-algorithm
+
+    // Convert max mismatch percentage to a divisor for the string len
+    md = 100 / max_mismatch_percent;
+    adapter_mm = adapter_len / md;  // Max mismatch based on adapter len
+    // Could stop at read->seq_len - min_match, but the extra math
+    // outweights the few iterations saved
+    for (start = 0; start < read->seq_len; ++start)
+    {
+	// Terminate loop as soon as max_mismatch is reached, before
+	// checking other conditions
+	max_mismatch = MIN((read->seq_len - start) / md, adapter_mm);
+	for (rc = start, ac = 0, match = mismatch = 0;
+	     (mismatch <= max_mismatch) &&
+	     (adapter[ac] != '\0') && (read->seq[rc] != '\0'); ++rc, ++ac)
+	{
+	    if ( toupper(read->seq[rc]) != adapter[ac] )
+		++mismatch;
+	}
+	if ( mismatch <= max_mismatch )
+	{
+	    match = ac - mismatch;
+	    if ( match >= min_match )
+		return start;
+	}
+    }
+    return read->seq_len;   // Location of '\0' terminator
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Locate adapter (or a portion thereof if the end of the read is
+ *      reached) in a FASTQ sequence.
+ *
+ *      Functionally equivalent to but faster than
+ *      bl_fastq_find_adapter_exact(&read, adapter, min_match, 0);
+ *
+ *      The content of adapter is assumed to be all upper case.  This
+ *      improves speed by avoiding millions of redundant toupper()
+ *      conversions on the same string.  Use strlupper(3) or strupper(3)
+ *      before calling this function if necessary.
+ *
+ *      A minimum of min_match bases must match between the adapter and
+ *      the read.  This mainly matters near the end of a read, where
+ *      remaining bases are fewer than the length of the adapter.
+ *
+ *      Note that adapter matching is not an exact science.  We cannot remove
+ *      every adapter without also removing many natural sequences, since
+ *      it is impossible to know whether any given sequence is really an
+ *      adapter or naturally occurring.  The best we can do is guestimate
+ *      what will remove the most adapters and fewest natural sequences.
+ *      It is also not usually important to remove every adapter, but only to
+ *      minimize adapter contamination.  Failing to align a small percentage
+ *      of sequences due to adapter contamination will not change the story
+ *      told by the downstream analysis.  Nor will erroneously trimming off
+ *      the 3' end of a small percentage of reads containing natural
+ *      sequences resembling adapters.  Just trimming exact matches of
+ *      the adapter sequence will generally remove 99% or more of the
+ *      adapter contamination and minimize false-positives.  Tolerating
+ *      1 or 2 differences has been shown to do slightly better overall.
+ *
+ *  Arguments:
+ *      read        FASTQ read to be searched
+ *      adapter     Adapter sequence to be located
+ *      min_match   Minimum number of characters to match in adapter
+ *      max_mismatch_percent    Ignored: Dummy argument for compatibility
+ *                              with bl_fastq_fund_adapter_smart(3)
+ *
+ *  Returns:
+ *      Index of adapter sequence if found, index of null terminator otherwise
+ *
+ *  Examples:
+ *      bl_fastq_t  read;
+ *      char        *adapter;
+ *      size_t      index;
+ *
+ *      index = bl_fastq_find_adapter_exact(&read, adapter, 3, 10);
+ *      if ( BL_FASTQ_SEQ_AE(&read, index) != '\0' )
+ *          bl_fastq_3p_trim(&read, index);
+ *
+ *  See also:
+ *      bl_fastq_find_adapter_smart(3), bl_fastq_3p_trim(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  bl_fastq_find_adapter_exact(const bl_fastq_t *read,
+	    const char *adapter, size_t min_match,
+	    unsigned max_mismatch_percent)
+
+{
+    size_t  start, rc, ac;
+    
+    // Start at 5' end assuming 5' adapters already removed
+    // Cutadapt uses a semiglobal alignment algorithm to find adapters.
+    // Not sure what the benefit of this is over exact matching. I would
+    // assume that errors in adapter sequences are extremely rare.
+    // https://cutadapt.readthedocs.io/en/stable/algorithms.html#quality-trimming-algorithm
+
+    // Could stop at read->seq_len - min_match, but the extra math
+    // outweights the few iterations saved
+    for (start = 0; start < read->seq_len; ++start)
+    {
+	for (rc = start, ac = 0; (toupper(read->seq[rc]) == adapter[ac]) &&
+	     (adapter[ac] != '\0'); ++rc, ++ac)
+	    ;
+	if ( (adapter[ac] == '\0') || ((read->seq[rc] == '\0') && (ac >= min_match)) )
+	    return start;
+    }
+    return read->seq_len;   // Location of '\0' terminator
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Trim the 3' end of a FASTQ sequence and qualit string at location
+ *      new_len.
+ *  
+ *  Arguments:
+ *      read        FASTQ read to be trimmed
+ *      new_len     New length and location of the null terminators
+ *
+ *  Returns:
+ *      BL_DATA_OK if new_len is between 0 and original length,
+ *      BL_DATA_INVALID otherwise.
+ *
+ *  Examples:
+ *      bl_fastq_t  read;
+ *      char        *adapter;
+ *      size_t      index;
+ *
+ *      index = bl_fastq_find_adapter_smart(&read, adapter, 3, 10);
+ *      if ( BL_FASTQ_SEQ_AE(&read, index) != '\0' )
+ *          bl_fastq_3p_trim(&read, index);
+ *
+ *  See also:
+ *      bl_fastq_find_adapter_smart(3), bl_fastq_find_adapter_exact(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len)
+
+{
+    if ( (new_len >= 0) && (new_len <= read->seq_len) )
+    {
+	read->seq_len = read->qual_len = new_len;
+	read->seq[new_len] = read->qual[new_len] = '\0';
+	// FIXME: realloc?
+	return BL_DATA_OK;
+    }
+    else
+	return BL_DATA_INVALID;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Locate start of a low-quality 3' end in a FASTQ read.  This
+ *      function uses the same algorithm as fastq and cutadapt as of the
+ *      time of writing.  Namely, it starts at the 3' end of the quality
+ *      string and sums (base quality - minimum quality) while moving in
+ *      the 5' direction.  This sum will be < 0 as long as the average
+ *      base quality is < minimum quality.  It also keeps track of where
+ *      the minimum of this sum occurs.  When the sum become > 0, we have
+ *      reached a point where the average quality of the 3' end is
+ *      satisfactory, and it is assumed it will remain that way if we
+ *      continue in the 5' direction.  ( Illumina reads tend to drop in
+ *      quality near the 3' end. )  The location of the minimum sum is
+ *      then returned, since the average quality of everything in the 5'
+ *      direction must be satisfactory.
+ *  
+ *  Arguments:
+ *      read        FASTQ read to be searched
+ *      min_qual    Minimum quality of bases to keep
+ *      phred_base  Offset into the ISO character set used by PHRED scores
+ *                  (usually 33 for modern data)
+ *
+ *  Returns:
+ *      Index of first low-quality base at the 3' end if found,
+ *      index of NULL terminator otherwise
+ *
+ *  Examples:
+ *      bl_fastq_t  read;
+ *      
+ *      ...
+ *      index = bl_fastq_find_3p_low_qual(&read, 20, 33);
+ *      bl_fastq_3p_trim(&read, index);
+ *
+ *  See also:
+ *      bl_fastq_find_adapter_smart(3), bl_fastq_find_adapter_exact(3),
+ *      bl_fastq_trim(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
+			unsigned phred_base)
+
+{
+    ssize_t      c,
+		cut_pos;
+    long        sum,
+		min_sum;
+    
+    /*
+     *  Use same algorithm as BWA/cutadapt
+     *  https://cutadapt.readthedocs.io/en/stable/algorithms.html#quality-trimming-algorithm
+     *  score-minimum will be negative for bases we want to remove
+     *  Sum score-minimum for each base starting at end until sum > 0
+     *  Use the position of the minimum sum as the trim point
+     */
+
+    if ( read->seq_len != read->qual_len )
+    {
+	fprintf(stderr, "bl_fastq_find_3p_low_qual(): qual_len != seq_len.\n");
+	exit(EX_DATAERR);
+    }
+    
+    sum = min_sum = 0;
+    c = read->qual_len - 1;
+    cut_pos = read->seq_len;
+    while ( (c >= 0) && (sum <= 0) )
+    {
+	// Revert promotions to unsigned
+	sum = (long)sum + read->qual[c] - phred_base - min_qual;
+	// fprintf(stderr, "sum = %ld\n", sum);
+	if ( sum < min_sum )
+	{
+	    min_sum = sum;
+	    cut_pos = c;
+	}
+	--c;
+    }
+    if ( c < 0 )
+	cut_pos = 0;
+    return cut_pos;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/fastq.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Compare the read names of two FASTQ reads.  This is useful when
+ *      processing paired-end data, which must be kept in-sync.  I.e.
+ *      if a sequence if removed from a 5' file, the same sequence should
+ *      be removed from the 3' file whether or not it meets quality
+ *      minimums.
+ *  
+ *  Arguments:
+ *      read1, read2    FASTQ reads to compare   
+ *
+ *  Returns:
+ *      0 if read1 and read2 have the same name
+ *      < 0 if read1 name is lexically less than read2 name
+ *      > 0 if read1 name is lexically greater than read2 name
+ *
+ *  Examples:
+ *      s1 = bl_fastq_read(&fastq_rec[0], tp->instream1);
+ *      s2 = bl_fastq_read(&fastq_rec[1], tp->instream2);
+ *      if ( (s1 == BL_READ_OK) && (s2 == BL_READ_OK) )
+ *      {
+ *          if ( bl_fastq_name_cmp(&fastq_rec[0], &fastq_rec[1]) != 0 )
+ *          {
+ *              fprintf(stderr, "fastq-trim: Paired files out of sync.\n");
+ *              trim_close_files(tp);
+ *              exit(EX_DATAERR);
+ *          }
+ *          ...
+ *      }
+ *
+ *  See also:
+ *      bl_fastq_read(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-02  Jason Bacon Begin
+ ***************************************************************************/
+
+size_t  bl_fastq_name_cmp(bl_fastq_t *read1, bl_fastq_t *read2)
+
+{
+    // FIXME: This is a hack based on test data.  Find out how to 
+    // properly compare names in arbitrary FASTQ files
+    // Description up to first space char is the same for R1 and R2 files
+    char    *p1 = strchr(BL_FASTQ_DESC(read1), ' ');
+    char    *p2 = strchr(BL_FASTQ_DESC(read2), ' ');
+    int     save_p1, save_p2, status;
+    
+    // Temporarily null-terminate descriptions at first space char
+    // Not thread-safe
+    save_p1 = *p1;
+    save_p2 = *p2;
+    *p1 = *p2 = '\0';
+    status = strcmp(BL_FASTQ_DESC(read1), BL_FASTQ_DESC(read2));
+    *p1 = save_p1;
+    *p2 = save_p2;
+    return status;
+}
+

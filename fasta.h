@@ -39,8 +39,8 @@ typedef struct
 #define BL_FASTA_SEQ_LEN(ptr)           ((ptr)->seq_len)
 
 /* fasta.c */
-int bl_fasta_read(FILE *fasta_stream, bl_fasta_t *record);
-int bl_fasta_write(FILE *fasta_stream, bl_fasta_t *record, size_t chars_per_line);
+int bl_fasta_read(bl_fasta_t *record, FILE *fasta_stream);
+int bl_fasta_write(bl_fasta_t *record, FILE *fasta_stream, size_t chars_per_line);
 void bl_fasta_free(bl_fasta_t *record);
 void bl_fasta_init(bl_fasta_t *record);
 
