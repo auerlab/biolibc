@@ -100,8 +100,21 @@ you're new to Unix, you can also reap the benefits of FreeBSD by running
 graphical installer and management tools.  GhostBSD does not offer as many
 options as desktop-installer, but it may be more comfortable for Unix novices.
 
+To install the binary package on FreeBSD:
+
 ```
 pkg install biolibc
+```
+
+You can just as easily build and install from source.  This is useful for
+FreeBSD ports with special build options, for building with non-portable
+optimizations such as -march=native, and for 
+[work-in-progress ports](https://github.com/outpaddling/freebsd-ports-wip),
+for which binary packages are not yet maintained.
+
+```
+cd /usr/ports/biology/biolibc && env CFLAGS='-march=native -O2' make install
+cd /usr/ports/wip/biolibc && make install
 ```
 
 ### Installing via pkgsrc
