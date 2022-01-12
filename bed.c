@@ -107,8 +107,8 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *      masks all three.
  *
  *  Arguments:
- *      bed_stream      A FILE stream from which to read the line
  *      bed_feature     Pointer to a bl_bed_t structure
+ *      bed_stream      A FILE stream from which to read the line
  *      field_mask      Bit mask indicating which fields to store in bed_feature
  *
  *  Returns:
@@ -129,8 +129,8 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_bed_read(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
-		    FILE *bed_stream)
+int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
+	    bed_field_mask_t field_mask)
 
 {
     char    *end,
@@ -466,8 +466,8 @@ int     bl_bed_read(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
  *      masks all three.
  *
  *  Arguments:
- *      bed_stream      FILE stream to which TSV bed line is written
  *      bed_feature     Pointer to the bl_bed_t structure to output
+ *      bed_stream      FILE stream to which TSV bed line is written
  *      field_mask      Bit mask indicating which fields to output
  *
  *  Returns:
@@ -487,8 +487,8 @@ int     bl_bed_read(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_bed_write(bl_bed_t *bed_feature, bed_field_mask_t field_mask,
-		     FILE *bed_stream)
+int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
+	    bed_field_mask_t field_mask)
 
 {
     unsigned    c;

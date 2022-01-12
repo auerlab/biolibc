@@ -111,8 +111,8 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_read(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
-		    FILE *gff_stream)
+int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
+	    gff_field_mask_t field_mask)
 
 {
     char    *end,
@@ -328,8 +328,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_write(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
-		     FILE *gff_stream)
+int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
+	    gff_field_mask_t field_mask)
 
 {
     return fprintf(gff_stream,
