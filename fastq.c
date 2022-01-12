@@ -761,7 +761,7 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 			unsigned phred_base)
 
 {
-    ssize_t      c,
+    ssize_t     c,
 		cut_pos;
     long        sum,
 		min_sum;
@@ -772,6 +772,7 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
      *  score-minimum will be negative for bases we want to remove
      *  Sum score-minimum for each base starting at end until sum > 0
      *  Use the position of the minimum sum as the trim point
+     *  Verified using 42, 40, 26, 27, 8, 7, 11, 4, 2, 3 example from link
      */
 
     if ( read->seq_len != read->qual_len )
@@ -787,7 +788,6 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
     {
 	// Revert promotions to unsigned
 	sum = (long)sum + read->qual[c] - phred_base - min_qual;
-	// fprintf(stderr, "sum = %ld\n", sum);
 	if ( sum < min_sum )
 	{
 	    min_sum = sum;
