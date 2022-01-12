@@ -790,13 +790,13 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 	sum = (long)sum + read->qual[c] - phred_base - min_qual;
 	if ( sum < min_sum )
 	{
+	    // fprintf(stderr, "%zu %c %c %ld\n", c, read->seq[c], read->qual[c], sum);
 	    min_sum = sum;
 	    cut_pos = c;
 	}
 	--c;
     }
-    if ( c < 0 )
-	cut_pos = 0;
+    // fprintf(stderr, "Returning %zd\n", cut_pos);
     return cut_pos;
 }
 
