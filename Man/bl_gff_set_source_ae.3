@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -40,6 +36,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_source_element is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_GFF_DATA_OK if the new value is acceptable and assigned
+BL_GFF_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -48,7 +49,7 @@ bl_gff_t        bl_gff;
 size_t          c;
 char            new_source_element;
 
-if ( bl_gff_set_source(&bl_gff, c, new_source_element) == BL_DATA_OK )
+if ( bl_gff_set_source(&bl_gff, c, new_source_element) == BL_GFF_DATA_OK )
 {
 }
 .ad

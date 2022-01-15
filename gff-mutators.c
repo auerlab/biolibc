@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "gff.h"
 
 
@@ -28,20 +30,20 @@
  *      of new_sequence_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the sequence array
- *      new_sequence_element    The new value for sequence[c]
+ *      new_sequence_element The new value for sequence[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char            new_sequence_element;
  *
- *      if ( bl_gff_set_sequence(&bl_gff, c, new_sequence_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_sequence(&bl_gff, c, new_sequence_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -50,19 +52,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_sequence_element) && (new_sequence_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->sequence[c] = new_sequence_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -84,20 +85,20 @@ int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence
  *      of new_sequence is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_sequence    The new value for sequence
  *      array_size      Size of the sequence array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char            new_sequence;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_sequence(&bl_gff, new_sequence, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_sequence(&bl_gff, new_sequence, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -106,20 +107,19 @@ int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_sequence == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->sequence, new_sequence, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -140,20 +140,20 @@ int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_
  *      of new_source_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the source array
  *      new_source_element The new value for source[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char            new_source_element;
  *
- *      if ( bl_gff_set_source(&bl_gff, c, new_source_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_source(&bl_gff, c, new_source_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -162,19 +162,18 @@ int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_source_element) && (new_source_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->source[c] = new_source_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -196,20 +195,20 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *      of new_source is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_source      The new value for source
  *      array_size      Size of the source array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char            new_source;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_source(&bl_gff, new_source, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_source(&bl_gff, new_source, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -218,20 +217,19 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_source == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->source, new_source, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -252,20 +250,20 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *      of new_feature_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the feature array
- *      new_feature_element     The new value for feature[c]
+ *      new_feature_element The new value for feature[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char            new_feature_element;
  *
- *      if ( bl_gff_set_feature(&bl_gff, c, new_feature_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_feature(&bl_gff, c, new_feature_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -274,19 +272,18 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_feature_element) && (new_feature_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->feature[c] = new_feature_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -308,20 +305,20 @@ int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_e
  *      of new_feature is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_feature     The new value for feature
  *      array_size      Size of the feature array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char            new_feature;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_feature(&bl_gff, new_feature, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_feature(&bl_gff, new_feature, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -330,20 +327,19 @@ int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_e
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_feature == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->feature, new_feature, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -369,18 +365,18 @@ int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t 
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_start       The new value for start
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_start;
  *
- *      if ( bl_gff_set_start(&bl_gff, new_start) == BL_DATA_OK )
+ *      if ( bl_gff_set_start(&bl_gff, new_start) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -389,19 +385,18 @@ int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->start = new_start;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -427,18 +422,18 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_end         The new value for end
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_end;
  *
- *      if ( bl_gff_set_end(&bl_gff, new_end) == BL_DATA_OK )
+ *      if ( bl_gff_set_end(&bl_gff, new_end) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -447,19 +442,18 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->end = new_end;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -485,18 +479,18 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_score       The new value for score
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      double          new_score;
  *
- *      if ( bl_gff_set_score(&bl_gff, new_score) == BL_DATA_OK )
+ *      if ( bl_gff_set_score(&bl_gff, new_score) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -505,19 +499,18 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->score = new_score;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -543,18 +536,18 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_strand      The new value for strand
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char            new_strand;
  *
- *      if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_DATA_OK )
+ *      if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -563,19 +556,18 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->strand = new_strand;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -601,18 +593,18 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_phase       The new value for phase
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char            new_phase;
  *
- *      if ( bl_gff_set_phase(&bl_gff, new_phase) == BL_DATA_OK )
+ *      if ( bl_gff_set_phase(&bl_gff, new_phase) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -621,19 +613,18 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->phase = new_phase;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -659,18 +650,18 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_attributes  The new value for attributes
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_attributes;
  *
- *      if ( bl_gff_set_attributes(&bl_gff, new_attributes) == BL_DATA_OK )
+ *      if ( bl_gff_set_attributes(&bl_gff, new_attributes) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -679,19 +670,18 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_attributes == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->attributes = new_attributes;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -712,20 +702,20 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *      of new_attributes_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the attributes array
- *      new_attributes_element  The new value for attributes[c]
+ *      new_attributes_element The new value for attributes[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char *          new_attributes_element;
  *
- *      if ( bl_gff_set_attributes(&bl_gff, c, new_attributes_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_attributes(&bl_gff, c, new_attributes_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -734,19 +724,18 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attributes_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_attributes_element) && (new_attributes_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->attributes[c] = new_attributes_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -768,20 +757,20 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *      of new_attributes is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_attributes  The new value for attributes
  *      array_size      Size of the attributes array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_attributes;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_attributes(&bl_gff, new_attributes, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_attributes(&bl_gff, new_attributes, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -790,20 +779,19 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_attributes == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->attributes, new_attributes, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -829,18 +817,18 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_feature_id  The new value for feature_id
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_feature_id;
  *
- *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id) == BL_DATA_OK )
+ *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -849,19 +837,18 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_feature_id == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->feature_id = new_feature_id;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -882,20 +869,20 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *      of new_feature_id_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the feature_id array
- *      new_feature_id_element  The new value for feature_id[c]
+ *      new_feature_id_element The new value for feature_id[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char *          new_feature_id_element;
  *
- *      if ( bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_feature_id(&bl_gff, c, new_feature_id_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -904,19 +891,18 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_id_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_feature_id_element) && (new_feature_id_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->feature_id[c] = new_feature_id_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -938,20 +924,20 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *      of new_feature_id is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_feature_id  The new value for feature_id
  *      array_size      Size of the feature_id array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_feature_id;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -960,20 +946,19 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_feature_id == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->feature_id, new_feature_id, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -999,18 +984,18 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *      
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_gene_name   The new value for gene_name
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_gene_name;
  *
- *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name) == BL_DATA_OK )
+ *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1019,19 +1004,18 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_gene_name == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->gene_name = new_gene_name;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -1052,20 +1036,20 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *      of new_gene_name_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      c               Subscript to the gene_name array
- *      new_gene_name_element   The new value for gene_name[c]
+ *      new_gene_name_element The new value for gene_name[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
  *      char *          new_gene_name_element;
  *
- *      if ( bl_gff_set_gene_name(&bl_gff, c, new_gene_name_element) == BL_DATA_OK )
+ *      if ( bl_gff_set_gene_name(&bl_gff, c, new_gene_name_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1074,19 +1058,18 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_name_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_gene_name_element) && (new_gene_name_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_gff_ptr->gene_name[c] = new_gene_name_element;
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }
 
@@ -1108,20 +1091,20 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *      of new_gene_name is guaranteed by other means.
  *
  *  Arguments:
- *      bl_gff_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_gff_ptr      Pointer to the structure to set
  *      new_gene_name   The new value for gene_name
  *      array_size      Size of the gene_name array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      char *          new_gene_name;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name, array_size) == BL_DATA_OK )
+ *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1130,19 +1113,18 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from gff.h
+ *  2022-01-15  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char * new_gene_name, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_gene_name == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->gene_name, new_gene_name, array_size);
-	return BL_DATA_OK;
+	return BL_GFF_DATA_OK;
     }
 }

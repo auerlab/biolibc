@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, size_t array_size)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -41,6 +37,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_phreds is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_VCF_DATA_OK if the new value is acceptable and assigned
+BL_VCF_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -49,7 +50,7 @@ bl_vcf_t        bl_vcf;
 unsigned char * new_phreds;
 size_t          array_size;
 
-if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_DATA_OK )
+if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_VCF_DATA_OK )
 {
 }
 .ad

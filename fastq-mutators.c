@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "fastq.h"
 
 
@@ -33,18 +35,18 @@
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_desc        The new value for desc
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_desc;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, new_desc) == BL_DATA_OK )
+ *      if ( bl_fastq_set_desc(&bl_fastq, new_desc) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -53,19 +55,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_desc == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->desc = new_desc;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -86,20 +87,20 @@ int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
  *      of new_desc_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      c               Subscript to the desc array
  *      new_desc_element The new value for desc[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          c;
  *      char *          new_desc_element;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, c, new_desc_element) == BL_DATA_OK )
+ *      if ( bl_fastq_set_desc(&bl_fastq, c, new_desc_element) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -108,19 +109,18 @@ int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->desc[c] = new_desc_element;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -142,20 +142,20 @@ int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_
  *      of new_desc is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_desc        The new value for desc
  *      array_size      Size of the desc array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_desc;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, new_desc, array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_desc(&bl_fastq, new_desc, array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -164,20 +164,19 @@ int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_desc == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fastq_ptr->desc, new_desc, array_size);
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -203,18 +202,18 @@ int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t 
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_seq         The new value for seq
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_seq;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, new_seq) == BL_DATA_OK )
+ *      if ( bl_fastq_set_seq(&bl_fastq, new_seq) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -223,19 +222,18 @@ int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_seq == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->seq = new_seq;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -256,20 +254,20 @@ int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
  *      of new_seq_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      c               Subscript to the seq array
  *      new_seq_element The new value for seq[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, c, new_seq_element) == BL_DATA_OK )
+ *      if ( bl_fastq_set_seq(&bl_fastq, c, new_seq_element) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -278,19 +276,18 @@ int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->seq[c] = new_seq_element;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -312,20 +309,20 @@ int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_el
  *      of new_seq is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_seq         The new value for seq
  *      array_size      Size of the seq array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, new_seq, array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_seq(&bl_fastq, new_seq, array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -334,20 +331,19 @@ int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_seq == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fastq_ptr->seq, new_seq, array_size);
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -373,18 +369,18 @@ int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t ar
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_plus        The new value for plus
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_plus;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, new_plus) == BL_DATA_OK )
+ *      if ( bl_fastq_set_plus(&bl_fastq, new_plus) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -393,19 +389,18 @@ int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_plus == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->plus = new_plus;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -426,20 +421,20 @@ int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
  *      of new_plus_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      c               Subscript to the plus array
  *      new_plus_element The new value for plus[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          c;
  *      char *          new_plus_element;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, c, new_plus_element) == BL_DATA_OK )
+ *      if ( bl_fastq_set_plus(&bl_fastq, c, new_plus_element) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -448,19 +443,18 @@ int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->plus[c] = new_plus_element;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -482,20 +476,20 @@ int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_
  *      of new_plus is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_plus        The new value for plus
  *      array_size      Size of the plus array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_plus;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, new_plus, array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_plus(&bl_fastq, new_plus, array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -504,20 +498,19 @@ int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_plus == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fastq_ptr->plus, new_plus, array_size);
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -543,18 +536,18 @@ int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t 
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_qual        The new value for qual
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_qual;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, new_qual) == BL_DATA_OK )
+ *      if ( bl_fastq_set_qual(&bl_fastq, new_qual) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -563,19 +556,18 @@ int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_qual == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->qual = new_qual;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -596,20 +588,20 @@ int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
  *      of new_qual_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      c               Subscript to the qual array
  *      new_qual_element The new value for qual[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          c;
  *      char *          new_qual_element;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, c, new_qual_element) == BL_DATA_OK )
+ *      if ( bl_fastq_set_qual(&bl_fastq, c, new_qual_element) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -618,19 +610,18 @@ int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->qual[c] = new_qual_element;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -652,20 +643,20 @@ int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_
  *      of new_qual is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_qual        The new value for qual
  *      array_size      Size of the qual array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      char *          new_qual;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, new_qual, array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_qual(&bl_fastq, new_qual, array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -674,20 +665,19 @@ int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_qual == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fastq_ptr->qual, new_qual, array_size);
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -713,18 +703,18 @@ int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t 
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_desc_array_size The new value for desc_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_desc_array_size;
  *
- *      if ( bl_fastq_set_desc_array_size(&bl_fastq, new_desc_array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_desc_array_size(&bl_fastq, new_desc_array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -733,19 +723,18 @@ int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->desc_array_size = new_desc_array_size;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -771,18 +760,18 @@ int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_a
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_seq_array_size The new value for seq_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_seq_array_size;
  *
- *      if ( bl_fastq_set_seq_array_size(&bl_fastq, new_seq_array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_seq_array_size(&bl_fastq, new_seq_array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -791,19 +780,18 @@ int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->seq_array_size = new_seq_array_size;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -829,18 +817,18 @@ int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_arr
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_plus_array_size The new value for plus_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_plus_array_size;
  *
- *      if ( bl_fastq_set_plus_array_size(&bl_fastq, new_plus_array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_plus_array_size(&bl_fastq, new_plus_array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -849,19 +837,18 @@ int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_arr
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->plus_array_size = new_plus_array_size;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -887,18 +874,18 @@ int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_a
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_qual_array_size The new value for qual_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_qual_array_size;
  *
- *      if ( bl_fastq_set_qual_array_size(&bl_fastq, new_qual_array_size) == BL_DATA_OK )
+ *      if ( bl_fastq_set_qual_array_size(&bl_fastq, new_qual_array_size) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -907,19 +894,18 @@ int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->qual_array_size = new_qual_array_size;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -945,18 +931,18 @@ int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_a
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_desc_len    The new value for desc_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_desc_len;
  *
- *      if ( bl_fastq_set_desc_len(&bl_fastq, new_desc_len) == BL_DATA_OK )
+ *      if ( bl_fastq_set_desc_len(&bl_fastq, new_desc_len) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -965,19 +951,18 @@ int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->desc_len = new_desc_len;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -1003,18 +988,18 @@ int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_seq_len     The new value for seq_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_seq_len;
  *
- *      if ( bl_fastq_set_seq_len(&bl_fastq, new_seq_len) == BL_DATA_OK )
+ *      if ( bl_fastq_set_seq_len(&bl_fastq, new_seq_len) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1023,19 +1008,18 @@ int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->seq_len = new_seq_len;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -1061,18 +1045,18 @@ int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_plus_len    The new value for plus_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_plus_len;
  *
- *      if ( bl_fastq_set_plus_len(&bl_fastq, new_plus_len) == BL_DATA_OK )
+ *      if ( bl_fastq_set_plus_len(&bl_fastq, new_plus_len) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1081,19 +1065,18 @@ int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->plus_len = new_plus_len;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }
 
@@ -1119,18 +1102,18 @@ int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
  *      
  *
  *  Arguments:
- *      bl_fastq_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fastq_ptr    Pointer to the structure to set
  *      new_qual_len    The new value for qual_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTQ_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTQ_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_qual_len;
  *
- *      if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len) == BL_DATA_OK )
+ *      if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len) == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1139,18 +1122,17 @@ int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-28  gen-get-set Auto-generated from fastq.h
+ *  2022-01-15  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
 int     bl_fastq_set_qual_len(bl_fastq_t *bl_fastq_ptr, size_t new_qual_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTQ_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fastq_ptr->qual_len = new_qual_len;
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
 }

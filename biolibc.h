@@ -26,9 +26,10 @@
 #define BL_WRITE_OK             0
 #define BL_WRITE_FAILURE        -1
 
-#define BL_DATA_OK              0
-#define BL_DATA_INVALID         -1      // Catch-all for non-specific error
-#define BL_DATA_OUT_OF_RANGE    -2
+// Replace these with class-specific constants
+//#define BL_DATA_OK              0
+//#define BL_DATA_INVALID         -1      // Catch-all for non-specific error
+//#define BL_DATA_OUT_OF_RANGE    -2
 
 #define BL_CHROM_MAX_CHARS      256
 #define BL_POSITION_MAX_DIGITS  32

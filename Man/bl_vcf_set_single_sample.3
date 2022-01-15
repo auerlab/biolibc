@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -43,6 +39,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_single_sample is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_VCF_DATA_OK if the new value is acceptable and assigned
+BL_VCF_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -50,7 +51,7 @@ of new_single_sample is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 char *          new_single_sample;
 
-if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_DATA_OK )
+if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_VCF_DATA_OK )
 {
 }
 .ad

@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "fasta.h"
 
 
@@ -33,18 +35,18 @@
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_desc        The new value for desc
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      char *          new_desc;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, new_desc) == BL_DATA_OK )
+ *      if ( bl_fasta_set_desc(&bl_fasta, new_desc) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -53,19 +55,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_desc == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->desc = new_desc;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -86,20 +87,20 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *      of new_desc_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
- *      c                   Subscript to the desc array
- *      new_desc_element    The new value for desc[c]
+ *      bl_fasta_ptr    Pointer to the structure to set
+ *      c               Subscript to the desc array
+ *      new_desc_element The new value for desc[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          c;
  *      char *          new_desc_element;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, c, new_desc_element) == BL_DATA_OK )
+ *      if ( bl_fasta_set_desc(&bl_fasta, c, new_desc_element) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -108,19 +109,18 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->desc[c] = new_desc_element;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -142,20 +142,20 @@ int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_
  *      of new_desc is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_desc        The new value for desc
  *      array_size      Size of the desc array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      char *          new_desc;
  *      size_t          array_size;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, new_desc, array_size) == BL_DATA_OK )
+ *      if ( bl_fasta_set_desc(&bl_fasta, new_desc, array_size) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -164,20 +164,19 @@ int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_desc == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fasta_ptr->desc, new_desc, array_size);
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -203,18 +202,18 @@ int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t 
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_seq         The new value for seq
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      char *          new_seq;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, new_seq) == BL_DATA_OK )
+ *      if ( bl_fasta_set_seq(&bl_fasta, new_seq) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -223,19 +222,18 @@ int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_seq == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->seq = new_seq;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -256,20 +254,20 @@ int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
  *      of new_seq_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      c               Subscript to the seq array
  *      new_seq_element The new value for seq[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, c, new_seq_element) == BL_DATA_OK )
+ *      if ( bl_fasta_set_seq(&bl_fasta, c, new_seq_element) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -278,19 +276,18 @@ int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->seq[c] = new_seq_element;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -312,20 +309,20 @@ int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_el
  *      of new_seq is guaranteed by other means.
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_seq         The new value for seq
  *      array_size      Size of the seq array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, new_seq, array_size) == BL_DATA_OK )
+ *      if ( bl_fasta_set_seq(&bl_fasta, new_seq, array_size) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -334,20 +331,19 @@ int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_seq == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_fasta_ptr->seq, new_seq, array_size);
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -373,18 +369,18 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_desc_array_size The new value for desc_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_desc_array_size;
  *
- *      if ( bl_fasta_set_desc_array_size(&bl_fasta, new_desc_array_size) == BL_DATA_OK )
+ *      if ( bl_fasta_set_desc_array_size(&bl_fasta, new_desc_array_size) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -393,19 +389,18 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->desc_array_size = new_desc_array_size;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -431,18 +426,18 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr        Pointer to the bl_bed_t structure to set
- *      new_seq_array_size  The new value for seq_array_size
+ *      bl_fasta_ptr    Pointer to the structure to set
+ *      new_seq_array_size The new value for seq_array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_seq_array_size;
  *
- *      if ( bl_fasta_set_seq_array_size(&bl_fasta, new_seq_array_size) == BL_DATA_OK )
+ *      if ( bl_fasta_set_seq_array_size(&bl_fasta, new_seq_array_size) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -451,19 +446,18 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->seq_array_size = new_seq_array_size;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -489,18 +483,18 @@ int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_arr
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_desc_len    The new value for desc_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_desc_len;
  *
- *      if ( bl_fasta_set_desc_len(&bl_fasta, new_desc_len) == BL_DATA_OK )
+ *      if ( bl_fasta_set_desc_len(&bl_fasta, new_desc_len) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -509,19 +503,18 @@ int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_arr
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->desc_len = new_desc_len;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }
 
@@ -547,18 +540,18 @@ int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
  *      
  *
  *  Arguments:
- *      bl_fasta_ptr    Pointer to the bl_bed_t structure to set
+ *      bl_fasta_ptr    Pointer to the structure to set
  *      new_seq_len     The new value for seq_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_FASTA_DATA_OK if the new value is acceptable and assigned
+ *      BL_FASTA_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_seq_len;
  *
- *      if ( bl_fasta_set_seq_len(&bl_fasta, new_seq_len) == BL_DATA_OK )
+ *      if ( bl_fasta_set_seq_len(&bl_fasta, new_seq_len) == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -567,18 +560,17 @@ int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-27  gen-get-set Auto-generated from fasta.h
+ *  2022-01-15  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
 int     bl_fasta_set_seq_len(bl_fasta_t *bl_fasta_ptr, size_t new_seq_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_FASTA_DATA_OUT_OF_RANGE;
     else
     {
 	bl_fasta_ptr->seq_len = new_seq_len;
-	return BL_DATA_OK;
+	return BL_FASTA_DATA_OK;
     }
 }

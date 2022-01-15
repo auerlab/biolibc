@@ -123,7 +123,7 @@ int     bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position)
 	}
     }
     pos_list->positions[pos_list->count++] = position;
-    return BL_DATA_OK;
+    return BL_POS_LIST_DATA_OK;
 }
 
 
@@ -174,7 +174,7 @@ int     bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
     {
 	position = strtoull(token, &end, 10);
 	if ( *end != '\0' )
-	    return BL_DATA_INVALID;
+	    return BL_POS_LIST_DATA_INVALID;
 	else
 	    bl_pos_list_add_position(pos_list, position);
     }

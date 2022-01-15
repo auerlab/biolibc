@@ -674,8 +674,8 @@ size_t  bl_fastq_find_adapter_exact(const bl_fastq_t *read,
  *      new_len     New length and location of the null terminators
  *
  *  Returns:
- *      BL_DATA_OK if new_len is between 0 and original length,
- *      BL_DATA_INVALID otherwise.
+ *      BL_FASTQ_DATA_OK if new_len is between 0 and original length,
+ *      BL_FASTQ_DATA_INVALID otherwise.
  *
  *  Examples:
  *      bl_fastq_t  read;
@@ -702,10 +702,10 @@ size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len)
 	read->seq_len = read->qual_len = new_len;
 	read->seq[new_len] = read->qual[new_len] = '\0';
 	// FIXME: realloc?
-	return BL_DATA_OK;
+	return BL_FASTQ_DATA_OK;
     }
     else
-	return BL_DATA_INVALID;
+	return BL_FASTQ_DATA_INVALID;
 }
 
 

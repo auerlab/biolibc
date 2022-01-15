@@ -386,7 +386,7 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
     snprintf(name, BL_BED_NAME_MAX_CHARS + 1, "%s", BL_GFF_FEATURE(gff_feature));
     bl_bed_set_name_cpy(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
     bl_bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
-    if ( bl_bed_set_strand(bed_feature, strand) != BL_DATA_OK )
+    if ( bl_bed_set_strand(bed_feature, strand) != BL_BED_DATA_OK )
     {
 	fputs("bl_gff_to_bed(): bl_bed_set_strand() failed.\n", stderr);
 	exit(EX_DATAERR);

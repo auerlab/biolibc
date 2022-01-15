@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "bed.h"
 
 
@@ -28,20 +30,20 @@
  *      of new_chrom_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      c               Subscript to the chrom array
  *      new_chrom_element The new value for chrom[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      if ( bl_bed_set_chrom(&bl_bed, c, new_chrom_element) == BL_DATA_OK )
+ *      if ( bl_bed_set_chrom(&bl_bed, c, new_chrom_element) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -50,19 +52,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_chrom_element) && (new_chrom_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->chrom[c] = new_chrom_element;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -84,20 +85,20 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *      of new_chrom is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_chrom       The new value for chrom
  *      array_size      Size of the chrom array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_chrom(&bl_bed, new_chrom, array_size) == BL_DATA_OK )
+ *      if ( bl_bed_set_chrom(&bl_bed, new_chrom, array_size) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -106,20 +107,19 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_chrom == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_bed_ptr->chrom, new_chrom, array_size);
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -145,18 +145,18 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_chrom_start The new value for chrom_start
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_start;
  *
- *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start) == BL_DATA_OK )
+ *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -165,19 +165,18 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->chrom_start = new_chrom_start;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -203,18 +202,18 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_chrom_end   The new value for chrom_end
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_end;
  *
- *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end) == BL_DATA_OK )
+ *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -223,19 +222,18 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->chrom_end = new_chrom_end;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -256,20 +254,20 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *      of new_name_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      c               Subscript to the name array
  *      new_name_element The new value for name[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
  *      char            new_name_element;
  *
- *      if ( bl_bed_set_name(&bl_bed, c, new_name_element) == BL_DATA_OK )
+ *      if ( bl_bed_set_name(&bl_bed, c, new_name_element) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -278,19 +276,18 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_name_element) && (new_name_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->name[c] = new_name_element;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -312,20 +309,20 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *      of new_name is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_name        The new value for name
  *      array_size      Size of the name array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      char            new_name;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_name(&bl_bed, new_name, array_size) == BL_DATA_OK )
+ *      if ( bl_bed_set_name(&bl_bed, new_name, array_size) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -334,20 +331,19 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_name == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_bed_ptr->name, new_name, array_size);
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -373,18 +369,18 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_score       The new value for score
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_score;
  *
- *      if ( bl_bed_set_score(&bl_bed, new_score) == BL_DATA_OK )
+ *      if ( bl_bed_set_score(&bl_bed, new_score) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -393,19 +389,18 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( new_score > 1000 )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->score = new_score;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -431,18 +426,18 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_strand      The new value for strand
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      char            new_strand;
  *
- *      if ( bl_bed_set_strand(&bl_bed, new_strand) == BL_DATA_OK )
+ *      if ( bl_bed_set_strand(&bl_bed, new_strand) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -451,19 +446,18 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->strand = new_strand;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -489,18 +483,18 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_thick_start The new value for thick_start
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_start;
  *
- *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start) == BL_DATA_OK )
+ *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -509,19 +503,18 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->thick_start = new_thick_start;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -547,18 +540,18 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_thick_end   The new value for thick_end
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_end;
  *
- *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end) == BL_DATA_OK )
+ *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -567,19 +560,18 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->thick_end = new_thick_end;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -600,20 +592,20 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *      of new_item_rgb_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      c               Subscript to the item_rgb array
  *      new_item_rgb_element The new value for item_rgb[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
  *      char            new_item_rgb_element;
  *
- *      if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_DATA_OK )
+ *      if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -622,19 +614,18 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_item_rgb_element) && (new_item_rgb_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->item_rgb[c] = new_item_rgb_element;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -656,20 +647,20 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *      of new_item_rgb is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_item_rgb    The new value for item_rgb
  *      array_size      Size of the item_rgb array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      char            new_item_rgb;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_DATA_OK )
+ *      if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -678,20 +669,19 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_item_rgb == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_bed_ptr->item_rgb, new_item_rgb, array_size);
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -717,18 +707,18 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_block_count The new value for block_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_block_count;
  *
- *      if ( bl_bed_set_block_count(&bl_bed, new_block_count) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_count(&bl_bed, new_block_count) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -737,19 +727,18 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->block_count = new_block_count;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -775,18 +764,18 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_block_sizes The new value for block_sizes
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_sizes;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -795,19 +784,18 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_sizes == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->block_sizes = new_block_sizes;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -828,20 +816,20 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *      of new_block_sizes_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      c               Subscript to the block_sizes array
  *      new_block_sizes_element The new value for block_sizes[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
  *      uint64_t *      new_block_sizes_element;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, c, new_block_sizes_element) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_sizes(&bl_bed, c, new_block_sizes_element) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -850,19 +838,18 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_sizes_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_block_sizes_element) && (new_block_sizes_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->block_sizes[c] = new_block_sizes_element;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -884,20 +871,20 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *      of new_block_sizes is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_block_sizes The new value for block_sizes
  *      array_size      Size of the block_sizes array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_sizes;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes, array_size) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes, array_size) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -906,25 +893,22 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_sizes == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_bed_ptr->block_sizes[c] = new_block_sizes[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_bed_ptr->block_sizes[c] = new_block_sizes[c];
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -950,18 +934,18 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_block_starts The new value for block_starts
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_starts;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -970,19 +954,18 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_starts == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->block_starts = new_block_starts;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -1003,20 +986,20 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *      of new_block_starts_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      c               Subscript to the block_starts array
  *      new_block_starts_element The new value for block_starts[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
  *      uint64_t *      new_block_starts_element;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1025,19 +1008,18 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_block_starts_element) && (new_block_starts_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->block_starts[c] = new_block_starts_element;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -1059,20 +1041,20 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *      of new_block_starts is guaranteed by other means.
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_block_starts The new value for block_starts
  *      array_size      Size of the block_starts array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_starts;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size) == BL_DATA_OK )
+ *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1081,25 +1063,22 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_block_starts == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_bed_ptr->block_starts[c] = new_block_starts[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_bed_ptr->block_starts[c] = new_block_starts[c];
+	return BL_BED_DATA_OK;
     }
 }
 
@@ -1125,18 +1104,18 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *      
  *
  *  Arguments:
- *      bl_bed_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_bed_ptr      Pointer to the structure to set
  *      new_fields      The new value for fields
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_BED_DATA_OK if the new value is acceptable and assigned
+ *      BL_BED_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_fields;
  *
- *      if ( bl_bed_set_fields(&bl_bed, new_fields) == BL_DATA_OK )
+ *      if ( bl_bed_set_fields(&bl_bed, new_fields) == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1145,18 +1124,17 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from bed.h
+ *  2022-01-15  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
 int     bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( (new_fields < 3) || (new_fields > 9) )
+	return BL_BED_DATA_OUT_OF_RANGE;
     else
     {
 	bl_bed_ptr->fields = new_fields;
-	return BL_DATA_OK;
+	return BL_BED_DATA_OK;
     }
 }

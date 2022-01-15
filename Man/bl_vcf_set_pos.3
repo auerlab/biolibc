@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -43,6 +39,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_pos is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_VCF_DATA_OK if the new value is acceptable and assigned
+BL_VCF_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -50,7 +51,7 @@ of new_pos is guaranteed by other means.
 bl_vcf_t        bl_vcf;
 uint64_t        new_pos;
 
-if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_DATA_OK )
+if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_VCF_DATA_OK )
 {
 }
 .ad

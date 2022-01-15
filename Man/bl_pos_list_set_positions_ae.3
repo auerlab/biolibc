@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -40,6 +36,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_positions_element is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -48,7 +49,7 @@ bl_pos_list_t   bl_pos_list;
 size_t          c;
 uint64_t *      new_positions_element;
 
-if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_DATA_OK )
+if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_POS_LIST_DATA_OK )
 {
 }
 .ad

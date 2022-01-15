@@ -56,7 +56,7 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
     overlap->overlap_len = overlap_end - overlap_start + 1;
     
     // FIXME: Return BL_DATA_INVALID if sanity checks fail
-    return BL_DATA_OK;
+    return BL_OVERLAP_DATA_OK;
 }
 
 

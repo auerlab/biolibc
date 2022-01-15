@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "vcf.h"
 
 
@@ -28,20 +30,20 @@
  *      of new_chrom_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the chrom array
  *      new_chrom_element The new value for chrom[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      if ( bl_vcf_set_chrom(&bl_vcf, c, new_chrom_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_chrom(&bl_vcf, c, new_chrom_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -50,19 +52,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_chrom_element) && (new_chrom_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->chrom[c] = new_chrom_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -84,20 +85,20 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *      of new_chrom is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_chrom       The new value for chrom
  *      array_size      Size of the chrom array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -106,20 +107,19 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_chrom == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->chrom, new_chrom, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -140,20 +140,20 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *      of new_id_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the id array
  *      new_id_element  The new value for id[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_id_element;
  *
- *      if ( bl_vcf_set_id(&bl_vcf, c, new_id_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_id(&bl_vcf, c, new_id_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -162,19 +162,18 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_id_element) && (new_id_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->id[c] = new_id_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -196,20 +195,20 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *      of new_id is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_id          The new value for id
  *      array_size      Size of the id array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_id;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_id(&bl_vcf, new_id, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_id(&bl_vcf, new_id, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -218,20 +217,19 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_id == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->id, new_id, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -252,20 +250,20 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *      of new_ref_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the ref array
  *      new_ref_element The new value for ref[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_ref_element;
  *
- *      if ( bl_vcf_set_ref(&bl_vcf, c, new_ref_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_ref(&bl_vcf, c, new_ref_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -274,19 +272,18 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_ref_element) && (new_ref_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->ref[c] = new_ref_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -308,20 +305,20 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *      of new_ref is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_ref         The new value for ref
  *      array_size      Size of the ref array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_ref;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_ref(&bl_vcf, new_ref, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_ref(&bl_vcf, new_ref, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -330,20 +327,19 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_ref == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->ref, new_ref, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -364,20 +360,20 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *      of new_alt_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the alt array
  *      new_alt_element The new value for alt[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_alt_element;
  *
- *      if ( bl_vcf_set_alt(&bl_vcf, c, new_alt_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_alt(&bl_vcf, c, new_alt_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -386,19 +382,18 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_alt_element) && (new_alt_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->alt[c] = new_alt_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -420,20 +415,20 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *      of new_alt is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_alt         The new value for alt
  *      array_size      Size of the alt array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_alt;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_alt(&bl_vcf, new_alt, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_alt(&bl_vcf, new_alt, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -442,20 +437,19 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_alt == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->alt, new_alt, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -476,20 +470,20 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *      of new_qual_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the qual array
  *      new_qual_element The new value for qual[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_qual_element;
  *
- *      if ( bl_vcf_set_qual(&bl_vcf, c, new_qual_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_qual(&bl_vcf, c, new_qual_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -498,19 +492,18 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_qual_element) && (new_qual_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->qual[c] = new_qual_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -532,20 +525,20 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *      of new_qual is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_qual        The new value for qual
  *      array_size      Size of the qual array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_qual;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -554,20 +547,19 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_qual == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->qual, new_qual, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -588,20 +580,20 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *      of new_filter_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the filter array
  *      new_filter_element The new value for filter[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char            new_filter_element;
  *
- *      if ( bl_vcf_set_filter(&bl_vcf, c, new_filter_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_filter(&bl_vcf, c, new_filter_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -610,19 +602,18 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_filter_element) && (new_filter_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->filter[c] = new_filter_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -644,20 +635,20 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *      of new_filter is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_filter      The new value for filter
  *      array_size      Size of the filter array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char            new_filter;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_filter(&bl_vcf, new_filter, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_filter(&bl_vcf, new_filter, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -666,20 +657,19 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_filter == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->filter, new_filter, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -705,18 +695,18 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_info        The new value for info
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_info;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, new_info) == BL_DATA_OK )
+ *      if ( bl_vcf_set_info(&bl_vcf, new_info) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -725,19 +715,18 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_info == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->info = new_info;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -758,20 +747,20 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *      of new_info_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the info array
  *      new_info_element The new value for info[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char *          new_info_element;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, c, new_info_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_info(&bl_vcf, c, new_info_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -780,19 +769,18 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->info[c] = new_info_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -814,20 +802,20 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *      of new_info is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_info        The new value for info
  *      array_size      Size of the info array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_info;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, new_info, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_info(&bl_vcf, new_info, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -836,20 +824,19 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_info == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->info, new_info, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -875,18 +862,18 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_format      The new value for format
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_format;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, new_format) == BL_DATA_OK )
+ *      if ( bl_vcf_set_format(&bl_vcf, new_format) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -895,19 +882,18 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_format == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->format = new_format;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -928,20 +914,20 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *      of new_format_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the format array
  *      new_format_element The new value for format[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char *          new_format_element;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, c, new_format_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_format(&bl_vcf, c, new_format_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -950,19 +936,18 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->format[c] = new_format_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -984,20 +969,20 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *      of new_format is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_format      The new value for format
  *      array_size      Size of the format array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_format;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, new_format, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_format(&bl_vcf, new_format, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1006,20 +991,19 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_format == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->format, new_format, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1045,18 +1029,18 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_single_sample The new value for single_sample
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_single_sample;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_DATA_OK )
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1065,19 +1049,18 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_single_sample == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->single_sample = new_single_sample;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1098,20 +1081,20 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *      of new_single_sample_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the single_sample array
  *      new_single_sample_element The new value for single_sample[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char *          new_single_sample_element;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1120,19 +1103,18 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_single_sample_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->single_sample[c] = new_single_sample_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1154,20 +1136,20 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *      of new_single_sample is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_single_sample The new value for single_sample
  *      array_size      Size of the single_sample array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char *          new_single_sample;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1176,20 +1158,19 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sample, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_single_sample == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->single_sample, new_single_sample, array_size);
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1215,18 +1196,18 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_pos         The new value for pos
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      uint64_t        new_pos;
  *
- *      if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_DATA_OK )
+ *      if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1235,19 +1216,18 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->pos = new_pos;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1273,18 +1253,18 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_info_len    The new value for info_len
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_len;
  *
- *      if ( bl_vcf_set_info_len(&bl_vcf, new_info_len) == BL_DATA_OK )
+ *      if ( bl_vcf_set_info_len(&bl_vcf, new_info_len) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1293,19 +1273,18 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->info_len = new_info_len;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1331,18 +1310,18 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_info_max    The new value for info_max
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_max;
  *
- *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max) == BL_DATA_OK )
+ *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1351,19 +1330,18 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->info_max = new_info_max;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1389,18 +1367,18 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_format_max  The new value for format_max
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_format_max;
  *
- *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max) == BL_DATA_OK )
+ *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1409,19 +1387,75 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->format_max = new_format_max;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for format_len member in a bl_vcf_t structure.
+ *      Use this function to set format_len in a bl_vcf_t variable
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      format_len is a pointer, data previously pointed to should
+ *      generally be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *      Note that there is an equivalent macro (), which performs
+ *      this function with no data verification or function call overhead.
+ *      Use the macro version to maximize performance where the validity
+ *      of new_format_len is guaranteed by other means.
+ *      
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_format_len  The new value for format_len
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          new_format_len;
+ *
+ *      if ( bl_vcf_set_format_len(&bl_vcf, new_format_len) == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->format_len = new_format_len;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1447,18 +1481,18 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_sample_max  The new value for sample_max
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_sample_max;
  *
- *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max) == BL_DATA_OK )
+ *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1467,19 +1501,18 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->sample_max = new_sample_max;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1505,18 +1538,18 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_ref_count   The new value for ref_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_ref_count;
  *
- *      if ( bl_vcf_set_ref_count(&bl_vcf, new_ref_count) == BL_DATA_OK )
+ *      if ( bl_vcf_set_ref_count(&bl_vcf, new_ref_count) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1525,19 +1558,18 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->ref_count = new_ref_count;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1563,18 +1595,18 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_alt_count   The new value for alt_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_alt_count;
  *
- *      if ( bl_vcf_set_alt_count(&bl_vcf, new_alt_count) == BL_DATA_OK )
+ *      if ( bl_vcf_set_alt_count(&bl_vcf, new_alt_count) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1583,19 +1615,18 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->alt_count = new_alt_count;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1621,18 +1652,18 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_other_count The new value for other_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_other_count;
  *
- *      if ( bl_vcf_set_other_count(&bl_vcf, new_other_count) == BL_DATA_OK )
+ *      if ( bl_vcf_set_other_count(&bl_vcf, new_other_count) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1641,19 +1672,18 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->other_count = new_other_count;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1679,18 +1709,18 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_multi_samples The new value for multi_samples
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char **         new_multi_samples;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples) == BL_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1699,19 +1729,18 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_multi_samples == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->multi_samples = new_multi_samples;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1732,20 +1761,20 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *      of new_multi_samples_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the multi_samples array
  *      new_multi_samples_element The new value for multi_samples[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      char **         new_multi_samples_element;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, c, new_multi_samples_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, c, new_multi_samples_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1754,19 +1783,18 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_multi_samples_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_multi_samples_element == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->multi_samples[c] = new_multi_samples_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1788,20 +1816,20 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *      of new_multi_samples is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_multi_samples The new value for multi_samples
  *      array_size      Size of the multi_samples array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      char **         new_multi_samples;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1810,25 +1838,22 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_multi_samples == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->multi_samples[c] = new_multi_samples[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_vcf_ptr->multi_samples[c] = new_multi_samples[c];
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1854,18 +1879,18 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_phreds      The new value for phreds
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      unsigned char * new_phreds;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds) == BL_DATA_OK )
+ *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1874,19 +1899,18 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_phreds == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->phreds = new_phreds;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1907,20 +1931,20 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *      of new_phreds_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      c               Subscript to the phreds array
  *      new_phreds_element The new value for phreds[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          c;
  *      unsigned char * new_phreds_element;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element) == BL_DATA_OK )
+ *      if ( bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1929,19 +1953,18 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_phreds_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->phreds[c] = new_phreds_element;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -1963,20 +1986,20 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *      of new_phreds is guaranteed by other means.
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_phreds      The new value for phreds
  *      array_size      Size of the phreds array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      unsigned char * new_phreds;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1985,25 +2008,22 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_phreds == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_vcf_ptr->phreds[c] = new_phreds[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_vcf_ptr->phreds[c] = new_phreds[c];
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -2029,18 +2049,18 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_phred_count The new value for phred_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_count;
  *
- *      if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count) == BL_DATA_OK )
+ *      if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -2049,19 +2069,18 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->phred_count = new_phred_count;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }
 
@@ -2087,18 +2106,18 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *      
  *
  *  Arguments:
- *      bl_vcf_ptr      Pointer to the bl_bed_t structure to set
+ *      bl_vcf_ptr      Pointer to the structure to set
  *      new_phred_buff_size The new value for phred_buff_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_buff_size;
  *
- *      if ( bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size) == BL_DATA_OK )
+ *      if ( bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size) == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -2107,18 +2126,17 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from vcf.h
+ *  2022-01-15  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
 int     bl_vcf_set_phred_buff_size(bl_vcf_t *bl_vcf_ptr, size_t new_phred_buff_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_vcf_ptr->phred_buff_size = new_phred_buff_size;
-	return BL_DATA_OK;
+	return BL_VCF_DATA_OK;
     }
 }

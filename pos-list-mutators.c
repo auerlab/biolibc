@@ -8,6 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "pos-list.h"
 
 
@@ -32,18 +35,18 @@
  *      
  *
  *  Arguments:
- *      bl_pos_list_ptr Pointer to the bl_bed_t structure to set
+ *      bl_pos_list_ptr Pointer to the structure to set
  *      new_array_size  The new value for array_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+ *      BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_array_size;
  *
- *      if ( bl_pos_list_set_array_size(&bl_pos_list, new_array_size) == BL_DATA_OK )
+ *      if ( bl_pos_list_set_array_size(&bl_pos_list, new_array_size) == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -52,19 +55,18 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from pos-list.h
+ *  2022-01-15  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_POS_LIST_DATA_OUT_OF_RANGE;
     else
     {
 	bl_pos_list_ptr->array_size = new_array_size;
-	return BL_DATA_OK;
+	return BL_POS_LIST_DATA_OK;
     }
 }
 
@@ -90,18 +92,18 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *      
  *
  *  Arguments:
- *      bl_pos_list_ptr Pointer to the bl_bed_t structure to set
+ *      bl_pos_list_ptr Pointer to the structure to set
  *      new_count       The new value for count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+ *      BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_count;
  *
- *      if ( bl_pos_list_set_count(&bl_pos_list, new_count) == BL_DATA_OK )
+ *      if ( bl_pos_list_set_count(&bl_pos_list, new_count) == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -110,19 +112,18 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from pos-list.h
+ *  2022-01-15  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_POS_LIST_DATA_OUT_OF_RANGE;
     else
     {
 	bl_pos_list_ptr->count = new_count;
-	return BL_DATA_OK;
+	return BL_POS_LIST_DATA_OK;
     }
 }
 
@@ -148,18 +149,18 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *      
  *
  *  Arguments:
- *      bl_pos_list_ptr Pointer to the bl_bed_t structure to set
+ *      bl_pos_list_ptr Pointer to the structure to set
  *      new_positions   The new value for positions
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+ *      BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      uint64_t *      new_positions;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions) == BL_DATA_OK )
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions) == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -168,19 +169,18 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from pos-list.h
+ *  2022-01-15  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_positions == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_POS_LIST_DATA_OUT_OF_RANGE;
     else
     {
 	bl_pos_list_ptr->positions = new_positions;
-	return BL_DATA_OK;
+	return BL_POS_LIST_DATA_OK;
     }
 }
 
@@ -201,20 +201,20 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *      of new_positions_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_pos_list_ptr Pointer to the bl_bed_t structure to set
+ *      bl_pos_list_ptr Pointer to the structure to set
  *      c               Subscript to the positions array
  *      new_positions_element The new value for positions[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+ *      BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          c;
  *      uint64_t *      new_positions_element;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_DATA_OK )
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -223,19 +223,18 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from pos-list.h
+ *  2022-01-15  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_positions_element) && (new_positions_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_POS_LIST_DATA_OUT_OF_RANGE;
     else
     {
 	bl_pos_list_ptr->positions[c] = new_positions_element;
-	return BL_DATA_OK;
+	return BL_POS_LIST_DATA_OK;
     }
 }
 
@@ -257,20 +256,20 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *      of new_positions is guaranteed by other means.
  *
  *  Arguments:
- *      bl_pos_list_ptr Pointer to the bl_bed_t structure to set
+ *      bl_pos_list_ptr Pointer to the structure to set
  *      new_positions   The new value for positions
  *      array_size      Size of the positions array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_POS_LIST_DATA_OK if the new value is acceptable and assigned
+ *      BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      uint64_t *      new_positions;
  *      size_t          array_size;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_DATA_OK )
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -279,24 +278,21 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from pos-list.h
+ *  2022-01-15  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
 int     bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_positions == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_POS_LIST_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_pos_list_ptr->positions[c] = new_positions[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_pos_list_ptr->positions[c] = new_positions[c];
+	return BL_POS_LIST_DATA_OK;
     }
 }

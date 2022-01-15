@@ -8,7 +8,9 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <xtend/string.h>      // strlcpy() on Linux
+#include <stdbool.h>        // In case of bool
+#include <stdint.h>         // In case of int64_t, etc
+#include <xtend/string.h>   // strlcpy() on Linux
 #include "sam-buff.h"
 
 
@@ -33,18 +35,18 @@
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_buff_size   The new value for buff_size
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buff_size;
  *
- *      if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -53,19 +55,75 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buff_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->buff_size = new_buff_size;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam-buff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for max_alignments member in a bl_sam_buff_t structure.
+ *      Use this function to set max_alignments in a bl_sam_buff_t variable
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      max_alignments is a pointer, data previously pointed to should
+ *      generally be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *      Note that there is an equivalent macro (), which performs
+ *      this function with no data verification or function call overhead.
+ *      Use the macro version to maximize performance where the validity
+ *      of new_max_alignments is guaranteed by other means.
+ *      
+ *
+ *  Arguments:
+ *      bl_sam_buff_ptr Pointer to the structure to set
+ *      new_max_alignments The new value for max_alignments
+ *
+ *  Returns:
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_buff_t   bl_sam_buff;
+ *      size_t          new_max_alignments;
+ *
+ *      if ( bl_sam_buff_set_max_alignments(&bl_sam_buff, new_max_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ ***************************************************************************/
+
+int     bl_sam_buff_set_max_alignments(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max_alignments)
+
+{
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_buff_ptr->max_alignments = new_max_alignments;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -91,18 +149,18 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_alignments  The new value for alignments
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      bl_sam_t **     new_alignments;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -111,19 +169,18 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_alignments == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->alignments = new_alignments;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -144,20 +201,20 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *      of new_alignments_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      c               Subscript to the alignments array
  *      new_alignments_element The new value for alignments[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          c;
  *      bl_sam_t **     new_alignments_element;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, c, new_alignments_element) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, c, new_alignments_element) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -166,19 +223,18 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, bl_sam_t * new_alignments_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_alignments_element == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->alignments[c] = new_alignments_element;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -200,20 +256,20 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *      of new_alignments is guaranteed by other means.
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_alignments  The new value for alignments
  *      array_size      Size of the alignments array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      bl_sam_t **     new_alignments;
  *      size_t          array_size;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments, array_size) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments, array_size) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -222,25 +278,22 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments, size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_alignments == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
-	{
-	    size_t  c;
-	    
-	    // FIXME: Assuming all elements should be copied
-	    for (c = 0; c < array_size; ++c)
-		bl_sam_buff_ptr->alignments[c] = new_alignments[c];
-	}
-	return BL_DATA_OK;
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_sam_buff_ptr->alignments[c] = new_alignments[c];
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -266,18 +319,18 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_buffered_count The new value for buffered_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buffered_count;
  *
- *      if ( bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -286,19 +339,18 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buffered_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->buffered_count = new_buffered_count;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -324,18 +376,18 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_max_count   The new value for max_count
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_max_count;
  *
- *      if ( bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -344,19 +396,18 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max_count)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->max_count = new_max_count;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -382,18 +433,18 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_previous_pos The new value for previous_pos
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_previous_pos;
  *
- *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -402,19 +453,18 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_previous_pos)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->previous_pos = new_previous_pos;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -435,20 +485,20 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *      of new_previous_rname_element is guaranteed by other means.
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      c               Subscript to the previous_rname array
  *      new_previous_rname_element The new value for previous_rname[c]
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          c;
  *      char            new_previous_rname_element;
  *
- *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, c, new_previous_rname_element) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, c, new_previous_rname_element) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -457,19 +507,18 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, char new_previous_rname_element)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( !isprint(new_previous_rname_element) && (new_previous_rname_element != '\0') )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->previous_rname[c] = new_previous_rname_element;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -491,20 +540,20 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *      of new_previous_rname is guaranteed by other means.
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_previous_rname The new value for previous_rname
  *      array_size      Size of the previous_rname array.
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      char            new_previous_rname;
  *      size_t          array_size;
  *
- *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, new_previous_rname, array_size) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, new_previous_rname, array_size) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -513,20 +562,19 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char new_previous_rname[], size_t array_size)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
     if ( new_previous_rname == NULL )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_sam_buff_ptr->previous_rname, new_previous_rname, array_size);
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -552,18 +600,18 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_mapq_min    The new value for mapq_min
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_min;
  *
- *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -572,19 +620,18 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_min)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->mapq_min = new_mapq_min;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -610,18 +657,18 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_mapq_low    The new value for mapq_low
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_low;
  *
- *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -630,19 +677,18 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_low)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->mapq_low = new_mapq_low;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -668,18 +714,18 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_mapq_high   The new value for mapq_high
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_high;
  *
- *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -688,19 +734,18 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_high)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->mapq_high = new_mapq_high;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -726,18 +771,18 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_mapq_sum    The new value for mapq_sum
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_sum;
  *
- *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -746,19 +791,18 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_sum)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->mapq_sum = new_mapq_sum;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -784,18 +828,18 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_reads_used  The new value for reads_used
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_reads_used;
  *
- *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -804,19 +848,18 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_reads_used)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->reads_used = new_reads_used;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -842,18 +885,18 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_total_alignments The new value for total_alignments
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_total_alignments;
  *
- *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -862,19 +905,18 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_total_alignments)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->total_alignments = new_total_alignments;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -900,18 +942,18 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_trailing_alignments The new value for trailing_alignments
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_trailing_alignments;
  *
- *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -920,19 +962,18 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_trailing_alignments)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->trailing_alignments = new_trailing_alignments;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -958,18 +999,18 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_discarded_alignments The new value for discarded_alignments
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_alignments;
  *
- *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -978,19 +1019,18 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_alignments)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->discarded_alignments = new_discarded_alignments;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -1016,18 +1056,18 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_discarded_score_sum The new value for discarded_score_sum
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_score_sum;
  *
- *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1036,19 +1076,18 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_score_sum)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->discarded_score_sum = new_discarded_score_sum;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -1074,18 +1113,18 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_discarded_trailing The new value for discarded_trailing
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_trailing;
  *
- *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1094,19 +1133,18 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_trailing)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->discarded_trailing = new_discarded_trailing;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -1132,18 +1170,18 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_min_discarded_score The new value for min_discarded_score
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_min_discarded_score;
  *
- *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1152,19 +1190,18 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_min_discarded_score)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->min_discarded_score = new_min_discarded_score;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -1190,18 +1227,18 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_max_discarded_score The new value for max_discarded_score
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_max_discarded_score;
  *
- *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1210,19 +1247,18 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_max_discarded_score)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->max_discarded_score = new_max_discarded_score;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }
 
@@ -1248,18 +1284,18 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      
  *
  *  Arguments:
- *      bl_sam_buff_ptr Pointer to the bl_bed_t structure to set
+ *      bl_sam_buff_ptr Pointer to the structure to set
  *      new_unmapped_alignments The new value for unmapped_alignments
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_SAM_BUFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_unmapped_alignments;
  *
- *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments) == BL_DATA_OK )
+ *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments) == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1268,18 +1304,17 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2021-07-25  gen-get-set Auto-generated from sam-buff.h
+ *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
 int     bl_sam_buff_set_unmapped_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_unmapped_alignments)
 
 {
-    /* FIXME: Replace this with a proper sanity check */
-    if ( 0 )
-	return BL_DATA_OUT_OF_RANGE;
+    if ( false )
+	return BL_SAM_BUFF_DATA_OUT_OF_RANGE;
     else
     {
 	bl_sam_buff_ptr->unmapped_alignments = new_unmapped_alignments;
-	return BL_DATA_OK;
+	return BL_SAM_BUFF_DATA_OK;
     }
 }

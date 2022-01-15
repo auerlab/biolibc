@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -41,6 +37,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_item_rgb is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_BED_DATA_OK if the new value is acceptable and assigned
+BL_BED_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -49,7 +50,7 @@ bl_bed_t        bl_bed;
 char            new_item_rgb;
 size_t          array_size;
 
-if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_DATA_OK )
+if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_BED_DATA_OK )
 {
 }
 .ad

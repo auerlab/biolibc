@@ -14,11 +14,7 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-.nf 
-.na
 int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
-.ad
-.fi
 
 .SH ARGUMENTS
 .nf
@@ -43,6 +39,11 @@ this function with no data verification or function call overhead.
 Use the macro version to maximize performance where the validity
 of new_pnext is guaranteed by other means.
 
+.SH RETURN VALUES
+
+BL_SAM_DATA_OK if the new value is acceptable and assigned
+BL_SAM_DATA_OUT_OF_RANGE otherwise
+
 .SH EXAMPLES
 .nf
 .na
@@ -50,7 +51,7 @@ of new_pnext is guaranteed by other means.
 bl_sam_t        bl_sam;
 uint64_t        new_pnext;
 
-if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_DATA_OK )
+if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_SAM_DATA_OK )
 {
 }
 .ad
