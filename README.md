@@ -6,7 +6,8 @@ The biolibc library is new and evolving rapidly.  It will likely undergo
 occasional API changes as we discover suboptimal design
 decisions that have made it into the implementation.
 
-Be prepared to update dependent software occasionally in order to stay with
+API changes will gradually become less frequent as the software matures.
+For now, be prepared to update dependent software in order to stay with
 the latest biolibc.
 
 ## Description
@@ -98,7 +99,7 @@ hence a good vehicle to learn how to create packages.
 FreeBSD is a highly underrated platform for scientific computing, with over
 1,900 scientific libraries and applications in the FreeBSD ports collection
 (of more than 30,000 total), modern clang compiler, fully-integrated ZFS
-filesystem, and renowned security, performance, and reliability.
+file system, and renowned security, performance, and reliability.
 FreeBSD has a somewhat well-earned reputation for being difficult to set up
 and manage compared to user-friendly systems like [Ubuntu](https://ubuntu.com/).
 However, if you're a little bit Unix-savvy, you can very quickly set up a
@@ -173,7 +174,7 @@ To facilitate incorporation into package managers, the Makefile respects
 standard make/environment variables such as CC, CFLAGS, PREFIX, etc.  
 
 Add-on libraries required for the build, such as libxtend, should be found
-under ${LOCABASE}, which defaults to ../local.
+under ${LOCALBASE}, which defaults to ../local.
 The library, headers, and man pages are installed under
 ${DESTDIR}${PREFIX}.  DESTDIR is empty by default and is primarily used by
 package managers to stage installations.  PREFIX defaults to ${LOCALBASE}.
