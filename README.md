@@ -1,5 +1,14 @@
 # biolibc
 
+## Status
+
+The biolibc library is new and evolving rapidly.  It will likely undergo
+occasional API changes as we discover suboptimal design
+decisions that have made it into the implementation.
+
+Be prepared to update dependent software occasionally in order to stay with
+the latest biolibc.
+
 ## Description
 
 Many bioinformatics pipelines are essentially made of mud and straw;
