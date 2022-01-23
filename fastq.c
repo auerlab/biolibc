@@ -527,6 +527,8 @@ size_t  bl_fastq_find_adapter_smart(const bl_fastq_t *read,
 	    unsigned max_mismatch_percent)
 
 {
+    // The strlen() looks expensive, but tests show that eliminating it
+    // doesn't reduce run time measurably
     size_t      match, mismatch, max_mismatch,
 		adapter_len = strlen(adapter),
 		start, rc, ac,
