@@ -6,12 +6,12 @@ The biolibc library is new and evolving rapidly.  It will likely undergo
 occasional API changes as we discover suboptimal design
 decisions that have made it into the implementation.
 
-API changes will gradually become less frequent as the software matures.
+API changes will become less frequent as the software matures.
 For now, be prepared to update dependent software in order to stay with
 the latest biolibc.
 
 Keep in mind that older releases are always available on Github, so API changes
-won't impact you by surprise.  You only need to cope with them when
+won't impact you by surprise.  You only need to deal with them when
 updating to a newer version of biolibc.
 
 ## Description
