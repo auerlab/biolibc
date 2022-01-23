@@ -18,12 +18,13 @@ updating to a newer version of biolibc.
 
 Many bioinformatics pipelines are essentially made of mud and straw;
 quick-and-dirty single-use scripts written in various interpreted languages,
-with little or no meaningful error reporting and generally poor performance.
+with little or no meaningful error reporting or documentation, and generally
+poor performance.
 
 Biolibc is a collection of high-quality bricks that can be used to build
-efficient, robust software applications to take the place of such scripts.
-Using biolibc, you can develop permanent solutions that are easy to use and
-install, with near-optimal performance,
+efficient, robust software applications in place of disposable scripts.
+Using biolibc, you can easily develop permanent solutions that are easy to
+use and install, with near-optimal performance,
 so that no one ever need reinvent that particular wheel.
 
 For some examples, see
@@ -34,11 +35,12 @@ For some examples, see
 [haploh-vcf-depths](https://github.com/auerlab/haploh-vcf-depths),
 [peak-classifier](https://github.com/auerlab/peak-classifier),
 [generand](https://github.com/auerlab/generand),
-and [ad-matrix](https://github.com/auerlab/ad-matrix).
+[ad-matrix](https://github.com/auerlab/ad-matrix), and
+[fastq-trim](https://github.com/auerlab/fastq-trim).
 
 In more technical terms, biolibc is a library of fast, memory-efficient C
 functions for processing biological data.  Like libc, it consists of numerous
-disparate, general-purpose functions which could be used by a wide variety of
+disparate, general-purpose functions that can be used by a wide variety of
 applications.
 
 These include functions for reading and writing common file formats such as
@@ -47,13 +49,13 @@ bioinformatics such as chromosome_name_cmp(), detecting feature overlaps,
 etc.
 
 Biolibc, and the more generic [libxtend](https://github.com/outpaddling/libxtend),
-allow you to code in C at a higher level by providing the basic
+move your C coding to a higher level by providing the most basic
 building blocks and additional software layers commonly needed in
 bioinformatics programming.  Using C and biolibc, you can write simple,
 near-optimal C programs that may be orders of magnitude faster than scripting
-languages such as Perl, Python, and R, while requiring comparable effort.
+languages such as Perl, Python, and R, while requiring comparable coding effort.
 [fastx-derep.c](https://github.com/auerlab/biolibc-tools/blob/main/fastx-derep.c),
-a 1-page C program for dereplicating FASTA/FASTQ files, offers a good example
+a 1-page C program for dereplicating FASTA/FASTQ files, offers a great example
 of how the right libraries eliminate the need for low-level programming in C.
 
 See the
