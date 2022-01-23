@@ -27,7 +27,7 @@ Using biolibc, you can easily develop permanent solutions that are easy to
 use and install, with near-optimal performance, so that no one ever need
 reinvent that particular wheel.  Biolibc also facilitates developemtn of
 more complex applications by providing many commonly used building blocks,
-thus relieving you low-level coding.
+thus releasing you from low-level coding.
 
 For some examples, see
 [biolibc-tools](https://github.com/auerlab/biolibc-tools),
