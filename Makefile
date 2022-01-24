@@ -76,7 +76,7 @@ OBJS    = overlap.o vcf.o sam.o bed.o gff.o fasta.o fastq.o fastx.o \
 	  bed-mutators.o gff-mutators.o overlap-mutators.o \
 	  pos-list-mutators.o sam-buff-mutators.o \
 	  sam-mutators.o vcf-mutators.o fasta-mutators.o fastq-mutators.o \
-	  orf.o
+	  orf.o align.o align-mutators.o
 
 ############################################################################
 # Compile, link, and install options
