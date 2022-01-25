@@ -101,9 +101,10 @@ size_t  bl_align_map_seq_sub(const bl_align_t *params,
 {
     // The strlen() looks expensive, but tests show that eliminating it
     // doesn't reduce run time measurably
-    size_t      match, mismatch, max_mismatch,
-		start, rc, ac,
-		md, little_mm;
+    size_t      mismatch, max_mismatch,
+		start, bc, lc,
+		md, little_mm,
+		min_match = params->min_match;
     
     // Start at 5' end assuming 5' littles already removed
     // Cutadapt uses a semiglobal alignment algorithm to find littles.
@@ -121,17 +122,16 @@ size_t  bl_align_map_seq_sub(const bl_align_t *params,
 	// Terminate loop as soon as max_mismatch is reached, before
 	// checking other conditions
 	max_mismatch = MIN((big_len - start) / md, little_mm);
-	for (rc = start, ac = 0, match = mismatch = 0;
+	for (bc = start, lc = 0, mismatch = 0;
 	     (mismatch <= max_mismatch) &&
-	     (little[ac] != '\0') && (big[rc] != '\0'); ++rc, ++ac)
+	     (lc < little_len) && (bc < big_len); ++bc, ++lc)
 	{
-	    if ( toupper(big[rc]) != little[ac] )
+	    if ( toupper(big[bc]) != little[lc] )
 		++mismatch;
 	}
 	if ( mismatch <= max_mismatch )
 	{
-	    match = ac - mismatch;
-	    if ( match >= params->min_match )
+	    if ( lc - mismatch >= min_match )
 		return start;
 	}
     }
@@ -218,7 +218,7 @@ size_t  bl_align_map_seq_exact(const bl_align_t *params,
 	    const char *little, size_t little_len)
 
 {
-    size_t  start, rc, ac;
+    size_t  start, bc, lc;
     
     // Start at 5' end assuming 5' adapters already removed
     // Cutadapt uses a semiglobal alignment algorithm to find adapters.
@@ -230,11 +230,11 @@ size_t  bl_align_map_seq_exact(const bl_align_t *params,
     // outweights the few iterations saved
     for (start = 0; start < big_len; ++start)
     {
-	for (rc = start, ac = 0; (toupper(big[rc]) == little[ac]) &&
-	     (little[ac] != '\0'); ++rc, ++ac)
+	for (bc = start, lc = 0; (toupper(big[bc]) == little[lc]) &&
+	     (lc < little_len); ++bc, ++lc)
 	    ;
-	if ( (little[ac] == '\0') || ((big[rc] == '\0') &&
-	     (ac >= params->min_match)) )
+	if ( (lc == little_len) || ((bc == big_len) &&
+	     (lc >= params->min_match)) )
 	    return start;
     }
     return big_len;   // Location of '\0' terminator
