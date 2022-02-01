@@ -56,9 +56,9 @@ BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
 .nf
 .na
 
-bl_gff_read(stdin, &gff_feature, BL_GFF_FIELD_ALL);
-bl_gff_read(gff_stream, &gff_feature,
-                 BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
+bl_gff_read(&gff_feature, gff_stream,
+    BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi
 
