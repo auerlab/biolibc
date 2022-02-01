@@ -14,14 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_write(bl_gff_t *gff_feature, gff_field_mask_t field_mask,
-FILE *gff_stream)
+int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
+gff_field_mask_t field_mask)
 
 .SH ARGUMENTS
 .nf
 .na
-gff_stream      FILE stream to which TSV gff line is written
 gff_feature     Pointer to the bl_gff_t structure to output
+gff_stream      FILE stream to which TSV gff line is written
 field_mask      Bit mask indicating which fields to output
 .ad
 .fi

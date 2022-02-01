@@ -89,8 +89,8 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_stream      A FILE stream from which to read the line
  *      gff_feature     Pointer to a bl_gff_t structure
+ *      gff_stream      A FILE stream from which to read the line
  *      field_mask      Bit mask indicating which fields to store in gff_feature
  *
  *  Returns:
@@ -99,9 +99,9 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bl_gff_read(stdin, &gff_feature, BL_GFF_FIELD_ALL);
- *      bl_gff_read(gff_stream, &gff_feature,
- *                       BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+ *      bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
+ *      bl_gff_read(&gff_feature, gff_stream,
+ *          BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
  *      bl_gff_write(3)
@@ -307,8 +307,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_stream      FILE stream to which TSV gff line is written
  *      gff_feature     Pointer to the bl_gff_t structure to output
+ *      gff_stream      FILE stream to which TSV gff line is written
  *      field_mask      Bit mask indicating which fields to output
  *
  *  Returns:
@@ -316,9 +316,9 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bl_gff_write(stdout, &gff_feature, BL_GFF_FIELD_ALL);
- *      bl_gff_write(gff_stream, &gff_feature,
- *                        BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+ *      bl_gff_write(&gff_feature, stdout, BL_GFF_FIELD_ALL);
+ *      bl_gff_write(&gff_feature, gff_stream,
+ *          BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
  *      bl_gff_read(3)
@@ -351,8 +351,8 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
  *      some information may be lost or filled in with appropriate markers.
  *
  *  Arguments:
- *      bed_feature  Pointer to the bl_bed_t structure to receive data
  *      gff_feature  Pointer to the bl_gff_t structure to copy
+ *      bed_feature  Pointer to the bl_bed_t structure to receive data
  *
  *  See also:
  *      bl_bed_read(3), bl_gff_read(3)
