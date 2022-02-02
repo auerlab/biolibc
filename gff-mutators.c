@@ -52,7 +52,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence_element)
@@ -107,7 +107,7 @@ int     bl_gff_set_sequence_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_sequence
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_t array_size)
@@ -162,7 +162,7 @@ int     bl_gff_set_sequence_cpy(bl_gff_t *bl_gff_ptr, char new_sequence[], size_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element)
@@ -217,7 +217,7 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t array_size)
@@ -272,7 +272,7 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_element)
@@ -327,7 +327,7 @@ int     bl_gff_set_feature_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_e
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t array_size)
@@ -385,7 +385,7 @@ int     bl_gff_set_feature_cpy(bl_gff_t *bl_gff_ptr, char new_feature[], size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
@@ -442,7 +442,7 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
@@ -499,7 +499,7 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
@@ -556,7 +556,7 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
@@ -613,7 +613,7 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
@@ -670,7 +670,7 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
@@ -724,7 +724,7 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attributes_element)
@@ -779,7 +779,7 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, size_t array_size)
@@ -837,7 +837,7 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
@@ -891,7 +891,7 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_id_element)
@@ -946,7 +946,7 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, size_t array_size)
@@ -1004,7 +1004,7 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
@@ -1058,7 +1058,7 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_name_element)
@@ -1113,7 +1113,7 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from gff.h
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
 int     bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char * new_gene_name, size_t array_size)
@@ -1125,6 +1125,63 @@ int     bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char * new_gene_name, siz
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_gff_ptr->gene_name, new_gene_name, array_size);
+	return BL_GFF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for file_pos member in a bl_gff_t structure.
+ *      Use this function to set file_pos in a bl_gff_t variable
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      file_pos is a pointer, data previously pointed to should
+ *      generally be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *      Note that there is an equivalent macro (), which performs
+ *      this function with no data verification or function call overhead.
+ *      Use the macro version to maximize performance where the validity
+ *      of new_file_pos is guaranteed by other means.
+ *      
+ *
+ *  Arguments:
+ *      bl_gff_ptr      Pointer to the structure to set
+ *      new_file_pos    The new value for file_pos
+ *
+ *  Returns:
+ *      BL_GFF_DATA_OK if the new value is acceptable and assigned
+ *      BL_GFF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_gff_t        bl_gff;
+ *      long            new_file_pos;
+ *
+ *      if ( bl_gff_set_file_pos(&bl_gff, new_file_pos) == BL_GFF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-01  gen-get-set Auto-generated from gff.h
+ ***************************************************************************/
+
+int     bl_gff_set_file_pos(bl_gff_t *bl_gff_ptr, long new_file_pos)
+
+{
+    if ( false )
+	return BL_GFF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_gff_ptr->file_pos = new_file_pos;
 	return BL_GFF_DATA_OK;
     }
 }

@@ -26,3 +26,4 @@
 #define BL_GFF_FEATURE_ID_AE(ptr,c)     ((ptr)->feature_id[c])
 #define BL_GFF_GENE_NAME(ptr)           ((ptr)->gene_name)
 #define BL_GFF_GENE_NAME_AE(ptr,c)      ((ptr)->gene_name[c])
+#define BL_GFF_FILE_POS(ptr)            ((ptr)->file_pos)

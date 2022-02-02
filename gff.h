@@ -39,6 +39,8 @@ typedef struct
     char            *feature_id;    // In every feature of Ensemble GFFs
     char            *gene_name;     // Extract from gene features and look
 				    // up using Ensemble ID for others
+
+    long            file_pos;       // Offset in the GFF file
 }   bl_gff_t;
 
 typedef unsigned int            gff_field_mask_t;
