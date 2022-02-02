@@ -68,5 +68,6 @@ FILE *bl_gff_skip_header(FILE *gff_stream);
 int bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream, gff_field_mask_t field_mask);
 int bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream, gff_field_mask_t field_mask);
 void bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature);
+void bl_gff_free(bl_gff_t *gff_feature);
 
 #endif  // _BIOLIBC_GFF_H__

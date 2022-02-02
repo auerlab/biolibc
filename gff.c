@@ -332,11 +332,61 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
 	    gff_field_mask_t field_mask)
 
 {
-    return fprintf(gff_stream,
+    int     printed = 0;
+    
+    /* FIXME: Fully test and enable this
+    if ( field_mask & BL_GFF_FIELD_SEQUENCE )
+	printed += fprintf(gff_stream, "%s", gff_feature->sequence);
+    else
+	printed += putc('.', gff_stream);
+	
+    if ( field_mask & BL_GFF_FIELD_SOURCE )
+	printed += fprintf(gff_stream, "\t%s", gff_feature->source);
+    else
+	printed += fprintf(gff_stream, "\t.");
+
+    if ( field_mask & BL_GFF_FIELD_FEATURE )
+	printed += fprintf(gff_stream, "\t%s", gff_feature->feature);
+    else
+	printed += fprintf(gff_stream, "\t.");
+
+    if ( field_mask & BL_GFF_FIELD_START )
+	printed += fprintf(gff_stream, "\t%" PRIu64, gff_feature->start);
+    else
+	printed += fprintf(gff_stream, "\t-1");
+    
+    if ( field_mask & BL_GFF_FIELD_END )
+	printed += fprintf(gff_stream, "\t%" PRIu64, gff_feature->end);
+    else
+	printed += fprintf(gff_stream, "\t-1");
+    
+    if ( field_mask & BL_GFF_FIELD_SCORE )
+	printed += fprintf(gff_stream, "\t%f", gff_feature->score);
+    else
+	printed += fprintf(gff_stream, "\t.");
+    
+    if ( field_mask & BL_GFF_FIELD_STRAND )
+	printed += fprintf(gff_stream, "\t%c", gff_feature->strand);
+    else
+	printed += fprintf(gff_stream, "\t.");
+    
+    if ( field_mask & BL_GFF_FIELD_PHASE )
+	printed += fprintf(gff_stream, "\t%c", gff_feature->phase);
+    else
+	printed += fprintf(gff_stream, "\t.");
+    
+    if ( field_mask & BL_GFF_FIELD_ATTRIBUTES )
+	printed += fprintf(gff_stream, "\t%s", gff_feature->attributes);
+    else
+	printed += fprintf(gff_stream, "\t.");
+    putc('\n', gff_stream);
+    */
+    fprintf(gff_stream,
 	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%f\t%c\t%c\t%s\n",
 	gff_feature->sequence, gff_feature->source, gff_feature->feature,
 	gff_feature->start, gff_feature->end, gff_feature->score,
 	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
+    return printed;
 }
 
 
@@ -390,5 +440,52 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
     {
 	fputs("bl_gff_to_bed(): bl_bed_set_strand() failed.\n", stderr);
 	exit(EX_DATAERR);
+    }
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Free memory allocated for a bl_gff_t object
+ *  
+ *  Arguments:
+ *      gff_feature     Pointer to the bl_gff_t object
+ *
+ *  Examples:
+ *      bl_gff_t    feature;
+ *
+ *      bl_gff_free(&feature);
+ *
+ *  See also:
+ *      bl_gff_read(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-01  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_gff_free(bl_gff_t *gff_feature)
+
+{
+    if ( gff_feature->attributes != NULL )
+    {
+	free(gff_feature->attributes);
+	gff_feature->attributes = NULL;
+    }
+    if ( gff_feature->feature_id != NULL )
+    {
+	free(gff_feature->feature_id);
+	gff_feature->feature_id = NULL;
+    }
+    if ( gff_feature->gene_name != NULL )
+    {
+	free(gff_feature->gene_name);
+	gff_feature->gene_name = NULL;
     }
 }
