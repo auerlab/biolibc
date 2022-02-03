@@ -89,15 +89,17 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
  *  2022-02-03  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
+int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
 
 {
     int     ch;
     
     rewind(header_stream);
     while ( (ch = getc(header_stream)) != EOF )
-	putc(ch, gff_stream);
+	if ( putc(ch, gff_stream) == EOF )
+	    return BL_WRITE_FAILURE;
     rewind(header_stream);
+    return BL_WRITE_OK;
 }
 
 
