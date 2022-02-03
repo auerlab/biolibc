@@ -27,7 +27,7 @@
  *      A FILE pointer to a temporary file containing a copy of the header
  *
  *  See also:
- *      bl_gff_read(3)
+ *      bl_gff_read(3), bl_gff_copy_header(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -61,6 +61,43 @@ FILE    *bl_gff_skip_header(FILE *gff_stream)
 	ungetc(ch, gff_stream);
     rewind(header_stream);
     return header_stream;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Copy GFF header from one FILE stream to another.  This is meant to
+ *      be used in conjunction with bl_gff_skip_header(), which stores the
+ *      header in a temporary file.
+ *
+ *  Arguments:
+ *      header_stream   Open FILE stream of GFF header
+ *      gff_stream      FILE stream to which header is copied
+ *
+ *  Returns:
+ *      BL_WRITE_OK upon success, BL_WRITE_FAILURE or BL_READ_* on failure
+ *
+ *  See also:
+ *      bl_gff_skip_header(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-03  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
+
+{
+    int     ch;
+    
+    rewind(header_stream);
+    while ( (ch = getc(header_stream)) != EOF )
+	putc(ch, gff_stream);
+    rewind(header_stream);
 }
 
 

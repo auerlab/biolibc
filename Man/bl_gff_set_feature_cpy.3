@@ -50,7 +50,7 @@ bl_gff_t        bl_gff;
 char            new_feature;
 size_t          array_size;
 
-if ( bl_gff_set_feature(&bl_gff, new_feature, array_size) == BL_GFF_DATA_OK )
+if ( bl_gff_set_feature_cpy(&bl_gff, new_feature, array_size) == BL_GFF_DATA_OK )
 {
 }
 .ad
