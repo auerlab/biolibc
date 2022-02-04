@@ -617,7 +617,7 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 		gff_start, gff_end, gff_len;
     
     chrom_cmp = bl_chrom_name_cmp(BL_BED_CHROM(bed_feature),
-					 BL_GFF_SEQUENCE(gff_feature));
+					 BL_GFF_SEQID(gff_feature));
     if ( chrom_cmp == 0 )
     {
 	/*

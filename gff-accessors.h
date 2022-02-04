@@ -9,12 +9,12 @@
  *  as needed before adding to your code.
  */
 
-#define BL_GFF_SEQUENCE(ptr)            ((ptr)->sequence)
-#define BL_GFF_SEQUENCE_AE(ptr,c)       ((ptr)->sequence[c])
+#define BL_GFF_SEQID(ptr)               ((ptr)->seqid)
+#define BL_GFF_SEQID_AE(ptr,c)          ((ptr)->seqid[c])
 #define BL_GFF_SOURCE(ptr)              ((ptr)->source)
 #define BL_GFF_SOURCE_AE(ptr,c)         ((ptr)->source[c])
-#define BL_GFF_FEATURE(ptr)             ((ptr)->feature)
-#define BL_GFF_FEATURE_AE(ptr,c)        ((ptr)->feature[c])
+#define BL_GFF_TYPE(ptr)                ((ptr)->type)
+#define BL_GFF_TYPE_AE(ptr,c)           ((ptr)->type[c])
 #define BL_GFF_START(ptr)               ((ptr)->start)
 #define BL_GFF_END(ptr)                 ((ptr)->end)
 #define BL_GFF_SCORE(ptr)               ((ptr)->score)
@@ -22,8 +22,8 @@
 #define BL_GFF_PHASE(ptr)               ((ptr)->phase)
 #define BL_GFF_ATTRIBUTES(ptr)          ((ptr)->attributes)
 #define BL_GFF_ATTRIBUTES_AE(ptr,c)     ((ptr)->attributes[c])
-#define BL_GFF_FEATURE_ID(ptr)          ((ptr)->feature_id)
-#define BL_GFF_FEATURE_ID_AE(ptr,c)     ((ptr)->feature_id[c])
+#define BL_GFF_TYPE_ID(ptr)          ((ptr)->feature_id)
+#define BL_GFF_TYPE_ID_AE(ptr,c)     ((ptr)->feature_id[c])
 #define BL_GFF_GENE_NAME(ptr)           ((ptr)->gene_name)
 #define BL_GFF_GENE_NAME_AE(ptr,c)      ((ptr)->gene_name[c])
 #define BL_GFF_FILE_POS(ptr)            ((ptr)->file_pos)

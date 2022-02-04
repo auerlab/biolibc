@@ -175,7 +175,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	fgets(line, BL_GFF_LINE_MAX_CHARS, gff_stream);
 	if ( strcmp(line, "##\n") == 0 )
 	{
-	    strlcpy(gff_feature->feature, "###", BL_GFF_FEATURE_MAX_CHARS);
+	    strlcpy(gff_feature->type, "###", BL_GFF_TYPE_MAX_CHARS);
 	    return BL_READ_OK;
 	}
     }
@@ -185,7 +185,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     gff_feature->file_pos = ftell(gff_stream);
     
     // 1 Chromosome
-    if ( tsv_read_field(gff_stream, gff_feature->sequence,
+    if ( tsv_read_field(gff_stream, gff_feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	//fputs("bl_gff_read(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
@@ -194,7 +194,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     
     // 2 Source
     if ( (delim = tsv_read_field(gff_stream, gff_feature->source,
-			BL_GFF_FEATURE_MAX_CHARS, &len)) == EOF )
+			BL_GFF_TYPE_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading SOURCE: %s.\n",
 		gff_feature->source);
@@ -202,11 +202,11 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
 
     // 3 Feature
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->feature,
-			BL_GFF_FEATURE_MAX_CHARS, &len)) == EOF )
+    if ( (delim = tsv_read_field(gff_stream, gff_feature->type,
+			BL_GFF_TYPE_MAX_CHARS, &len)) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading feature: %s.\n",
-		gff_feature->feature);
+		gff_feature->type);
 	return BL_READ_TRUNCATED;
     }
     
@@ -377,7 +377,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     
     /* FIXME: Fully test and enable this
     if ( field_mask & BL_GFF_FIELD_SEQUENCE )
-	printed += fprintf(gff_stream, "%s", gff_feature->sequence);
+	printed += fprintf(gff_stream, "%s", gff_feature->seqid);
     else
 	printed += putc('.', gff_stream);
 	
@@ -387,7 +387,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
 	printed += fprintf(gff_stream, "\t.");
 
     if ( field_mask & BL_GFF_FIELD_FEATURE )
-	printed += fprintf(gff_stream, "\t%s", gff_feature->feature);
+	printed += fprintf(gff_stream, "\t%s", gff_feature->type);
     else
 	printed += fprintf(gff_stream, "\t.");
 
@@ -424,7 +424,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     */
     fprintf(gff_stream,
 	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%f\t%c\t%c\t%s\n",
-	gff_feature->sequence, gff_feature->source, gff_feature->feature,
+	gff_feature->seqid, gff_feature->source, gff_feature->type,
 	gff_feature->start, gff_feature->end, gff_feature->score,
 	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
     return printed;
@@ -463,7 +463,7 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
     bl_bed_set_fields(bed_feature, 6);
     bl_bed_set_score(bed_feature, 0);
     
-    bl_bed_set_chrom_cpy(bed_feature, BL_GFF_SEQUENCE(gff_feature), BL_CHROM_MAX_CHARS + 1);
+    bl_bed_set_chrom_cpy(bed_feature, BL_GFF_SEQID(gff_feature), BL_CHROM_MAX_CHARS + 1);
     /*
      *  BED start is 0-based and inclusive
      *  GFF is 1-based and inclusive
@@ -474,7 +474,7 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
      *  GFF is the same
      */
     bl_bed_set_chrom_end(bed_feature, BL_GFF_END(gff_feature));
-    snprintf(name, BL_BED_NAME_MAX_CHARS + 1, "%s", BL_GFF_FEATURE(gff_feature));
+    snprintf(name, BL_BED_NAME_MAX_CHARS + 1, "%s", BL_GFF_TYPE(gff_feature));
     bl_bed_set_name_cpy(bed_feature, name, BL_BED_NAME_MAX_CHARS + 1);
     bl_bed_set_score(bed_feature, 0);  // FIXME: Take as arg?
     if ( bl_bed_set_strand(bed_feature, strand) != BL_BED_DATA_OK )

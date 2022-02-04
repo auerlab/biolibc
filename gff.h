@@ -7,7 +7,7 @@
 
 #define BL_GFF_SCORE_MAX_DIGITS        64       // Floating point
 #define BL_GFF_SOURCE_MAX_CHARS        1024     // Guess
-#define BL_GFF_FEATURE_MAX_CHARS       256      // Guess
+#define BL_GFF_TYPE_MAX_CHARS       256      // Guess
 #define BL_GFF_STRAND_MAX_CHARS        2
 #define BL_GFF_LINE_MAX_CHARS          4096
 #define BL_GFF_PHASE_MAX_DIGITS        2
@@ -22,9 +22,9 @@
 
 typedef struct
 {
-    char            sequence[BL_CHROM_MAX_CHARS + 1];
+    char            seqid[BL_CHROM_MAX_CHARS + 1];
     char            source[BL_GFF_SOURCE_MAX_CHARS + 1];
-    char            feature[BL_GFF_FEATURE_MAX_CHARS + 1];
+    char            type[BL_GFF_TYPE_MAX_CHARS + 1];
     uint64_t        start,
 		    end;
     double          score;
