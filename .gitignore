@@ -6,5 +6,7 @@
 fastq2tsv
 Bed-test/bed-test
 Bed-test/out.bed
+GFF-test/gff-test
+GFF-test/out.gff3
 Test/test.fasta
 README.html

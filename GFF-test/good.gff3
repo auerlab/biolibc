@@ -1,0 +1,41 @@
+##gff-version 3
+##sequence-region   1 1 59578282
+##sequence-region   10 1 45420867
+##sequence-region   11 1 45484837
+##sequence-region   12 1 49182954
+##sequence-region   13 1 52186027
+##sequence-region   14 1 52660232
+##sequence-region   15 1 48040578
+##sequence-region   16 1 55266484
+##sequence-region   17 1 53461100
+##sequence-region   18 1 51023478
+##sequence-region   19 1 48449771
+##sequence-region   2 1 59640629
+##sequence-region   20 1 55201332
+##sequence-region   21 1 45934066
+##sequence-region   22 1 39133080
+##sequence-region   23 1 46223584
+##sequence-region   24 1 42172926
+##sequence-region   25 1 37502051
+##sequence-region   3 1 62628489
+##sequence-region   4 1 78093715
+##sequence-region   5 1 72500376
+##sequence-region   6 1 60270059
+##sequence-region   7 1 74282399
+##sequence-region   8 1 54304671
+##sequence-region   9 1 56459846
+##sequence-region   MT 1 16596
+#!genome-build  GRCz11
+#!genome-version GRCz11
+#!genome-date 2017-05
+#!genome-build-accession GCA_000002035.4
+#!genebuild-last-updated 2018-04
+6	prss60.1	gene	39085969	39091330	-1.000000	+	.	ID=gene:ENSDARG00000070713;Name=prss60.1
+6	prss60.2	gene	39098397	39105480	-1.000000	+	.	ID=gene:ENSDARG00000055644;Name=prss60.2
+6	prss60.3	gene	39108858	39112234	-1.000000	+	.	ID=gene:ENSDARG00000070710;Name=prss60.3
+6	gpr84	gene	39114345	39119142	-1.000000	+	.	ID=gene:ENSDARG00000077308;Name=gpr84
+6	stat2	gene	39123544	39160422	-1.000000	-	.	ID=gene:ENSDARG00000031647;Name=stat2
+6	apof	gene	39162294	39167732	-1.000000	-	.	ID=gene:ENSDARG00000090980;Name=apof
+6	tac3b	gene	39184236	39187657	-1.000000	+	.	ID=gene:ENSDARG00000097596;Name=tac3b
+6	c1galt1b	gene	39190402	39199070	-1.000000	-	.	ID=gene:ENSDARG00000055561;Name=c1galt1b
+6	os9	gene	39202685	39218609	-1.000000	-	.	ID=gene:ENSDARG00000020301;Name=os9

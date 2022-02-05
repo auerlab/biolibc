@@ -159,8 +159,6 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	    temp_attributes[BL_GFF_ATTRIBUTES_MAX_CHARS + 1],
 	    strand_str[BL_GFF_STRAND_MAX_CHARS + 1],
 	    phase_str[BL_GFF_PHASE_MAX_DIGITS + 1],
-	    *id_start,
-	    *id_end,
 	    start_str[BL_POSITION_MAX_DIGITS + 1],
 	    end_str[BL_POSITION_MAX_DIGITS + 1],
 	    score_str[BL_GFF_SCORE_MAX_DIGITS + 1];
@@ -307,17 +305,11 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(gff_stream);
 
-    if ( (id_start = strchr(gff_feature->attributes, ':')) != NULL )
-    {
-	++id_start; // Start is first char after ':'
-	if ( (id_end = strchr(id_start, ';')) != NULL )
-	{
-	    *id_end = '\0';
-	    gff_feature->feature_id = strdup(id_start);
-	    // FIXME: Report malloc() failure somehow
-	    *id_end = ';';
-	}
-    }
+    // Extract feature ID from attributes
+    gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID=");
+
+    // Extract feature ID from attributes
+    gff_feature->gene_name = bl_gff_extract_attribute(gff_feature, "Name=");
     return BL_READ_OK;
 }
 
@@ -529,4 +521,58 @@ void    bl_gff_free(bl_gff_t *gff_feature)
 	free(gff_feature->gene_name);
 	gff_feature->gene_name = NULL;
     }
+}
+
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *      Include trailing =
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-05  Jason Bacon Begin
+ ***************************************************************************/
+
+char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
+
+{
+    char    *attribute = NULL,
+	    *start,
+	    *end;
+    
+    // Extract gene name from attributes
+    if ( (start = strcasestr(gff_feature->attributes, attr_name)) != NULL )
+    {
+	if ( (start = strchr(start, '=')) != NULL )
+	{
+	    ++start; // Start is first char after ':'
+	    // ; separates attributes, last one terminated by null byte
+	    if ( (end = strchr(start, ';')) != NULL )
+		*end = '\0';    // Not thread safe
+	    if ( (attribute = strdup(start)) == NULL )
+		fprintf(stderr, "%s: strdup() failed.\n", __FUNCTION__);
+	    if ( end != NULL )
+		*end = ';';
+	}
+    }
+    return attribute;
 }

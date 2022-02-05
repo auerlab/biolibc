@@ -17,8 +17,8 @@ int     main(int argc,char *argv[])
 {
     bl_fastq_t  rec = BL_FASTQ_INIT;
     
-    while ( bl_fastq_read(stdin, &rec) != BL_READ_EOF )
-	bl_fastq_write(stdout, &rec, 100);
+    while ( bl_fastq_read(&rec, stdin) != BL_READ_EOF )
+	bl_fastq_write(&rec, stdout, 100);
     bl_fastq_free(&rec);
     return EX_OK;
 }

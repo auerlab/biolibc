@@ -17,8 +17,8 @@ int     main(int argc,char *argv[])
     bl_bed_t   bed_feature;
     
     bl_bed_skip_header(stdin);
-    while ( bl_bed_read(&bed_feature, BL_BED_FIELD_ALL, stdin) != EOF )
-	bl_bed_write(&bed_feature, BL_BED_FIELD_ALL, stdout);
+    while ( bl_bed_read(&bed_feature, stdin, BL_BED_FIELD_ALL) != EOF )
+	bl_bed_write(&bed_feature, stdout, BL_BED_FIELD_ALL);
     return EX_OK;
 }
 
