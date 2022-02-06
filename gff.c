@@ -306,10 +306,10 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	dsv_skip_rest_of_line(gff_stream);
 
     // Extract feature ID from attributes
-    gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID=");
+    gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID");
 
     // Extract feature ID from attributes
-    gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name=");
+    gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name");
     return BL_READ_OK;
 }
 
@@ -524,28 +524,34 @@ void    bl_gff_free(bl_gff_t *gff_feature)
 }
 
 
-
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
  *
  *  Description:
- *      Include trailing =
+ *      Extract an attribute value of a feature given the attribute name.
+ *      Common attribute names include "ID" and "Name".  Attributes are
+ *      embedded in the GFF attributes field in the form name=value;, e.g.
+ *      ID=gene:ENSDARG00000029944;Name=parpbp.
  *  
  *  Arguments:
+ *      Attribute name, such as "ID" or "Name"
  *
  *  Returns:
+ *      Attribute value (text after '='), or NULL if name is not found
  *
  *  Examples:
+ *      bl_gff_t    gff_feature;
  *
- *  Files:
- *
- *  Environment
+ *      if ( bl_gff_extract_attribute(&gff_feature, "Name") != NULL )
+ *      {
+ *      }
  *
  *  See also:
+ *      bl_gff_read(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -557,18 +563,19 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
 {
     char    *attribute = NULL,
 	    *start,
+	    *val_start,
 	    *end;
+    size_t  len = strlen(attr_name);
     
-    // Extract gene name from attributes
-    if ( (start = strstr(gff_feature->attributes, attr_name)) != NULL )
+    for (start = gff_feature->attributes; (*start != '\0'); ++start)
     {
-	if ( (start = strchr(start, '=')) != NULL )
+	if ( (memcmp(start, attr_name, len) == 0) && (start[len] == '=') )
 	{
-	    ++start; // Start is first char after ':'
+	    val_start = start + len + 1;
 	    // ; separates attributes, last one terminated by null byte
-	    if ( (end = strchr(start, ';')) != NULL )
+	    if ( (end = strchr(val_start, ';')) != NULL )
 		*end = '\0';    // Not thread safe
-	    if ( (attribute = strdup(start)) == NULL )
+	    if ( (attribute = strdup(val_start)) == NULL )
 		fprintf(stderr, "%s: strdup() failed.\n", __FUNCTION__);
 	    if ( end != NULL )
 		*end = ';';

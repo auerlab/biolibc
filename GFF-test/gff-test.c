@@ -24,7 +24,7 @@ int     main(int argc,char *argv[])
     while ( bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL) != EOF )
     {
 	fprintf(stderr, "%s %s\n", BL_GFF_FEATURE_ID(&gff_feature),
-		BL_GFF_GENE_NAME(&gff_feature));
+		BL_GFF_FEATURE_NAME(&gff_feature));
 	bl_gff_write(&gff_feature, stdout, BL_GFF_FIELD_ALL);
     }
     return EX_OK;
