@@ -37,7 +37,7 @@ typedef struct
      *  and may be useful.
      */
     char            *feature_id;    // In every feature of Ensemble GFFs
-    char            *gene_name;     // Extract from gene features and look
+    char            *feature_name;  // Extract from gene features and look
 				    // up using Ensemble ID for others
 
     long            file_pos;       // Offset in the GFF file

@@ -309,7 +309,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID=");
 
     // Extract feature ID from attributes
-    gff_feature->gene_name = bl_gff_extract_attribute(gff_feature, "Name=");
+    gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name=");
     return BL_READ_OK;
 }
 
@@ -516,10 +516,10 @@ void    bl_gff_free(bl_gff_t *gff_feature)
 	free(gff_feature->feature_id);
 	gff_feature->feature_id = NULL;
     }
-    if ( gff_feature->gene_name != NULL )
+    if ( gff_feature->feature_name != NULL )
     {
-	free(gff_feature->gene_name);
-	gff_feature->gene_name = NULL;
+	free(gff_feature->feature_name);
+	gff_feature->feature_name = NULL;
     }
 }
 
@@ -560,7 +560,7 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
 	    *end;
     
     // Extract gene name from attributes
-    if ( (start = strcasestr(gff_feature->attributes, attr_name)) != NULL )
+    if ( (start = strstr(gff_feature->attributes, attr_name)) != NULL )
     {
 	if ( (start = strchr(start, '=')) != NULL )
 	{

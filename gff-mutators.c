@@ -969,23 +969,23 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for gene_name member in a bl_gff_t structure.
- *      Use this function to set gene_name in a bl_gff_t variable
+ *      Mutator for feature_name member in a bl_gff_t structure.
+ *      Use this function to set feature_name in a bl_gff_t variable
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
- *      gene_name is a pointer, data previously pointed to should
+ *      feature_name is a pointer, data previously pointed to should
  *      generally be freed before calling this function to avoid memory
  *      leaks.
  *
  *      Note that there is an equivalent macro (), which performs
  *      this function with no data verification or function call overhead.
  *      Use the macro version to maximize performance where the validity
- *      of new_gene_name is guaranteed by other means.
+ *      of new_feature_name is guaranteed by other means.
  *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
- *      new_gene_name   The new value for gene_name
+ *      new_feature_name The new value for feature_name
  *
  *  Returns:
  *      BL_GFF_DATA_OK if the new value is acceptable and assigned
@@ -993,9 +993,9 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
- *      char *          new_gene_name;
+ *      char *          new_feature_name;
  *
- *      if ( bl_gff_set_gene_name(&bl_gff, new_gene_name) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name(&bl_gff, new_feature_name) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1007,14 +1007,14 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *  2022-02-05  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
+int     bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char * new_feature_name)
 
 {
-    if ( new_gene_name == NULL )
+    if ( new_feature_name == NULL )
 	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
-	bl_gff_ptr->gene_name = new_gene_name;
+	bl_gff_ptr->feature_name = new_feature_name;
 	return BL_GFF_DATA_OK;
     }
 }
@@ -1026,19 +1026,19 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for an array element of gene_name member in a bl_gff_t
+ *      Mutator for an array element of feature_name member in a bl_gff_t
  *      structure. Use this function to set an element of the array
- *      gene_name in a bl_gff_t variable from non-member functions.
+ *      feature_name in a bl_gff_t variable from non-member functions.
  *
- *      Note that there is an equivalent macro BL_GFF_SET_GENE_NAME_AE(), which performs
+ *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_NAME_AE(), which performs
  *      this function with no data verification or function call overhead.
  *      Use the macro version to maximize performance where the validity
- *      of new_gene_name_element is guaranteed by other means.
+ *      of new_feature_name_element is guaranteed by other means.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
- *      c               Subscript to the gene_name array
- *      new_gene_name_element The new value for gene_name[c]
+ *      c               Subscript to the feature_name array
+ *      new_feature_name_element The new value for feature_name[c]
  *
  *  Returns:
  *      BL_GFF_DATA_OK if the new value is acceptable and assigned
@@ -1047,28 +1047,28 @@ int     bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char * new_gene_name)
  *  Examples:
  *      bl_gff_t        bl_gff;
  *      size_t          c;
- *      char *          new_gene_name_element;
+ *      char *          new_feature_name_element;
  *
- *      if ( bl_gff_set_gene_name_ae(&bl_gff, c, new_gene_name_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name_ae(&bl_gff, c, new_feature_name_element) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
  *  See also:
- *      BL_GFF_SET_GENE_NAME_AE(3)
+ *      BL_GFF_SET_FEATURE_NAME_AE(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-05  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_name_element)
+int     bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_name_element)
 
 {
     if ( false )
 	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
-	bl_gff_ptr->gene_name[c] = new_gene_name_element;
+	bl_gff_ptr->feature_name[c] = new_feature_name_element;
 	return BL_GFF_DATA_OK;
     }
 }
@@ -1080,20 +1080,20 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for gene_name member in a bl_gff_t structure.
- *      Use this function to set gene_name in a bl_gff_t variable
+ *      Mutator for feature_name member in a bl_gff_t structure.
+ *      Use this function to set feature_name in a bl_gff_t variable
  *      from non-member functions.  This function copies the array pointed to
- *      by new_gene_name to ->gene_name.
+ *      by new_feature_name to ->feature_name.
  *
- *      Note that there is an equivalent macro BL_GFF_SET_GENE_NAME(), which performs
+ *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_NAME(), which performs
  *      this function with no data verification or function call overhead.
  *      Use the macro version to maximize performance where the validity
- *      of new_gene_name is guaranteed by other means.
+ *      of new_feature_name is guaranteed by other means.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
- *      new_gene_name   The new value for gene_name
- *      array_size      Size of the gene_name array.
+ *      new_feature_name The new value for feature_name
+ *      array_size      Size of the feature_name array.
  *
  *  Returns:
  *      BL_GFF_DATA_OK if the new value is acceptable and assigned
@@ -1101,30 +1101,30 @@ int     bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_gene_n
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
- *      char *          new_gene_name;
+ *      char *          new_feature_name;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_gene_name_cpy(&bl_gff, new_gene_name, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name_cpy(&bl_gff, new_feature_name, array_size) == BL_GFF_DATA_OK )
  *      {
  *      }
  *
  *  See also:
- *      BL_GFF_SET_GENE_NAME(3)
+ *      BL_GFF_SET_FEATURE_NAME(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-02-05  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char * new_gene_name, size_t array_size)
+int     bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_name, size_t array_size)
 
 {
-    if ( new_gene_name == NULL )
+    if ( new_feature_name == NULL )
 	return BL_GFF_DATA_OUT_OF_RANGE;
     else
     {
 	// FIXME: Assuming char array is a null-terminated string
-	strlcpy(bl_gff_ptr->gene_name, new_gene_name, array_size);
+	strlcpy(bl_gff_ptr->feature_name, new_feature_name, array_size);
 	return BL_GFF_DATA_OK;
     }
 }

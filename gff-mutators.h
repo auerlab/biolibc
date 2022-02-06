@@ -31,7 +31,7 @@ int bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char *new_attributes, size_t
 int bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char *new_feature_id);
 int bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_id_element);
 int bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char *new_feature_id, size_t array_size);
-int bl_gff_set_gene_name(bl_gff_t *bl_gff_ptr, char *new_gene_name);
-int bl_gff_set_gene_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_gene_name_element);
-int bl_gff_set_gene_name_cpy(bl_gff_t *bl_gff_ptr, char *new_gene_name, size_t array_size);
+int bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char *new_feature_name);
+int bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_name_element);
+int bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char *new_feature_name, size_t array_size);
 int bl_gff_set_file_pos(bl_gff_t *bl_gff_ptr, long new_file_pos);
