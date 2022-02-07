@@ -71,23 +71,31 @@ DYLIB_PATH ?= $(shell realpath ${PREFIX}/lib)
 ############################################################################
 # List object files that comprise LIB.
 
-OBJS    = overlap.o vcf.o sam.o bed.o gff.o fasta.o fastq.o fastx.o \
-	  chrom-name-cmp.o pos-list.o sam-buff.o \
-	  bed-mutators.o gff-mutators.o overlap-mutators.o \
-	  pos-list-mutators.o sam-buff-mutators.o \
-	  sam-mutators.o vcf-mutators.o fasta-mutators.o fastq-mutators.o \
-	  orf.o align.o align-mutators.o
+OBJS    = align.o align-mutators.o \
+	  bed.o bed-mutators.o \
+	  chrom-name-cmp.o \
+	  fasta.o fasta-mutators.o \
+	  fastq.o fastq-mutators.o \
+	  fastx.o fastx-mutators.o \
+	  gff.o gff-mutators.o \
+	  gff-index.o gff-index-mutators.o \
+	  orf.o \
+	  overlap.o overlap-mutators.o \
+	  pos-list.o pos-list-mutators.o \
+	  sam.o sam-mutators.o \
+	  sam-buff.o sam-buff-mutators.o \
+	  vcf.o vcf-mutators.o
 
 ############################################################################
 # Compile, link, and install options
 
 # Where to find local libraries and headers.  For MacPorts, override
 # with LOCALBASE=/opt/local.
-LOCALBASE   ?= ../local
+LOCALBASE   ?= /usr/local
 
 # Install in ../local, unless defined by the parent Makefile, the
 # environment, or a command line option such as PREFIX=/opt/local.
-PREFIX      ?= ${LOCALBASE}
+PREFIX      ?= ../local
 
 # Allow caller to override either MANPREFIX or MANDIR
 MANPREFIX   ?= ${PREFIX}
@@ -116,7 +124,7 @@ CPP         ?= cpp
 AR          ?= ar
 RANLIB      ?= ranlib
 
-INCLUDES    += -I${LOCALBASE}/include
+INCLUDES    += -isystem ${PREFIX}/include -isystem ${LOCALBASE}/include
 CFLAGS      += -fPIC ${INCLUDES}
 
 ############################################################################

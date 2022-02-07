@@ -23,9 +23,11 @@ typedef struct
 
 #define BL_FASTX_INIT           { BL_FASTX_FORMAT_UNKNOWN }
 
-#define BL_FASTX_FORMAT(fx) ((fx)->format)
-
 #define BL_FASTX_LINE_UNLIMITED BL_FASTA_LINE_UNLIMITED
+
+#include "fastx-rvs.h"
+#include "fastx-accessors.h"
+#include "fastx-mutators.h"
 
 /* fastx.c */
 int bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream);

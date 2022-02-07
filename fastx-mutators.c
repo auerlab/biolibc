@@ -55,7 +55,7 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastx.h
+ *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
 int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
@@ -66,63 +66,6 @@ int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
     else
     {
 	bl_fastx_ptr->format = new_format;
-	return BL_FASTX_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/fastx.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for union member in a bl_fastx_t structure.
- *      Use this function to set union in a bl_fastx_t variable
- *      from non-member functions.  This function performs a direct
- *      assignment for scalar or pointer structure members.  If
- *      union is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
- *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_union is guaranteed by other means.
- *      
- *
- *  Arguments:
- *      bl_fastx_ptr    Pointer to the structure to set
- *      new_union       The new value for union
- *
- *  Returns:
- *      BL_FASTX_DATA_OK if the new value is acceptable and assigned
- *      BL_FASTX_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_fastx_t      bl_fastx;
- *      int             new_union;
- *
- *      if ( bl_fastx_set_union(&bl_fastx, new_union) == BL_FASTX_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      (3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastx.h
- ***************************************************************************/
-
-int     bl_fastx_set_union(bl_fastx_t *bl_fastx_ptr, int new_union)
-
-{
-    if ( false )
-	return BL_FASTX_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_fastx_ptr->union = new_union;
 	return BL_FASTX_DATA_OK;
     }
 }
@@ -169,7 +112,7 @@ int     bl_fastx_set_union(bl_fastx_t *bl_fastx_ptr, int new_union)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastx.h
+ *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
 int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
@@ -226,7 +169,7 @@ int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastx.h
+ *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
 int     bl_fastx_set_fastq(bl_fastx_t *bl_fastx_ptr, bl_fastq_t new_fastq)
@@ -237,63 +180,6 @@ int     bl_fastx_set_fastq(bl_fastx_t *bl_fastx_ptr, bl_fastq_t new_fastq)
     else
     {
 	bl_fastx_ptr->fastq = new_fastq;
-	return BL_FASTX_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/fastx.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for } member in a bl_fastx_t structure.
- *      Use this function to set } in a bl_fastx_t variable
- *      from non-member functions.  This function performs a direct
- *      assignment for scalar or pointer structure members.  If
- *      } is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
- *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_} is guaranteed by other means.
- *      
- *
- *  Arguments:
- *      bl_fastx_ptr    Pointer to the structure to set
- *      new_}           The new value for }
- *
- *  Returns:
- *      BL_FASTX_DATA_OK if the new value is acceptable and assigned
- *      BL_FASTX_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_fastx_t      bl_fastx;
- *      bl_fastq_t }    new_};
- *
- *      if ( bl_fastx_set_}(&bl_fastx, new_}) == BL_FASTX_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      (3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastx.h
- ***************************************************************************/
-
-int     bl_fastx_set_}(bl_fastx_t *bl_fastx_ptr, bl_fastq_t } new_})
-
-{
-    if ( false )
-	return BL_FASTX_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_fastx_ptr->} = new_};
 	return BL_FASTX_DATA_OK;
     }
 }

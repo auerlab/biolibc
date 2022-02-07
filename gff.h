@@ -1,5 +1,5 @@
-#ifndef _BIOLIBC_GFF_H__
-#define _BIOLIBC_GFF_H__
+#ifndef _BIOLIBC_GFF_H_
+#define _BIOLIBC_GFF_H_
 
 #ifndef _BIOLIBC_H_
 #include "biolibc.h"
