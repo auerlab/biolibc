@@ -4,7 +4,6 @@
 #include <sys/param.h>  // MIN()
 #include <xtend/mem.h>
 #include <xtend/math.h>
-#include <biolibc/gff.h>
 #include "gff-index.h"
 
 /***************************************************************************
