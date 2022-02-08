@@ -74,4 +74,4 @@ void bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature);
 void bl_gff_free(bl_gff_t *gff_feature);
 char *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name);
 
-#endif  // _BIOLIBC_GFF_H__
+#endif  // _BIOLIBC_GFF_H_

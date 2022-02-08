@@ -9,7 +9,7 @@
 #include <inttypes.h>
 #endif
 
-#ifndef _BIOLIBC_GFF_H__
+#ifndef _BIOLIBC_GFF_H_
 #include "gff.h"
 #endif
 
