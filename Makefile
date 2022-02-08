@@ -233,7 +233,7 @@ apple-install: apple common-install
 	ln -sf ${DYLIB} ${DESTDIR}${PREFIX}/lib/lib${LIB}.dylib
 
 test: all
-	cc -I. ${CFLAGS} Bed-test/bed-test.c -o Bed-test/bed-test \
+	${CC} -I. ${CFLAGS} Bed-test/bed-test.c -o Bed-test/bed-test \
 	    -L. -lbiolibc -L${LOCALBASE}/lib -lxtend
 	cd Bed-test && ./run-test.sh
 
