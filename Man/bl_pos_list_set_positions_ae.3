@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
+.nf
+.na
+int     bl_pos_list_set_positions_ae(
+            bl_pos_list_t *bl_pos_list_ptr,
+            size_t c,
+            uint64_t  new_positions_element
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,13 +36,8 @@ new_positions_element The new value for positions[c]
 .SH DESCRIPTION
 
 Mutator for an array element of positions member in a bl_pos_list_t
-structure. Use this function to set an element of the array
-positions in a bl_pos_list_t variable from non-member functions.
-
-Note that there is an equivalent macro BL_POS_LIST_SET_POSITIONS_AE(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_positions_element is guaranteed by other means.
+structure. Use this function to set bl_pos_list_ptr->positions[c]
+in a bl_pos_list_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -49,7 +52,8 @@ bl_pos_list_t   bl_pos_list;
 size_t          c;
 uint64_t *      new_positions_element;
 
-if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_POS_LIST_DATA_OK )
+if ( bl_pos_list_set_positions_ae(&bl_pos_list, c, new_positions_element)
+        == BL_POS_LIST_DATA_OK )
 {
 }
 .ad

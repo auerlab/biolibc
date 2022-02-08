@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_align_set_min_match(bl_align_t *bl_align_ptr, size_t new_min_match)
+.nf
+.na
+int     bl_align_set_min_match(
+            bl_align_t *bl_align_ptr,
+            size_t new_min_match
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,22 +34,17 @@ new_min_match   The new value for min_match
 .SH DESCRIPTION
 
 Mutator for min_match member in a bl_align_t structure.
-Use this function to set min_match in a bl_align_t variable
+Use this function to set min_match in a bl_align_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 min_match is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_min_match is guaranteed by other means.
 
 .SH RETURN VALUES
 
-BL_DATA_OK if the new value is acceptable and assigned
-BL_DATA_OUT_OF_RANGE otherwise
+BL_ALIGN_DATA_OK if the new value is acceptable and assigned
+BL_ALIGN_DATA_OUT_OF_RANGE otherwise
 
 .SH EXAMPLES
 .nf
@@ -51,7 +53,8 @@ BL_DATA_OUT_OF_RANGE otherwise
 bl_align_t      bl_align;
 size_t          new_min_match;
 
-if ( bl_align_set_min_match(&bl_align, new_min_match) == BL_DATA_OK )
+if ( bl_align_set_min_match(&bl_align, new_min_match)
+        == BL_ALIGN_DATA_OK )
 {
 }
 .ad

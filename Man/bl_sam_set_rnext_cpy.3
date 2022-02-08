@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t array_size)
+.nf
+.na
+int     bl_sam_set_rnext_cpy(
+            bl_sam_t *bl_sam_ptr,
+            char new_rnext[],
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the rnext array.
 .SH DESCRIPTION
 
 Mutator for rnext member in a bl_sam_t structure.
-Use this function to set rnext in a bl_sam_t variable
+Use this function to set rnext in a bl_sam_t object
 from non-member functions.  This function copies the array pointed to
-by new_rnext to ->rnext.
-
-Note that there is an equivalent macro BL_SAM_SET_RNEXT(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_rnext is guaranteed by other means.
+by new_rnext to bl_sam_ptr->rnext.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_sam_t        bl_sam;
 char            new_rnext;
 size_t          array_size;
 
-if ( bl_sam_set_rnext(&bl_sam, new_rnext, array_size) == BL_SAM_DATA_OK )
+if ( bl_sam_set_rnext_cpy(&bl_sam, new_rnext, array_size)
+        == BL_SAM_DATA_OK )
 {
 }
 .ad

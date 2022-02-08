@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
+.nf
+.na
+int     bl_gff_set_strand(
+            bl_gff_t *bl_gff_ptr,
+            char new_strand
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_strand      The new value for strand
 .SH DESCRIPTION
 
 Mutator for strand member in a bl_gff_t structure.
-Use this function to set strand in a bl_gff_t variable
+Use this function to set strand in a bl_gff_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 strand is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_strand is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_GFF_DATA_OUT_OF_RANGE otherwise
 bl_gff_t        bl_gff;
 char            new_strand;
 
-if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_GFF_DATA_OK )
+if ( bl_gff_set_strand(&bl_gff, new_strand)
+        == BL_GFF_DATA_OK )
 {
 }
 .ad

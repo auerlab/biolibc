@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
+.nf
+.na
+int     bl_sam_set_tlen(
+            bl_sam_t *bl_sam_ptr,
+            long new_tlen
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_tlen        The new value for tlen
 .SH DESCRIPTION
 
 Mutator for tlen member in a bl_sam_t structure.
-Use this function to set tlen in a bl_sam_t variable
+Use this function to set tlen in a bl_sam_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 tlen is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_tlen is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_SAM_DATA_OUT_OF_RANGE otherwise
 bl_sam_t        bl_sam;
 long            new_tlen;
 
-if ( bl_sam_set_tlen(&bl_sam, new_tlen) == BL_SAM_DATA_OK )
+if ( bl_sam_set_tlen(&bl_sam, new_tlen)
+        == BL_SAM_DATA_OK )
 {
 }
 .ad

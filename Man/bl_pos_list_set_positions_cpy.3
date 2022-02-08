@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions, size_t array_size)
+.nf
+.na
+int     bl_pos_list_set_positions_cpy(
+            bl_pos_list_t *bl_pos_list_ptr,
+            uint64_t * new_positions,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the positions array.
 .SH DESCRIPTION
 
 Mutator for positions member in a bl_pos_list_t structure.
-Use this function to set positions in a bl_pos_list_t variable
+Use this function to set positions in a bl_pos_list_t object
 from non-member functions.  This function copies the array pointed to
-by new_positions to ->positions.
-
-Note that there is an equivalent macro BL_POS_LIST_SET_POSITIONS(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_positions is guaranteed by other means.
+by new_positions to bl_pos_list_ptr->positions.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_pos_list_t   bl_pos_list;
 uint64_t *      new_positions;
 size_t          array_size;
 
-if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_POS_LIST_DATA_OK )
+if ( bl_pos_list_set_positions_cpy(&bl_pos_list, new_positions, array_size)
+        == BL_POS_LIST_DATA_OK )
 {
 }
 .ad

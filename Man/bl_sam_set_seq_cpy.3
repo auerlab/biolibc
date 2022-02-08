@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_size)
+.nf
+.na
+int     bl_sam_set_seq_cpy(
+            bl_sam_t *bl_sam_ptr,
+            char * new_seq,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the seq array.
 .SH DESCRIPTION
 
 Mutator for seq member in a bl_sam_t structure.
-Use this function to set seq in a bl_sam_t variable
+Use this function to set seq in a bl_sam_t object
 from non-member functions.  This function copies the array pointed to
-by new_seq to ->seq.
-
-Note that there is an equivalent macro BL_SAM_SET_SEQ(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_seq is guaranteed by other means.
+by new_seq to bl_sam_ptr->seq.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_sam_t        bl_sam;
 char *          new_seq;
 size_t          array_size;
 
-if ( bl_sam_set_seq(&bl_sam, new_seq, array_size) == BL_SAM_DATA_OK )
+if ( bl_sam_set_seq_cpy(&bl_sam, new_seq, array_size)
+        == BL_SAM_DATA_OK )
 {
 }
 .ad

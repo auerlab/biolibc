@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t array_size)
+.nf
+.na
+int     bl_fastq_set_plus_cpy(
+            bl_fastq_t *bl_fastq_ptr,
+            char * new_plus,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the plus array.
 .SH DESCRIPTION
 
 Mutator for plus member in a bl_fastq_t structure.
-Use this function to set plus in a bl_fastq_t variable
+Use this function to set plus in a bl_fastq_t object
 from non-member functions.  This function copies the array pointed to
-by new_plus to ->plus.
-
-Note that there is an equivalent macro BL_FASTQ_SET_PLUS(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_plus is guaranteed by other means.
+by new_plus to bl_fastq_ptr->plus.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_fastq_t      bl_fastq;
 char *          new_plus;
 size_t          array_size;
 
-if ( bl_fastq_set_plus(&bl_fastq, new_plus, array_size) == BL_FASTQ_DATA_OK )
+if ( bl_fastq_set_plus_cpy(&bl_fastq, new_plus, array_size)
+        == BL_FASTQ_DATA_OK )
 {
 }
 .ad

@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t array_size)
+.nf
+.na
+int     bl_fastq_set_desc_cpy(
+            bl_fastq_t *bl_fastq_ptr,
+            char * new_desc,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the desc array.
 .SH DESCRIPTION
 
 Mutator for desc member in a bl_fastq_t structure.
-Use this function to set desc in a bl_fastq_t variable
+Use this function to set desc in a bl_fastq_t object
 from non-member functions.  This function copies the array pointed to
-by new_desc to ->desc.
-
-Note that there is an equivalent macro BL_FASTQ_SET_DESC(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_desc is guaranteed by other means.
+by new_desc to bl_fastq_ptr->desc.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_fastq_t      bl_fastq;
 char *          new_desc;
 size_t          array_size;
 
-if ( bl_fastq_set_desc(&bl_fastq, new_desc, array_size) == BL_FASTQ_DATA_OK )
+if ( bl_fastq_set_desc_cpy(&bl_fastq, new_desc, array_size)
+        == BL_FASTQ_DATA_OK )
 {
 }
 .ad

@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char ** new_seqid)
+.nf
+.na
+int     bl_gff_index_set_seqid(
+            bl_gff_index_t *bl_gff_index_ptr,
+            char ** new_seqid
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_seqid       The new value for seqid
 .SH DESCRIPTION
 
 Mutator for seqid member in a bl_gff_index_t structure.
-Use this function to set seqid in a bl_gff_index_t variable
+Use this function to set seqid in a bl_gff_index_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 seqid is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_seqid is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_GFF_INDEX_DATA_OUT_OF_RANGE otherwise
 bl_gff_index_t  bl_gff_index;
 char **         new_seqid;
 
-if ( bl_gff_index_set_seqid(&bl_gff_index, new_seqid) == BL_GFF_INDEX_DATA_OK )
+if ( bl_gff_index_set_seqid(&bl_gff_index, new_seqid)
+        == BL_GFF_INDEX_DATA_OK )
 {
 }
 .ad

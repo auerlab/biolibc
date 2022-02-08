@@ -21,13 +21,8 @@
  *
  *  Description:
  *      Mutator for an array element of chrom member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      chrom in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_CHROM_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->chrom[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -43,7 +38,8 @@
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      if ( bl_vcf_set_chrom(&bl_vcf, c, new_chrom_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_chrom_ae(&bl_vcf, c, new_chrom_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -52,10 +48,14 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_element)
+int     bl_vcf_set_chrom_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_chrom_element
+	)
 
 {
     if ( false )
@@ -75,14 +75,9 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *
  *  Description:
  *      Mutator for chrom member in a bl_vcf_t structure.
- *      Use this function to set chrom in a bl_vcf_t variable
+ *      Use this function to set chrom in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_chrom to ->chrom.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_CHROM(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom is guaranteed by other means.
+ *      by new_chrom to bl_vcf_ptr->chrom.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -98,7 +93,8 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_chrom_cpy(&bl_vcf, new_chrom, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -107,10 +103,14 @@ int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t array_size)
+int     bl_vcf_set_chrom_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_chrom[],
+	    size_t array_size
+	)
 
 {
     if ( new_chrom == NULL )
@@ -131,13 +131,8 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *
  *  Description:
  *      Mutator for an array element of id member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      id in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_ID_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_id_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->id[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -153,7 +148,8 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *      size_t          c;
  *      char            new_id_element;
  *
- *      if ( bl_vcf_set_id(&bl_vcf, c, new_id_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_id_ae(&bl_vcf, c, new_id_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -162,10 +158,14 @@ int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
+int     bl_vcf_set_id_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_id_element
+	)
 
 {
     if ( false )
@@ -185,14 +185,9 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *
  *  Description:
  *      Mutator for id member in a bl_vcf_t structure.
- *      Use this function to set id in a bl_vcf_t variable
+ *      Use this function to set id in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_id to ->id.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_ID(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_id is guaranteed by other means.
+ *      by new_id to bl_vcf_ptr->id.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -208,7 +203,8 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *      char            new_id;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_id(&bl_vcf, new_id, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_id_cpy(&bl_vcf, new_id, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -217,10 +213,14 @@ int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size)
+int     bl_vcf_set_id_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_id[],
+	    size_t array_size
+	)
 
 {
     if ( new_id == NULL )
@@ -241,13 +241,8 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *
  *  Description:
  *      Mutator for an array element of ref member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      ref in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_REF_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_ref_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->ref[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -263,7 +258,8 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *      size_t          c;
  *      char            new_ref_element;
  *
- *      if ( bl_vcf_set_ref(&bl_vcf, c, new_ref_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_ref_ae(&bl_vcf, c, new_ref_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -272,10 +268,14 @@ int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
+int     bl_vcf_set_ref_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_ref_element
+	)
 
 {
     if ( false )
@@ -295,14 +295,9 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *
  *  Description:
  *      Mutator for ref member in a bl_vcf_t structure.
- *      Use this function to set ref in a bl_vcf_t variable
+ *      Use this function to set ref in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_ref to ->ref.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_REF(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_ref is guaranteed by other means.
+ *      by new_ref to bl_vcf_ptr->ref.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -318,7 +313,8 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *      char            new_ref;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_ref(&bl_vcf, new_ref, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_ref_cpy(&bl_vcf, new_ref, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -327,10 +323,14 @@ int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_size)
+int     bl_vcf_set_ref_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_ref[],
+	    size_t array_size
+	)
 
 {
     if ( new_ref == NULL )
@@ -351,13 +351,8 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *
  *  Description:
  *      Mutator for an array element of alt member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      alt in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_ALT_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alt_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->alt[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -373,7 +368,8 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *      size_t          c;
  *      char            new_alt_element;
  *
- *      if ( bl_vcf_set_alt(&bl_vcf, c, new_alt_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_alt_ae(&bl_vcf, c, new_alt_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -382,10 +378,14 @@ int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
+int     bl_vcf_set_alt_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_alt_element
+	)
 
 {
     if ( false )
@@ -405,14 +405,9 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *
  *  Description:
  *      Mutator for alt member in a bl_vcf_t structure.
- *      Use this function to set alt in a bl_vcf_t variable
+ *      Use this function to set alt in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_alt to ->alt.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_ALT(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alt is guaranteed by other means.
+ *      by new_alt to bl_vcf_ptr->alt.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -428,7 +423,8 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *      char            new_alt;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_alt(&bl_vcf, new_alt, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_alt_cpy(&bl_vcf, new_alt, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -437,10 +433,14 @@ int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_size)
+int     bl_vcf_set_alt_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_alt[],
+	    size_t array_size
+	)
 
 {
     if ( new_alt == NULL )
@@ -461,13 +461,8 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *
  *  Description:
  *      Mutator for an array element of qual member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      qual in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_QUAL_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->qual[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -483,7 +478,8 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *      size_t          c;
  *      char            new_qual_element;
  *
- *      if ( bl_vcf_set_qual(&bl_vcf, c, new_qual_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_qual_ae(&bl_vcf, c, new_qual_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -492,10 +488,14 @@ int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element)
+int     bl_vcf_set_qual_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_qual_element
+	)
 
 {
     if ( false )
@@ -515,14 +515,9 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *
  *  Description:
  *      Mutator for qual member in a bl_vcf_t structure.
- *      Use this function to set qual in a bl_vcf_t variable
+ *      Use this function to set qual in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_qual to ->qual.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_QUAL(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual is guaranteed by other means.
+ *      by new_qual to bl_vcf_ptr->qual.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -538,7 +533,8 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *      char            new_qual;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_qual_cpy(&bl_vcf, new_qual, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -547,10 +543,14 @@ int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_size)
+int     bl_vcf_set_qual_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_qual[],
+	    size_t array_size
+	)
 
 {
     if ( new_qual == NULL )
@@ -571,13 +571,8 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *
  *  Description:
  *      Mutator for an array element of filter member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      filter in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_FILTER_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_filter_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->filter[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -593,7 +588,8 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *      size_t          c;
  *      char            new_filter_element;
  *
- *      if ( bl_vcf_set_filter(&bl_vcf, c, new_filter_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_filter_ae(&bl_vcf, c, new_filter_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -602,10 +598,14 @@ int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_element)
+int     bl_vcf_set_filter_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char new_filter_element
+	)
 
 {
     if ( false )
@@ -625,14 +625,9 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *
  *  Description:
  *      Mutator for filter member in a bl_vcf_t structure.
- *      Use this function to set filter in a bl_vcf_t variable
+ *      Use this function to set filter in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_filter to ->filter.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_FILTER(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_filter is guaranteed by other means.
+ *      by new_filter to bl_vcf_ptr->filter.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -648,7 +643,8 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *      char            new_filter;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_filter(&bl_vcf, new_filter, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_filter_cpy(&bl_vcf, new_filter, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -657,10 +653,14 @@ int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_ele
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t array_size)
+int     bl_vcf_set_filter_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char new_filter[],
+	    size_t array_size
+	)
 
 {
     if ( new_filter == NULL )
@@ -681,18 +681,12 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *
  *  Description:
  *      Mutator for info member in a bl_vcf_t structure.
- *      Use this function to set info in a bl_vcf_t variable
+ *      Use this function to set info in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      info is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_info is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -706,7 +700,8 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *      bl_vcf_t        bl_vcf;
  *      char *          new_info;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, new_info) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_info(&bl_vcf, new_info)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -715,10 +710,13 @@ int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
+int     bl_vcf_set_info(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_info
+	)
 
 {
     if ( new_info == NULL )
@@ -738,13 +736,8 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *
  *  Description:
  *      Mutator for an array element of info member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      info in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_INFO_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_info_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->info[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -760,7 +753,8 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *      size_t          c;
  *      char *          new_info_element;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, c, new_info_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_info_ae(&bl_vcf, c, new_info_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -769,10 +763,14 @@ int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_element)
+int     bl_vcf_set_info_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char  new_info_element
+	)
 
 {
     if ( false )
@@ -792,14 +790,9 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *
  *  Description:
  *      Mutator for info member in a bl_vcf_t structure.
- *      Use this function to set info in a bl_vcf_t variable
+ *      Use this function to set info in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_info to ->info.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_INFO(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_info is guaranteed by other means.
+ *      by new_info to bl_vcf_ptr->info.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -815,7 +808,8 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *      char *          new_info;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_info(&bl_vcf, new_info, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_info_cpy(&bl_vcf, new_info, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -824,10 +818,14 @@ int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_elemen
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_size)
+int     bl_vcf_set_info_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_info,
+	    size_t array_size
+	)
 
 {
     if ( new_info == NULL )
@@ -848,18 +846,12 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *
  *  Description:
  *      Mutator for format member in a bl_vcf_t structure.
- *      Use this function to set format in a bl_vcf_t variable
+ *      Use this function to set format in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      format is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -873,7 +865,8 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *      bl_vcf_t        bl_vcf;
  *      char *          new_format;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, new_format) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_format(&bl_vcf, new_format)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -882,10 +875,13 @@ int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
+int     bl_vcf_set_format(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_format
+	)
 
 {
     if ( new_format == NULL )
@@ -905,13 +901,8 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *
  *  Description:
  *      Mutator for an array element of format member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      format in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_FORMAT_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->format[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -927,7 +918,8 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *      size_t          c;
  *      char *          new_format_element;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, c, new_format_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_format_ae(&bl_vcf, c, new_format_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -936,10 +928,14 @@ int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_element)
+int     bl_vcf_set_format_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char  new_format_element
+	)
 
 {
     if ( false )
@@ -959,14 +955,9 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *
  *  Description:
  *      Mutator for format member in a bl_vcf_t structure.
- *      Use this function to set format in a bl_vcf_t variable
+ *      Use this function to set format in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_format to ->format.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_FORMAT(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format is guaranteed by other means.
+ *      by new_format to bl_vcf_ptr->format.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -982,7 +973,8 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *      char *          new_format;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_format(&bl_vcf, new_format, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_format_cpy(&bl_vcf, new_format, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -991,10 +983,14 @@ int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t array_size)
+int     bl_vcf_set_format_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_format,
+	    size_t array_size
+	)
 
 {
     if ( new_format == NULL )
@@ -1015,18 +1011,12 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *
  *  Description:
  *      Mutator for single_sample member in a bl_vcf_t structure.
- *      Use this function to set single_sample in a bl_vcf_t variable
+ *      Use this function to set single_sample in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      single_sample is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_single_sample is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1040,7 +1030,8 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *      bl_vcf_t        bl_vcf;
  *      char *          new_single_sample;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1049,10 +1040,13 @@ int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
+int     bl_vcf_set_single_sample(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_single_sample
+	)
 
 {
     if ( new_single_sample == NULL )
@@ -1072,13 +1066,8 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *
  *  Description:
  *      Mutator for an array element of single_sample member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      single_sample in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_SINGLE_SAMPLE_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_single_sample_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->single_sample[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1094,7 +1083,8 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *      size_t          c;
  *      char *          new_single_sample_element;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, c, new_single_sample_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_single_sample_ae(&bl_vcf, c, new_single_sample_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1103,10 +1093,14 @@ int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_single_sample_element)
+int     bl_vcf_set_single_sample_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char  new_single_sample_element
+	)
 
 {
     if ( false )
@@ -1126,14 +1120,9 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *
  *  Description:
  *      Mutator for single_sample member in a bl_vcf_t structure.
- *      Use this function to set single_sample in a bl_vcf_t variable
+ *      Use this function to set single_sample in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_single_sample to ->single_sample.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_SINGLE_SAMPLE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_single_sample is guaranteed by other means.
+ *      by new_single_sample to bl_vcf_ptr->single_sample.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1149,7 +1138,8 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *      char *          new_single_sample;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_single_sample(&bl_vcf, new_single_sample, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_single_sample_cpy(&bl_vcf, new_single_sample, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1158,10 +1148,14 @@ int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sample, size_t array_size)
+int     bl_vcf_set_single_sample_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char * new_single_sample,
+	    size_t array_size
+	)
 
 {
     if ( new_single_sample == NULL )
@@ -1182,18 +1176,12 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *
  *  Description:
  *      Mutator for pos member in a bl_vcf_t structure.
- *      Use this function to set pos in a bl_vcf_t variable
+ *      Use this function to set pos in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      pos is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_pos is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1207,7 +1195,8 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *      bl_vcf_t        bl_vcf;
  *      uint64_t        new_pos;
  *
- *      if ( bl_vcf_set_pos(&bl_vcf, new_pos) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_pos(&bl_vcf, new_pos)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1216,10 +1205,13 @@ int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sam
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
+int     bl_vcf_set_pos(
+	    bl_vcf_t *bl_vcf_ptr,
+	    uint64_t new_pos
+	)
 
 {
     if ( false )
@@ -1239,18 +1231,12 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *
  *  Description:
  *      Mutator for info_len member in a bl_vcf_t structure.
- *      Use this function to set info_len in a bl_vcf_t variable
+ *      Use this function to set info_len in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      info_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_info_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1264,7 +1250,8 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_len;
  *
- *      if ( bl_vcf_set_info_len(&bl_vcf, new_info_len) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_info_len(&bl_vcf, new_info_len)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1273,10 +1260,13 @@ int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
+int     bl_vcf_set_info_len(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_info_len
+	)
 
 {
     if ( false )
@@ -1296,18 +1286,12 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *
  *  Description:
  *      Mutator for info_max member in a bl_vcf_t structure.
- *      Use this function to set info_max in a bl_vcf_t variable
+ *      Use this function to set info_max in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      info_max is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_info_max is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1321,7 +1305,8 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_info_max;
  *
- *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1330,10 +1315,13 @@ int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
+int     bl_vcf_set_info_max(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_info_max
+	)
 
 {
     if ( false )
@@ -1353,18 +1341,12 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *
  *  Description:
  *      Mutator for format_max member in a bl_vcf_t structure.
- *      Use this function to set format_max in a bl_vcf_t variable
+ *      Use this function to set format_max in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      format_max is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format_max is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1378,7 +1360,8 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_format_max;
  *
- *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1387,10 +1370,13 @@ int     bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
+int     bl_vcf_set_format_max(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_format_max
+	)
 
 {
     if ( false )
@@ -1410,18 +1396,12 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *
  *  Description:
  *      Mutator for format_len member in a bl_vcf_t structure.
- *      Use this function to set format_len in a bl_vcf_t variable
+ *      Use this function to set format_len in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      format_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1435,7 +1415,8 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_format_len;
  *
- *      if ( bl_vcf_set_format_len(&bl_vcf, new_format_len) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_format_len(&bl_vcf, new_format_len)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1444,10 +1425,13 @@ int     bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
+int     bl_vcf_set_format_len(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_format_len
+	)
 
 {
     if ( false )
@@ -1467,18 +1451,12 @@ int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
  *
  *  Description:
  *      Mutator for sample_max member in a bl_vcf_t structure.
- *      Use this function to set sample_max in a bl_vcf_t variable
+ *      Use this function to set sample_max in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      sample_max is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_sample_max is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1492,7 +1470,8 @@ int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_sample_max;
  *
- *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1501,10 +1480,13 @@ int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
+int     bl_vcf_set_sample_max(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_sample_max
+	)
 
 {
     if ( false )
@@ -1524,18 +1506,12 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *
  *  Description:
  *      Mutator for ref_count member in a bl_vcf_t structure.
- *      Use this function to set ref_count in a bl_vcf_t variable
+ *      Use this function to set ref_count in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      ref_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_ref_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1549,7 +1525,8 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_ref_count;
  *
- *      if ( bl_vcf_set_ref_count(&bl_vcf, new_ref_count) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_ref_count(&bl_vcf, new_ref_count)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1558,10 +1535,13 @@ int     bl_vcf_set_sample_max(bl_vcf_t *bl_vcf_ptr, size_t new_sample_max)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
+int     bl_vcf_set_ref_count(
+	    bl_vcf_t *bl_vcf_ptr,
+	    unsigned new_ref_count
+	)
 
 {
     if ( false )
@@ -1581,18 +1561,12 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *
  *  Description:
  *      Mutator for alt_count member in a bl_vcf_t structure.
- *      Use this function to set alt_count in a bl_vcf_t variable
+ *      Use this function to set alt_count in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      alt_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alt_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1606,7 +1580,8 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_alt_count;
  *
- *      if ( bl_vcf_set_alt_count(&bl_vcf, new_alt_count) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_alt_count(&bl_vcf, new_alt_count)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1615,10 +1590,13 @@ int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
+int     bl_vcf_set_alt_count(
+	    bl_vcf_t *bl_vcf_ptr,
+	    unsigned new_alt_count
+	)
 
 {
     if ( false )
@@ -1638,18 +1616,12 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *
  *  Description:
  *      Mutator for other_count member in a bl_vcf_t structure.
- *      Use this function to set other_count in a bl_vcf_t variable
+ *      Use this function to set other_count in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      other_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_other_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1663,7 +1635,8 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *      bl_vcf_t        bl_vcf;
  *      unsigned        new_other_count;
  *
- *      if ( bl_vcf_set_other_count(&bl_vcf, new_other_count) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_other_count(&bl_vcf, new_other_count)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1672,10 +1645,13 @@ int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
+int     bl_vcf_set_other_count(
+	    bl_vcf_t *bl_vcf_ptr,
+	    unsigned new_other_count
+	)
 
 {
     if ( false )
@@ -1695,18 +1671,12 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *
  *  Description:
  *      Mutator for multi_samples member in a bl_vcf_t structure.
- *      Use this function to set multi_samples in a bl_vcf_t variable
+ *      Use this function to set multi_samples in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      multi_samples is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_multi_samples is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1720,7 +1690,8 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *      bl_vcf_t        bl_vcf;
  *      char **         new_multi_samples;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1729,10 +1700,13 @@ int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples)
+int     bl_vcf_set_multi_samples(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char ** new_multi_samples
+	)
 
 {
     if ( new_multi_samples == NULL )
@@ -1752,13 +1726,8 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *
  *  Description:
  *      Mutator for an array element of multi_samples member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      multi_samples in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_MULTI_SAMPLES_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_multi_samples_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->multi_samples[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1774,7 +1743,8 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *      size_t          c;
  *      char **         new_multi_samples_element;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, c, new_multi_samples_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples_ae(&bl_vcf, c, new_multi_samples_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1783,10 +1753,14 @@ int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_multi_samples_element)
+int     bl_vcf_set_multi_samples_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    char * new_multi_samples_element
+	)
 
 {
     if ( new_multi_samples_element == NULL )
@@ -1806,14 +1780,9 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *
  *  Description:
  *      Mutator for multi_samples member in a bl_vcf_t structure.
- *      Use this function to set multi_samples in a bl_vcf_t variable
+ *      Use this function to set multi_samples in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_multi_samples to ->multi_samples.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_MULTI_SAMPLES(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_multi_samples is guaranteed by other means.
+ *      by new_multi_samples to bl_vcf_ptr->multi_samples.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1829,7 +1798,8 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *      char **         new_multi_samples;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_multi_samples_cpy(&bl_vcf, new_multi_samples, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1838,10 +1808,14 @@ int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_m
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples, size_t array_size)
+int     bl_vcf_set_multi_samples_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    char ** new_multi_samples,
+	    size_t array_size
+	)
 
 {
     if ( new_multi_samples == NULL )
@@ -1865,18 +1839,12 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *
  *  Description:
  *      Mutator for phreds member in a bl_vcf_t structure.
- *      Use this function to set phreds in a bl_vcf_t variable
+ *      Use this function to set phreds in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      phreds is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phreds is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1890,7 +1858,8 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *      bl_vcf_t        bl_vcf;
  *      unsigned char * new_phreds;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1899,10 +1868,13 @@ int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_sam
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
+int     bl_vcf_set_phreds(
+	    bl_vcf_t *bl_vcf_ptr,
+	    unsigned char * new_phreds
+	)
 
 {
     if ( new_phreds == NULL )
@@ -1922,13 +1894,8 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *
  *  Description:
  *      Mutator for an array element of phreds member in a bl_vcf_t
- *      structure. Use this function to set an element of the array
- *      phreds in a bl_vcf_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_PHREDS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phreds_element is guaranteed by other means.
+ *      structure. Use this function to set bl_vcf_ptr->phreds[c]
+ *      in a bl_vcf_t object from non-member functions.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1944,7 +1911,8 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *      size_t          c;
  *      unsigned char * new_phreds_element;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, c, new_phreds_element) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_phreds_ae(&bl_vcf, c, new_phreds_element)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -1953,10 +1921,14 @@ int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_phreds_element)
+int     bl_vcf_set_phreds_ae(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t c,
+	    unsigned char  new_phreds_element
+	)
 
 {
     if ( false )
@@ -1976,14 +1948,9 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *
  *  Description:
  *      Mutator for phreds member in a bl_vcf_t structure.
- *      Use this function to set phreds in a bl_vcf_t variable
+ *      Use this function to set phreds in a bl_vcf_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_phreds to ->phreds.
- *
- *      Note that there is an equivalent macro BL_VCF_SET_PHREDS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phreds is guaranteed by other means.
+ *      by new_phreds to bl_vcf_ptr->phreds.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -1999,7 +1966,8 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *      unsigned char * new_phreds;
  *      size_t          array_size;
  *
- *      if ( bl_vcf_set_phreds(&bl_vcf, new_phreds, array_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_phreds_cpy(&bl_vcf, new_phreds, array_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -2008,10 +1976,14 @@ int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, size_t array_size)
+int     bl_vcf_set_phreds_cpy(
+	    bl_vcf_t *bl_vcf_ptr,
+	    unsigned char * new_phreds,
+	    size_t array_size
+	)
 
 {
     if ( new_phreds == NULL )
@@ -2035,18 +2007,12 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *
  *  Description:
  *      Mutator for phred_count member in a bl_vcf_t structure.
- *      Use this function to set phred_count in a bl_vcf_t variable
+ *      Use this function to set phred_count in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      phred_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phred_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -2060,7 +2026,8 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_count;
  *
- *      if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_phred_count(&bl_vcf, new_phred_count)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -2069,10 +2036,13 @@ int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
+int     bl_vcf_set_phred_count(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_phred_count
+	)
 
 {
     if ( false )
@@ -2092,18 +2062,12 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *
  *  Description:
  *      Mutator for phred_buff_size member in a bl_vcf_t structure.
- *      Use this function to set phred_buff_size in a bl_vcf_t variable
+ *      Use this function to set phred_buff_size in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      phred_buff_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phred_buff_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
@@ -2117,7 +2081,8 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *      bl_vcf_t        bl_vcf;
  *      size_t          new_phred_buff_size;
  *
- *      if ( bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size) == BL_VCF_DATA_OK )
+ *      if ( bl_vcf_set_phred_buff_size(&bl_vcf, new_phred_buff_size)
+ *              == BL_VCF_DATA_OK )
  *      {
  *      }
  *
@@ -2126,10 +2091,13 @@ int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from vcf.h
+ *  2022-02-07  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phred_buff_size(bl_vcf_t *bl_vcf_ptr, size_t new_phred_buff_size)
+int     bl_vcf_set_phred_buff_size(
+	    bl_vcf_t *bl_vcf_ptr,
+	    size_t new_phred_buff_size
+	)
 
 {
     if ( false )

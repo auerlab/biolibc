@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for desc member in a bl_fasta_t structure.
- *      Use this function to set desc in a bl_fasta_t variable
+ *      Use this function to set desc in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_fasta_t      bl_fasta;
  *      char *          new_desc;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, new_desc) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_desc(&bl_fasta, new_desc)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -55,10 +50,13 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
+int     bl_fasta_set_desc(
+	    bl_fasta_t *bl_fasta_ptr,
+	    char * new_desc
+	)
 
 {
     if ( new_desc == NULL )
@@ -78,13 +76,8 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *
  *  Description:
  *      Mutator for an array element of desc member in a bl_fasta_t
- *      structure. Use this function to set an element of the array
- *      desc in a bl_fasta_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTA_SET_DESC_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fasta_ptr->desc[c]
+ *      in a bl_fasta_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -100,7 +93,8 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *      size_t          c;
  *      char *          new_desc_element;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, c, new_desc_element) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_desc_ae(&bl_fasta, c, new_desc_element)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -109,10 +103,14 @@ int     bl_fasta_set_desc(bl_fasta_t *bl_fasta_ptr, char * new_desc)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_element)
+int     bl_fasta_set_desc_ae(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t c,
+	    char  new_desc_element
+	)
 
 {
     if ( false )
@@ -132,14 +130,9 @@ int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_
  *
  *  Description:
  *      Mutator for desc member in a bl_fasta_t structure.
- *      Use this function to set desc in a bl_fasta_t variable
+ *      Use this function to set desc in a bl_fasta_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_desc to ->desc.
- *
- *      Note that there is an equivalent macro BL_FASTA_SET_DESC(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc is guaranteed by other means.
+ *      by new_desc to bl_fasta_ptr->desc.
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -155,7 +148,8 @@ int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_
  *      char *          new_desc;
  *      size_t          array_size;
  *
- *      if ( bl_fasta_set_desc(&bl_fasta, new_desc, array_size) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_desc_cpy(&bl_fasta, new_desc, array_size)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -164,10 +158,14 @@ int     bl_fasta_set_desc_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_desc_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t array_size)
+int     bl_fasta_set_desc_cpy(
+	    bl_fasta_t *bl_fasta_ptr,
+	    char * new_desc,
+	    size_t array_size
+	)
 
 {
     if ( new_desc == NULL )
@@ -188,18 +186,12 @@ int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t 
  *
  *  Description:
  *      Mutator for seq member in a bl_fasta_t structure.
- *      Use this function to set seq in a bl_fasta_t variable
+ *      Use this function to set seq in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -213,7 +205,8 @@ int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t 
  *      bl_fasta_t      bl_fasta;
  *      char *          new_seq;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, new_seq) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_seq(&bl_fasta, new_seq)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -222,10 +215,13 @@ int     bl_fasta_set_desc_cpy(bl_fasta_t *bl_fasta_ptr, char * new_desc, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
+int     bl_fasta_set_seq(
+	    bl_fasta_t *bl_fasta_ptr,
+	    char * new_seq
+	)
 
 {
     if ( new_seq == NULL )
@@ -245,13 +241,8 @@ int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
  *
  *  Description:
  *      Mutator for an array element of seq member in a bl_fasta_t
- *      structure. Use this function to set an element of the array
- *      seq in a bl_fasta_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTA_SET_SEQ_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fasta_ptr->seq[c]
+ *      in a bl_fasta_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -267,7 +258,8 @@ int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, c, new_seq_element) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_seq_ae(&bl_fasta, c, new_seq_element)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -276,10 +268,14 @@ int     bl_fasta_set_seq(bl_fasta_t *bl_fasta_ptr, char * new_seq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_element)
+int     bl_fasta_set_seq_ae(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t c,
+	    char  new_seq_element
+	)
 
 {
     if ( false )
@@ -299,14 +295,9 @@ int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_el
  *
  *  Description:
  *      Mutator for seq member in a bl_fasta_t structure.
- *      Use this function to set seq in a bl_fasta_t variable
+ *      Use this function to set seq in a bl_fasta_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_seq to ->seq.
- *
- *      Note that there is an equivalent macro BL_FASTA_SET_SEQ(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
+ *      by new_seq to bl_fasta_ptr->seq.
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -322,7 +313,8 @@ int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_el
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      if ( bl_fasta_set_seq(&bl_fasta, new_seq, array_size) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_seq_cpy(&bl_fasta, new_seq, array_size)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -331,10 +323,14 @@ int     bl_fasta_set_seq_ae(bl_fasta_t *bl_fasta_ptr, size_t c, char  new_seq_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t array_size)
+int     bl_fasta_set_seq_cpy(
+	    bl_fasta_t *bl_fasta_ptr,
+	    char * new_seq,
+	    size_t array_size
+	)
 
 {
     if ( new_seq == NULL )
@@ -355,18 +351,12 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *
  *  Description:
  *      Mutator for desc_array_size member in a bl_fasta_t structure.
- *      Use this function to set desc_array_size in a bl_fasta_t variable
+ *      Use this function to set desc_array_size in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -380,7 +370,8 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_desc_array_size;
  *
- *      if ( bl_fasta_set_desc_array_size(&bl_fasta, new_desc_array_size) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_desc_array_size(&bl_fasta, new_desc_array_size)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -389,10 +380,13 @@ int     bl_fasta_set_seq_cpy(bl_fasta_t *bl_fasta_ptr, char * new_seq, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_array_size)
+int     bl_fasta_set_desc_array_size(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t new_desc_array_size
+	)
 
 {
     if ( false )
@@ -412,18 +406,12 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *
  *  Description:
  *      Mutator for seq_array_size member in a bl_fasta_t structure.
- *      Use this function to set seq_array_size in a bl_fasta_t variable
+ *      Use this function to set seq_array_size in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -437,7 +425,8 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_seq_array_size;
  *
- *      if ( bl_fasta_set_seq_array_size(&bl_fasta, new_seq_array_size) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_seq_array_size(&bl_fasta, new_seq_array_size)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -446,10 +435,13 @@ int     bl_fasta_set_desc_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_desc_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_array_size)
+int     bl_fasta_set_seq_array_size(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t new_seq_array_size
+	)
 
 {
     if ( false )
@@ -469,18 +461,12 @@ int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_arr
  *
  *  Description:
  *      Mutator for desc_len member in a bl_fasta_t structure.
- *      Use this function to set desc_len in a bl_fasta_t variable
+ *      Use this function to set desc_len in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -494,7 +480,8 @@ int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_arr
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_desc_len;
  *
- *      if ( bl_fasta_set_desc_len(&bl_fasta, new_desc_len) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_desc_len(&bl_fasta, new_desc_len)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -503,10 +490,13 @@ int     bl_fasta_set_seq_array_size(bl_fasta_t *bl_fasta_ptr, size_t new_seq_arr
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
+int     bl_fasta_set_desc_len(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t new_desc_len
+	)
 
 {
     if ( false )
@@ -526,18 +516,12 @@ int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
  *
  *  Description:
  *      Mutator for seq_len member in a bl_fasta_t structure.
- *      Use this function to set seq_len in a bl_fasta_t variable
+ *      Use this function to set seq_len in a bl_fasta_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fasta_ptr    Pointer to the structure to set
@@ -551,7 +535,8 @@ int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
  *      bl_fasta_t      bl_fasta;
  *      size_t          new_seq_len;
  *
- *      if ( bl_fasta_set_seq_len(&bl_fasta, new_seq_len) == BL_FASTA_DATA_OK )
+ *      if ( bl_fasta_set_seq_len(&bl_fasta, new_seq_len)
+ *              == BL_FASTA_DATA_OK )
  *      {
  *      }
  *
@@ -560,10 +545,13 @@ int     bl_fasta_set_desc_len(bl_fasta_t *bl_fasta_ptr, size_t new_desc_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fasta.h
+ *  2022-02-07  gen-get-set Auto-generated from fasta.h
  ***************************************************************************/
 
-int     bl_fasta_set_seq_len(bl_fasta_t *bl_fasta_ptr, size_t new_seq_len)
+int     bl_fasta_set_seq_len(
+	    bl_fasta_t *bl_fasta_ptr,
+	    size_t new_seq_len
+	)
 
 {
     if ( false )

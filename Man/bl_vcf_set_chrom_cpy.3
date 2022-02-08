@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t array_size)
+.nf
+.na
+int     bl_vcf_set_chrom_cpy(
+            bl_vcf_t *bl_vcf_ptr,
+            char new_chrom[],
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the chrom array.
 .SH DESCRIPTION
 
 Mutator for chrom member in a bl_vcf_t structure.
-Use this function to set chrom in a bl_vcf_t variable
+Use this function to set chrom in a bl_vcf_t object
 from non-member functions.  This function copies the array pointed to
-by new_chrom to ->chrom.
-
-Note that there is an equivalent macro BL_VCF_SET_CHROM(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_chrom is guaranteed by other means.
+by new_chrom to bl_vcf_ptr->chrom.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_vcf_t        bl_vcf;
 char            new_chrom;
 size_t          array_size;
 
-if ( bl_vcf_set_chrom(&bl_vcf, new_chrom, array_size) == BL_VCF_DATA_OK )
+if ( bl_vcf_set_chrom_cpy(&bl_vcf, new_chrom, array_size)
+        == BL_VCF_DATA_OK )
 {
 }
 .ad

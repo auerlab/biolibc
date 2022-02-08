@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buff_size)
+.nf
+.na
+int     bl_sam_buff_set_buff_size(
+            bl_sam_buff_t *bl_sam_buff_ptr,
+            size_t new_buff_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_buff_size   The new value for buff_size
 .SH DESCRIPTION
 
 Mutator for buff_size member in a bl_sam_buff_t structure.
-Use this function to set buff_size in a bl_sam_buff_t variable
+Use this function to set buff_size in a bl_sam_buff_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 buff_size is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_buff_size is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
 bl_sam_buff_t   bl_sam_buff;
 size_t          new_buff_size;
 
-if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size) == BL_SAM_BUFF_DATA_OK )
+if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size)
+        == BL_SAM_BUFF_DATA_OK )
 {
 }
 .ad

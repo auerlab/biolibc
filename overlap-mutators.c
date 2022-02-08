@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for feature1_len member in a bl_overlap_t structure.
- *      Use this function to set feature1_len in a bl_overlap_t variable
+ *      Use this function to set feature1_len in a bl_overlap_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      feature1_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature1_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_overlap_ptr  Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_feature1_len;
  *
- *      if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len) == BL_OVERLAP_DATA_OK )
+ *      if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len)
+ *              == BL_OVERLAP_DATA_OK )
  *      {
  *      }
  *
@@ -55,10 +50,13 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from overlap.h
+ *  2022-02-07  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
-int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len)
+int     bl_overlap_set_feature1_len(
+	    bl_overlap_t *bl_overlap_ptr,
+	    uint64_t new_feature1_len
+	)
 
 {
     if ( false )
@@ -78,18 +76,12 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  Description:
  *      Mutator for feature2_len member in a bl_overlap_t structure.
- *      Use this function to set feature2_len in a bl_overlap_t variable
+ *      Use this function to set feature2_len in a bl_overlap_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      feature2_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature2_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_overlap_ptr  Pointer to the structure to set
@@ -103,7 +95,8 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_feature2_len;
  *
- *      if ( bl_overlap_set_feature2_len(&bl_overlap, new_feature2_len) == BL_OVERLAP_DATA_OK )
+ *      if ( bl_overlap_set_feature2_len(&bl_overlap, new_feature2_len)
+ *              == BL_OVERLAP_DATA_OK )
  *      {
  *      }
  *
@@ -112,10 +105,13 @@ int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from overlap.h
+ *  2022-02-07  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
-int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature2_len)
+int     bl_overlap_set_feature2_len(
+	    bl_overlap_t *bl_overlap_ptr,
+	    uint64_t new_feature2_len
+	)
 
 {
     if ( false )
@@ -135,18 +131,12 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  Description:
  *      Mutator for overlap_start member in a bl_overlap_t structure.
- *      Use this function to set overlap_start in a bl_overlap_t variable
+ *      Use this function to set overlap_start in a bl_overlap_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      overlap_start is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_overlap_start is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_overlap_ptr  Pointer to the structure to set
@@ -160,7 +150,8 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_start;
  *
- *      if ( bl_overlap_set_overlap_start(&bl_overlap, new_overlap_start) == BL_OVERLAP_DATA_OK )
+ *      if ( bl_overlap_set_overlap_start(&bl_overlap, new_overlap_start)
+ *              == BL_OVERLAP_DATA_OK )
  *      {
  *      }
  *
@@ -169,10 +160,13 @@ int     bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_f
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from overlap.h
+ *  2022-02-07  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
-int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_start)
+int     bl_overlap_set_overlap_start(
+	    bl_overlap_t *bl_overlap_ptr,
+	    uint64_t new_overlap_start
+	)
 
 {
     if ( false )
@@ -192,18 +186,12 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *
  *  Description:
  *      Mutator for overlap_end member in a bl_overlap_t structure.
- *      Use this function to set overlap_end in a bl_overlap_t variable
+ *      Use this function to set overlap_end in a bl_overlap_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      overlap_end is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_overlap_end is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_overlap_ptr  Pointer to the structure to set
@@ -217,7 +205,8 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_end;
  *
- *      if ( bl_overlap_set_overlap_end(&bl_overlap, new_overlap_end) == BL_OVERLAP_DATA_OK )
+ *      if ( bl_overlap_set_overlap_end(&bl_overlap, new_overlap_end)
+ *              == BL_OVERLAP_DATA_OK )
  *      {
  *      }
  *
@@ -226,10 +215,13 @@ int     bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from overlap.h
+ *  2022-02-07  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
-int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_end)
+int     bl_overlap_set_overlap_end(
+	    bl_overlap_t *bl_overlap_ptr,
+	    uint64_t new_overlap_end
+	)
 
 {
     if ( false )
@@ -249,18 +241,12 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *
  *  Description:
  *      Mutator for overlap_len member in a bl_overlap_t structure.
- *      Use this function to set overlap_len in a bl_overlap_t variable
+ *      Use this function to set overlap_len in a bl_overlap_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      overlap_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_overlap_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_overlap_ptr  Pointer to the structure to set
@@ -274,7 +260,8 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *      bl_overlap_t    bl_overlap;
  *      uint64_t        new_overlap_len;
  *
- *      if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len) == BL_OVERLAP_DATA_OK )
+ *      if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len)
+ *              == BL_OVERLAP_DATA_OK )
  *      {
  *      }
  *
@@ -283,10 +270,13 @@ int     bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_ov
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from overlap.h
+ *  2022-02-07  gen-get-set Auto-generated from overlap.h
  ***************************************************************************/
 
-int     bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_len)
+int     bl_overlap_set_overlap_len(
+	    bl_overlap_t *bl_overlap_ptr,
+	    uint64_t new_overlap_len
+	)
 
 {
     if ( false )

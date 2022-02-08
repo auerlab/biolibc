@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for array_size member in a bl_pos_list_t structure.
- *      Use this function to set array_size in a bl_pos_list_t variable
+ *      Use this function to set array_size in a bl_pos_list_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_pos_list_ptr Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_array_size;
  *
- *      if ( bl_pos_list_set_array_size(&bl_pos_list, new_array_size) == BL_POS_LIST_DATA_OK )
+ *      if ( bl_pos_list_set_array_size(&bl_pos_list, new_array_size)
+ *              == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -55,10 +50,13 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from pos-list.h
+ *  2022-02-07  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
-int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_array_size)
+int     bl_pos_list_set_array_size(
+	    bl_pos_list_t *bl_pos_list_ptr,
+	    size_t new_array_size
+	)
 
 {
     if ( false )
@@ -78,18 +76,12 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *
  *  Description:
  *      Mutator for count member in a bl_pos_list_t structure.
- *      Use this function to set count in a bl_pos_list_t variable
+ *      Use this function to set count in a bl_pos_list_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_pos_list_ptr Pointer to the structure to set
@@ -103,7 +95,8 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          new_count;
  *
- *      if ( bl_pos_list_set_count(&bl_pos_list, new_count) == BL_POS_LIST_DATA_OK )
+ *      if ( bl_pos_list_set_count(&bl_pos_list, new_count)
+ *              == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -112,10 +105,13 @@ int     bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from pos-list.h
+ *  2022-02-07  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
-int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
+int     bl_pos_list_set_count(
+	    bl_pos_list_t *bl_pos_list_ptr,
+	    size_t new_count
+	)
 
 {
     if ( false )
@@ -135,18 +131,12 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *
  *  Description:
  *      Mutator for positions member in a bl_pos_list_t structure.
- *      Use this function to set positions in a bl_pos_list_t variable
+ *      Use this function to set positions in a bl_pos_list_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      positions is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_positions is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_pos_list_ptr Pointer to the structure to set
@@ -160,7 +150,8 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *      bl_pos_list_t   bl_pos_list;
  *      uint64_t *      new_positions;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions) == BL_POS_LIST_DATA_OK )
+ *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions)
+ *              == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -169,10 +160,13 @@ int     bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from pos-list.h
+ *  2022-02-07  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
-int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions)
+int     bl_pos_list_set_positions(
+	    bl_pos_list_t *bl_pos_list_ptr,
+	    uint64_t * new_positions
+	)
 
 {
     if ( new_positions == NULL )
@@ -192,13 +186,8 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *
  *  Description:
  *      Mutator for an array element of positions member in a bl_pos_list_t
- *      structure. Use this function to set an element of the array
- *      positions in a bl_pos_list_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_POS_LIST_SET_POSITIONS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_positions_element is guaranteed by other means.
+ *      structure. Use this function to set bl_pos_list_ptr->positions[c]
+ *      in a bl_pos_list_t object from non-member functions.
  *
  *  Arguments:
  *      bl_pos_list_ptr Pointer to the structure to set
@@ -214,7 +203,8 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *      size_t          c;
  *      uint64_t *      new_positions_element;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, c, new_positions_element) == BL_POS_LIST_DATA_OK )
+ *      if ( bl_pos_list_set_positions_ae(&bl_pos_list, c, new_positions_element)
+ *              == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -223,10 +213,14 @@ int     bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from pos-list.h
+ *  2022-02-07  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
-int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t  new_positions_element)
+int     bl_pos_list_set_positions_ae(
+	    bl_pos_list_t *bl_pos_list_ptr,
+	    size_t c,
+	    uint64_t  new_positions_element
+	)
 
 {
     if ( false )
@@ -246,14 +240,9 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *
  *  Description:
  *      Mutator for positions member in a bl_pos_list_t structure.
- *      Use this function to set positions in a bl_pos_list_t variable
+ *      Use this function to set positions in a bl_pos_list_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_positions to ->positions.
- *
- *      Note that there is an equivalent macro BL_POS_LIST_SET_POSITIONS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_positions is guaranteed by other means.
+ *      by new_positions to bl_pos_list_ptr->positions.
  *
  *  Arguments:
  *      bl_pos_list_ptr Pointer to the structure to set
@@ -269,7 +258,8 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *      uint64_t *      new_positions;
  *      size_t          array_size;
  *
- *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions, array_size) == BL_POS_LIST_DATA_OK )
+ *      if ( bl_pos_list_set_positions_cpy(&bl_pos_list, new_positions, array_size)
+ *              == BL_POS_LIST_DATA_OK )
  *      {
  *      }
  *
@@ -278,10 +268,14 @@ int     bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, u
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from pos-list.h
+ *  2022-02-07  gen-get-set Auto-generated from pos-list.h
  ***************************************************************************/
 
-int     bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t * new_positions, size_t array_size)
+int     bl_pos_list_set_positions_cpy(
+	    bl_pos_list_t *bl_pos_list_ptr,
+	    uint64_t * new_positions,
+	    size_t array_size
+	)
 
 {
     if ( new_positions == NULL )

@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_size)
+.nf
+.na
+int     bl_vcf_set_ref_cpy(
+            bl_vcf_t *bl_vcf_ptr,
+            char new_ref[],
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the ref array.
 .SH DESCRIPTION
 
 Mutator for ref member in a bl_vcf_t structure.
-Use this function to set ref in a bl_vcf_t variable
+Use this function to set ref in a bl_vcf_t object
 from non-member functions.  This function copies the array pointed to
-by new_ref to ->ref.
-
-Note that there is an equivalent macro BL_VCF_SET_REF(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_ref is guaranteed by other means.
+by new_ref to bl_vcf_ptr->ref.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_vcf_t        bl_vcf;
 char            new_ref;
 size_t          array_size;
 
-if ( bl_vcf_set_ref(&bl_vcf, new_ref, array_size) == BL_VCF_DATA_OK )
+if ( bl_vcf_set_ref_cpy(&bl_vcf, new_ref, array_size)
+        == BL_VCF_DATA_OK )
 {
 }
 .ad

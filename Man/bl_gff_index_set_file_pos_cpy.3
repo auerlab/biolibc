@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long * new_file_pos, size_t array_size)
+.nf
+.na
+int     bl_gff_index_set_file_pos_cpy(
+            bl_gff_index_t *bl_gff_index_ptr,
+            long * new_file_pos,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the file_pos array.
 .SH DESCRIPTION
 
 Mutator for file_pos member in a bl_gff_index_t structure.
-Use this function to set file_pos in a bl_gff_index_t variable
+Use this function to set file_pos in a bl_gff_index_t object
 from non-member functions.  This function copies the array pointed to
-by new_file_pos to ->file_pos.
-
-Note that there is an equivalent macro BL_GFF_INDEX_SET_FILE_POS(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_file_pos is guaranteed by other means.
+by new_file_pos to bl_gff_index_ptr->file_pos.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_gff_index_t  bl_gff_index;
 long *          new_file_pos;
 size_t          array_size;
 
-if ( bl_gff_index_set_file_pos_cpy(&bl_gff_index, new_file_pos, array_size) == BL_GFF_INDEX_DATA_OK )
+if ( bl_gff_index_set_file_pos_cpy(&bl_gff_index, new_file_pos, array_size)
+        == BL_GFF_INDEX_DATA_OK )
 {
 }
 .ad

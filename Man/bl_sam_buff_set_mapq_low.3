@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_low)
+.nf
+.na
+int     bl_sam_buff_set_mapq_low(
+            bl_sam_buff_t *bl_sam_buff_ptr,
+            uint64_t new_mapq_low
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_mapq_low    The new value for mapq_low
 .SH DESCRIPTION
 
 Mutator for mapq_low member in a bl_sam_buff_t structure.
-Use this function to set mapq_low in a bl_sam_buff_t variable
+Use this function to set mapq_low in a bl_sam_buff_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 mapq_low is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_mapq_low is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
 bl_sam_buff_t   bl_sam_buff;
 uint64_t        new_mapq_low;
 
-if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low) == BL_SAM_BUFF_DATA_OK )
+if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low)
+        == BL_SAM_BUFF_DATA_OK )
 {
 }
 .ad

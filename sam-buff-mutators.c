@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for buff_size member in a bl_sam_buff_t structure.
- *      Use this function to set buff_size in a bl_sam_buff_t variable
+ *      Use this function to set buff_size in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      buff_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_buff_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buff_size;
  *
- *      if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_buff_size(&bl_sam_buff, new_buff_size)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -55,10 +50,13 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buff_size)
+int     bl_sam_buff_set_buff_size(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t new_buff_size
+	)
 
 {
     if ( false )
@@ -78,18 +76,12 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *
  *  Description:
  *      Mutator for max_alignments member in a bl_sam_buff_t structure.
- *      Use this function to set max_alignments in a bl_sam_buff_t variable
+ *      Use this function to set max_alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      max_alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_max_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -103,7 +95,8 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_max_alignments;
  *
- *      if ( bl_sam_buff_set_max_alignments(&bl_sam_buff, new_max_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_max_alignments(&bl_sam_buff, new_max_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -112,10 +105,13 @@ int     bl_sam_buff_set_buff_size(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buf
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_max_alignments(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max_alignments)
+int     bl_sam_buff_set_max_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t new_max_alignments
+	)
 
 {
     if ( false )
@@ -135,18 +131,12 @@ int     bl_sam_buff_set_max_alignments(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *
  *  Description:
  *      Mutator for alignments member in a bl_sam_buff_t structure.
- *      Use this function to set alignments in a bl_sam_buff_t variable
+ *      Use this function to set alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -160,7 +150,8 @@ int     bl_sam_buff_set_max_alignments(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *      bl_sam_buff_t   bl_sam_buff;
  *      bl_sam_t **     new_alignments;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -169,10 +160,13 @@ int     bl_sam_buff_set_max_alignments(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments)
+int     bl_sam_buff_set_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    bl_sam_t ** new_alignments
+	)
 
 {
     if ( new_alignments == NULL )
@@ -192,13 +186,8 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *
  *  Description:
  *      Mutator for an array element of alignments member in a bl_sam_buff_t
- *      structure. Use this function to set an element of the array
- *      alignments in a bl_sam_buff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_BUFF_SET_ALIGNMENTS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alignments_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_buff_ptr->alignments[c]
+ *      in a bl_sam_buff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -214,7 +203,8 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *      size_t          c;
  *      bl_sam_t **     new_alignments_element;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, c, new_alignments_element) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments_ae(&bl_sam_buff, c, new_alignments_element)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -223,10 +213,14 @@ int     bl_sam_buff_set_alignments(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** n
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, bl_sam_t * new_alignments_element)
+int     bl_sam_buff_set_alignments_ae(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t c,
+	    bl_sam_t * new_alignments_element
+	)
 
 {
     if ( new_alignments_element == NULL )
@@ -246,14 +240,9 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *
  *  Description:
  *      Mutator for alignments member in a bl_sam_buff_t structure.
- *      Use this function to set alignments in a bl_sam_buff_t variable
+ *      Use this function to set alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_alignments to ->alignments.
- *
- *      Note that there is an equivalent macro BL_SAM_BUFF_SET_ALIGNMENTS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_alignments is guaranteed by other means.
+ *      by new_alignments to bl_sam_buff_ptr->alignments.
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -269,7 +258,8 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *      bl_sam_t **     new_alignments;
  *      size_t          array_size;
  *
- *      if ( bl_sam_buff_set_alignments(&bl_sam_buff, new_alignments, array_size) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_alignments_cpy(&bl_sam_buff, new_alignments, array_size)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -278,10 +268,14 @@ int     bl_sam_buff_set_alignments_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t ** new_alignments, size_t array_size)
+int     bl_sam_buff_set_alignments_cpy(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    bl_sam_t ** new_alignments,
+	    size_t array_size
+	)
 
 {
     if ( new_alignments == NULL )
@@ -305,18 +299,12 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *
  *  Description:
  *      Mutator for buffered_count member in a bl_sam_buff_t structure.
- *      Use this function to set buffered_count in a bl_sam_buff_t variable
+ *      Use this function to set buffered_count in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      buffered_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_buffered_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -330,7 +318,8 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_buffered_count;
  *
- *      if ( bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_buffered_count(&bl_sam_buff, new_buffered_count)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -339,10 +328,13 @@ int     bl_sam_buff_set_alignments_cpy(bl_sam_buff_t *bl_sam_buff_ptr, bl_sam_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_buffered_count)
+int     bl_sam_buff_set_buffered_count(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t new_buffered_count
+	)
 
 {
     if ( false )
@@ -362,18 +354,12 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *
  *  Description:
  *      Mutator for max_count member in a bl_sam_buff_t structure.
- *      Use this function to set max_count in a bl_sam_buff_t variable
+ *      Use this function to set max_count in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      max_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_max_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -387,7 +373,8 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *      bl_sam_buff_t   bl_sam_buff;
  *      size_t          new_max_count;
  *
- *      if ( bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_max_count(&bl_sam_buff, new_max_count)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -396,10 +383,13 @@ int     bl_sam_buff_set_buffered_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t ne
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max_count)
+int     bl_sam_buff_set_max_count(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t new_max_count
+	)
 
 {
     if ( false )
@@ -419,18 +409,12 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *
  *  Description:
  *      Mutator for previous_pos member in a bl_sam_buff_t structure.
- *      Use this function to set previous_pos in a bl_sam_buff_t variable
+ *      Use this function to set previous_pos in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      previous_pos is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_previous_pos is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -444,7 +428,8 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_previous_pos;
  *
- *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -453,10 +438,13 @@ int     bl_sam_buff_set_max_count(bl_sam_buff_t *bl_sam_buff_ptr, size_t new_max
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_previous_pos)
+int     bl_sam_buff_set_previous_pos(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_previous_pos
+	)
 
 {
     if ( false )
@@ -476,13 +464,8 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *
  *  Description:
  *      Mutator for an array element of previous_rname member in a bl_sam_buff_t
- *      structure. Use this function to set an element of the array
- *      previous_rname in a bl_sam_buff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_BUFF_SET_PREVIOUS_RNAME_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_previous_rname_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_buff_ptr->previous_rname[c]
+ *      in a bl_sam_buff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -498,7 +481,8 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *      size_t          c;
  *      char            new_previous_rname_element;
  *
- *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, c, new_previous_rname_element) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_rname_ae(&bl_sam_buff, c, new_previous_rname_element)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -507,10 +491,14 @@ int     bl_sam_buff_set_previous_pos(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t ne
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t c, char new_previous_rname_element)
+int     bl_sam_buff_set_previous_rname_ae(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    size_t c,
+	    char new_previous_rname_element
+	)
 
 {
     if ( false )
@@ -530,14 +518,9 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *
  *  Description:
  *      Mutator for previous_rname member in a bl_sam_buff_t structure.
- *      Use this function to set previous_rname in a bl_sam_buff_t variable
+ *      Use this function to set previous_rname in a bl_sam_buff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_previous_rname to ->previous_rname.
- *
- *      Note that there is an equivalent macro BL_SAM_BUFF_SET_PREVIOUS_RNAME(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_previous_rname is guaranteed by other means.
+ *      by new_previous_rname to bl_sam_buff_ptr->previous_rname.
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -553,7 +536,8 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *      char            new_previous_rname;
  *      size_t          array_size;
  *
- *      if ( bl_sam_buff_set_previous_rname(&bl_sam_buff, new_previous_rname, array_size) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_previous_rname_cpy(&bl_sam_buff, new_previous_rname, array_size)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -562,10 +546,14 @@ int     bl_sam_buff_set_previous_rname_ae(bl_sam_buff_t *bl_sam_buff_ptr, size_t
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char new_previous_rname[], size_t array_size)
+int     bl_sam_buff_set_previous_rname_cpy(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    char new_previous_rname[],
+	    size_t array_size
+	)
 
 {
     if ( new_previous_rname == NULL )
@@ -586,18 +574,12 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *
  *  Description:
  *      Mutator for mapq_min member in a bl_sam_buff_t structure.
- *      Use this function to set mapq_min in a bl_sam_buff_t variable
+ *      Use this function to set mapq_min in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      mapq_min is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_mapq_min is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -611,7 +593,8 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_min;
  *
- *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -620,10 +603,13 @@ int     bl_sam_buff_set_previous_rname_cpy(bl_sam_buff_t *bl_sam_buff_ptr, char 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_min)
+int     bl_sam_buff_set_mapq_min(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_mapq_min
+	)
 
 {
     if ( false )
@@ -643,18 +629,12 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  Description:
  *      Mutator for mapq_low member in a bl_sam_buff_t structure.
- *      Use this function to set mapq_low in a bl_sam_buff_t variable
+ *      Use this function to set mapq_low in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      mapq_low is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_mapq_low is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -668,7 +648,8 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_low;
  *
- *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -677,10 +658,13 @@ int     bl_sam_buff_set_mapq_min(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_low)
+int     bl_sam_buff_set_mapq_low(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_mapq_low
+	)
 
 {
     if ( false )
@@ -700,18 +684,12 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  Description:
  *      Mutator for mapq_high member in a bl_sam_buff_t structure.
- *      Use this function to set mapq_high in a bl_sam_buff_t variable
+ *      Use this function to set mapq_high in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      mapq_high is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_mapq_high is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -725,7 +703,8 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_high;
  *
- *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -734,10 +713,13 @@ int     bl_sam_buff_set_mapq_low(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_high)
+int     bl_sam_buff_set_mapq_high(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_mapq_high
+	)
 
 {
     if ( false )
@@ -757,18 +739,12 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *
  *  Description:
  *      Mutator for mapq_sum member in a bl_sam_buff_t structure.
- *      Use this function to set mapq_sum in a bl_sam_buff_t variable
+ *      Use this function to set mapq_sum in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      mapq_sum is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_mapq_sum is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -782,7 +758,8 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_mapq_sum;
  *
- *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -791,10 +768,13 @@ int     bl_sam_buff_set_mapq_high(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_m
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_mapq_sum)
+int     bl_sam_buff_set_mapq_sum(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_mapq_sum
+	)
 
 {
     if ( false )
@@ -814,18 +794,12 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  Description:
  *      Mutator for reads_used member in a bl_sam_buff_t structure.
- *      Use this function to set reads_used in a bl_sam_buff_t variable
+ *      Use this function to set reads_used in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      reads_used is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_reads_used is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -839,7 +813,8 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_reads_used;
  *
- *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -848,10 +823,13 @@ int     bl_sam_buff_set_mapq_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_ma
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_reads_used)
+int     bl_sam_buff_set_reads_used(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_reads_used
+	)
 
 {
     if ( false )
@@ -871,18 +849,12 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *
  *  Description:
  *      Mutator for total_alignments member in a bl_sam_buff_t structure.
- *      Use this function to set total_alignments in a bl_sam_buff_t variable
+ *      Use this function to set total_alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      total_alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_total_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -896,7 +868,8 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_total_alignments;
  *
- *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -905,10 +878,13 @@ int     bl_sam_buff_set_reads_used(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_total_alignments)
+int     bl_sam_buff_set_total_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_total_alignments
+	)
 
 {
     if ( false )
@@ -928,18 +904,12 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *
  *  Description:
  *      Mutator for trailing_alignments member in a bl_sam_buff_t structure.
- *      Use this function to set trailing_alignments in a bl_sam_buff_t variable
+ *      Use this function to set trailing_alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      trailing_alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_trailing_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -953,7 +923,8 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_trailing_alignments;
  *
- *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -962,10 +933,13 @@ int     bl_sam_buff_set_total_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_trailing_alignments)
+int     bl_sam_buff_set_trailing_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_trailing_alignments
+	)
 
 {
     if ( false )
@@ -985,18 +959,12 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  Description:
  *      Mutator for discarded_alignments member in a bl_sam_buff_t structure.
- *      Use this function to set discarded_alignments in a bl_sam_buff_t variable
+ *      Use this function to set discarded_alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      discarded_alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_discarded_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1010,7 +978,8 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_alignments;
  *
- *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1019,10 +988,13 @@ int     bl_sam_buff_set_trailing_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_alignments)
+int     bl_sam_buff_set_discarded_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_discarded_alignments
+	)
 
 {
     if ( false )
@@ -1042,18 +1014,12 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *
  *  Description:
  *      Mutator for discarded_score_sum member in a bl_sam_buff_t structure.
- *      Use this function to set discarded_score_sum in a bl_sam_buff_t variable
+ *      Use this function to set discarded_score_sum in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      discarded_score_sum is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_discarded_score_sum is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1067,7 +1033,8 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_score_sum;
  *
- *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1076,10 +1043,13 @@ int     bl_sam_buff_set_discarded_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uin
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_score_sum)
+int     bl_sam_buff_set_discarded_score_sum(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_discarded_score_sum
+	)
 
 {
     if ( false )
@@ -1099,18 +1069,12 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  Description:
  *      Mutator for discarded_trailing member in a bl_sam_buff_t structure.
- *      Use this function to set discarded_trailing in a bl_sam_buff_t variable
+ *      Use this function to set discarded_trailing in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      discarded_trailing is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_discarded_trailing is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1124,7 +1088,8 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_discarded_trailing;
  *
- *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1133,10 +1098,13 @@ int     bl_sam_buff_set_discarded_score_sum(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_discarded_trailing)
+int     bl_sam_buff_set_discarded_trailing(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_discarded_trailing
+	)
 
 {
     if ( false )
@@ -1156,18 +1124,12 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *
  *  Description:
  *      Mutator for min_discarded_score member in a bl_sam_buff_t structure.
- *      Use this function to set min_discarded_score in a bl_sam_buff_t variable
+ *      Use this function to set min_discarded_score in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      min_discarded_score is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_min_discarded_score is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1181,7 +1143,8 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_min_discarded_score;
  *
- *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1190,10 +1153,13 @@ int     bl_sam_buff_set_discarded_trailing(bl_sam_buff_t *bl_sam_buff_ptr, uint6
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_min_discarded_score)
+int     bl_sam_buff_set_min_discarded_score(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_min_discarded_score
+	)
 
 {
     if ( false )
@@ -1213,18 +1179,12 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  Description:
  *      Mutator for max_discarded_score member in a bl_sam_buff_t structure.
- *      Use this function to set max_discarded_score in a bl_sam_buff_t variable
+ *      Use this function to set max_discarded_score in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      max_discarded_score is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_max_discarded_score is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1238,7 +1198,8 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_max_discarded_score;
  *
- *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1247,10 +1208,13 @@ int     bl_sam_buff_set_min_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_max_discarded_score)
+int     bl_sam_buff_set_max_discarded_score(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_max_discarded_score
+	)
 
 {
     if ( false )
@@ -1270,18 +1234,12 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  Description:
  *      Mutator for unmapped_alignments member in a bl_sam_buff_t structure.
- *      Use this function to set unmapped_alignments in a bl_sam_buff_t variable
+ *      Use this function to set unmapped_alignments in a bl_sam_buff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      unmapped_alignments is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_unmapped_alignments is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_buff_ptr Pointer to the structure to set
@@ -1295,7 +1253,8 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *      bl_sam_buff_t   bl_sam_buff;
  *      uint64_t        new_unmapped_alignments;
  *
- *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments) == BL_SAM_BUFF_DATA_OK )
+ *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments)
+ *              == BL_SAM_BUFF_DATA_OK )
  *      {
  *      }
  *
@@ -1304,10 +1263,13 @@ int     bl_sam_buff_set_max_discarded_score(bl_sam_buff_t *bl_sam_buff_ptr, uint
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam-buff.h
+ *  2022-02-07  gen-get-set Auto-generated from sam-buff.h
  ***************************************************************************/
 
-int     bl_sam_buff_set_unmapped_alignments(bl_sam_buff_t *bl_sam_buff_ptr, uint64_t new_unmapped_alignments)
+int     bl_sam_buff_set_unmapped_alignments(
+	    bl_sam_buff_t *bl_sam_buff_ptr,
+	    uint64_t new_unmapped_alignments
+	)
 
 {
     if ( false )

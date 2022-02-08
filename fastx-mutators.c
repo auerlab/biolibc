@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for format member in a bl_fastx_t structure.
- *      Use this function to set format in a bl_fastx_t variable
+ *      Use this function to set format in a bl_fastx_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      format is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_format is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastx_ptr    Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_fastx_t      bl_fastx;
  *      int             new_format;
  *
- *      if ( bl_fastx_set_format(&bl_fastx, new_format) == BL_FASTX_DATA_OK )
+ *      if ( bl_fastx_set_format(&bl_fastx, new_format)
+ *              == BL_FASTX_DATA_OK )
  *      {
  *      }
  *
@@ -58,7 +53,10 @@
  *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
-int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
+int     bl_fastx_set_format(
+	    bl_fastx_t *bl_fastx_ptr,
+	    int new_format
+	)
 
 {
     if ( false )
@@ -78,18 +76,12 @@ int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
  *
  *  Description:
  *      Mutator for fasta member in a bl_fastx_t structure.
- *      Use this function to set fasta in a bl_fastx_t variable
+ *      Use this function to set fasta in a bl_fastx_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      fasta is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_fasta is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastx_ptr    Pointer to the structure to set
@@ -103,7 +95,8 @@ int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
  *      bl_fastx_t      bl_fastx;
  *      bl_fasta_t      new_fasta;
  *
- *      if ( bl_fastx_set_fasta(&bl_fastx, new_fasta) == BL_FASTX_DATA_OK )
+ *      if ( bl_fastx_set_fasta(&bl_fastx, new_fasta)
+ *              == BL_FASTX_DATA_OK )
  *      {
  *      }
  *
@@ -115,7 +108,10 @@ int     bl_fastx_set_format(bl_fastx_t *bl_fastx_ptr, int new_format)
  *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
-int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
+int     bl_fastx_set_fasta(
+	    bl_fastx_t *bl_fastx_ptr,
+	    bl_fasta_t new_fasta
+	)
 
 {
     if ( false )
@@ -135,18 +131,12 @@ int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
  *
  *  Description:
  *      Mutator for fastq member in a bl_fastx_t structure.
- *      Use this function to set fastq in a bl_fastx_t variable
+ *      Use this function to set fastq in a bl_fastx_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      fastq is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_fastq is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastx_ptr    Pointer to the structure to set
@@ -160,7 +150,8 @@ int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
  *      bl_fastx_t      bl_fastx;
  *      bl_fastq_t      new_fastq;
  *
- *      if ( bl_fastx_set_fastq(&bl_fastx, new_fastq) == BL_FASTX_DATA_OK )
+ *      if ( bl_fastx_set_fastq(&bl_fastx, new_fastq)
+ *              == BL_FASTX_DATA_OK )
  *      {
  *      }
  *
@@ -172,7 +163,10 @@ int     bl_fastx_set_fasta(bl_fastx_t *bl_fastx_ptr, bl_fasta_t new_fasta)
  *  2022-02-07  gen-get-set Auto-generated from fastx.h
  ***************************************************************************/
 
-int     bl_fastx_set_fastq(bl_fastx_t *bl_fastx_ptr, bl_fastq_t new_fastq)
+int     bl_fastx_set_fastq(
+	    bl_fastx_t *bl_fastx_ptr,
+	    bl_fastq_t new_fastq
+	)
 
 {
     if ( false )

@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
+.nf
+.na
+int     bl_vcf_set_other_count(
+            bl_vcf_t *bl_vcf_ptr,
+            unsigned new_other_count
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_other_count The new value for other_count
 .SH DESCRIPTION
 
 Mutator for other_count member in a bl_vcf_t structure.
-Use this function to set other_count in a bl_vcf_t variable
+Use this function to set other_count in a bl_vcf_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 other_count is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_other_count is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_VCF_DATA_OUT_OF_RANGE otherwise
 bl_vcf_t        bl_vcf;
 unsigned        new_other_count;
 
-if ( bl_vcf_set_other_count(&bl_vcf, new_other_count) == BL_VCF_DATA_OK )
+if ( bl_vcf_set_other_count(&bl_vcf, new_other_count)
+        == BL_VCF_DATA_OK )
 {
 }
 .ad

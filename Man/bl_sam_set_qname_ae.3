@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_element)
+.nf
+.na
+int     bl_sam_set_qname_ae(
+            bl_sam_t *bl_sam_ptr,
+            size_t c,
+            char new_qname_element
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,13 +36,8 @@ new_qname_element The new value for qname[c]
 .SH DESCRIPTION
 
 Mutator for an array element of qname member in a bl_sam_t
-structure. Use this function to set an element of the array
-qname in a bl_sam_t variable from non-member functions.
-
-Note that there is an equivalent macro BL_SAM_SET_QNAME_AE(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_qname_element is guaranteed by other means.
+structure. Use this function to set bl_sam_ptr->qname[c]
+in a bl_sam_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -49,7 +52,8 @@ bl_sam_t        bl_sam;
 size_t          c;
 char            new_qname_element;
 
-if ( bl_sam_set_qname(&bl_sam, c, new_qname_element) == BL_SAM_DATA_OK )
+if ( bl_sam_set_qname_ae(&bl_sam, c, new_qname_element)
+        == BL_SAM_DATA_OK )
 {
 }
 .ad

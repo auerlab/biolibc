@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
+.nf
+.na
+int     bl_bed_set_chrom_cpy(
+            bl_bed_t *bl_bed_ptr,
+            char new_chrom[],
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the chrom array.
 .SH DESCRIPTION
 
 Mutator for chrom member in a bl_bed_t structure.
-Use this function to set chrom in a bl_bed_t variable
+Use this function to set chrom in a bl_bed_t object
 from non-member functions.  This function copies the array pointed to
-by new_chrom to ->chrom.
-
-Note that there is an equivalent macro BL_BED_SET_CHROM(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_chrom is guaranteed by other means.
+by new_chrom to bl_bed_ptr->chrom.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_bed_t        bl_bed;
 char            new_chrom;
 size_t          array_size;
 
-if ( bl_bed_set_chrom(&bl_bed, new_chrom, array_size) == BL_BED_DATA_OK )
+if ( bl_bed_set_chrom_cpy(&bl_bed, new_chrom, array_size)
+        == BL_BED_DATA_OK )
 {
 }
 .ad

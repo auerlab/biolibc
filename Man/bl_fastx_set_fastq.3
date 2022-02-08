@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_fastx_set_fastq(bl_fastx_t *bl_fastx_ptr, bl_fastq_t new_fastq)
+.nf
+.na
+int     bl_fastx_set_fastq(
+            bl_fastx_t *bl_fastx_ptr,
+            bl_fastq_t new_fastq
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_fastq       The new value for fastq
 .SH DESCRIPTION
 
 Mutator for fastq member in a bl_fastx_t structure.
-Use this function to set fastq in a bl_fastx_t variable
+Use this function to set fastq in a bl_fastx_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 fastq is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_fastq is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_FASTX_DATA_OUT_OF_RANGE otherwise
 bl_fastx_t      bl_fastx;
 bl_fastq_t      new_fastq;
 
-if ( bl_fastx_set_fastq(&bl_fastx, new_fastq) == BL_FASTX_DATA_OK )
+if ( bl_fastx_set_fastq(&bl_fastx, new_fastq)
+        == BL_FASTX_DATA_OK )
 {
 }
 .ad

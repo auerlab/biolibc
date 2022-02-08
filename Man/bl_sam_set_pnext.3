@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
+.nf
+.na
+int     bl_sam_set_pnext(
+            bl_sam_t *bl_sam_ptr,
+            uint64_t new_pnext
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_pnext       The new value for pnext
 .SH DESCRIPTION
 
 Mutator for pnext member in a bl_sam_t structure.
-Use this function to set pnext in a bl_sam_t variable
+Use this function to set pnext in a bl_sam_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 pnext is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_pnext is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_SAM_DATA_OUT_OF_RANGE otherwise
 bl_sam_t        bl_sam;
 uint64_t        new_pnext;
 
-if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_SAM_DATA_OK )
+if ( bl_sam_set_pnext(&bl_sam, new_pnext)
+        == BL_SAM_DATA_OK )
 {
 }
 .ad

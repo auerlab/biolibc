@@ -21,32 +21,27 @@
  *
  *  Description:
  *      Mutator for min_match member in a bl_align_t structure.
- *      Use this function to set min_match in a bl_align_t variable
+ *      Use this function to set min_match in a bl_align_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      min_match is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_min_match is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_align_ptr    Pointer to the structure to set
  *      new_min_match   The new value for min_match
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_ALIGN_DATA_OK if the new value is acceptable and assigned
+ *      BL_ALIGN_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_align_t      bl_align;
  *      size_t          new_min_match;
  *
- *      if ( bl_align_set_min_match(&bl_align, new_min_match) == BL_DATA_OK )
+ *      if ( bl_align_set_min_match(&bl_align, new_min_match)
+ *              == BL_ALIGN_DATA_OK )
  *      {
  *      }
  *
@@ -55,18 +50,21 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-24  gen-get-set Auto-generated from align.h
+ *  2022-02-07  gen-get-set Auto-generated from align.h
  ***************************************************************************/
 
-int     bl_align_set_min_match(bl_align_t *bl_align_ptr, size_t new_min_match)
+int     bl_align_set_min_match(
+	    bl_align_t *bl_align_ptr,
+	    size_t new_min_match
+	)
 
 {
     if ( false )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_ALIGN_DATA_OUT_OF_RANGE;
     else
     {
 	bl_align_ptr->min_match = new_min_match;
-	return BL_DATA_OK;
+	return BL_ALIGN_DATA_OK;
     }
 }
 
@@ -78,32 +76,27 @@ int     bl_align_set_min_match(bl_align_t *bl_align_ptr, size_t new_min_match)
  *
  *  Description:
  *      Mutator for max_mismatch_percent member in a bl_align_t structure.
- *      Use this function to set max_mismatch_percent in a bl_align_t variable
+ *      Use this function to set max_mismatch_percent in a bl_align_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      max_mismatch_percent is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_max_mismatch_percent is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_align_ptr    Pointer to the structure to set
  *      new_max_mismatch_percent The new value for max_mismatch_percent
  *
  *  Returns:
- *      BL_DATA_OK if the new value is acceptable and assigned
- *      BL_DATA_OUT_OF_RANGE otherwise
+ *      BL_ALIGN_DATA_OK if the new value is acceptable and assigned
+ *      BL_ALIGN_DATA_OUT_OF_RANGE otherwise
  *
  *  Examples:
  *      bl_align_t      bl_align;
  *      unsigned        new_max_mismatch_percent;
  *
- *      if ( bl_align_set_max_mismatch_percent(&bl_align, new_max_mismatch_percent) == BL_DATA_OK )
+ *      if ( bl_align_set_max_mismatch_percent(&bl_align, new_max_mismatch_percent)
+ *              == BL_ALIGN_DATA_OK )
  *      {
  *      }
  *
@@ -112,17 +105,20 @@ int     bl_align_set_min_match(bl_align_t *bl_align_ptr, size_t new_min_match)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-24  gen-get-set Auto-generated from align.h
+ *  2022-02-07  gen-get-set Auto-generated from align.h
  ***************************************************************************/
 
-int     bl_align_set_max_mismatch_percent(bl_align_t *bl_align_ptr, unsigned new_max_mismatch_percent)
+int     bl_align_set_max_mismatch_percent(
+	    bl_align_t *bl_align_ptr,
+	    unsigned new_max_mismatch_percent
+	)
 
 {
     if ( false )
-	return BL_DATA_OUT_OF_RANGE;
+	return BL_ALIGN_DATA_OUT_OF_RANGE;
     else
     {
 	bl_align_ptr->max_mismatch_percent = new_max_mismatch_percent;
-	return BL_DATA_OK;
+	return BL_ALIGN_DATA_OK;
     }
 }

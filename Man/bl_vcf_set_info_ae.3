@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_element)
+.nf
+.na
+int     bl_vcf_set_info_ae(
+            bl_vcf_t *bl_vcf_ptr,
+            size_t c,
+            char  new_info_element
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,13 +36,8 @@ new_info_element The new value for info[c]
 .SH DESCRIPTION
 
 Mutator for an array element of info member in a bl_vcf_t
-structure. Use this function to set an element of the array
-info in a bl_vcf_t variable from non-member functions.
-
-Note that there is an equivalent macro BL_VCF_SET_INFO_AE(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_info_element is guaranteed by other means.
+structure. Use this function to set bl_vcf_ptr->info[c]
+in a bl_vcf_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -49,7 +52,8 @@ bl_vcf_t        bl_vcf;
 size_t          c;
 char *          new_info_element;
 
-if ( bl_vcf_set_info(&bl_vcf, c, new_info_element) == BL_VCF_DATA_OK )
+if ( bl_vcf_set_info_ae(&bl_vcf, c, new_info_element)
+        == BL_VCF_DATA_OK )
 {
 }
 .ad

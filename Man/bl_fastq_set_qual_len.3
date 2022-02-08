@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_fastq_set_qual_len(bl_fastq_t *bl_fastq_ptr, size_t new_qual_len)
+.nf
+.na
+int     bl_fastq_set_qual_len(
+            bl_fastq_t *bl_fastq_ptr,
+            size_t new_qual_len
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_qual_len    The new value for qual_len
 .SH DESCRIPTION
 
 Mutator for qual_len member in a bl_fastq_t structure.
-Use this function to set qual_len in a bl_fastq_t variable
+Use this function to set qual_len in a bl_fastq_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 qual_len is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_qual_len is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_FASTQ_DATA_OUT_OF_RANGE otherwise
 bl_fastq_t      bl_fastq;
 size_t          new_qual_len;
 
-if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len) == BL_FASTQ_DATA_OK )
+if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len)
+        == BL_FASTQ_DATA_OK )
 {
 }
 .ad

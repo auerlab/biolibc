@@ -21,13 +21,8 @@
  *
  *  Description:
  *      Mutator for an array element of qname member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      qname in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_QNAME_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qname_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->qname[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -43,7 +38,8 @@
  *      size_t          c;
  *      char            new_qname_element;
  *
- *      if ( bl_sam_set_qname(&bl_sam, c, new_qname_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qname_ae(&bl_sam, c, new_qname_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -52,10 +48,14 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_element)
+int     bl_sam_set_qname_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char new_qname_element
+	)
 
 {
     if ( false )
@@ -75,14 +75,9 @@ int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_eleme
  *
  *  Description:
  *      Mutator for qname member in a bl_sam_t structure.
- *      Use this function to set qname in a bl_sam_t variable
+ *      Use this function to set qname in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_qname to ->qname.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_QNAME(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qname is guaranteed by other means.
+ *      by new_qname to bl_sam_ptr->qname.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -98,7 +93,8 @@ int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_eleme
  *      char            new_qname;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_qname(&bl_sam, new_qname, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qname_cpy(&bl_sam, new_qname, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -107,10 +103,14 @@ int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t array_size)
+int     bl_sam_set_qname_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char new_qname[],
+	    size_t array_size
+	)
 
 {
     if ( new_qname == NULL )
@@ -131,18 +131,12 @@ int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t arra
  *
  *  Description:
  *      Mutator for flag member in a bl_sam_t structure.
- *      Use this function to set flag in a bl_sam_t variable
+ *      Use this function to set flag in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      flag is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_flag is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -156,7 +150,8 @@ int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t arra
  *      bl_sam_t        bl_sam;
  *      unsigned        new_flag;
  *
- *      if ( bl_sam_set_flag(&bl_sam, new_flag) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_flag(&bl_sam, new_flag)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -165,10 +160,13 @@ int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
+int     bl_sam_set_flag(
+	    bl_sam_t *bl_sam_ptr,
+	    unsigned new_flag
+	)
 
 {
     if ( false )
@@ -188,13 +186,8 @@ int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
  *
  *  Description:
  *      Mutator for an array element of rname member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      rname in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_RNAME_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_rname_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->rname[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -210,7 +203,8 @@ int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
  *      size_t          c;
  *      char            new_rname_element;
  *
- *      if ( bl_sam_set_rname(&bl_sam, c, new_rname_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_rname_ae(&bl_sam, c, new_rname_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -219,10 +213,14 @@ int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_element)
+int     bl_sam_set_rname_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char new_rname_element
+	)
 
 {
     if ( false )
@@ -242,14 +240,9 @@ int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_eleme
  *
  *  Description:
  *      Mutator for rname member in a bl_sam_t structure.
- *      Use this function to set rname in a bl_sam_t variable
+ *      Use this function to set rname in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_rname to ->rname.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_RNAME(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_rname is guaranteed by other means.
+ *      by new_rname to bl_sam_ptr->rname.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -265,7 +258,8 @@ int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_eleme
  *      char            new_rname;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_rname(&bl_sam, new_rname, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_rname_cpy(&bl_sam, new_rname, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -274,10 +268,14 @@ int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t array_size)
+int     bl_sam_set_rname_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char new_rname[],
+	    size_t array_size
+	)
 
 {
     if ( new_rname == NULL )
@@ -298,18 +296,12 @@ int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t arra
  *
  *  Description:
  *      Mutator for pos member in a bl_sam_t structure.
- *      Use this function to set pos in a bl_sam_t variable
+ *      Use this function to set pos in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      pos is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_pos is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -323,7 +315,8 @@ int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t arra
  *      bl_sam_t        bl_sam;
  *      uint64_t        new_pos;
  *
- *      if ( bl_sam_set_pos(&bl_sam, new_pos) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_pos(&bl_sam, new_pos)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -332,10 +325,13 @@ int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
+int     bl_sam_set_pos(
+	    bl_sam_t *bl_sam_ptr,
+	    uint64_t new_pos
+	)
 
 {
     if ( false )
@@ -355,18 +351,12 @@ int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
  *
  *  Description:
  *      Mutator for mapq member in a bl_sam_t structure.
- *      Use this function to set mapq in a bl_sam_t variable
+ *      Use this function to set mapq in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      mapq is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_mapq is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -380,7 +370,8 @@ int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
  *      bl_sam_t        bl_sam;
  *      unsigned char   new_mapq;
  *
- *      if ( bl_sam_set_mapq(&bl_sam, new_mapq) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_mapq(&bl_sam, new_mapq)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -389,10 +380,13 @@ int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
+int     bl_sam_set_mapq(
+	    bl_sam_t *bl_sam_ptr,
+	    unsigned char new_mapq
+	)
 
 {
     if ( false )
@@ -412,13 +406,8 @@ int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
  *
  *  Description:
  *      Mutator for an array element of cigar member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      cigar in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_CIGAR_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_cigar_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->cigar[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -434,7 +423,8 @@ int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
  *      size_t          c;
  *      char            new_cigar_element;
  *
- *      if ( bl_sam_set_cigar(&bl_sam, c, new_cigar_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_cigar_ae(&bl_sam, c, new_cigar_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -443,10 +433,14 @@ int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_element)
+int     bl_sam_set_cigar_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char new_cigar_element
+	)
 
 {
     if ( false )
@@ -466,14 +460,9 @@ int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_eleme
  *
  *  Description:
  *      Mutator for cigar member in a bl_sam_t structure.
- *      Use this function to set cigar in a bl_sam_t variable
+ *      Use this function to set cigar in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_cigar to ->cigar.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_CIGAR(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_cigar is guaranteed by other means.
+ *      by new_cigar to bl_sam_ptr->cigar.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -489,7 +478,8 @@ int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_eleme
  *      char            new_cigar;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_cigar(&bl_sam, new_cigar, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_cigar_cpy(&bl_sam, new_cigar, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -498,10 +488,14 @@ int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t array_size)
+int     bl_sam_set_cigar_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char new_cigar[],
+	    size_t array_size
+	)
 
 {
     if ( new_cigar == NULL )
@@ -522,13 +516,8 @@ int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t arra
  *
  *  Description:
  *      Mutator for an array element of rnext member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      rnext in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_RNEXT_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_rnext_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->rnext[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -544,7 +533,8 @@ int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t arra
  *      size_t          c;
  *      char            new_rnext_element;
  *
- *      if ( bl_sam_set_rnext(&bl_sam, c, new_rnext_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_rnext_ae(&bl_sam, c, new_rnext_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -553,10 +543,14 @@ int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_element)
+int     bl_sam_set_rnext_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char new_rnext_element
+	)
 
 {
     if ( false )
@@ -576,14 +570,9 @@ int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_eleme
  *
  *  Description:
  *      Mutator for rnext member in a bl_sam_t structure.
- *      Use this function to set rnext in a bl_sam_t variable
+ *      Use this function to set rnext in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_rnext to ->rnext.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_RNEXT(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_rnext is guaranteed by other means.
+ *      by new_rnext to bl_sam_ptr->rnext.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -599,7 +588,8 @@ int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_eleme
  *      char            new_rnext;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_rnext(&bl_sam, new_rnext, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_rnext_cpy(&bl_sam, new_rnext, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -608,10 +598,14 @@ int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t array_size)
+int     bl_sam_set_rnext_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char new_rnext[],
+	    size_t array_size
+	)
 
 {
     if ( new_rnext == NULL )
@@ -632,18 +626,12 @@ int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t arra
  *
  *  Description:
  *      Mutator for pnext member in a bl_sam_t structure.
- *      Use this function to set pnext in a bl_sam_t variable
+ *      Use this function to set pnext in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      pnext is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_pnext is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -657,7 +645,8 @@ int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t arra
  *      bl_sam_t        bl_sam;
  *      uint64_t        new_pnext;
  *
- *      if ( bl_sam_set_pnext(&bl_sam, new_pnext) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_pnext(&bl_sam, new_pnext)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -666,10 +655,13 @@ int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
+int     bl_sam_set_pnext(
+	    bl_sam_t *bl_sam_ptr,
+	    uint64_t new_pnext
+	)
 
 {
     if ( false )
@@ -689,18 +681,12 @@ int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
  *
  *  Description:
  *      Mutator for tlen member in a bl_sam_t structure.
- *      Use this function to set tlen in a bl_sam_t variable
+ *      Use this function to set tlen in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      tlen is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_tlen is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -714,7 +700,8 @@ int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
  *      bl_sam_t        bl_sam;
  *      long            new_tlen;
  *
- *      if ( bl_sam_set_tlen(&bl_sam, new_tlen) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_tlen(&bl_sam, new_tlen)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -723,10 +710,13 @@ int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
+int     bl_sam_set_tlen(
+	    bl_sam_t *bl_sam_ptr,
+	    long new_tlen
+	)
 
 {
     if ( false )
@@ -746,18 +736,12 @@ int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
  *
  *  Description:
  *      Mutator for seq member in a bl_sam_t structure.
- *      Use this function to set seq in a bl_sam_t variable
+ *      Use this function to set seq in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -771,7 +755,8 @@ int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
  *      bl_sam_t        bl_sam;
  *      char *          new_seq;
  *
- *      if ( bl_sam_set_seq(&bl_sam, new_seq) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_seq(&bl_sam, new_seq)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -780,10 +765,13 @@ int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
+int     bl_sam_set_seq(
+	    bl_sam_t *bl_sam_ptr,
+	    char * new_seq
+	)
 
 {
     if ( new_seq == NULL )
@@ -803,13 +791,8 @@ int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
  *
  *  Description:
  *      Mutator for an array element of seq member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      seq in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_SEQ_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->seq[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -825,7 +808,8 @@ int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      if ( bl_sam_set_seq(&bl_sam, c, new_seq_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_seq_ae(&bl_sam, c, new_seq_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -834,10 +818,14 @@ int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
+int     bl_sam_set_seq_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char  new_seq_element
+	)
 
 {
     if ( false )
@@ -857,14 +845,9 @@ int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
  *
  *  Description:
  *      Mutator for seq member in a bl_sam_t structure.
- *      Use this function to set seq in a bl_sam_t variable
+ *      Use this function to set seq in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_seq to ->seq.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_SEQ(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
+ *      by new_seq to bl_sam_ptr->seq.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -880,7 +863,8 @@ int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_seq(&bl_sam, new_seq, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_seq_cpy(&bl_sam, new_seq, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -889,10 +873,14 @@ int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_size)
+int     bl_sam_set_seq_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char * new_seq,
+	    size_t array_size
+	)
 
 {
     if ( new_seq == NULL )
@@ -913,18 +901,12 @@ int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_si
  *
  *  Description:
  *      Mutator for qual member in a bl_sam_t structure.
- *      Use this function to set qual in a bl_sam_t variable
+ *      Use this function to set qual in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      qual is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -938,7 +920,8 @@ int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_si
  *      bl_sam_t        bl_sam;
  *      char *          new_qual;
  *
- *      if ( bl_sam_set_qual(&bl_sam, new_qual) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qual(&bl_sam, new_qual)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -947,10 +930,13 @@ int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
+int     bl_sam_set_qual(
+	    bl_sam_t *bl_sam_ptr,
+	    char * new_qual
+	)
 
 {
     if ( new_qual == NULL )
@@ -970,13 +956,8 @@ int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
  *
  *  Description:
  *      Mutator for an array element of qual member in a bl_sam_t
- *      structure. Use this function to set an element of the array
- *      qual in a bl_sam_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_QUAL_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_element is guaranteed by other means.
+ *      structure. Use this function to set bl_sam_ptr->qual[c]
+ *      in a bl_sam_t object from non-member functions.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -992,7 +973,8 @@ int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
  *      size_t          c;
  *      char *          new_qual_element;
  *
- *      if ( bl_sam_set_qual(&bl_sam, c, new_qual_element) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qual_ae(&bl_sam, c, new_qual_element)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -1001,10 +983,14 @@ int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_element)
+int     bl_sam_set_qual_ae(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t c,
+	    char  new_qual_element
+	)
 
 {
     if ( false )
@@ -1024,14 +1010,9 @@ int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_elemen
  *
  *  Description:
  *      Mutator for qual member in a bl_sam_t structure.
- *      Use this function to set qual in a bl_sam_t variable
+ *      Use this function to set qual in a bl_sam_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_qual to ->qual.
- *
- *      Note that there is an equivalent macro BL_SAM_SET_QUAL(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual is guaranteed by other means.
+ *      by new_qual to bl_sam_ptr->qual.
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -1047,7 +1028,8 @@ int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_elemen
  *      char *          new_qual;
  *      size_t          array_size;
  *
- *      if ( bl_sam_set_qual(&bl_sam, new_qual, array_size) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qual_cpy(&bl_sam, new_qual, array_size)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -1056,10 +1038,14 @@ int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_elemen
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_size)
+int     bl_sam_set_qual_cpy(
+	    bl_sam_t *bl_sam_ptr,
+	    char * new_qual,
+	    size_t array_size
+	)
 
 {
     if ( new_qual == NULL )
@@ -1080,18 +1066,12 @@ int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_
  *
  *  Description:
  *      Mutator for seq_len member in a bl_sam_t structure.
- *      Use this function to set seq_len in a bl_sam_t variable
+ *      Use this function to set seq_len in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -1105,7 +1085,8 @@ int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_
  *      bl_sam_t        bl_sam;
  *      size_t          new_seq_len;
  *
- *      if ( bl_sam_set_seq_len(&bl_sam, new_seq_len) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_seq_len(&bl_sam, new_seq_len)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -1114,10 +1095,13 @@ int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
+int     bl_sam_set_seq_len(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t new_seq_len
+	)
 
 {
     if ( false )
@@ -1137,18 +1121,12 @@ int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
  *
  *  Description:
  *      Mutator for qual_len member in a bl_sam_t structure.
- *      Use this function to set qual_len in a bl_sam_t variable
+ *      Use this function to set qual_len in a bl_sam_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      qual_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_sam_ptr      Pointer to the structure to set
@@ -1162,7 +1140,8 @@ int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
  *      bl_sam_t        bl_sam;
  *      size_t          new_qual_len;
  *
- *      if ( bl_sam_set_qual_len(&bl_sam, new_qual_len) == BL_SAM_DATA_OK )
+ *      if ( bl_sam_set_qual_len(&bl_sam, new_qual_len)
+ *              == BL_SAM_DATA_OK )
  *      {
  *      }
  *
@@ -1171,10 +1150,13 @@ int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from sam.h
+ *  2022-02-07  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_len(bl_sam_t *bl_sam_ptr, size_t new_qual_len)
+int     bl_sam_set_qual_len(
+	    bl_sam_t *bl_sam_ptr,
+	    size_t new_qual_len
+	)
 
 {
     if ( false )

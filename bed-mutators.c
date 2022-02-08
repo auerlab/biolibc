@@ -21,13 +21,8 @@
  *
  *  Description:
  *      Mutator for an array element of chrom member in a bl_bed_t
- *      structure. Use this function to set an element of the array
- *      chrom in a bl_bed_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_BED_SET_CHROM_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom_element is guaranteed by other means.
+ *      structure. Use this function to set bl_bed_ptr->chrom[c]
+ *      in a bl_bed_t object from non-member functions.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -43,7 +38,8 @@
  *      size_t          c;
  *      char            new_chrom_element;
  *
- *      if ( bl_bed_set_chrom(&bl_bed, c, new_chrom_element) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_chrom_ae(&bl_bed, c, new_chrom_element)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -52,10 +48,14 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_element)
+int     bl_bed_set_chrom_ae(
+	    bl_bed_t *bl_bed_ptr,
+	    size_t c,
+	    char new_chrom_element
+	)
 
 {
     if ( false )
@@ -75,14 +75,9 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *
  *  Description:
  *      Mutator for chrom member in a bl_bed_t structure.
- *      Use this function to set chrom in a bl_bed_t variable
+ *      Use this function to set chrom in a bl_bed_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_chrom to ->chrom.
- *
- *      Note that there is an equivalent macro BL_BED_SET_CHROM(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom is guaranteed by other means.
+ *      by new_chrom to bl_bed_ptr->chrom.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -98,7 +93,8 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *      char            new_chrom;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_chrom(&bl_bed, new_chrom, array_size) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_chrom_cpy(&bl_bed, new_chrom, array_size)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -107,10 +103,14 @@ int     bl_bed_set_chrom_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_chrom_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t array_size)
+int     bl_bed_set_chrom_cpy(
+	    bl_bed_t *bl_bed_ptr,
+	    char new_chrom[],
+	    size_t array_size
+	)
 
 {
     if ( new_chrom == NULL )
@@ -131,18 +131,12 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *
  *  Description:
  *      Mutator for chrom_start member in a bl_bed_t structure.
- *      Use this function to set chrom_start in a bl_bed_t variable
+ *      Use this function to set chrom_start in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      chrom_start is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom_start is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -156,7 +150,8 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_start;
  *
- *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -165,10 +160,13 @@ int     bl_bed_set_chrom_cpy(bl_bed_t *bl_bed_ptr, char new_chrom[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
+int     bl_bed_set_chrom_start(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t new_chrom_start
+	)
 
 {
     if ( false )
@@ -188,18 +186,12 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *
  *  Description:
  *      Mutator for chrom_end member in a bl_bed_t structure.
- *      Use this function to set chrom_end in a bl_bed_t variable
+ *      Use this function to set chrom_end in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      chrom_end is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_chrom_end is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -213,7 +205,8 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_chrom_end;
  *
- *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -222,10 +215,13 @@ int     bl_bed_set_chrom_start(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
+int     bl_bed_set_chrom_end(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t new_chrom_end
+	)
 
 {
     if ( false )
@@ -245,13 +241,8 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *
  *  Description:
  *      Mutator for an array element of name member in a bl_bed_t
- *      structure. Use this function to set an element of the array
- *      name in a bl_bed_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_BED_SET_NAME_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_name_element is guaranteed by other means.
+ *      structure. Use this function to set bl_bed_ptr->name[c]
+ *      in a bl_bed_t object from non-member functions.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -267,7 +258,8 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *      size_t          c;
  *      char            new_name_element;
  *
- *      if ( bl_bed_set_name(&bl_bed, c, new_name_element) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_name_ae(&bl_bed, c, new_name_element)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -276,10 +268,14 @@ int     bl_bed_set_chrom_end(bl_bed_t *bl_bed_ptr, uint64_t new_chrom_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element)
+int     bl_bed_set_name_ae(
+	    bl_bed_t *bl_bed_ptr,
+	    size_t c,
+	    char new_name_element
+	)
 
 {
     if ( false )
@@ -299,14 +295,9 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *
  *  Description:
  *      Mutator for name member in a bl_bed_t structure.
- *      Use this function to set name in a bl_bed_t variable
+ *      Use this function to set name in a bl_bed_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_name to ->name.
- *
- *      Note that there is an equivalent macro BL_BED_SET_NAME(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_name is guaranteed by other means.
+ *      by new_name to bl_bed_ptr->name.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -322,7 +313,8 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *      char            new_name;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_name(&bl_bed, new_name, array_size) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_name_cpy(&bl_bed, new_name, array_size)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -331,10 +323,14 @@ int     bl_bed_set_name_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_name_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_size)
+int     bl_bed_set_name_cpy(
+	    bl_bed_t *bl_bed_ptr,
+	    char new_name[],
+	    size_t array_size
+	)
 
 {
     if ( new_name == NULL )
@@ -355,18 +351,12 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *
  *  Description:
  *      Mutator for score member in a bl_bed_t structure.
- *      Use this function to set score in a bl_bed_t variable
+ *      Use this function to set score in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      score is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_score is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -380,7 +370,8 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_score;
  *
- *      if ( bl_bed_set_score(&bl_bed, new_score) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_score(&bl_bed, new_score)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -389,10 +380,13 @@ int     bl_bed_set_name_cpy(bl_bed_t *bl_bed_ptr, char new_name[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
+int     bl_bed_set_score(
+	    bl_bed_t *bl_bed_ptr,
+	    unsigned short new_score
+	)
 
 {
     if ( new_score > 1000 )
@@ -412,18 +406,12 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *
  *  Description:
  *      Mutator for strand member in a bl_bed_t structure.
- *      Use this function to set strand in a bl_bed_t variable
+ *      Use this function to set strand in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      strand is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_strand is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -437,7 +425,8 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *      bl_bed_t        bl_bed;
  *      char            new_strand;
  *
- *      if ( bl_bed_set_strand(&bl_bed, new_strand) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_strand(&bl_bed, new_strand)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -446,10 +435,13 @@ int     bl_bed_set_score(bl_bed_t *bl_bed_ptr, unsigned short new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
+int     bl_bed_set_strand(
+	    bl_bed_t *bl_bed_ptr,
+	    char new_strand
+	)
 
 {
     if ( false )
@@ -469,18 +461,12 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *
  *  Description:
  *      Mutator for thick_start member in a bl_bed_t structure.
- *      Use this function to set thick_start in a bl_bed_t variable
+ *      Use this function to set thick_start in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      thick_start is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_thick_start is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -494,7 +480,8 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_start;
  *
- *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -503,10 +490,13 @@ int     bl_bed_set_strand(bl_bed_t *bl_bed_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
+int     bl_bed_set_thick_start(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t new_thick_start
+	)
 
 {
     if ( false )
@@ -526,18 +516,12 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *
  *  Description:
  *      Mutator for thick_end member in a bl_bed_t structure.
- *      Use this function to set thick_end in a bl_bed_t variable
+ *      Use this function to set thick_end in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      thick_end is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_thick_end is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -551,7 +535,8 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *      bl_bed_t        bl_bed;
  *      uint64_t        new_thick_end;
  *
- *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -560,10 +545,13 @@ int     bl_bed_set_thick_start(bl_bed_t *bl_bed_ptr, uint64_t new_thick_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
+int     bl_bed_set_thick_end(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t new_thick_end
+	)
 
 {
     if ( false )
@@ -583,13 +571,8 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *
  *  Description:
  *      Mutator for an array element of item_rgb member in a bl_bed_t
- *      structure. Use this function to set an element of the array
- *      item_rgb in a bl_bed_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_BED_SET_ITEM_RGB_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_item_rgb_element is guaranteed by other means.
+ *      structure. Use this function to set bl_bed_ptr->item_rgb[c]
+ *      in a bl_bed_t object from non-member functions.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -605,7 +588,8 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *      size_t          c;
  *      char            new_item_rgb_element;
  *
- *      if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_item_rgb_ae(&bl_bed, c, new_item_rgb_element)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -614,10 +598,14 @@ int     bl_bed_set_thick_end(bl_bed_t *bl_bed_ptr, uint64_t new_thick_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
+int     bl_bed_set_item_rgb_ae(
+	    bl_bed_t *bl_bed_ptr,
+	    size_t c,
+	    char new_item_rgb_element
+	)
 
 {
     if ( false )
@@ -637,14 +625,9 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *
  *  Description:
  *      Mutator for item_rgb member in a bl_bed_t structure.
- *      Use this function to set item_rgb in a bl_bed_t variable
+ *      Use this function to set item_rgb in a bl_bed_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_item_rgb to ->item_rgb.
- *
- *      Note that there is an equivalent macro BL_BED_SET_ITEM_RGB(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_item_rgb is guaranteed by other means.
+ *      by new_item_rgb to bl_bed_ptr->item_rgb.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -660,7 +643,8 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *      char            new_item_rgb;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_item_rgb(&bl_bed, new_item_rgb, array_size) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_item_rgb_cpy(&bl_bed, new_item_rgb, array_size)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -669,10 +653,14 @@ int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_t array_size)
+int     bl_bed_set_item_rgb_cpy(
+	    bl_bed_t *bl_bed_ptr,
+	    char new_item_rgb[],
+	    size_t array_size
+	)
 
 {
     if ( new_item_rgb == NULL )
@@ -693,18 +681,12 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *
  *  Description:
  *      Mutator for block_count member in a bl_bed_t structure.
- *      Use this function to set block_count in a bl_bed_t variable
+ *      Use this function to set block_count in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      block_count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -718,7 +700,8 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_block_count;
  *
- *      if ( bl_bed_set_block_count(&bl_bed, new_block_count) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_count(&bl_bed, new_block_count)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -727,10 +710,13 @@ int     bl_bed_set_item_rgb_cpy(bl_bed_t *bl_bed_ptr, char new_item_rgb[], size_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_count)
+int     bl_bed_set_block_count(
+	    bl_bed_t *bl_bed_ptr,
+	    unsigned short new_block_count
+	)
 
 {
     if ( false )
@@ -750,18 +736,12 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *
  *  Description:
  *      Mutator for block_sizes member in a bl_bed_t structure.
- *      Use this function to set block_sizes in a bl_bed_t variable
+ *      Use this function to set block_sizes in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      block_sizes is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_sizes is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -775,7 +755,8 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_sizes;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -784,10 +765,13 @@ int     bl_bed_set_block_count(bl_bed_t *bl_bed_ptr, unsigned short new_block_co
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
+int     bl_bed_set_block_sizes(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t * new_block_sizes
+	)
 
 {
     if ( new_block_sizes == NULL )
@@ -807,13 +791,8 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *
  *  Description:
  *      Mutator for an array element of block_sizes member in a bl_bed_t
- *      structure. Use this function to set an element of the array
- *      block_sizes in a bl_bed_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_BED_SET_BLOCK_SIZES_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_sizes_element is guaranteed by other means.
+ *      structure. Use this function to set bl_bed_ptr->block_sizes[c]
+ *      in a bl_bed_t object from non-member functions.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -829,7 +808,8 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *      size_t          c;
  *      uint64_t *      new_block_sizes_element;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, c, new_block_sizes_element) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_sizes_ae(&bl_bed, c, new_block_sizes_element)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -838,10 +818,14 @@ int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_sizes_element)
+int     bl_bed_set_block_sizes_ae(
+	    bl_bed_t *bl_bed_ptr,
+	    size_t c,
+	    uint64_t  new_block_sizes_element
+	)
 
 {
     if ( false )
@@ -861,14 +845,9 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *
  *  Description:
  *      Mutator for block_sizes member in a bl_bed_t structure.
- *      Use this function to set block_sizes in a bl_bed_t variable
+ *      Use this function to set block_sizes in a bl_bed_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_block_sizes to ->block_sizes.
- *
- *      Note that there is an equivalent macro BL_BED_SET_BLOCK_SIZES(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_sizes is guaranteed by other means.
+ *      by new_block_sizes to bl_bed_ptr->block_sizes.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -884,7 +863,8 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *      uint64_t *      new_block_sizes;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes, array_size) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_sizes_cpy(&bl_bed, new_block_sizes, array_size)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -893,10 +873,14 @@ int     bl_bed_set_block_sizes_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes, size_t array_size)
+int     bl_bed_set_block_sizes_cpy(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t * new_block_sizes,
+	    size_t array_size
+	)
 
 {
     if ( new_block_sizes == NULL )
@@ -920,18 +904,12 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *
  *  Description:
  *      Mutator for block_starts member in a bl_bed_t structure.
- *      Use this function to set block_starts in a bl_bed_t variable
+ *      Use this function to set block_starts in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      block_starts is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_starts is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -945,7 +923,8 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *      bl_bed_t        bl_bed;
  *      uint64_t *      new_block_starts;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -954,10 +933,13 @@ int     bl_bed_set_block_sizes_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_si
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts)
+int     bl_bed_set_block_starts(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t * new_block_starts
+	)
 
 {
     if ( new_block_starts == NULL )
@@ -977,13 +959,8 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *
  *  Description:
  *      Mutator for an array element of block_starts member in a bl_bed_t
- *      structure. Use this function to set an element of the array
- *      block_starts in a bl_bed_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_BED_SET_BLOCK_STARTS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_starts_element is guaranteed by other means.
+ *      structure. Use this function to set bl_bed_ptr->block_starts[c]
+ *      in a bl_bed_t object from non-member functions.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -999,7 +976,8 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *      size_t          c;
  *      uint64_t *      new_block_starts_element;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_starts_ae(&bl_bed, c, new_block_starts_element)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1008,10 +986,14 @@ int     bl_bed_set_block_starts(bl_bed_t *bl_bed_ptr, uint64_t * new_block_start
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
+int     bl_bed_set_block_starts_ae(
+	    bl_bed_t *bl_bed_ptr,
+	    size_t c,
+	    uint64_t  new_block_starts_element
+	)
 
 {
     if ( false )
@@ -1031,14 +1013,9 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *
  *  Description:
  *      Mutator for block_starts member in a bl_bed_t structure.
- *      Use this function to set block_starts in a bl_bed_t variable
+ *      Use this function to set block_starts in a bl_bed_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_block_starts to ->block_starts.
- *
- *      Note that there is an equivalent macro BL_BED_SET_BLOCK_STARTS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_block_starts is guaranteed by other means.
+ *      by new_block_starts to bl_bed_ptr->block_starts.
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -1054,7 +1031,8 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *      uint64_t *      new_block_starts;
  *      size_t          array_size;
  *
- *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts, array_size) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_block_starts_cpy(&bl_bed, new_block_starts, array_size)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1063,10 +1041,14 @@ int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_starts, size_t array_size)
+int     bl_bed_set_block_starts_cpy(
+	    bl_bed_t *bl_bed_ptr,
+	    uint64_t * new_block_starts,
+	    size_t array_size
+	)
 
 {
     if ( new_block_starts == NULL )
@@ -1090,18 +1072,12 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *
  *  Description:
  *      Mutator for fields member in a bl_bed_t structure.
- *      Use this function to set fields in a bl_bed_t variable
+ *      Use this function to set fields in a bl_bed_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      fields is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_fields is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_bed_ptr      Pointer to the structure to set
@@ -1115,7 +1091,8 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *      bl_bed_t        bl_bed;
  *      unsigned short  new_fields;
  *
- *      if ( bl_bed_set_fields(&bl_bed, new_fields) == BL_BED_DATA_OK )
+ *      if ( bl_bed_set_fields(&bl_bed, new_fields)
+ *              == BL_BED_DATA_OK )
  *      {
  *      }
  *
@@ -1124,10 +1101,13 @@ int     bl_bed_set_block_starts_cpy(bl_bed_t *bl_bed_ptr, uint64_t * new_block_s
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from bed.h
+ *  2022-02-07  gen-get-set Auto-generated from bed.h
  ***************************************************************************/
 
-int     bl_bed_set_fields(bl_bed_t *bl_bed_ptr, unsigned short new_fields)
+int     bl_bed_set_fields(
+	    bl_bed_t *bl_bed_ptr,
+	    unsigned short new_fields
+	)
 
 {
     if ( (new_fields < 3) || (new_fields > 9) )

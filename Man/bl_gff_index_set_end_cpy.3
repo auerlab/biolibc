@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_gff_index_set_end_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_end, size_t array_size)
+.nf
+.na
+int     bl_gff_index_set_end_cpy(
+            bl_gff_index_t *bl_gff_index_ptr,
+            uint64_t * new_end,
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the end array.
 .SH DESCRIPTION
 
 Mutator for end member in a bl_gff_index_t structure.
-Use this function to set end in a bl_gff_index_t variable
+Use this function to set end in a bl_gff_index_t object
 from non-member functions.  This function copies the array pointed to
-by new_end to ->end.
-
-Note that there is an equivalent macro BL_GFF_INDEX_SET_END(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_end is guaranteed by other means.
+by new_end to bl_gff_index_ptr->end.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_gff_index_t  bl_gff_index;
 uint64_t *      new_end;
 size_t          array_size;
 
-if ( bl_gff_index_set_end_cpy(&bl_gff_index, new_end, array_size) == BL_GFF_INDEX_DATA_OK )
+if ( bl_gff_index_set_end_cpy(&bl_gff_index, new_end, array_size)
+        == BL_GFF_INDEX_DATA_OK )
 {
 }
 .ad

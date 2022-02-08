@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_bed_set_block_sizes(bl_bed_t *bl_bed_ptr, uint64_t * new_block_sizes)
+.nf
+.na
+int     bl_bed_set_block_sizes(
+            bl_bed_t *bl_bed_ptr,
+            uint64_t * new_block_sizes
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_block_sizes The new value for block_sizes
 .SH DESCRIPTION
 
 Mutator for block_sizes member in a bl_bed_t structure.
-Use this function to set block_sizes in a bl_bed_t variable
+Use this function to set block_sizes in a bl_bed_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 block_sizes is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_block_sizes is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_BED_DATA_OUT_OF_RANGE otherwise
 bl_bed_t        bl_bed;
 uint64_t *      new_block_sizes;
 
-if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes) == BL_BED_DATA_OK )
+if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes)
+        == BL_BED_DATA_OK )
 {
 }
 .ad

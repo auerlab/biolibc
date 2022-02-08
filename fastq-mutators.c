@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for desc member in a bl_fastq_t structure.
- *      Use this function to set desc in a bl_fastq_t variable
+ *      Use this function to set desc in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_fastq_t      bl_fastq;
  *      char *          new_desc;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, new_desc) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_desc(&bl_fastq, new_desc)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -55,10 +50,13 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
+int     bl_fastq_set_desc(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_desc
+	)
 
 {
     if ( new_desc == NULL )
@@ -78,13 +76,8 @@ int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
  *
  *  Description:
  *      Mutator for an array element of desc member in a bl_fastq_t
- *      structure. Use this function to set an element of the array
- *      desc in a bl_fastq_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_DESC_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fastq_ptr->desc[c]
+ *      in a bl_fastq_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -100,7 +93,8 @@ int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
  *      size_t          c;
  *      char *          new_desc_element;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, c, new_desc_element) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_desc_ae(&bl_fastq, c, new_desc_element)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -109,10 +103,14 @@ int     bl_fastq_set_desc(bl_fastq_t *bl_fastq_ptr, char * new_desc)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_element)
+int     bl_fastq_set_desc_ae(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t c,
+	    char  new_desc_element
+	)
 
 {
     if ( false )
@@ -132,14 +130,9 @@ int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_
  *
  *  Description:
  *      Mutator for desc member in a bl_fastq_t structure.
- *      Use this function to set desc in a bl_fastq_t variable
+ *      Use this function to set desc in a bl_fastq_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_desc to ->desc.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_DESC(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc is guaranteed by other means.
+ *      by new_desc to bl_fastq_ptr->desc.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -155,7 +148,8 @@ int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_
  *      char *          new_desc;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_desc(&bl_fastq, new_desc, array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_desc_cpy(&bl_fastq, new_desc, array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -164,10 +158,14 @@ int     bl_fastq_set_desc_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_desc_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t array_size)
+int     bl_fastq_set_desc_cpy(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_desc,
+	    size_t array_size
+	)
 
 {
     if ( new_desc == NULL )
@@ -188,18 +186,12 @@ int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t 
  *
  *  Description:
  *      Mutator for seq member in a bl_fastq_t structure.
- *      Use this function to set seq in a bl_fastq_t variable
+ *      Use this function to set seq in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -213,7 +205,8 @@ int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t 
  *      bl_fastq_t      bl_fastq;
  *      char *          new_seq;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, new_seq) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_seq(&bl_fastq, new_seq)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -222,10 +215,13 @@ int     bl_fastq_set_desc_cpy(bl_fastq_t *bl_fastq_ptr, char * new_desc, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
+int     bl_fastq_set_seq(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_seq
+	)
 
 {
     if ( new_seq == NULL )
@@ -245,13 +241,8 @@ int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
  *
  *  Description:
  *      Mutator for an array element of seq member in a bl_fastq_t
- *      structure. Use this function to set an element of the array
- *      seq in a bl_fastq_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_SEQ_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fastq_ptr->seq[c]
+ *      in a bl_fastq_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -267,7 +258,8 @@ int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
  *      size_t          c;
  *      char *          new_seq_element;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, c, new_seq_element) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_seq_ae(&bl_fastq, c, new_seq_element)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -276,10 +268,14 @@ int     bl_fastq_set_seq(bl_fastq_t *bl_fastq_ptr, char * new_seq)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_element)
+int     bl_fastq_set_seq_ae(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t c,
+	    char  new_seq_element
+	)
 
 {
     if ( false )
@@ -299,14 +295,9 @@ int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_el
  *
  *  Description:
  *      Mutator for seq member in a bl_fastq_t structure.
- *      Use this function to set seq in a bl_fastq_t variable
+ *      Use this function to set seq in a bl_fastq_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_seq to ->seq.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_SEQ(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq is guaranteed by other means.
+ *      by new_seq to bl_fastq_ptr->seq.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -322,7 +313,8 @@ int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_el
  *      char *          new_seq;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_seq(&bl_fastq, new_seq, array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_seq_cpy(&bl_fastq, new_seq, array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -331,10 +323,14 @@ int     bl_fastq_set_seq_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_seq_el
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t array_size)
+int     bl_fastq_set_seq_cpy(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_seq,
+	    size_t array_size
+	)
 
 {
     if ( new_seq == NULL )
@@ -355,18 +351,12 @@ int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t ar
  *
  *  Description:
  *      Mutator for plus member in a bl_fastq_t structure.
- *      Use this function to set plus in a bl_fastq_t variable
+ *      Use this function to set plus in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      plus is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_plus is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -380,7 +370,8 @@ int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t ar
  *      bl_fastq_t      bl_fastq;
  *      char *          new_plus;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, new_plus) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_plus(&bl_fastq, new_plus)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -389,10 +380,13 @@ int     bl_fastq_set_seq_cpy(bl_fastq_t *bl_fastq_ptr, char * new_seq, size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
+int     bl_fastq_set_plus(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_plus
+	)
 
 {
     if ( new_plus == NULL )
@@ -412,13 +406,8 @@ int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
  *
  *  Description:
  *      Mutator for an array element of plus member in a bl_fastq_t
- *      structure. Use this function to set an element of the array
- *      plus in a bl_fastq_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_PLUS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_plus_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fastq_ptr->plus[c]
+ *      in a bl_fastq_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -434,7 +423,8 @@ int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
  *      size_t          c;
  *      char *          new_plus_element;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, c, new_plus_element) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_plus_ae(&bl_fastq, c, new_plus_element)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -443,10 +433,14 @@ int     bl_fastq_set_plus(bl_fastq_t *bl_fastq_ptr, char * new_plus)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_element)
+int     bl_fastq_set_plus_ae(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t c,
+	    char  new_plus_element
+	)
 
 {
     if ( false )
@@ -466,14 +460,9 @@ int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_
  *
  *  Description:
  *      Mutator for plus member in a bl_fastq_t structure.
- *      Use this function to set plus in a bl_fastq_t variable
+ *      Use this function to set plus in a bl_fastq_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_plus to ->plus.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_PLUS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_plus is guaranteed by other means.
+ *      by new_plus to bl_fastq_ptr->plus.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -489,7 +478,8 @@ int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_
  *      char *          new_plus;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_plus(&bl_fastq, new_plus, array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_plus_cpy(&bl_fastq, new_plus, array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -498,10 +488,14 @@ int     bl_fastq_set_plus_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_plus_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t array_size)
+int     bl_fastq_set_plus_cpy(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_plus,
+	    size_t array_size
+	)
 
 {
     if ( new_plus == NULL )
@@ -522,18 +516,12 @@ int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t 
  *
  *  Description:
  *      Mutator for qual member in a bl_fastq_t structure.
- *      Use this function to set qual in a bl_fastq_t variable
+ *      Use this function to set qual in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      qual is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -547,7 +535,8 @@ int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t 
  *      bl_fastq_t      bl_fastq;
  *      char *          new_qual;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, new_qual) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_qual(&bl_fastq, new_qual)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -556,10 +545,13 @@ int     bl_fastq_set_plus_cpy(bl_fastq_t *bl_fastq_ptr, char * new_plus, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
+int     bl_fastq_set_qual(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_qual
+	)
 
 {
     if ( new_qual == NULL )
@@ -579,13 +571,8 @@ int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
  *
  *  Description:
  *      Mutator for an array element of qual member in a bl_fastq_t
- *      structure. Use this function to set an element of the array
- *      qual in a bl_fastq_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_QUAL_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_element is guaranteed by other means.
+ *      structure. Use this function to set bl_fastq_ptr->qual[c]
+ *      in a bl_fastq_t object from non-member functions.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -601,7 +588,8 @@ int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
  *      size_t          c;
  *      char *          new_qual_element;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, c, new_qual_element) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_qual_ae(&bl_fastq, c, new_qual_element)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -610,10 +598,14 @@ int     bl_fastq_set_qual(bl_fastq_t *bl_fastq_ptr, char * new_qual)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_element)
+int     bl_fastq_set_qual_ae(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t c,
+	    char  new_qual_element
+	)
 
 {
     if ( false )
@@ -633,14 +625,9 @@ int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_
  *
  *  Description:
  *      Mutator for qual member in a bl_fastq_t structure.
- *      Use this function to set qual in a bl_fastq_t variable
+ *      Use this function to set qual in a bl_fastq_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_qual to ->qual.
- *
- *      Note that there is an equivalent macro BL_FASTQ_SET_QUAL(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual is guaranteed by other means.
+ *      by new_qual to bl_fastq_ptr->qual.
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -656,7 +643,8 @@ int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_
  *      char *          new_qual;
  *      size_t          array_size;
  *
- *      if ( bl_fastq_set_qual(&bl_fastq, new_qual, array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_qual_cpy(&bl_fastq, new_qual, array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -665,10 +653,14 @@ int     bl_fastq_set_qual_ae(bl_fastq_t *bl_fastq_ptr, size_t c, char  new_qual_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t array_size)
+int     bl_fastq_set_qual_cpy(
+	    bl_fastq_t *bl_fastq_ptr,
+	    char * new_qual,
+	    size_t array_size
+	)
 
 {
     if ( new_qual == NULL )
@@ -689,18 +681,12 @@ int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t 
  *
  *  Description:
  *      Mutator for desc_array_size member in a bl_fastq_t structure.
- *      Use this function to set desc_array_size in a bl_fastq_t variable
+ *      Use this function to set desc_array_size in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -714,7 +700,8 @@ int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t 
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_desc_array_size;
  *
- *      if ( bl_fastq_set_desc_array_size(&bl_fastq, new_desc_array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_desc_array_size(&bl_fastq, new_desc_array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -723,10 +710,13 @@ int     bl_fastq_set_qual_cpy(bl_fastq_t *bl_fastq_ptr, char * new_qual, size_t 
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_array_size)
+int     bl_fastq_set_desc_array_size(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_desc_array_size
+	)
 
 {
     if ( false )
@@ -746,18 +736,12 @@ int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_a
  *
  *  Description:
  *      Mutator for seq_array_size member in a bl_fastq_t structure.
- *      Use this function to set seq_array_size in a bl_fastq_t variable
+ *      Use this function to set seq_array_size in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -771,7 +755,8 @@ int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_a
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_seq_array_size;
  *
- *      if ( bl_fastq_set_seq_array_size(&bl_fastq, new_seq_array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_seq_array_size(&bl_fastq, new_seq_array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -780,10 +765,13 @@ int     bl_fastq_set_desc_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_desc_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_array_size)
+int     bl_fastq_set_seq_array_size(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_seq_array_size
+	)
 
 {
     if ( false )
@@ -803,18 +791,12 @@ int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_arr
  *
  *  Description:
  *      Mutator for plus_array_size member in a bl_fastq_t structure.
- *      Use this function to set plus_array_size in a bl_fastq_t variable
+ *      Use this function to set plus_array_size in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      plus_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_plus_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -828,7 +810,8 @@ int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_arr
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_plus_array_size;
  *
- *      if ( bl_fastq_set_plus_array_size(&bl_fastq, new_plus_array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_plus_array_size(&bl_fastq, new_plus_array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -837,10 +820,13 @@ int     bl_fastq_set_seq_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_seq_arr
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_array_size)
+int     bl_fastq_set_plus_array_size(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_plus_array_size
+	)
 
 {
     if ( false )
@@ -860,18 +846,12 @@ int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_a
  *
  *  Description:
  *      Mutator for qual_array_size member in a bl_fastq_t structure.
- *      Use this function to set qual_array_size in a bl_fastq_t variable
+ *      Use this function to set qual_array_size in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      qual_array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -885,7 +865,8 @@ int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_a
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_qual_array_size;
  *
- *      if ( bl_fastq_set_qual_array_size(&bl_fastq, new_qual_array_size) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_qual_array_size(&bl_fastq, new_qual_array_size)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -894,10 +875,13 @@ int     bl_fastq_set_plus_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_plus_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_array_size)
+int     bl_fastq_set_qual_array_size(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_qual_array_size
+	)
 
 {
     if ( false )
@@ -917,18 +901,12 @@ int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_a
  *
  *  Description:
  *      Mutator for desc_len member in a bl_fastq_t structure.
- *      Use this function to set desc_len in a bl_fastq_t variable
+ *      Use this function to set desc_len in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      desc_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_desc_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -942,7 +920,8 @@ int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_a
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_desc_len;
  *
- *      if ( bl_fastq_set_desc_len(&bl_fastq, new_desc_len) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_desc_len(&bl_fastq, new_desc_len)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -951,10 +930,13 @@ int     bl_fastq_set_qual_array_size(bl_fastq_t *bl_fastq_ptr, size_t new_qual_a
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
+int     bl_fastq_set_desc_len(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_desc_len
+	)
 
 {
     if ( false )
@@ -974,18 +956,12 @@ int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
  *
  *  Description:
  *      Mutator for seq_len member in a bl_fastq_t structure.
- *      Use this function to set seq_len in a bl_fastq_t variable
+ *      Use this function to set seq_len in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seq_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seq_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -999,7 +975,8 @@ int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_seq_len;
  *
- *      if ( bl_fastq_set_seq_len(&bl_fastq, new_seq_len) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_seq_len(&bl_fastq, new_seq_len)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1008,10 +985,13 @@ int     bl_fastq_set_desc_len(bl_fastq_t *bl_fastq_ptr, size_t new_desc_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
+int     bl_fastq_set_seq_len(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_seq_len
+	)
 
 {
     if ( false )
@@ -1031,18 +1011,12 @@ int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
  *
  *  Description:
  *      Mutator for plus_len member in a bl_fastq_t structure.
- *      Use this function to set plus_len in a bl_fastq_t variable
+ *      Use this function to set plus_len in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      plus_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_plus_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -1056,7 +1030,8 @@ int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_plus_len;
  *
- *      if ( bl_fastq_set_plus_len(&bl_fastq, new_plus_len) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_plus_len(&bl_fastq, new_plus_len)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1065,10 +1040,13 @@ int     bl_fastq_set_seq_len(bl_fastq_t *bl_fastq_ptr, size_t new_seq_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
+int     bl_fastq_set_plus_len(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_plus_len
+	)
 
 {
     if ( false )
@@ -1088,18 +1066,12 @@ int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
  *
  *  Description:
  *      Mutator for qual_len member in a bl_fastq_t structure.
- *      Use this function to set qual_len in a bl_fastq_t variable
+ *      Use this function to set qual_len in a bl_fastq_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      qual_len is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_qual_len is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_fastq_ptr    Pointer to the structure to set
@@ -1113,7 +1085,8 @@ int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
  *      bl_fastq_t      bl_fastq;
  *      size_t          new_qual_len;
  *
- *      if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len) == BL_FASTQ_DATA_OK )
+ *      if ( bl_fastq_set_qual_len(&bl_fastq, new_qual_len)
+ *              == BL_FASTQ_DATA_OK )
  *      {
  *      }
  *
@@ -1122,10 +1095,13 @@ int     bl_fastq_set_plus_len(bl_fastq_t *bl_fastq_ptr, size_t new_plus_len)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-01-15  gen-get-set Auto-generated from fastq.h
+ *  2022-02-07  gen-get-set Auto-generated from fastq.h
  ***************************************************************************/
 
-int     bl_fastq_set_qual_len(bl_fastq_t *bl_fastq_ptr, size_t new_qual_len)
+int     bl_fastq_set_qual_len(
+	    bl_fastq_t *bl_fastq_ptr,
+	    size_t new_qual_len
+	)
 
 {
     if ( false )

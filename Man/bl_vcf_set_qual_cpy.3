@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_size)
+.nf
+.na
+int     bl_vcf_set_qual_cpy(
+            bl_vcf_t *bl_vcf_ptr,
+            char new_qual[],
+            size_t array_size
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,14 +36,9 @@ array_size      Size of the qual array.
 .SH DESCRIPTION
 
 Mutator for qual member in a bl_vcf_t structure.
-Use this function to set qual in a bl_vcf_t variable
+Use this function to set qual in a bl_vcf_t object
 from non-member functions.  This function copies the array pointed to
-by new_qual to ->qual.
-
-Note that there is an equivalent macro BL_VCF_SET_QUAL(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_qual is guaranteed by other means.
+by new_qual to bl_vcf_ptr->qual.
 
 .SH RETURN VALUES
 
@@ -50,7 +53,8 @@ bl_vcf_t        bl_vcf;
 char            new_qual;
 size_t          array_size;
 
-if ( bl_vcf_set_qual(&bl_vcf, new_qual, array_size) == BL_VCF_DATA_OK )
+if ( bl_vcf_set_qual_cpy(&bl_vcf, new_qual, array_size)
+        == BL_VCF_DATA_OK )
 {
 }
 .ad

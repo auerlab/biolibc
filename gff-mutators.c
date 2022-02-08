@@ -21,13 +21,8 @@
  *
  *  Description:
  *      Mutator for an array element of seqid member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      seqid in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_SEQID_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seqid_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->seqid[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -43,7 +38,8 @@
  *      size_t          c;
  *      char            new_seqid_element;
  *
- *      if ( bl_gff_set_seqid_ae(&bl_gff, c, new_seqid_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_seqid_ae(&bl_gff, c, new_seqid_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -52,10 +48,14 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_seqid_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_seqid_element)
+int     bl_gff_set_seqid_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char new_seqid_element
+	)
 
 {
     if ( false )
@@ -75,14 +75,9 @@ int     bl_gff_set_seqid_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_seqid_eleme
  *
  *  Description:
  *      Mutator for seqid member in a bl_gff_t structure.
- *      Use this function to set seqid in a bl_gff_t variable
+ *      Use this function to set seqid in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_seqid to ->seqid.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_SEQID(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seqid is guaranteed by other means.
+ *      by new_seqid to bl_gff_ptr->seqid.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -98,7 +93,8 @@ int     bl_gff_set_seqid_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_seqid_eleme
  *      char            new_seqid;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_seqid_cpy(&bl_gff, new_seqid, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_seqid_cpy(&bl_gff, new_seqid, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -107,10 +103,14 @@ int     bl_gff_set_seqid_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_seqid_eleme
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_seqid_cpy(bl_gff_t *bl_gff_ptr, char new_seqid[], size_t array_size)
+int     bl_gff_set_seqid_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char new_seqid[],
+	    size_t array_size
+	)
 
 {
     if ( new_seqid == NULL )
@@ -131,13 +131,8 @@ int     bl_gff_set_seqid_cpy(bl_gff_t *bl_gff_ptr, char new_seqid[], size_t arra
  *
  *  Description:
  *      Mutator for an array element of source member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      source in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_SOURCE_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_source_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->source[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -153,7 +148,8 @@ int     bl_gff_set_seqid_cpy(bl_gff_t *bl_gff_ptr, char new_seqid[], size_t arra
  *      size_t          c;
  *      char            new_source_element;
  *
- *      if ( bl_gff_set_source_ae(&bl_gff, c, new_source_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_source_ae(&bl_gff, c, new_source_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -162,10 +158,14 @@ int     bl_gff_set_seqid_cpy(bl_gff_t *bl_gff_ptr, char new_seqid[], size_t arra
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element)
+int     bl_gff_set_source_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char new_source_element
+	)
 
 {
     if ( false )
@@ -185,14 +185,9 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *
  *  Description:
  *      Mutator for source member in a bl_gff_t structure.
- *      Use this function to set source in a bl_gff_t variable
+ *      Use this function to set source in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_source to ->source.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_SOURCE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_source is guaranteed by other means.
+ *      by new_source to bl_gff_ptr->source.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -208,7 +203,8 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *      char            new_source;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_source_cpy(&bl_gff, new_source, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_source_cpy(&bl_gff, new_source, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -217,10 +213,14 @@ int     bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_ele
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t array_size)
+int     bl_gff_set_source_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char new_source[],
+	    size_t array_size
+	)
 
 {
     if ( new_source == NULL )
@@ -241,13 +241,8 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *
  *  Description:
  *      Mutator for an array element of type member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      type in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_TYPE_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_type_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->type[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -263,7 +258,8 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *      size_t          c;
  *      char            new_type_element;
  *
- *      if ( bl_gff_set_type_ae(&bl_gff, c, new_type_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_type_ae(&bl_gff, c, new_type_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -272,10 +268,14 @@ int     bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t ar
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_type_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_type_element)
+int     bl_gff_set_type_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char new_type_element
+	)
 
 {
     if ( false )
@@ -295,14 +295,9 @@ int     bl_gff_set_type_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_type_element
  *
  *  Description:
  *      Mutator for type member in a bl_gff_t structure.
- *      Use this function to set type in a bl_gff_t variable
+ *      Use this function to set type in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_type to ->type.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_TYPE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_type is guaranteed by other means.
+ *      by new_type to bl_gff_ptr->type.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -318,7 +313,8 @@ int     bl_gff_set_type_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_type_element
  *      char            new_type;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_type_cpy(&bl_gff, new_type, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_type_cpy(&bl_gff, new_type, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -327,10 +323,14 @@ int     bl_gff_set_type_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_type_element
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_type_cpy(bl_gff_t *bl_gff_ptr, char new_type[], size_t array_size)
+int     bl_gff_set_type_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char new_type[],
+	    size_t array_size
+	)
 
 {
     if ( new_type == NULL )
@@ -351,18 +351,12 @@ int     bl_gff_set_type_cpy(bl_gff_t *bl_gff_ptr, char new_type[], size_t array_
  *
  *  Description:
  *      Mutator for start member in a bl_gff_t structure.
- *      Use this function to set start in a bl_gff_t variable
+ *      Use this function to set start in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      start is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_start is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -376,7 +370,8 @@ int     bl_gff_set_type_cpy(bl_gff_t *bl_gff_ptr, char new_type[], size_t array_
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_start;
  *
- *      if ( bl_gff_set_start(&bl_gff, new_start) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_start(&bl_gff, new_start)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -385,10 +380,13 @@ int     bl_gff_set_type_cpy(bl_gff_t *bl_gff_ptr, char new_type[], size_t array_
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
+int     bl_gff_set_start(
+	    bl_gff_t *bl_gff_ptr,
+	    uint64_t new_start
+	)
 
 {
     if ( false )
@@ -408,18 +406,12 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *
  *  Description:
  *      Mutator for end member in a bl_gff_t structure.
- *      Use this function to set end in a bl_gff_t variable
+ *      Use this function to set end in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      end is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_end is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -433,7 +425,8 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *      bl_gff_t        bl_gff;
  *      uint64_t        new_end;
  *
- *      if ( bl_gff_set_end(&bl_gff, new_end) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_end(&bl_gff, new_end)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -442,10 +435,13 @@ int     bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
+int     bl_gff_set_end(
+	    bl_gff_t *bl_gff_ptr,
+	    uint64_t new_end
+	)
 
 {
     if ( false )
@@ -465,18 +461,12 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *
  *  Description:
  *      Mutator for score member in a bl_gff_t structure.
- *      Use this function to set score in a bl_gff_t variable
+ *      Use this function to set score in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      score is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_score is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -490,7 +480,8 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *      bl_gff_t        bl_gff;
  *      double          new_score;
  *
- *      if ( bl_gff_set_score(&bl_gff, new_score) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_score(&bl_gff, new_score)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -499,10 +490,13 @@ int     bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
+int     bl_gff_set_score(
+	    bl_gff_t *bl_gff_ptr,
+	    double new_score
+	)
 
 {
     if ( false )
@@ -522,18 +516,12 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *
  *  Description:
  *      Mutator for strand member in a bl_gff_t structure.
- *      Use this function to set strand in a bl_gff_t variable
+ *      Use this function to set strand in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      strand is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_strand is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -547,7 +535,8 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *      bl_gff_t        bl_gff;
  *      char            new_strand;
  *
- *      if ( bl_gff_set_strand(&bl_gff, new_strand) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_strand(&bl_gff, new_strand)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -556,10 +545,13 @@ int     bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
+int     bl_gff_set_strand(
+	    bl_gff_t *bl_gff_ptr,
+	    char new_strand
+	)
 
 {
     if ( false )
@@ -579,18 +571,12 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *
  *  Description:
  *      Mutator for phase member in a bl_gff_t structure.
- *      Use this function to set phase in a bl_gff_t variable
+ *      Use this function to set phase in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      phase is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_phase is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -604,7 +590,8 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *      bl_gff_t        bl_gff;
  *      char            new_phase;
  *
- *      if ( bl_gff_set_phase(&bl_gff, new_phase) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_phase(&bl_gff, new_phase)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -613,10 +600,13 @@ int     bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
+int     bl_gff_set_phase(
+	    bl_gff_t *bl_gff_ptr,
+	    char new_phase
+	)
 
 {
     if ( false )
@@ -636,18 +626,12 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *
  *  Description:
  *      Mutator for attributes member in a bl_gff_t structure.
- *      Use this function to set attributes in a bl_gff_t variable
+ *      Use this function to set attributes in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      attributes is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_attributes is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -661,7 +645,8 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *      bl_gff_t        bl_gff;
  *      char *          new_attributes;
  *
- *      if ( bl_gff_set_attributes(&bl_gff, new_attributes) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_attributes(&bl_gff, new_attributes)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -670,10 +655,13 @@ int     bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
+int     bl_gff_set_attributes(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_attributes
+	)
 
 {
     if ( new_attributes == NULL )
@@ -693,13 +681,8 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *
  *  Description:
  *      Mutator for an array element of attributes member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      attributes in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_ATTRIBUTES_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_attributes_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->attributes[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -715,7 +698,8 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *      size_t          c;
  *      char *          new_attributes_element;
  *
- *      if ( bl_gff_set_attributes_ae(&bl_gff, c, new_attributes_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_attributes_ae(&bl_gff, c, new_attributes_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -724,10 +708,14 @@ int     bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char * new_attributes)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attributes_element)
+int     bl_gff_set_attributes_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char  new_attributes_element
+	)
 
 {
     if ( false )
@@ -747,14 +735,9 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *
  *  Description:
  *      Mutator for attributes member in a bl_gff_t structure.
- *      Use this function to set attributes in a bl_gff_t variable
+ *      Use this function to set attributes in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_attributes to ->attributes.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_ATTRIBUTES(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_attributes is guaranteed by other means.
+ *      by new_attributes to bl_gff_ptr->attributes.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -770,7 +753,8 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *      char *          new_attributes;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_attributes_cpy(&bl_gff, new_attributes, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_attributes_cpy(&bl_gff, new_attributes, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -779,10 +763,14 @@ int     bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_attri
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, size_t array_size)
+int     bl_gff_set_attributes_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_attributes,
+	    size_t array_size
+	)
 
 {
     if ( new_attributes == NULL )
@@ -803,18 +791,12 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *
  *  Description:
  *      Mutator for feature_id member in a bl_gff_t structure.
- *      Use this function to set feature_id in a bl_gff_t variable
+ *      Use this function to set feature_id in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      feature_id is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_id is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -828,7 +810,8 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *      bl_gff_t        bl_gff;
  *      char *          new_feature_id;
  *
- *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_id(&bl_gff, new_feature_id)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -837,10 +820,13 @@ int     bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char * new_attributes, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
+int     bl_gff_set_feature_id(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_feature_id
+	)
 
 {
     if ( new_feature_id == NULL )
@@ -860,13 +846,8 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *
  *  Description:
  *      Mutator for an array element of feature_id member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      feature_id in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_ID_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_id_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->feature_id[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -882,7 +863,8 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *      size_t          c;
  *      char *          new_feature_id_element;
  *
- *      if ( bl_gff_set_feature_id_ae(&bl_gff, c, new_feature_id_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_id_ae(&bl_gff, c, new_feature_id_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -891,10 +873,14 @@ int     bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char * new_feature_id)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_id_element)
+int     bl_gff_set_feature_id_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char  new_feature_id_element
+	)
 
 {
     if ( false )
@@ -914,14 +900,9 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *
  *  Description:
  *      Mutator for feature_id member in a bl_gff_t structure.
- *      Use this function to set feature_id in a bl_gff_t variable
+ *      Use this function to set feature_id in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_feature_id to ->feature_id.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_ID(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_id is guaranteed by other means.
+ *      by new_feature_id to bl_gff_ptr->feature_id.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -937,7 +918,8 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *      char *          new_feature_id;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_feature_id_cpy(&bl_gff, new_feature_id, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_id_cpy(&bl_gff, new_feature_id, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -946,10 +928,14 @@ int     bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_featu
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, size_t array_size)
+int     bl_gff_set_feature_id_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_feature_id,
+	    size_t array_size
+	)
 
 {
     if ( new_feature_id == NULL )
@@ -970,18 +956,12 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *
  *  Description:
  *      Mutator for feature_name member in a bl_gff_t structure.
- *      Use this function to set feature_name in a bl_gff_t variable
+ *      Use this function to set feature_name in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      feature_name is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_name is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -995,7 +975,8 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *      bl_gff_t        bl_gff;
  *      char *          new_feature_name;
  *
- *      if ( bl_gff_set_feature_name(&bl_gff, new_feature_name) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name(&bl_gff, new_feature_name)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1004,10 +985,13 @@ int     bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_id, s
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char * new_feature_name)
+int     bl_gff_set_feature_name(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_feature_name
+	)
 
 {
     if ( new_feature_name == NULL )
@@ -1027,13 +1011,8 @@ int     bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char * new_feature_name)
  *
  *  Description:
  *      Mutator for an array element of feature_name member in a bl_gff_t
- *      structure. Use this function to set an element of the array
- *      feature_name in a bl_gff_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_NAME_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_name_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_ptr->feature_name[c]
+ *      in a bl_gff_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -1049,7 +1028,8 @@ int     bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char * new_feature_name)
  *      size_t          c;
  *      char *          new_feature_name_element;
  *
- *      if ( bl_gff_set_feature_name_ae(&bl_gff, c, new_feature_name_element) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name_ae(&bl_gff, c, new_feature_name_element)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1058,10 +1038,14 @@ int     bl_gff_set_feature_name(bl_gff_t *bl_gff_ptr, char * new_feature_name)
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_feature_name_element)
+int     bl_gff_set_feature_name_ae(
+	    bl_gff_t *bl_gff_ptr,
+	    size_t c,
+	    char  new_feature_name_element
+	)
 
 {
     if ( false )
@@ -1081,14 +1065,9 @@ int     bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_fea
  *
  *  Description:
  *      Mutator for feature_name member in a bl_gff_t structure.
- *      Use this function to set feature_name in a bl_gff_t variable
+ *      Use this function to set feature_name in a bl_gff_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_feature_name to ->feature_name.
- *
- *      Note that there is an equivalent macro BL_GFF_SET_FEATURE_NAME(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_feature_name is guaranteed by other means.
+ *      by new_feature_name to bl_gff_ptr->feature_name.
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -1104,7 +1083,8 @@ int     bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_fea
  *      char *          new_feature_name;
  *      size_t          array_size;
  *
- *      if ( bl_gff_set_feature_name_cpy(&bl_gff, new_feature_name, array_size) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_feature_name_cpy(&bl_gff, new_feature_name, array_size)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1113,10 +1093,14 @@ int     bl_gff_set_feature_name_ae(bl_gff_t *bl_gff_ptr, size_t c, char  new_fea
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_name, size_t array_size)
+int     bl_gff_set_feature_name_cpy(
+	    bl_gff_t *bl_gff_ptr,
+	    char * new_feature_name,
+	    size_t array_size
+	)
 
 {
     if ( new_feature_name == NULL )
@@ -1137,18 +1121,12 @@ int     bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_nam
  *
  *  Description:
  *      Mutator for file_pos member in a bl_gff_t structure.
- *      Use this function to set file_pos in a bl_gff_t variable
+ *      Use this function to set file_pos in a bl_gff_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      file_pos is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_file_pos is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_ptr      Pointer to the structure to set
@@ -1162,7 +1140,8 @@ int     bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_nam
  *      bl_gff_t        bl_gff;
  *      long            new_file_pos;
  *
- *      if ( bl_gff_set_file_pos(&bl_gff, new_file_pos) == BL_GFF_DATA_OK )
+ *      if ( bl_gff_set_file_pos(&bl_gff, new_file_pos)
+ *              == BL_GFF_DATA_OK )
  *      {
  *      }
  *
@@ -1171,10 +1150,13 @@ int     bl_gff_set_feature_name_cpy(bl_gff_t *bl_gff_ptr, char * new_feature_nam
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-05  gen-get-set Auto-generated from gff.h
+ *  2022-02-07  gen-get-set Auto-generated from gff.h
  ***************************************************************************/
 
-int     bl_gff_set_file_pos(bl_gff_t *bl_gff_ptr, long new_file_pos)
+int     bl_gff_set_file_pos(
+	    bl_gff_t *bl_gff_ptr,
+	    long new_file_pos
+	)
 
 {
     if ( false )

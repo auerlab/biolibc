@@ -14,7 +14,14 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len)
+.nf
+.na
+int     bl_overlap_set_feature1_len(
+            bl_overlap_t *bl_overlap_ptr,
+            uint64_t new_feature1_len
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -27,17 +34,12 @@ new_feature1_len The new value for feature1_len
 .SH DESCRIPTION
 
 Mutator for feature1_len member in a bl_overlap_t structure.
-Use this function to set feature1_len in a bl_overlap_t variable
+Use this function to set feature1_len in a bl_overlap_t object
 from non-member functions.  This function performs a direct
 assignment for scalar or pointer structure members.  If
 feature1_len is a pointer, data previously pointed to should
-generally be freed before calling this function to avoid memory
+be freed before calling this function to avoid memory
 leaks.
-
-Note that there is an equivalent macro (), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_feature1_len is guaranteed by other means.
 
 .SH RETURN VALUES
 
@@ -51,7 +53,8 @@ BL_OVERLAP_DATA_OUT_OF_RANGE otherwise
 bl_overlap_t    bl_overlap;
 uint64_t        new_feature1_len;
 
-if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len) == BL_OVERLAP_DATA_OK )
+if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len)
+        == BL_OVERLAP_DATA_OK )
 {
 }
 .ad

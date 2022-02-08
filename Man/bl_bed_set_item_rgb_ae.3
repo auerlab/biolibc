@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_bed_set_item_rgb_ae(bl_bed_t *bl_bed_ptr, size_t c, char new_item_rgb_element)
+.nf
+.na
+int     bl_bed_set_item_rgb_ae(
+            bl_bed_t *bl_bed_ptr,
+            size_t c,
+            char new_item_rgb_element
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,13 +36,8 @@ new_item_rgb_element The new value for item_rgb[c]
 .SH DESCRIPTION
 
 Mutator for an array element of item_rgb member in a bl_bed_t
-structure. Use this function to set an element of the array
-item_rgb in a bl_bed_t variable from non-member functions.
-
-Note that there is an equivalent macro BL_BED_SET_ITEM_RGB_AE(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_item_rgb_element is guaranteed by other means.
+structure. Use this function to set bl_bed_ptr->item_rgb[c]
+in a bl_bed_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -49,7 +52,8 @@ bl_bed_t        bl_bed;
 size_t          c;
 char            new_item_rgb_element;
 
-if ( bl_bed_set_item_rgb(&bl_bed, c, new_item_rgb_element) == BL_BED_DATA_OK )
+if ( bl_bed_set_item_rgb_ae(&bl_bed, c, new_item_rgb_element)
+        == BL_BED_DATA_OK )
 {
 }
 .ad

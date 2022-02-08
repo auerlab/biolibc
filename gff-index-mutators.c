@@ -21,18 +21,12 @@
  *
  *  Description:
  *      Mutator for array_size member in a bl_gff_index_t structure.
- *      Use this function to set array_size in a bl_gff_index_t variable
+ *      Use this function to set array_size in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      array_size is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_array_size is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -46,7 +40,8 @@
  *      bl_gff_index_t  bl_gff_index;
  *      size_t          new_array_size;
  *
- *      if ( bl_gff_index_set_array_size(&bl_gff_index, new_array_size) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_array_size(&bl_gff_index, new_array_size)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -58,7 +53,10 @@
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_array_size(bl_gff_index_t *bl_gff_index_ptr, size_t new_array_size)
+int     bl_gff_index_set_array_size(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t new_array_size
+	)
 
 {
     if ( false )
@@ -78,18 +76,12 @@ int     bl_gff_index_set_array_size(bl_gff_index_t *bl_gff_index_ptr, size_t new
  *
  *  Description:
  *      Mutator for count member in a bl_gff_index_t structure.
- *      Use this function to set count in a bl_gff_index_t variable
+ *      Use this function to set count in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      count is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_count is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -103,7 +95,8 @@ int     bl_gff_index_set_array_size(bl_gff_index_t *bl_gff_index_ptr, size_t new
  *      bl_gff_index_t  bl_gff_index;
  *      size_t          new_count;
  *
- *      if ( bl_gff_index_set_count(&bl_gff_index, new_count) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_count(&bl_gff_index, new_count)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -115,7 +108,10 @@ int     bl_gff_index_set_array_size(bl_gff_index_t *bl_gff_index_ptr, size_t new
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_count(bl_gff_index_t *bl_gff_index_ptr, size_t new_count)
+int     bl_gff_index_set_count(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t new_count
+	)
 
 {
     if ( false )
@@ -135,18 +131,12 @@ int     bl_gff_index_set_count(bl_gff_index_t *bl_gff_index_ptr, size_t new_coun
  *
  *  Description:
  *      Mutator for file_pos member in a bl_gff_index_t structure.
- *      Use this function to set file_pos in a bl_gff_index_t variable
+ *      Use this function to set file_pos in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      file_pos is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_file_pos is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -160,7 +150,8 @@ int     bl_gff_index_set_count(bl_gff_index_t *bl_gff_index_ptr, size_t new_coun
  *      bl_gff_index_t  bl_gff_index;
  *      long *          new_file_pos;
  *
- *      if ( bl_gff_index_set_file_pos(&bl_gff_index, new_file_pos) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_file_pos(&bl_gff_index, new_file_pos)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -172,7 +163,10 @@ int     bl_gff_index_set_count(bl_gff_index_t *bl_gff_index_ptr, size_t new_coun
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_file_pos(bl_gff_index_t *bl_gff_index_ptr, long * new_file_pos)
+int     bl_gff_index_set_file_pos(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    long * new_file_pos
+	)
 
 {
     if ( new_file_pos == NULL )
@@ -192,13 +186,8 @@ int     bl_gff_index_set_file_pos(bl_gff_index_t *bl_gff_index_ptr, long * new_f
  *
  *  Description:
  *      Mutator for an array element of file_pos member in a bl_gff_index_t
- *      structure. Use this function to set an element of the array
- *      file_pos in a bl_gff_index_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_FILE_POS_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_file_pos_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_index_ptr->file_pos[c]
+ *      in a bl_gff_index_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -214,7 +203,8 @@ int     bl_gff_index_set_file_pos(bl_gff_index_t *bl_gff_index_ptr, long * new_f
  *      size_t          c;
  *      long *          new_file_pos_element;
  *
- *      if ( bl_gff_index_set_file_pos_ae(&bl_gff_index, c, new_file_pos_element) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_file_pos_ae(&bl_gff_index, c, new_file_pos_element)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -226,7 +216,11 @@ int     bl_gff_index_set_file_pos(bl_gff_index_t *bl_gff_index_ptr, long * new_f
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_file_pos_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, long  new_file_pos_element)
+int     bl_gff_index_set_file_pos_ae(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t c,
+	    long  new_file_pos_element
+	)
 
 {
     if ( false )
@@ -246,14 +240,9 @@ int     bl_gff_index_set_file_pos_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c,
  *
  *  Description:
  *      Mutator for file_pos member in a bl_gff_index_t structure.
- *      Use this function to set file_pos in a bl_gff_index_t variable
+ *      Use this function to set file_pos in a bl_gff_index_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_file_pos to ->file_pos.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_FILE_POS(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_file_pos is guaranteed by other means.
+ *      by new_file_pos to bl_gff_index_ptr->file_pos.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -269,7 +258,8 @@ int     bl_gff_index_set_file_pos_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c,
  *      long *          new_file_pos;
  *      size_t          array_size;
  *
- *      if ( bl_gff_index_set_file_pos_cpy(&bl_gff_index, new_file_pos, array_size) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_file_pos_cpy(&bl_gff_index, new_file_pos, array_size)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -281,7 +271,11 @@ int     bl_gff_index_set_file_pos_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c,
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long * new_file_pos, size_t array_size)
+int     bl_gff_index_set_file_pos_cpy(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    long * new_file_pos,
+	    size_t array_size
+	)
 
 {
     if ( new_file_pos == NULL )
@@ -305,18 +299,12 @@ int     bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long * n
  *
  *  Description:
  *      Mutator for seqid member in a bl_gff_index_t structure.
- *      Use this function to set seqid in a bl_gff_index_t variable
+ *      Use this function to set seqid in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      seqid is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seqid is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -330,7 +318,8 @@ int     bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long * n
  *      bl_gff_index_t  bl_gff_index;
  *      char **         new_seqid;
  *
- *      if ( bl_gff_index_set_seqid(&bl_gff_index, new_seqid) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_seqid(&bl_gff_index, new_seqid)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -342,7 +331,10 @@ int     bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long * n
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char ** new_seqid)
+int     bl_gff_index_set_seqid(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    char ** new_seqid
+	)
 
 {
     if ( new_seqid == NULL )
@@ -362,13 +354,8 @@ int     bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char ** new_seq
  *
  *  Description:
  *      Mutator for an array element of seqid member in a bl_gff_index_t
- *      structure. Use this function to set an element of the array
- *      seqid in a bl_gff_index_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_SEQID_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seqid_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_index_ptr->seqid[c]
+ *      in a bl_gff_index_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -384,7 +371,8 @@ int     bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char ** new_seq
  *      size_t          c;
  *      char **         new_seqid_element;
  *
- *      if ( bl_gff_index_set_seqid_ae(&bl_gff_index, c, new_seqid_element) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_seqid_ae(&bl_gff_index, c, new_seqid_element)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -396,7 +384,11 @@ int     bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char ** new_seq
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_seqid_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, char * new_seqid_element)
+int     bl_gff_index_set_seqid_ae(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t c,
+	    char * new_seqid_element
+	)
 
 {
     if ( new_seqid_element == NULL )
@@ -416,14 +408,9 @@ int     bl_gff_index_set_seqid_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ch
  *
  *  Description:
  *      Mutator for seqid member in a bl_gff_index_t structure.
- *      Use this function to set seqid in a bl_gff_index_t variable
+ *      Use this function to set seqid in a bl_gff_index_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_seqid to ->seqid.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_SEQID(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_seqid is guaranteed by other means.
+ *      by new_seqid to bl_gff_index_ptr->seqid.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -439,7 +426,8 @@ int     bl_gff_index_set_seqid_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ch
  *      char **         new_seqid;
  *      size_t          array_size;
  *
- *      if ( bl_gff_index_set_seqid_cpy(&bl_gff_index, new_seqid, array_size) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_seqid_cpy(&bl_gff_index, new_seqid, array_size)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -451,7 +439,11 @@ int     bl_gff_index_set_seqid_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ch
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_seqid_cpy(bl_gff_index_t *bl_gff_index_ptr, char ** new_seqid, size_t array_size)
+int     bl_gff_index_set_seqid_cpy(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    char ** new_seqid,
+	    size_t array_size
+	)
 
 {
     if ( new_seqid == NULL )
@@ -475,18 +467,12 @@ int     bl_gff_index_set_seqid_cpy(bl_gff_index_t *bl_gff_index_ptr, char ** new
  *
  *  Description:
  *      Mutator for start member in a bl_gff_index_t structure.
- *      Use this function to set start in a bl_gff_index_t variable
+ *      Use this function to set start in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      start is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_start is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -500,7 +486,8 @@ int     bl_gff_index_set_seqid_cpy(bl_gff_index_t *bl_gff_index_ptr, char ** new
  *      bl_gff_index_t  bl_gff_index;
  *      uint64_t *      new_start;
  *
- *      if ( bl_gff_index_set_start(&bl_gff_index, new_start) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_start(&bl_gff_index, new_start)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -512,7 +499,10 @@ int     bl_gff_index_set_seqid_cpy(bl_gff_index_t *bl_gff_index_ptr, char ** new
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_start)
+int     bl_gff_index_set_start(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    uint64_t * new_start
+	)
 
 {
     if ( new_start == NULL )
@@ -532,13 +522,8 @@ int     bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_
  *
  *  Description:
  *      Mutator for an array element of start member in a bl_gff_index_t
- *      structure. Use this function to set an element of the array
- *      start in a bl_gff_index_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_START_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_start_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_index_ptr->start[c]
+ *      in a bl_gff_index_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -554,7 +539,8 @@ int     bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_
  *      size_t          c;
  *      uint64_t *      new_start_element;
  *
- *      if ( bl_gff_index_set_start_ae(&bl_gff_index, c, new_start_element) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_start_ae(&bl_gff_index, c, new_start_element)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -566,7 +552,11 @@ int     bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint64_t  new_start_element)
+int     bl_gff_index_set_start_ae(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t c,
+	    uint64_t  new_start_element
+	)
 
 {
     if ( false )
@@ -586,14 +576,9 @@ int     bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ui
  *
  *  Description:
  *      Mutator for start member in a bl_gff_index_t structure.
- *      Use this function to set start in a bl_gff_index_t variable
+ *      Use this function to set start in a bl_gff_index_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_start to ->start.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_START(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_start is guaranteed by other means.
+ *      by new_start to bl_gff_index_ptr->start.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -609,7 +594,8 @@ int     bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ui
  *      uint64_t *      new_start;
  *      size_t          array_size;
  *
- *      if ( bl_gff_index_set_start_cpy(&bl_gff_index, new_start, array_size) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_start_cpy(&bl_gff_index, new_start, array_size)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -621,7 +607,11 @@ int     bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, ui
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_start, size_t array_size)
+int     bl_gff_index_set_start_cpy(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    uint64_t * new_start,
+	    size_t array_size
+	)
 
 {
     if ( new_start == NULL )
@@ -645,18 +635,12 @@ int     bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * 
  *
  *  Description:
  *      Mutator for end member in a bl_gff_index_t structure.
- *      Use this function to set end in a bl_gff_index_t variable
+ *      Use this function to set end in a bl_gff_index_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
  *      end is a pointer, data previously pointed to should
- *      generally be freed before calling this function to avoid memory
+ *      be freed before calling this function to avoid memory
  *      leaks.
- *
- *      Note that there is an equivalent macro (), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_end is guaranteed by other means.
- *      
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -670,7 +654,8 @@ int     bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * 
  *      bl_gff_index_t  bl_gff_index;
  *      uint64_t *      new_end;
  *
- *      if ( bl_gff_index_set_end(&bl_gff_index, new_end) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_end(&bl_gff_index, new_end)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -682,7 +667,10 @@ int     bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * 
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_end)
+int     bl_gff_index_set_end(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    uint64_t * new_end
+	)
 
 {
     if ( new_end == NULL )
@@ -702,13 +690,8 @@ int     bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_en
  *
  *  Description:
  *      Mutator for an array element of end member in a bl_gff_index_t
- *      structure. Use this function to set an element of the array
- *      end in a bl_gff_index_t variable from non-member functions.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_END_AE(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_end_element is guaranteed by other means.
+ *      structure. Use this function to set bl_gff_index_ptr->end[c]
+ *      in a bl_gff_index_t object from non-member functions.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -724,7 +707,8 @@ int     bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_en
  *      size_t          c;
  *      uint64_t *      new_end_element;
  *
- *      if ( bl_gff_index_set_end_ae(&bl_gff_index, c, new_end_element) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_end_ae(&bl_gff_index, c, new_end_element)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -736,7 +720,11 @@ int     bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_en
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint64_t  new_end_element)
+int     bl_gff_index_set_end_ae(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    size_t c,
+	    uint64_t  new_end_element
+	)
 
 {
     if ( false )
@@ -756,14 +744,9 @@ int     bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint
  *
  *  Description:
  *      Mutator for end member in a bl_gff_index_t structure.
- *      Use this function to set end in a bl_gff_index_t variable
+ *      Use this function to set end in a bl_gff_index_t object
  *      from non-member functions.  This function copies the array pointed to
- *      by new_end to ->end.
- *
- *      Note that there is an equivalent macro BL_GFF_INDEX_SET_END(), which performs
- *      this function with no data verification or function call overhead.
- *      Use the macro version to maximize performance where the validity
- *      of new_end is guaranteed by other means.
+ *      by new_end to bl_gff_index_ptr->end.
  *
  *  Arguments:
  *      bl_gff_index_ptr Pointer to the structure to set
@@ -779,7 +762,8 @@ int     bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint
  *      uint64_t *      new_end;
  *      size_t          array_size;
  *
- *      if ( bl_gff_index_set_end_cpy(&bl_gff_index, new_end, array_size) == BL_GFF_INDEX_DATA_OK )
+ *      if ( bl_gff_index_set_end_cpy(&bl_gff_index, new_end, array_size)
+ *              == BL_GFF_INDEX_DATA_OK )
  *      {
  *      }
  *
@@ -791,7 +775,11 @@ int     bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint
  *  2022-02-07  gen-get-set Auto-generated from gff-index.h
  ***************************************************************************/
 
-int     bl_gff_index_set_end_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t * new_end, size_t array_size)
+int     bl_gff_index_set_end_cpy(
+	    bl_gff_index_t *bl_gff_index_ptr,
+	    uint64_t * new_end,
+	    size_t array_size
+	)
 
 {
     if ( new_end == NULL )

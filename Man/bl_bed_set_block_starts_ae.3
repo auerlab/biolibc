@@ -14,7 +14,15 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
-int     bl_bed_set_block_starts_ae(bl_bed_t *bl_bed_ptr, size_t c, uint64_t  new_block_starts_element)
+.nf
+.na
+int     bl_bed_set_block_starts_ae(
+            bl_bed_t *bl_bed_ptr,
+            size_t c,
+            uint64_t  new_block_starts_element
+            )
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -28,13 +36,8 @@ new_block_starts_element The new value for block_starts[c]
 .SH DESCRIPTION
 
 Mutator for an array element of block_starts member in a bl_bed_t
-structure. Use this function to set an element of the array
-block_starts in a bl_bed_t variable from non-member functions.
-
-Note that there is an equivalent macro BL_BED_SET_BLOCK_STARTS_AE(), which performs
-this function with no data verification or function call overhead.
-Use the macro version to maximize performance where the validity
-of new_block_starts_element is guaranteed by other means.
+structure. Use this function to set bl_bed_ptr->block_starts[c]
+in a bl_bed_t object from non-member functions.
 
 .SH RETURN VALUES
 
@@ -49,7 +52,8 @@ bl_bed_t        bl_bed;
 size_t          c;
 uint64_t *      new_block_starts_element;
 
-if ( bl_bed_set_block_starts(&bl_bed, c, new_block_starts_element) == BL_BED_DATA_OK )
+if ( bl_bed_set_block_starts_ae(&bl_bed, c, new_block_starts_element)
+        == BL_BED_DATA_OK )
 {
 }
 .ad
