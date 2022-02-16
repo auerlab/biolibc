@@ -111,6 +111,17 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *  Description:
  *      Read next feature (line) from a GFF file.
  *
+ *      gff_feature must be initialized using BL_GFF_INIT or bl_gff_init()
+ *      before being passed to this function.
+ *
+ *      bl_gff_read() will allocate memory for string fields as needed.
+ *      The object should be passed to bl_gff_free() as soon as possible
+ *      after the data are no longer needed.
+ *
+ *      If passed an object that is not in an initialized state,
+ *      bl_gff_read() will free and initialize it before repopulating it
+ *      with a new feature.
+ *
  *      If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in gff_feature.
  *      That field in the structure is then populated with an appropriate
@@ -180,6 +191,14 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     else if ( ch != EOF )
 	ungetc(ch, gff_stream);
 
+    // Use this as a model for other _read() functions?
+    // Makes reusing a structure easy without risk of memory leaks
+    if ( gff_feature->attributes != NULL )
+    {
+	bl_gff_free(gff_feature);
+	bl_gff_init(gff_feature);
+    }
+    
     gff_feature->file_pos = ftell(gff_stream);
     
     // 1 Chromosome
@@ -582,4 +601,47 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
 	}
     }
     return attribute;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Initialize a bl_gff_t object, setting all fields to sentinel
+ *      values such as 0, NULL, or '.' as appropriate.  Note that bl_gff_t
+ *      objects defined as structures, not pointers to structures, can
+ *      also be initialized with the BL_GFF_INIT macro.
+ *  
+ *  Arguments:
+ *      feature     Address of a bl_gff_t structure
+ *
+ *  Examples:
+ *      bl_gff_t    feature1 = BL_GFF_INIT,
+ *                  *feature2;
+ *
+ *      if ( (feature2 = xt_malloc(1, sizeof(*feature2))) != NULL )
+ *          bl_gff_init(feature2);
+ *
+ *  See also:
+ *      bl_gff_read(3), bl_gff_free(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-16  Jason Bacon Begin
+ ***************************************************************************/
+
+void    bl_gff_init(bl_gff_t *feature)
+
+{
+    feature->seqid[0] = feature->source[0] = feature->type[0] = '\0';
+    feature->start = feature->end = 0;
+    feature->score = 0.0;
+    feature->strand = feature->phase = '.';
+    feature->attributes = feature->feature_id = feature->feature_name = NULL;
+    feature->file_pos = 0;
 }
