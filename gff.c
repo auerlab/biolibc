@@ -329,6 +329,11 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 
     // Extract feature ID from attributes
     gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name");
+    if ( gff_feature->feature_name == NULL )
+    {
+	if ( (gff_feature->feature_name = strdup("unnamed")) == NULL )
+	    fprintf(stderr, "bl_gff_read(): Could not strdup() feature_name.\n");
+    }
     return BL_READ_OK;
 }
 
