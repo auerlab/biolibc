@@ -141,7 +141,7 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 	record->seq_len = len;
 
 	if ( last_ch != '\n' )
-	    fprintf(stderr, "bl_fasta_read(): Missing newline at end of qual %s.\n",
+	    fprintf(stderr, "bl_fasta_read(): Missing newline at end of seq %s.\n",
 		    record->qual);
 
 	/* 
