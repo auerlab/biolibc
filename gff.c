@@ -6,6 +6,7 @@
 #include <inttypes.h>       // PRIu64
 #include <xtend/string.h>   // strlcpy() on Linux
 #include <xtend/dsv.h>
+#include <xtend/mem.h>
 #include "gff.h"
 #include "bed.h"
 
@@ -649,4 +650,116 @@ void    bl_gff_init(bl_gff_t *feature)
     feature->strand = feature->phase = '.';
     feature->attributes = feature->feature_id = feature->feature_name = NULL;
     feature->file_pos = 0;
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-23  Jason Bacon Begin
+ ***************************************************************************/
+
+bl_gff_t    *bl_gff_dup(bl_gff_t *feature)
+
+{
+    bl_gff_t    *copy;
+    
+    if ( (copy = xt_malloc(1, sizeof(bl_gff_t))) == NULL )
+    {
+	fprintf(stderr, "%s: Could not allocate new bl_gff_t object.\n",
+		__FUNCTION__);
+	return NULL;
+    }
+    bl_gff_init(copy);
+    return bl_gff_copy(copy, feature);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <>
+ *      -l
+ *
+ *  Description:
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-23  Jason Bacon Begin
+ ***************************************************************************/
+
+bl_gff_t    *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature)
+
+{
+    strlcpy(copy->seqid, feature->seqid, BL_CHROM_MAX_CHARS + 1);
+    strlcpy(copy->source, feature->source, BL_GFF_SOURCE_MAX_CHARS + 1);
+    strlcpy(copy->type, feature->type, BL_GFF_TYPE_MAX_CHARS + 1);
+    copy->start = feature->start;
+    copy->end = feature->end;
+    copy->score = feature->score;
+    copy->strand = feature->strand;
+    copy->phase = feature->phase = '.';
+    
+    if ( (copy->attributes = strdup(feature->attributes)) == NULL )
+    {
+	fprintf(stderr, "%s: Could not allocate attributes.\n", __FUNCTION__);
+	free(copy);
+	return NULL;
+    }
+    
+    if ( feature->feature_id == NULL )
+	copy->feature_id = NULL;
+    else if ( (copy->feature_id = strdup(feature->feature_id)) == NULL )
+    {
+	fprintf(stderr, "%s: Could not allocate attributes.\n", __FUNCTION__);
+	free(copy);
+	return NULL;
+    }
+
+    if ( feature->feature_name == NULL )
+	copy->feature_name = NULL;
+    else if ( (copy->feature_name = strdup(feature->feature_name)) == NULL )
+    {
+	fprintf(stderr, "%s: Could not allocate attributes.\n", __FUNCTION__);
+	free(copy->feature_id);
+	free(copy);
+	return NULL;
+    }
+    
+    copy->file_pos = feature->file_pos;
+    
+    return copy;
 }
