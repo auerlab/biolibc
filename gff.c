@@ -644,7 +644,8 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
 void    bl_gff_init(bl_gff_t *feature)
 
 {
-    feature->seqid[0] = feature->source[0] = feature->type[0] = '\0';
+    feature->seqid[0] = feature->source[0] = feature->type[0] = '.';
+    feature->seqid[1] = feature->source[1] = feature->type[1] = '\0';
     feature->start = feature->end = 0;
     feature->score = 0.0;
     feature->strand = feature->phase = '.';
