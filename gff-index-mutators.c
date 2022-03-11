@@ -484,7 +484,7 @@ int     bl_gff_index_set_seqid_cpy(
  *
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
- *      uint64_t *      new_start;
+ *      int64_t *      new_start;
  *
  *      if ( bl_gff_index_set_start(&bl_gff_index, new_start)
  *              == BL_GFF_INDEX_DATA_OK )
@@ -501,7 +501,7 @@ int     bl_gff_index_set_seqid_cpy(
 
 int     bl_gff_index_set_start(
 	    bl_gff_index_t *bl_gff_index_ptr,
-	    uint64_t * new_start
+	    int64_t * new_start
 	)
 
 {
@@ -537,7 +537,7 @@ int     bl_gff_index_set_start(
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
  *      size_t          c;
- *      uint64_t *      new_start_element;
+ *      int64_t *      new_start_element;
  *
  *      if ( bl_gff_index_set_start_ae(&bl_gff_index, c, new_start_element)
  *              == BL_GFF_INDEX_DATA_OK )
@@ -555,7 +555,7 @@ int     bl_gff_index_set_start(
 int     bl_gff_index_set_start_ae(
 	    bl_gff_index_t *bl_gff_index_ptr,
 	    size_t c,
-	    uint64_t  new_start_element
+	    int64_t  new_start_element
 	)
 
 {
@@ -591,7 +591,7 @@ int     bl_gff_index_set_start_ae(
  *
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
- *      uint64_t *      new_start;
+ *      int64_t *      new_start;
  *      size_t          array_size;
  *
  *      if ( bl_gff_index_set_start_cpy(&bl_gff_index, new_start, array_size)
@@ -609,7 +609,7 @@ int     bl_gff_index_set_start_ae(
 
 int     bl_gff_index_set_start_cpy(
 	    bl_gff_index_t *bl_gff_index_ptr,
-	    uint64_t * new_start,
+	    int64_t * new_start,
 	    size_t array_size
 	)
 
@@ -652,7 +652,7 @@ int     bl_gff_index_set_start_cpy(
  *
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
- *      uint64_t *      new_end;
+ *      int64_t *      new_end;
  *
  *      if ( bl_gff_index_set_end(&bl_gff_index, new_end)
  *              == BL_GFF_INDEX_DATA_OK )
@@ -669,7 +669,7 @@ int     bl_gff_index_set_start_cpy(
 
 int     bl_gff_index_set_end(
 	    bl_gff_index_t *bl_gff_index_ptr,
-	    uint64_t * new_end
+	    int64_t * new_end
 	)
 
 {
@@ -705,7 +705,7 @@ int     bl_gff_index_set_end(
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
  *      size_t          c;
- *      uint64_t *      new_end_element;
+ *      int64_t *      new_end_element;
  *
  *      if ( bl_gff_index_set_end_ae(&bl_gff_index, c, new_end_element)
  *              == BL_GFF_INDEX_DATA_OK )
@@ -723,7 +723,7 @@ int     bl_gff_index_set_end(
 int     bl_gff_index_set_end_ae(
 	    bl_gff_index_t *bl_gff_index_ptr,
 	    size_t c,
-	    uint64_t  new_end_element
+	    int64_t  new_end_element
 	)
 
 {
@@ -759,7 +759,7 @@ int     bl_gff_index_set_end_ae(
  *
  *  Examples:
  *      bl_gff_index_t  bl_gff_index;
- *      uint64_t *      new_end;
+ *      int64_t *      new_end;
  *      size_t          array_size;
  *
  *      if ( bl_gff_index_set_end_cpy(&bl_gff_index, new_end, array_size)
@@ -777,7 +777,7 @@ int     bl_gff_index_set_end_ae(
 
 int     bl_gff_index_set_end_cpy(
 	    bl_gff_index_t *bl_gff_index_ptr,
-	    uint64_t * new_end,
+	    int64_t * new_end,
 	    size_t array_size
 	)
 

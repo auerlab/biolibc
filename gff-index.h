@@ -25,8 +25,8 @@ typedef struct
     size_t      count;
     long        *file_pos;  // Return type of ftell()
     char        **seqid;
-    uint64_t    *start;
-    uint64_t    *end;
+    int64_t     *start;
+    int64_t     *end;
 }   bl_gff_index_t;
 
 #include "gff-index-rvs.h"
@@ -34,7 +34,6 @@ typedef struct
 #include "gff-index-mutators.h"
 
 int bl_gff_index_add(bl_gff_index_t *gi, bl_gff_t *feature);
-int bl_gff_index_seek_reverse(bl_gff_index_t *gi, FILE *stream, bl_gff_t *feature, uint64_t gene_count, uint64_t max_nt);
-uint64_t str2u64(const char *str);
+int bl_gff_index_seek_reverse(bl_gff_index_t *gi, FILE *stream, bl_gff_t *feature, int64_t gene_count, int64_t max_nt);
 
 #endif  // _BIOLIBC_GFF_INDEX_H_

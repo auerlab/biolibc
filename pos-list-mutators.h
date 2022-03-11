@@ -16,6 +16,6 @@
 /* temp-pos-list-mutators.c */
 int bl_pos_list_set_array_size(bl_pos_list_t *bl_pos_list_ptr, size_t new_array_size);
 int bl_pos_list_set_count(bl_pos_list_t *bl_pos_list_ptr, size_t new_count);
-int bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, uint64_t *new_positions);
-int bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, uint64_t new_positions_element);
-int bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, uint64_t *new_positions, size_t array_size);
+int bl_pos_list_set_positions(bl_pos_list_t *bl_pos_list_ptr, int64_t *new_positions);
+int bl_pos_list_set_positions_ae(bl_pos_list_t *bl_pos_list_ptr, size_t c, int64_t new_positions_element);
+int bl_pos_list_set_positions_cpy(bl_pos_list_t *bl_pos_list_ptr, int64_t *new_positions, size_t array_size);

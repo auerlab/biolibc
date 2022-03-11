@@ -40,7 +40,7 @@ void    bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size)
 	fputs("Did you forget to initialize it with POS_LIST_INIT?\n", stderr);
 	exit(EX_SOFTWARE);
     }
-    pos_list->positions = xt_malloc(array_size, sizeof(uint64_t));
+    pos_list->positions = xt_malloc(array_size, sizeof(*pos_list->positions));
     if ( pos_list->positions == NULL )
     {
 	fputs("bl_pos_list_allocate(): Could not allocate positions.\n", stderr);
@@ -108,7 +108,7 @@ void    bl_pos_list_free(bl_pos_list_t *pos_list)
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position)
+int     bl_pos_list_add_position(bl_pos_list_t *pos_list, int64_t position)
 
 {
     if ( pos_list->count == pos_list->array_size )
@@ -161,7 +161,7 @@ int     bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
 {
     char        *copy, *p, *token, *end;
     size_t      c;
-    uint64_t    position;
+    int64_t    position;
     
     if ( (copy = strdup(bounds_str)) == NULL )
     {
@@ -183,7 +183,7 @@ int     bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
 
 
 /***************************************************************************
- *  Compare two uint64_t values for sort functions.  Difference may
+ *  Compare two int64_t values for sort functions.  Difference may
  *  exceed the range of an int, so don't just subtract.
  *
  *  History: 
@@ -191,7 +191,7 @@ int     bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str,
  *  2021-04-17  Jason Bacon Begin
  ***************************************************************************/
 
-int     position_cmp_ascending(const uint64_t *pos1, const uint64_t *pos2)
+int     position_cmp_ascending(const int64_t *pos1, const int64_t *pos2)
 
 {
     if ( *pos1 == *pos2 )
@@ -203,7 +203,7 @@ int     position_cmp_ascending(const uint64_t *pos1, const uint64_t *pos2)
 }
 
 
-int     position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2)
+int     position_cmp_descending(const int64_t *pos1, const int64_t *pos2)
 
 {
     return -position_cmp_ascending(pos1, pos2);

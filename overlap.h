@@ -16,11 +16,11 @@
 // 1-based, inclusive at both ends
 typedef struct
 {
-    uint64_t    feature1_len;
-    uint64_t    feature2_len;
-    uint64_t    overlap_start;
-    uint64_t    overlap_end;
-    uint64_t    overlap_len;
+    int64_t    feature1_len;
+    int64_t    feature2_len;
+    int64_t    overlap_start;
+    int64_t    overlap_end;
+    int64_t    overlap_len;
 }   bl_overlap_t;
 
 #include "overlap-rvs.h"
@@ -28,7 +28,7 @@ typedef struct
 #include "overlap-mutators.h"
 
 /* overlap.c */
-int bl_overlap_set_all(bl_overlap_t *overlap, uint64_t feature1_len, uint64_t feature2_len, uint64_t overlap_start, uint64_t overlap_end);
+int bl_overlap_set_all(bl_overlap_t *overlap, int64_t feature1_len, int64_t feature2_len, int64_t overlap_start, int64_t overlap_end);
 int bl_overlap_print(bl_overlap_t *overlap, FILE *stream, char *feature1_name, char *feature2_name);
 
 #endif // _BIOLIBC_OVERLAP_H_

@@ -22,9 +22,9 @@ int bl_gff_index_set_file_pos_cpy(bl_gff_index_t *bl_gff_index_ptr, long *new_fi
 int bl_gff_index_set_seqid(bl_gff_index_t *bl_gff_index_ptr, char **new_seqid);
 int bl_gff_index_set_seqid_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, char *new_seqid_element);
 int bl_gff_index_set_seqid_cpy(bl_gff_index_t *bl_gff_index_ptr, char **new_seqid, size_t array_size);
-int bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, uint64_t *new_start);
-int bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint64_t new_start_element);
-int bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t *new_start, size_t array_size);
-int bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, uint64_t *new_end);
-int bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, uint64_t new_end_element);
-int bl_gff_index_set_end_cpy(bl_gff_index_t *bl_gff_index_ptr, uint64_t *new_end, size_t array_size);
+int bl_gff_index_set_start(bl_gff_index_t *bl_gff_index_ptr, int64_t *new_start);
+int bl_gff_index_set_start_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, int64_t new_start_element);
+int bl_gff_index_set_start_cpy(bl_gff_index_t *bl_gff_index_ptr, int64_t *new_start, size_t array_size);
+int bl_gff_index_set_end(bl_gff_index_t *bl_gff_index_ptr, int64_t *new_end);
+int bl_gff_index_set_end_ae(bl_gff_index_t *bl_gff_index_ptr, size_t c, int64_t new_end_element);
+int bl_gff_index_set_end_cpy(bl_gff_index_t *bl_gff_index_ptr, int64_t *new_end, size_t array_size);

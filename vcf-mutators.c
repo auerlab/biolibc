@@ -1193,7 +1193,7 @@ int     bl_vcf_set_single_sample_cpy(
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
- *      uint64_t        new_pos;
+ *      int64_t        new_pos;
  *
  *      if ( bl_vcf_set_pos(&bl_vcf, new_pos)
  *              == BL_VCF_DATA_OK )
@@ -1210,7 +1210,7 @@ int     bl_vcf_set_single_sample_cpy(
 
 int     bl_vcf_set_pos(
 	    bl_vcf_t *bl_vcf_ptr,
-	    uint64_t new_pos
+	    int64_t new_pos
 	)
 
 {

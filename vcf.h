@@ -44,7 +44,7 @@ typedef struct
 		*info,
 		*format,
 		*single_sample; // Avoid using multi_samples
-    uint64_t    pos;
+    int64_t    pos;
     size_t      info_len,
 		info_max,
 		format_max,
@@ -94,6 +94,6 @@ void bl_vcf_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t 
 vcf_field_mask_t bl_vcf_parse_field_spec(char *spec);
 _Bool bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
 _Bool bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);
-void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chrom, uint64_t previous_pos);
+void bl_vcf_call_out_of_order(bl_vcf_t *vcf_call, char *previous_chrom, int64_t previous_pos);
 
 #endif // _BIOLIBC_VCF_H_

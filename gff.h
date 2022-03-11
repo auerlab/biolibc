@@ -25,7 +25,7 @@ typedef struct
     char            seqid[BL_CHROM_MAX_CHARS + 1];
     char            source[BL_GFF_SOURCE_MAX_CHARS + 1];
     char            type[BL_GFF_TYPE_MAX_CHARS + 1];
-    uint64_t        start,
+    int64_t         start,
 		    end;
     double          score;
     char            strand;         // '+' or '-' or '.'

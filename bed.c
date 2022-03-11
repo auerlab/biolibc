@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
-#include <inttypes.h>   // PRIu64
+#include <inttypes.h>   // PRId64
 #include <sys/param.h>  // MAX(), MIN()
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
@@ -495,7 +495,7 @@ int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
     
     // FIXME: Respect field_mask
     // FIXME: Check fprintf() return codes
-    fprintf(bed_stream, "%s\t%" PRIu64 "\t%" PRIu64,
+    fprintf(bed_stream, "%s\t%" PRId64 "\t%" PRId64,
 	    bed_feature->chrom,
 	    bed_feature->chrom_start, bed_feature->chrom_end);
     if ( bed_feature->fields > 3 )
@@ -505,7 +505,7 @@ int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
     if ( bed_feature->fields > 5 )
 	fprintf(bed_stream, "\t%c", bed_feature->strand);
     if ( bed_feature->fields > 6 )
-	fprintf(bed_stream, "\t%" PRIu64 "\t%" PRIu64,
+	fprintf(bed_stream, "\t%" PRId64 "\t%" PRId64,
 		bed_feature->thick_start, bed_feature->thick_end);
     if ( bed_feature->fields > 8 )
 	fprintf(bed_stream, "\t%s", bed_feature->item_rgb);
@@ -513,11 +513,11 @@ int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
     {
 	fprintf(bed_stream, "\t%u\t", bed_feature->block_count);
 	for (c = 0; c < bed_feature->block_count - 1; ++c)
-	    fprintf(bed_stream, "%" PRIu64 ",", bed_feature->block_sizes[c]);
-	fprintf(bed_stream, "%" PRIu64 "\t", bed_feature->block_sizes[c]);
+	    fprintf(bed_stream, "%" PRId64 ",", bed_feature->block_sizes[c]);
+	fprintf(bed_stream, "%" PRId64 "\t", bed_feature->block_sizes[c]);
 	for (c = 0; c < bed_feature->block_count - 1; ++c)
-	    fprintf(bed_stream, "%" PRIu64 ",", bed_feature->block_starts[c]);
-	fprintf(bed_stream, "%" PRIu64, bed_feature->block_starts[c]);
+	    fprintf(bed_stream, "%" PRId64 ",", bed_feature->block_starts[c]);
+	fprintf(bed_stream, "%" PRId64, bed_feature->block_starts[c]);
     }
     putc('\n', bed_stream);
     return BL_WRITE_OK;
@@ -549,7 +549,7 @@ int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
  ***************************************************************************/
 
 void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
-			   uint64_t last_start)
+			   int64_t last_start)
 
 {
     if ( bl_chrom_name_cmp(bed_feature->chrom, last_chrom) == 0 )
@@ -613,7 +613,7 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 
 {
     int         chrom_cmp;
-    uint64_t    bed_start, bed_end, bed_len,
+    int64_t    bed_start, bed_end, bed_len,
 		gff_start, gff_end, gff_len;
     
     chrom_cmp = bl_chrom_name_cmp(BL_BED_CHROM(bed_feature),

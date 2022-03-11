@@ -26,11 +26,11 @@ typedef struct
     char            qname[BL_SAM_QNAME_MAX_CHARS + 1];
     unsigned        flag;
     char            rname[BL_SAM_RNAME_MAX_CHARS + 1];
-    uint64_t        pos;
+    int64_t        pos;
     unsigned char   mapq;
     char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
     char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
-    uint64_t        pnext;
+    int64_t        pnext;
     long            tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it
     char            *qual;  // PHRED scores, same length as seq if present

@@ -45,8 +45,8 @@
  ***************************************************************************/
 
 int     bl_overlap_set_all(bl_overlap_t *overlap,
-			uint64_t feature1_len, uint64_t feature2_len,
-			uint64_t overlap_start, uint64_t overlap_end)
+			int64_t feature1_len, int64_t feature2_len,
+			int64_t overlap_start, int64_t overlap_end)
 
 {
     overlap->feature1_len = feature1_len;
@@ -95,11 +95,11 @@ int     bl_overlap_print(bl_overlap_t *overlap, FILE *stream,
     strlcat(feature1_len, " len", 16);
     strlcpy(feature2_len, feature2_name, 12);
     strlcat(feature2_len, " len", 16);
-    return fprintf(stream, "%-16s: %" PRIu64 "\n"
-	   "%-16s: %" PRIu64 "\n"
-	   "Overlap start   : %" PRIu64 "\n"
-	   "Overlap end     : %" PRIu64 "\n"
-	   "Overlap length  : %" PRIu64 "\n",
+    return fprintf(stream, "%-16s: %" PRId64 "\n"
+	   "%-16s: %" PRId64 "\n"
+	   "Overlap start   : %" PRId64 "\n"
+	   "Overlap end     : %" PRId64 "\n"
+	   "Overlap length  : %" PRId64 "\n",
 	   feature1_len, overlap->feature1_len,
 	   feature2_len, overlap->feature2_len,
 	   overlap->overlap_start, overlap->overlap_end, overlap->overlap_len);

@@ -26,18 +26,18 @@ typedef struct
      *
      *      chr1 0 5
      */
-    uint64_t        chrom_start,
+    int64_t        chrom_start,
 		    chrom_end;
     char            name[BL_BED_NAME_MAX_CHARS + 1];
     unsigned short  score;      // aggs:0:1000
     char            strand;
-    uint64_t        thick_start,
+    int64_t        thick_start,
 		    thick_end;
     // FIXME: Store RGB in a more compact format
     char            item_rgb[BL_BED_ITEM_RGB_MAX_CHARS+1];
     unsigned short  block_count;
-    uint64_t        *block_sizes;
-    uint64_t        *block_starts;
+    int64_t        *block_sizes;
+    int64_t        *block_starts;
 
     // Not part of BED spec
     unsigned short  fields;     // aggs:3:9
@@ -73,7 +73,7 @@ typedef unsigned int            bed_field_mask_t;
 FILE *bl_bed_skip_header(FILE *bed_stream);
 int bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_mask);
 int bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_mask);
-void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], uint64_t last_start);
+void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], int64_t last_start);
 int bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
 
 #endif  // _BIOLIBC_BED_H_

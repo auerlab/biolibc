@@ -20,7 +20,7 @@ typedef struct
 {
     size_t      array_size;
     size_t      count;
-    uint64_t    *positions;
+    int64_t    *positions;
 }   bl_pos_list_t;
 
 typedef int bl_pos_list_sort_order_t;
@@ -35,10 +35,10 @@ typedef int bl_pos_list_sort_order_t;
 /* pos-list.c */
 void bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size);
 void bl_pos_list_free(bl_pos_list_t *pos_list);
-int bl_pos_list_add_position(bl_pos_list_t *pos_list, uint64_t position);
+int bl_pos_list_add_position(bl_pos_list_t *pos_list, int64_t position);
 int bl_pos_list_from_csv(bl_pos_list_t *pos_list, const char *bounds_str, size_t array_size);
-int position_cmp_ascending(const uint64_t *pos1, const uint64_t *pos2);
-int position_cmp_descending(const uint64_t *pos1, const uint64_t *pos2);
+int position_cmp_ascending(const int64_t *pos1, const int64_t *pos2);
+int position_cmp_descending(const int64_t *pos1, const int64_t *pos2);
 void bl_pos_list_sort(bl_pos_list_t *pos_list, bl_pos_list_sort_order_t order);
 
 #endif  // _BIOLIBC_POS_LIST_H_

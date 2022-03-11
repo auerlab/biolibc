@@ -19,13 +19,13 @@ int bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t array_si
 int bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag);
 int bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_element);
 int bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t array_size);
-int bl_sam_set_pos(bl_sam_t *bl_sam_ptr, uint64_t new_pos);
+int bl_sam_set_pos(bl_sam_t *bl_sam_ptr, int64_t new_pos);
 int bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq);
 int bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_cigar_element);
 int bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char new_cigar[], size_t array_size);
 int bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_element);
 int bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t array_size);
-int bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, uint64_t new_pnext);
+int bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, int64_t new_pnext);
 int bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen);
 int bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char *new_seq);
 int bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_seq_element);

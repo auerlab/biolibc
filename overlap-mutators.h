@@ -14,8 +14,8 @@
  */
 
 /* temp-overlap-mutators.c */
-int bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature1_len);
-int bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_feature2_len);
-int bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_start);
-int bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_end);
-int bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, uint64_t new_overlap_len);
+int bl_overlap_set_feature1_len(bl_overlap_t *bl_overlap_ptr, int64_t new_feature1_len);
+int bl_overlap_set_feature2_len(bl_overlap_t *bl_overlap_ptr, int64_t new_feature2_len);
+int bl_overlap_set_overlap_start(bl_overlap_t *bl_overlap_ptr, int64_t new_overlap_start);
+int bl_overlap_set_overlap_end(bl_overlap_t *bl_overlap_ptr, int64_t new_overlap_end);
+int bl_overlap_set_overlap_len(bl_overlap_t *bl_overlap_ptr, int64_t new_overlap_len);

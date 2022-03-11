@@ -148,25 +148,25 @@ int     bl_gff_index_add(bl_gff_index_t *gi, bl_gff_t *feature)
  ***************************************************************************/
 
 int     bl_gff_index_seek_reverse(bl_gff_index_t *gi, FILE *stream,
-	    bl_gff_t *feature, uint64_t feature_count, uint64_t max_nt)
+	    bl_gff_t *feature, int64_t feature_count, int64_t max_nt)
 
 {
     ssize_t     c;
     char        *ref_seqid = BL_GFF_SEQID(feature);
-    uint64_t    ref_start = BL_GFF_START(feature),
-		end = MIN((int64_t)ref_start - max_nt, 0),
+    int64_t     ref_start = BL_GFF_START(feature),
+		end = MAX(ref_start - max_nt, 0),
 		f;
 
     // First find the reference feature where the search begins
-    for (c = gi->count - 1; ((int64_t)c >= 0) &&
+    for (c = gi->count - 1; (c >= 0) &&
 			    (gi->start[c] != ref_start) &&
 			    (strcmp(gi->seqid[c], ref_seqid) != 0); --c)
 	;
     
     // Now back up feature_count features or to the leftmost feature
     // overlapping with the ref feature start - max_nt
-    for (f = feature_count; ((int64_t)f > 0) &&
-			    ((int64_t)c > 0) &&
+    for (f = feature_count; (f > 0) &&
+			    (c > 0) &&
 			    (strcmp(gi->seqid[c], ref_seqid) == 0) &&
 			    (gi->end[c] > end); --f, --c)
 	;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sysexits.h>
 #include <stdbool.h>
-#include <inttypes.h>       // PRIu64
+#include <inttypes.h>       // PRId64
 #include <xtend/string.h>   // strlcpy() on Linux
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
@@ -409,12 +409,12 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
 	printed += fprintf(gff_stream, "\t.");
 
     if ( field_mask & BL_GFF_FIELD_START )
-	printed += fprintf(gff_stream, "\t%" PRIu64, gff_feature->start);
+	printed += fprintf(gff_stream, "\t%" PRId64, gff_feature->start);
     else
 	printed += fprintf(gff_stream, "\t-1");
     
     if ( field_mask & BL_GFF_FIELD_END )
-	printed += fprintf(gff_stream, "\t%" PRIu64, gff_feature->end);
+	printed += fprintf(gff_stream, "\t%" PRId64, gff_feature->end);
     else
 	printed += fprintf(gff_stream, "\t-1");
     
@@ -440,7 +440,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     putc('\n', gff_stream);
     */
     fprintf(gff_stream,
-	"%s\t%s\t%s\t%" PRIu64 "\t%" PRIu64 "\t%f\t%c\t%c\t%s\n",
+	"%s\t%s\t%s\t%" PRId64 "\t%" PRId64 "\t%f\t%c\t%c\t%s\n",
 	gff_feature->seqid, gff_feature->source, gff_feature->type,
 	gff_feature->start, gff_feature->end, gff_feature->score,
 	gff_feature->strand, gff_feature->phase, gff_feature->attributes);

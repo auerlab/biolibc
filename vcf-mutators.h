@@ -35,7 +35,7 @@ int bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char *new_format, size_t array_s
 int bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char *new_single_sample);
 int bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_single_sample_element);
 int bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char *new_single_sample, size_t array_size);
-int bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, uint64_t new_pos);
+int bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, int64_t new_pos);
 int bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len);
 int bl_vcf_set_info_max(bl_vcf_t *bl_vcf_ptr, size_t new_info_max);
 int bl_vcf_set_format_max(bl_vcf_t *bl_vcf_ptr, size_t new_format_max);

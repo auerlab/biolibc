@@ -6,11 +6,11 @@
 #endif
 
 #ifndef _SYS_STDINT_H_
-#include <stdint.h>         // uint64_t
+#include <stdint.h>         // int64_t
 #endif
 
 #ifndef _INTTYPES_H_
-#include <inttypes.h>       // PRIu64
+#include <inttypes.h>       // PRId64
 #endif
 
 #define BL_READ_OK              0

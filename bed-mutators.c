@@ -148,7 +148,7 @@ int     bl_bed_set_chrom_cpy(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t        new_chrom_start;
+ *      int64_t        new_chrom_start;
  *
  *      if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start)
  *              == BL_BED_DATA_OK )
@@ -165,7 +165,7 @@ int     bl_bed_set_chrom_cpy(
 
 int     bl_bed_set_chrom_start(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t new_chrom_start
+	    int64_t new_chrom_start
 	)
 
 {
@@ -203,7 +203,7 @@ int     bl_bed_set_chrom_start(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t        new_chrom_end;
+ *      int64_t        new_chrom_end;
  *
  *      if ( bl_bed_set_chrom_end(&bl_bed, new_chrom_end)
  *              == BL_BED_DATA_OK )
@@ -220,7 +220,7 @@ int     bl_bed_set_chrom_start(
 
 int     bl_bed_set_chrom_end(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t new_chrom_end
+	    int64_t new_chrom_end
 	)
 
 {
@@ -478,7 +478,7 @@ int     bl_bed_set_strand(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t        new_thick_start;
+ *      int64_t        new_thick_start;
  *
  *      if ( bl_bed_set_thick_start(&bl_bed, new_thick_start)
  *              == BL_BED_DATA_OK )
@@ -495,7 +495,7 @@ int     bl_bed_set_strand(
 
 int     bl_bed_set_thick_start(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t new_thick_start
+	    int64_t new_thick_start
 	)
 
 {
@@ -533,7 +533,7 @@ int     bl_bed_set_thick_start(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t        new_thick_end;
+ *      int64_t        new_thick_end;
  *
  *      if ( bl_bed_set_thick_end(&bl_bed, new_thick_end)
  *              == BL_BED_DATA_OK )
@@ -550,7 +550,7 @@ int     bl_bed_set_thick_start(
 
 int     bl_bed_set_thick_end(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t new_thick_end
+	    int64_t new_thick_end
 	)
 
 {
@@ -753,7 +753,7 @@ int     bl_bed_set_block_count(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t *      new_block_sizes;
+ *      int64_t *      new_block_sizes;
  *
  *      if ( bl_bed_set_block_sizes(&bl_bed, new_block_sizes)
  *              == BL_BED_DATA_OK )
@@ -770,7 +770,7 @@ int     bl_bed_set_block_count(
 
 int     bl_bed_set_block_sizes(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t * new_block_sizes
+	    int64_t * new_block_sizes
 	)
 
 {
@@ -806,7 +806,7 @@ int     bl_bed_set_block_sizes(
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
- *      uint64_t *      new_block_sizes_element;
+ *      int64_t *      new_block_sizes_element;
  *
  *      if ( bl_bed_set_block_sizes_ae(&bl_bed, c, new_block_sizes_element)
  *              == BL_BED_DATA_OK )
@@ -824,7 +824,7 @@ int     bl_bed_set_block_sizes(
 int     bl_bed_set_block_sizes_ae(
 	    bl_bed_t *bl_bed_ptr,
 	    size_t c,
-	    uint64_t  new_block_sizes_element
+	    int64_t  new_block_sizes_element
 	)
 
 {
@@ -860,7 +860,7 @@ int     bl_bed_set_block_sizes_ae(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t *      new_block_sizes;
+ *      int64_t *      new_block_sizes;
  *      size_t          array_size;
  *
  *      if ( bl_bed_set_block_sizes_cpy(&bl_bed, new_block_sizes, array_size)
@@ -878,7 +878,7 @@ int     bl_bed_set_block_sizes_ae(
 
 int     bl_bed_set_block_sizes_cpy(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t * new_block_sizes,
+	    int64_t * new_block_sizes,
 	    size_t array_size
 	)
 
@@ -921,7 +921,7 @@ int     bl_bed_set_block_sizes_cpy(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t *      new_block_starts;
+ *      int64_t *      new_block_starts;
  *
  *      if ( bl_bed_set_block_starts(&bl_bed, new_block_starts)
  *              == BL_BED_DATA_OK )
@@ -938,7 +938,7 @@ int     bl_bed_set_block_sizes_cpy(
 
 int     bl_bed_set_block_starts(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t * new_block_starts
+	    int64_t * new_block_starts
 	)
 
 {
@@ -974,7 +974,7 @@ int     bl_bed_set_block_starts(
  *  Examples:
  *      bl_bed_t        bl_bed;
  *      size_t          c;
- *      uint64_t *      new_block_starts_element;
+ *      int64_t *      new_block_starts_element;
  *
  *      if ( bl_bed_set_block_starts_ae(&bl_bed, c, new_block_starts_element)
  *              == BL_BED_DATA_OK )
@@ -992,7 +992,7 @@ int     bl_bed_set_block_starts(
 int     bl_bed_set_block_starts_ae(
 	    bl_bed_t *bl_bed_ptr,
 	    size_t c,
-	    uint64_t  new_block_starts_element
+	    int64_t  new_block_starts_element
 	)
 
 {
@@ -1028,7 +1028,7 @@ int     bl_bed_set_block_starts_ae(
  *
  *  Examples:
  *      bl_bed_t        bl_bed;
- *      uint64_t *      new_block_starts;
+ *      int64_t *      new_block_starts;
  *      size_t          array_size;
  *
  *      if ( bl_bed_set_block_starts_cpy(&bl_bed, new_block_starts, array_size)
@@ -1046,7 +1046,7 @@ int     bl_bed_set_block_starts_ae(
 
 int     bl_bed_set_block_starts_cpy(
 	    bl_bed_t *bl_bed_ptr,
-	    uint64_t * new_block_starts,
+	    int64_t * new_block_starts,
 	    size_t array_size
 	)
 

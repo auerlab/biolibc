@@ -38,7 +38,7 @@
  *
  *  Examples:
  *      bl_overlap_t    bl_overlap;
- *      uint64_t        new_feature1_len;
+ *      int64_t        new_feature1_len;
  *
  *      if ( bl_overlap_set_feature1_len(&bl_overlap, new_feature1_len)
  *              == BL_OVERLAP_DATA_OK )
@@ -55,7 +55,7 @@
 
 int     bl_overlap_set_feature1_len(
 	    bl_overlap_t *bl_overlap_ptr,
-	    uint64_t new_feature1_len
+	    int64_t new_feature1_len
 	)
 
 {
@@ -93,7 +93,7 @@ int     bl_overlap_set_feature1_len(
  *
  *  Examples:
  *      bl_overlap_t    bl_overlap;
- *      uint64_t        new_feature2_len;
+ *      int64_t        new_feature2_len;
  *
  *      if ( bl_overlap_set_feature2_len(&bl_overlap, new_feature2_len)
  *              == BL_OVERLAP_DATA_OK )
@@ -110,7 +110,7 @@ int     bl_overlap_set_feature1_len(
 
 int     bl_overlap_set_feature2_len(
 	    bl_overlap_t *bl_overlap_ptr,
-	    uint64_t new_feature2_len
+	    int64_t new_feature2_len
 	)
 
 {
@@ -148,7 +148,7 @@ int     bl_overlap_set_feature2_len(
  *
  *  Examples:
  *      bl_overlap_t    bl_overlap;
- *      uint64_t        new_overlap_start;
+ *      int64_t        new_overlap_start;
  *
  *      if ( bl_overlap_set_overlap_start(&bl_overlap, new_overlap_start)
  *              == BL_OVERLAP_DATA_OK )
@@ -165,7 +165,7 @@ int     bl_overlap_set_feature2_len(
 
 int     bl_overlap_set_overlap_start(
 	    bl_overlap_t *bl_overlap_ptr,
-	    uint64_t new_overlap_start
+	    int64_t new_overlap_start
 	)
 
 {
@@ -203,7 +203,7 @@ int     bl_overlap_set_overlap_start(
  *
  *  Examples:
  *      bl_overlap_t    bl_overlap;
- *      uint64_t        new_overlap_end;
+ *      int64_t        new_overlap_end;
  *
  *      if ( bl_overlap_set_overlap_end(&bl_overlap, new_overlap_end)
  *              == BL_OVERLAP_DATA_OK )
@@ -220,7 +220,7 @@ int     bl_overlap_set_overlap_start(
 
 int     bl_overlap_set_overlap_end(
 	    bl_overlap_t *bl_overlap_ptr,
-	    uint64_t new_overlap_end
+	    int64_t new_overlap_end
 	)
 
 {
@@ -258,7 +258,7 @@ int     bl_overlap_set_overlap_end(
  *
  *  Examples:
  *      bl_overlap_t    bl_overlap;
- *      uint64_t        new_overlap_len;
+ *      int64_t        new_overlap_len;
  *
  *      if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len)
  *              == BL_OVERLAP_DATA_OK )
@@ -275,7 +275,7 @@ int     bl_overlap_set_overlap_end(
 
 int     bl_overlap_set_overlap_len(
 	    bl_overlap_t *bl_overlap_ptr,
-	    uint64_t new_overlap_len
+	    int64_t new_overlap_len
 	)
 
 {

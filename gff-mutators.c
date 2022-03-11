@@ -368,7 +368,7 @@ int     bl_gff_set_type_cpy(
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
- *      uint64_t        new_start;
+ *      int64_t        new_start;
  *
  *      if ( bl_gff_set_start(&bl_gff, new_start)
  *              == BL_GFF_DATA_OK )
@@ -385,7 +385,7 @@ int     bl_gff_set_type_cpy(
 
 int     bl_gff_set_start(
 	    bl_gff_t *bl_gff_ptr,
-	    uint64_t new_start
+	    int64_t new_start
 	)
 
 {
@@ -423,7 +423,7 @@ int     bl_gff_set_start(
  *
  *  Examples:
  *      bl_gff_t        bl_gff;
- *      uint64_t        new_end;
+ *      int64_t        new_end;
  *
  *      if ( bl_gff_set_end(&bl_gff, new_end)
  *              == BL_GFF_DATA_OK )
@@ -440,7 +440,7 @@ int     bl_gff_set_start(
 
 int     bl_gff_set_end(
 	    bl_gff_t *bl_gff_ptr,
-	    uint64_t new_end
+	    int64_t new_end
 	)
 
 {

@@ -20,8 +20,8 @@ int bl_gff_set_source_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_source_element
 int bl_gff_set_source_cpy(bl_gff_t *bl_gff_ptr, char new_source[], size_t array_size);
 int bl_gff_set_type_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_type_element);
 int bl_gff_set_type_cpy(bl_gff_t *bl_gff_ptr, char new_type[], size_t array_size);
-int bl_gff_set_start(bl_gff_t *bl_gff_ptr, uint64_t new_start);
-int bl_gff_set_end(bl_gff_t *bl_gff_ptr, uint64_t new_end);
+int bl_gff_set_start(bl_gff_t *bl_gff_ptr, int64_t new_start);
+int bl_gff_set_end(bl_gff_t *bl_gff_ptr, int64_t new_end);
 int bl_gff_set_score(bl_gff_t *bl_gff_ptr, double new_score);
 int bl_gff_set_strand(bl_gff_t *bl_gff_ptr, char new_strand);
 int bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase);

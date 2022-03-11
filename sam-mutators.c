@@ -313,7 +313,7 @@ int     bl_sam_set_rname_cpy(
  *
  *  Examples:
  *      bl_sam_t        bl_sam;
- *      uint64_t        new_pos;
+ *      int64_t        new_pos;
  *
  *      if ( bl_sam_set_pos(&bl_sam, new_pos)
  *              == BL_SAM_DATA_OK )
@@ -330,7 +330,7 @@ int     bl_sam_set_rname_cpy(
 
 int     bl_sam_set_pos(
 	    bl_sam_t *bl_sam_ptr,
-	    uint64_t new_pos
+	    int64_t new_pos
 	)
 
 {
@@ -643,7 +643,7 @@ int     bl_sam_set_rnext_cpy(
  *
  *  Examples:
  *      bl_sam_t        bl_sam;
- *      uint64_t        new_pnext;
+ *      int64_t        new_pnext;
  *
  *      if ( bl_sam_set_pnext(&bl_sam, new_pnext)
  *              == BL_SAM_DATA_OK )
@@ -660,7 +660,7 @@ int     bl_sam_set_rnext_cpy(
 
 int     bl_sam_set_pnext(
 	    bl_sam_t *bl_sam_ptr,
-	    uint64_t new_pnext
+	    int64_t new_pnext
 	)
 
 {

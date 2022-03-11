@@ -148,7 +148,7 @@ int     bl_pos_list_set_count(
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
- *      uint64_t *      new_positions;
+ *      int64_t *      new_positions;
  *
  *      if ( bl_pos_list_set_positions(&bl_pos_list, new_positions)
  *              == BL_POS_LIST_DATA_OK )
@@ -165,7 +165,7 @@ int     bl_pos_list_set_count(
 
 int     bl_pos_list_set_positions(
 	    bl_pos_list_t *bl_pos_list_ptr,
-	    uint64_t * new_positions
+	    int64_t * new_positions
 	)
 
 {
@@ -201,7 +201,7 @@ int     bl_pos_list_set_positions(
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
  *      size_t          c;
- *      uint64_t *      new_positions_element;
+ *      int64_t *      new_positions_element;
  *
  *      if ( bl_pos_list_set_positions_ae(&bl_pos_list, c, new_positions_element)
  *              == BL_POS_LIST_DATA_OK )
@@ -219,7 +219,7 @@ int     bl_pos_list_set_positions(
 int     bl_pos_list_set_positions_ae(
 	    bl_pos_list_t *bl_pos_list_ptr,
 	    size_t c,
-	    uint64_t  new_positions_element
+	    int64_t  new_positions_element
 	)
 
 {
@@ -255,7 +255,7 @@ int     bl_pos_list_set_positions_ae(
  *
  *  Examples:
  *      bl_pos_list_t   bl_pos_list;
- *      uint64_t *      new_positions;
+ *      int64_t *      new_positions;
  *      size_t          array_size;
  *
  *      if ( bl_pos_list_set_positions_cpy(&bl_pos_list, new_positions, array_size)
@@ -273,7 +273,7 @@ int     bl_pos_list_set_positions_ae(
 
 int     bl_pos_list_set_positions_cpy(
 	    bl_pos_list_t *bl_pos_list_ptr,
-	    uint64_t * new_positions,
+	    int64_t * new_positions,
 	    size_t array_size
 	)
 

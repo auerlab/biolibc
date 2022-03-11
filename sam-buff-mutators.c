@@ -426,7 +426,7 @@ int     bl_sam_buff_set_max_count(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_previous_pos;
+ *      int64_t        new_previous_pos;
  *
  *      if ( bl_sam_buff_set_previous_pos(&bl_sam_buff, new_previous_pos)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -443,7 +443,7 @@ int     bl_sam_buff_set_max_count(
 
 int     bl_sam_buff_set_previous_pos(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_previous_pos
+	    int64_t new_previous_pos
 	)
 
 {
@@ -591,7 +591,7 @@ int     bl_sam_buff_set_previous_rname_cpy(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_mapq_min;
+ *      int64_t        new_mapq_min;
  *
  *      if ( bl_sam_buff_set_mapq_min(&bl_sam_buff, new_mapq_min)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -608,7 +608,7 @@ int     bl_sam_buff_set_previous_rname_cpy(
 
 int     bl_sam_buff_set_mapq_min(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_mapq_min
+	    int64_t new_mapq_min
 	)
 
 {
@@ -646,7 +646,7 @@ int     bl_sam_buff_set_mapq_min(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_mapq_low;
+ *      int64_t        new_mapq_low;
  *
  *      if ( bl_sam_buff_set_mapq_low(&bl_sam_buff, new_mapq_low)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -663,7 +663,7 @@ int     bl_sam_buff_set_mapq_min(
 
 int     bl_sam_buff_set_mapq_low(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_mapq_low
+	    int64_t new_mapq_low
 	)
 
 {
@@ -701,7 +701,7 @@ int     bl_sam_buff_set_mapq_low(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_mapq_high;
+ *      int64_t        new_mapq_high;
  *
  *      if ( bl_sam_buff_set_mapq_high(&bl_sam_buff, new_mapq_high)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -718,7 +718,7 @@ int     bl_sam_buff_set_mapq_low(
 
 int     bl_sam_buff_set_mapq_high(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_mapq_high
+	    int64_t new_mapq_high
 	)
 
 {
@@ -756,7 +756,7 @@ int     bl_sam_buff_set_mapq_high(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_mapq_sum;
+ *      int64_t        new_mapq_sum;
  *
  *      if ( bl_sam_buff_set_mapq_sum(&bl_sam_buff, new_mapq_sum)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -773,7 +773,7 @@ int     bl_sam_buff_set_mapq_high(
 
 int     bl_sam_buff_set_mapq_sum(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_mapq_sum
+	    int64_t new_mapq_sum
 	)
 
 {
@@ -811,7 +811,7 @@ int     bl_sam_buff_set_mapq_sum(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_reads_used;
+ *      int64_t        new_reads_used;
  *
  *      if ( bl_sam_buff_set_reads_used(&bl_sam_buff, new_reads_used)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -828,7 +828,7 @@ int     bl_sam_buff_set_mapq_sum(
 
 int     bl_sam_buff_set_reads_used(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_reads_used
+	    int64_t new_reads_used
 	)
 
 {
@@ -866,7 +866,7 @@ int     bl_sam_buff_set_reads_used(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_total_alignments;
+ *      int64_t        new_total_alignments;
  *
  *      if ( bl_sam_buff_set_total_alignments(&bl_sam_buff, new_total_alignments)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -883,7 +883,7 @@ int     bl_sam_buff_set_reads_used(
 
 int     bl_sam_buff_set_total_alignments(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_total_alignments
+	    int64_t new_total_alignments
 	)
 
 {
@@ -921,7 +921,7 @@ int     bl_sam_buff_set_total_alignments(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_trailing_alignments;
+ *      int64_t        new_trailing_alignments;
  *
  *      if ( bl_sam_buff_set_trailing_alignments(&bl_sam_buff, new_trailing_alignments)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -938,7 +938,7 @@ int     bl_sam_buff_set_total_alignments(
 
 int     bl_sam_buff_set_trailing_alignments(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_trailing_alignments
+	    int64_t new_trailing_alignments
 	)
 
 {
@@ -976,7 +976,7 @@ int     bl_sam_buff_set_trailing_alignments(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_discarded_alignments;
+ *      int64_t        new_discarded_alignments;
  *
  *      if ( bl_sam_buff_set_discarded_alignments(&bl_sam_buff, new_discarded_alignments)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -993,7 +993,7 @@ int     bl_sam_buff_set_trailing_alignments(
 
 int     bl_sam_buff_set_discarded_alignments(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_discarded_alignments
+	    int64_t new_discarded_alignments
 	)
 
 {
@@ -1031,7 +1031,7 @@ int     bl_sam_buff_set_discarded_alignments(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_discarded_score_sum;
+ *      int64_t        new_discarded_score_sum;
  *
  *      if ( bl_sam_buff_set_discarded_score_sum(&bl_sam_buff, new_discarded_score_sum)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -1048,7 +1048,7 @@ int     bl_sam_buff_set_discarded_alignments(
 
 int     bl_sam_buff_set_discarded_score_sum(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_discarded_score_sum
+	    int64_t new_discarded_score_sum
 	)
 
 {
@@ -1086,7 +1086,7 @@ int     bl_sam_buff_set_discarded_score_sum(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_discarded_trailing;
+ *      int64_t        new_discarded_trailing;
  *
  *      if ( bl_sam_buff_set_discarded_trailing(&bl_sam_buff, new_discarded_trailing)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -1103,7 +1103,7 @@ int     bl_sam_buff_set_discarded_score_sum(
 
 int     bl_sam_buff_set_discarded_trailing(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_discarded_trailing
+	    int64_t new_discarded_trailing
 	)
 
 {
@@ -1141,7 +1141,7 @@ int     bl_sam_buff_set_discarded_trailing(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_min_discarded_score;
+ *      int64_t        new_min_discarded_score;
  *
  *      if ( bl_sam_buff_set_min_discarded_score(&bl_sam_buff, new_min_discarded_score)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -1158,7 +1158,7 @@ int     bl_sam_buff_set_discarded_trailing(
 
 int     bl_sam_buff_set_min_discarded_score(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_min_discarded_score
+	    int64_t new_min_discarded_score
 	)
 
 {
@@ -1196,7 +1196,7 @@ int     bl_sam_buff_set_min_discarded_score(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_max_discarded_score;
+ *      int64_t        new_max_discarded_score;
  *
  *      if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -1213,7 +1213,7 @@ int     bl_sam_buff_set_min_discarded_score(
 
 int     bl_sam_buff_set_max_discarded_score(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_max_discarded_score
+	    int64_t new_max_discarded_score
 	)
 
 {
@@ -1251,7 +1251,7 @@ int     bl_sam_buff_set_max_discarded_score(
  *
  *  Examples:
  *      bl_sam_buff_t   bl_sam_buff;
- *      uint64_t        new_unmapped_alignments;
+ *      int64_t        new_unmapped_alignments;
  *
  *      if ( bl_sam_buff_set_unmapped_alignments(&bl_sam_buff, new_unmapped_alignments)
  *              == BL_SAM_BUFF_DATA_OK )
@@ -1268,7 +1268,7 @@ int     bl_sam_buff_set_max_discarded_score(
 
 int     bl_sam_buff_set_unmapped_alignments(
 	    bl_sam_buff_t *bl_sam_buff_ptr,
-	    uint64_t new_unmapped_alignments
+	    int64_t new_unmapped_alignments
 	)
 
 {
