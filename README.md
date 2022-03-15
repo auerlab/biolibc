@@ -22,10 +22,10 @@ with little or no meaningful error reporting or documentation, and generally
 poor performance.
 
 Biolibc is a collection of high-quality bricks that can be used to build
-efficient, robust software applications in place of disposable scripts.
+efficient, robust software applications to replace disposable scripts.
 Using biolibc, you can easily develop permanent solutions that are easy to
 use and install, with near-optimal performance, so that no one ever need
-reinvent that particular wheel.  Biolibc also facilitates developemtn of
+reinvent that particular wheel.  Biolibc also facilitates development of
 more complex applications by providing many commonly used building blocks,
 thus releasing you from low-level coding.
 
