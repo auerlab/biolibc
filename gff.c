@@ -178,6 +178,11 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     int     delim,
 	    ch;
     
+    // Use this as a model for other _read() functions?
+    // Makes reusing a structure easy without risk of memory leaks
+    if ( gff_feature->attributes != NULL )
+	bl_gff_free(gff_feature);
+    
     // Check for group terminators (Line with just ###)
     // FIXME: Rely on parent ID instead of ###?
     if ( (ch = getc(gff_stream)) == '#' )
@@ -192,27 +197,18 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     else if ( ch != EOF )
 	ungetc(ch, gff_stream);
 
-    // Use this as a model for other _read() functions?
-    // Makes reusing a structure easy without risk of memory leaks
-    if ( gff_feature->attributes != NULL )
-    {
-	bl_gff_free(gff_feature);
-	bl_gff_init(gff_feature);
-    }
-    
     gff_feature->file_pos = ftell(gff_stream);
     
     // 1 Chromosome
     if ( tsv_read_field(gff_stream, gff_feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
-	//fputs("bl_gff_read(): Info: Got EOF reading SEQUENCE, as expected.\n", stderr);
 	return BL_READ_EOF;
     }
     
     // 2 Source
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->source,
-			BL_GFF_TYPE_MAX_CHARS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, gff_feature->source,
+			BL_GFF_SOURCE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading SOURCE: %s.\n",
 		gff_feature->source);
@@ -220,8 +216,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
 
     // 3 Feature
-    if ( (delim = tsv_read_field(gff_stream, gff_feature->type,
-			BL_GFF_TYPE_MAX_CHARS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, gff_feature->type,
+			BL_GFF_TYPE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading feature: %s.\n",
 		gff_feature->type);
@@ -249,8 +245,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
     
     // 5 Feature end position
-    if ( (delim = tsv_read_field(gff_stream, end_str,
-			BL_POSITION_MAX_DIGITS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, end_str,
+			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading end POS: %s.\n",
 		end_str);
@@ -269,8 +265,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
 
     // 6 Score
-    if ( (delim = tsv_read_field(gff_stream, score_str,
-			BL_GFF_SCORE_MAX_DIGITS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, score_str,
+			BL_GFF_SCORE_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading SCORE: %s.\n",
 		score_str);
@@ -285,8 +281,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     
     
     // 7 Strand
-    if ( (delim = tsv_read_field(gff_stream, strand_str,
-			BL_GFF_STRAND_MAX_CHARS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, strand_str,
+			BL_GFF_STRAND_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading STRAND: %s.\n",
 		strand_str);
@@ -296,8 +292,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	gff_feature->strand = *strand_str;
     
     // 8 Phase (bases to start of next codon: 0, 1, or 2. "." if unavailable)
-    if ( (delim = tsv_read_field(gff_stream, phase_str,
-			BL_GFF_PHASE_MAX_DIGITS, &len)) == EOF )
+    if ( tsv_read_field(gff_stream, phase_str,
+			BL_GFF_PHASE_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading PHASE: %s.\n",
 		phase_str);
@@ -314,12 +310,14 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 		temp_attributes);
 	return BL_READ_TRUNCATED;
     }
-    else if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
+    if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
     {
 	fprintf(stderr, "bl_gff_read(): Could not strdup attributes: %s.\n",
 		temp_attributes);
 	return BL_READ_TRUNCATED;
     }
+    //fprintf(stderr, "%s %zu\n", gff_feature->attributes,
+    //        strlen(gff_feature->attributes));
     
     // printf("delim = %u\n", delim);
     if ( delim != '\n' )
@@ -533,19 +531,18 @@ void    bl_gff_free(bl_gff_t *gff_feature)
 {
     if ( gff_feature->attributes != NULL )
     {
+	/*fprintf(stderr, "Freeing %s %p %zu %s\n",
+		gff_feature->type, gff_feature->attributes,
+		strlen(gff_feature->attributes), gff_feature->attributes);
+	fflush(stderr);
+	*/
 	free(gff_feature->attributes);
-	gff_feature->attributes = NULL;
     }
     if ( gff_feature->feature_id != NULL )
-    {
 	free(gff_feature->feature_id);
-	gff_feature->feature_id = NULL;
-    }
     if ( gff_feature->feature_name != NULL )
-    {
 	free(gff_feature->feature_name);
-	gff_feature->feature_name = NULL;
-    }
+    bl_gff_init(gff_feature);
 }
 
 
@@ -747,6 +744,7 @@ bl_gff_t    *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature)
     else if ( (copy->feature_id = strdup(feature->feature_id)) == NULL )
     {
 	fprintf(stderr, "%s: Could not allocate attributes.\n", __FUNCTION__);
+	free(copy->attributes);
 	free(copy);
 	return NULL;
     }
@@ -756,6 +754,7 @@ bl_gff_t    *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature)
     else if ( (copy->feature_name = strdup(feature->feature_name)) == NULL )
     {
 	fprintf(stderr, "%s: Could not allocate attributes.\n", __FUNCTION__);
+	free(copy->attributes);
 	free(copy->feature_id);
 	free(copy);
 	return NULL;

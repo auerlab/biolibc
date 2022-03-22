@@ -5,20 +5,20 @@
 #include "biolibc.h"
 #endif
 
-#define BL_GFF_SCORE_MAX_DIGITS     64       // Floating point
 #define BL_GFF_SOURCE_MAX_CHARS     1024     // Guess
 #define BL_GFF_TYPE_MAX_CHARS       256      // Guess
+#define BL_GFF_SCORE_MAX_DIGITS     64       // Floating point
 #define BL_GFF_STRAND_MAX_CHARS     2
-#define BL_GFF_LINE_MAX_CHARS       4096
+#define BL_GFF_LINE_MAX_CHARS       32768
 #define BL_GFF_PHASE_MAX_DIGITS     2
 #define BL_GFF_ATTRIBUTES_MAX_CHARS 8192     // For temp vars only.
-						// Structure uses malloc()
+					     // Structure uses malloc()
 
 #define BL_GFF_SCORE_UNAVAILABLE    -1.0
 #define BL_GFF_PHASE_UNAVAILABLE    '.'
 
-#define BL_GFF_INIT \
-	{ "", "", "", 0, 0, 0.0, '.', '.', NULL, NULL, NULL }
+//#define BL_GFF_INIT \
+//        { "", "", "", 0, 0, 0.0, '.', '.', NULL, NULL, NULL }
 
 typedef struct
 {
@@ -40,7 +40,8 @@ typedef struct
     char            *feature_name;  // Extract from gene features and look
 				    // up using Ensemble ID for others
 
-    long            file_pos;       // Offset in the GFF file
+    // Offset of the feature in the GFF file for indexing
+    long            file_pos;
 }   bl_gff_t;
 
 typedef unsigned int            gff_field_mask_t;
