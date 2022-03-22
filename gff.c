@@ -591,7 +591,8 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
 	    *val_start,
 	    *end;
     size_t  len = strlen(attr_name);
-    
+
+    // Find attribute beginning with "attr_name="
     for (start = gff_feature->attributes; (*start != '\0'); ++start)
     {
 	if ( (memcmp(start, attr_name, len) == 0) && (start[len] == '=') )
