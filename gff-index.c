@@ -129,8 +129,7 @@ int     bl_gff_index_add(bl_gff_index_t *gi, bl_gff_t *feature)
  *      max_nt          Maximum number of nucleotides to back up
  *
  *  Returns:
- *      The offset into stream of the feature moved to.  This is only
- *      informative, since the fseek() operation has already been done.
+ *      The return value of fseek(), i.e. 0 upon success, -1 on error
  *
  *  Examples:
  *      bl_gff_index_t  gi;
