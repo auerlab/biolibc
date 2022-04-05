@@ -5,6 +5,7 @@
 #include <xtend/string.h>      // strlcpy() on Linux
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
+#include <xtend/file.h>
 #include "sam.h"
 #include "biolibc.h"
 
@@ -62,7 +63,6 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 
 {
     char    mapq_str[BL_SAM_MAPQ_MAX_CHARS + 1],
-	    temp_seq_or_qual[BL_SAM_SEQ_MAX_CHARS + 1],
 	    pos_str[BL_POSITION_MAX_DIGITS + 1],
 	    flag_str[BL_SAM_FLAG_MAX_DIGITS + 1],
 	    *end;
@@ -272,8 +272,8 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     
     // 10 SEQ
     if ( field_mask & BL_SAM_FIELD_SEQ )
-	delim = tsv_read_field(sam_stream, temp_seq_or_qual, BL_SAM_SEQ_MAX_CHARS,
-			       &sam_alignment->seq_len);
+	delim = tsv_read_field_malloc(sam_stream, &sam_alignment->seq,
+		    &sam_alignment->seq_array_size, &sam_alignment->seq_len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -282,7 +282,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading seq: %s.\n",
-		temp_seq_or_qual);
+		sam_alignment->seq);
 	return BL_READ_TRUNCATED;
     }
 
@@ -298,13 +298,13 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	memcpy(sam_alignment->seq, temp_seq_or_qual, sam_alignment->seq_len + 1);
     }
     
     // 11 QUAL, should be last field
     if ( field_mask & BL_SAM_FIELD_QUAL )
-	delim = tsv_read_field(sam_stream, temp_seq_or_qual, BL_SAM_SEQ_MAX_CHARS,
-			       &sam_alignment->qual_len);
+	delim = tsv_read_field_malloc(sam_stream, &sam_alignment->qual,
+		    &sam_alignment->qual_array_size,
+		    &sam_alignment->qual_len);
     else
     {
 	delim = tsv_skip_field(sam_stream);
@@ -313,7 +313,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading qual: %s.\n",
-		temp_seq_or_qual);
+		sam_alignment->qual);
 	return BL_READ_TRUNCATED;
     }
 
@@ -329,8 +329,6 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 		exit(EX_UNAVAILABLE);
 	    }
 	}
-	memcpy(sam_alignment->qual, temp_seq_or_qual,
-	       sam_alignment->qual_len + 1);
     
 	if ( (sam_alignment->qual_len != 1) &&
 	     (sam_alignment->seq_len != sam_alignment->qual_len) )
@@ -469,8 +467,7 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
-			   sam_field_mask_t field_mask)
+void    bl_sam_init(bl_sam_t *sam_alignment)
 
 {
     *sam_alignment->qname = '\0';
@@ -482,32 +479,12 @@ void    bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len,
     *sam_alignment->rnext = '\0';
     sam_alignment->pnext = 0;
     sam_alignment->tlen = 0;
-    if ( seq_len == 0 )
-    {
-	sam_alignment->seq = NULL;
-	sam_alignment->qual = NULL;
-    }
-    else
-    {
-	if ( seq_len != 0 )
-	{
-	    if ( (field_mask & BL_SAM_FIELD_SEQ) && 
-		 ((sam_alignment->seq = xt_malloc(seq_len + 1,
-			sizeof(*sam_alignment->seq))) == NULL) )
-	    {
-		fprintf(stderr, "bl_sam_init(): Could not allocate seq.\n");
-		exit(EX_UNAVAILABLE);
-	    }
-	    if ( (field_mask & BL_SAM_FIELD_QUAL) &&
-		 ((sam_alignment->qual = xt_malloc(seq_len + 1,
-			sizeof(*sam_alignment->qual))) == NULL) )
-	    {
-		fprintf(stderr, "bl_sam_init(): Could not allocate qual.\n");
-		exit(EX_UNAVAILABLE);
-	    }
-	}
-    }
-    sam_alignment->seq_len = seq_len;
+    sam_alignment->seq = NULL;
+    sam_alignment->qual = NULL;
+    sam_alignment->seq_array_size = 0;
+    sam_alignment->seq_len = 0;
+    sam_alignment->qual_array_size = 0;
+    sam_alignment->qual_len = 0;
 }
 
 
@@ -575,3 +552,143 @@ int     bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream,
 		    sam_alignment->qual_len);
     return count;
 }
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Open a raw SAM file using fopen() or a gzipped, bzipped, or
+ *      xzipped SAM file or BAM or CRAM file using popen().
+ *      Must be used in conjunction with
+ *      bl_sam_fclose() to ensure that fclose() or pclose() is called where
+ *      appropriate.
+ *
+ *  Arguments:
+ *      filename:   Name of the file to be opened
+ *      mode:       "r" or "w", passed to fopen() or popen()
+ *
+ *  Returns:
+ *      A pointer to the FILE structure or NULL if open failed
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-05  Jason Bacon Derived from xt_fclose()
+ ***************************************************************************/
+
+FILE    *bl_sam_fopen(const char *filename, const char *mode)
+
+{
+    char    *ext = strrchr(filename, '.'),
+	    cmd[XT_CMD_MAX_CHARS + 1];
+    
+    if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
+    {
+	fprintf(stderr, "bl_sam_fopen(): Only \"r\" and \"w\" modes supported.\n");
+	return NULL;
+    }
+    
+    if ( ext == NULL )
+    {
+	fprintf(stderr, "bl_sam_fopen(): No filename extension on %s.\n", filename);
+	return NULL;
+    }
+
+    if ( *mode == 'r' )
+    {
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+// Big Sur zcat requires a .Z extension and CentOS 7 lacks gzcat
+#ifdef __APPLE__
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzcat %s", filename);
+#else
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "zcat %s", filename);
+#endif
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzcat %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( (strcmp(ext, ".bam") == 0) || (strcmp(ext, ".cram") == 0) )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --with-header %s", filename);
+	    return popen(cmd, mode);
+	}
+	else
+	    return fopen(filename, mode);
+    }
+    else    // "w"
+    {
+	if ( strcmp(ext, ".gz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "gzip -c > %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".bz2") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "bzip2 -c > %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".xz") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "xz -c > %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".bam") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --bam %s", filename);
+	    return popen(cmd, mode);
+	}
+	else if ( strcmp(ext, ".cram") == 0 )
+	{
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --cram %s", filename);
+	    return popen(cmd, mode);
+	}
+	else
+	    return fopen(filename, mode);
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <xtend/file.h>
+ *      -lxtend
+ *
+ *  Description:
+ *      Close a FILE stream with fclose() or pclose() as appropriate.
+ *      Automatically determines the proper close function to call using
+ *      S_ISFIFO on the stream stat structure.
+ *
+ *  Arguments:
+ *      stream: The FILE structure to be closed
+ *
+ *  Returns:
+ *      The value returned by fclose() or pclose()
+ *
+ *  See also:
+ *      fopen(3), popen(3), gzip(1), bzip2(1), xz(1)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-05  Jason Bacon Derived from xt_fclose()
+ ***************************************************************************/
+
+int     bl_sam_fclose(FILE *stream)
+
+{
+    return xt_fclose(stream);
+}
+

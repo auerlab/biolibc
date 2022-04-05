@@ -9,16 +9,15 @@
 #include "biolibc.h"
 #endif
 
-#define BL_SAM_MAPQ_MAX_CHARS  3
+#define BL_SAM_MAPQ_MAX_CHARS  5
 #define BL_SAM_QNAME_MAX_CHARS 4096
 #define BL_SAM_RNAME_MAX_CHARS 4096
 #define BL_SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
 #define BL_SAM_CIGAR_MAX_CHARS 4096
-// Usually < 200 for Illumina data, but a few oddballs in SRA CRAMs
-#define BL_SAM_SEQ_MAX_CHARS   1024*1024
 
-// Use this or the function for every new object
-#define BL_SAM_ALIGNMENT_INIT  { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0, 0 }
+// Keep this for initializing static objects, where we don't want to
+// call bl_sam_init() every time.
+#define BL_SAM_INIT { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0, 0, 0, 0 }
 
 typedef struct
 {
@@ -26,18 +25,20 @@ typedef struct
     char            qname[BL_SAM_QNAME_MAX_CHARS + 1];
     unsigned        flag;
     char            rname[BL_SAM_RNAME_MAX_CHARS + 1];
-    int64_t        pos;
+    int64_t         pos;
     unsigned char   mapq;
     char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
     char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
-    int64_t        pnext;
+    int64_t         pnext;
     long            tlen;   // Max size?
     char            *seq;   // This can be large, so malloc() it
     char            *qual;  // PHRED scores, same length as seq if present
     
     /* Additional data */
-    size_t          seq_len;
-    size_t          qual_len;
+    size_t          seq_array_size,
+		    seq_len,
+		    qual_array_size,
+		    qual_len;
 }   bl_sam_t;
 
 typedef unsigned int        sam_field_mask_t;
@@ -63,7 +64,9 @@ typedef unsigned int        sam_field_mask_t;
 int bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
 void bl_sam_copy(bl_sam_t *dest, bl_sam_t *src);
 void bl_sam_free(bl_sam_t *sam_alignment);
-void bl_sam_init(bl_sam_t *sam_alignment, size_t seq_len, sam_field_mask_t field_mask);
+void bl_sam_init(bl_sam_t *sam_alignment);
 int bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
+FILE *bl_sam_fopen(const char *filename, const char *mode);
+int bl_sam_fclose(FILE *stream);
 
 #endif // _BIOLIBC_SAM_H_

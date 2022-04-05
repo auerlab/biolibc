@@ -282,7 +282,7 @@ void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 {
     bl_sam_free(sam_buff->alignments[c]);
-    bl_sam_init(sam_buff->alignments[c], 0, BL_SAM_FIELD_ALL);
+    bl_sam_init(sam_buff->alignments[c]);
     if ( sam_buff->alignments[c] != NULL )
     {
 	free(sam_buff->alignments[c]);
