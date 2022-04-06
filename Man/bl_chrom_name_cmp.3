@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <biolibc/biolibc.h>
+#include <biolibc/biostring.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -14,7 +14,11 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
+.nf
+.na
 int     bl_chrom_name_cmp(const char *name1, const char *name2)
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf

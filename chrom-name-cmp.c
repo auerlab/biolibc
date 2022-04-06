@@ -3,11 +3,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "biolibc.h"
+#include "biostring.h"
 
 /***************************************************************************
  *  Library:
- *      #include <biolibc/biolibc.h>
+ *      #include <biolibc/biostring.h>
  *      -lbiolibc -lxtend
  *
  *  Description:
