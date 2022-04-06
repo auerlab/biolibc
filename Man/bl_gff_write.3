@@ -41,9 +41,9 @@ such as a '.', rather than writing the real data.
 Possible mask values are:
 
 BL_GFF_FIELD_ALL
-BL_GFF_FIELD_SEQUENCE
+BL_GFF_FIELD_SEQID
 BL_GFF_FIELD_SOURCE
-BL_GFF_FIELD_FEATURE
+BL_GFF_FIELD_TYPE
 BL_GFF_FIELD_START
 BL_GFF_FIELD_END
 BL_GFF_FIELD_SCORE
@@ -62,7 +62,7 @@ BL_WRITE_ERROR on failure (errno may provide more information)
 
 bl_gff_write(&gff_feature, stdout, BL_GFF_FIELD_ALL);
 bl_gff_write(&gff_feature, gff_stream,
-    BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+    BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi
 

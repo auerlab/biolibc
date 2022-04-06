@@ -129,9 +129,9 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *      marker, such as '.'.  Possible mask values are:
  *
  *      BL_GFF_FIELD_ALL
- *      BL_GFF_FIELD_SEQUENCE
+ *      BL_GFF_FIELD_SEQID
  *      BL_GFF_FIELD_SOURCE
- *      BL_GFF_FIELD_FEATURE
+ *      BL_GFF_FIELD_TYPE
  *      BL_GFF_FIELD_START
  *      BL_GFF_FIELD_END
  *      BL_GFF_FIELD_SCORE
@@ -150,9 +150,12 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
+ *      bl_gff_skip_header(stdin);
+ *      bl_gff_init(&gff_feature);
+ *
  *      bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
  *      bl_gff_read(&gff_feature, gff_stream,
- *          BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+ *          BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
  *      bl_gff_write(3)
@@ -352,9 +355,9 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *      Possible mask values are:
  *
  *      BL_GFF_FIELD_ALL
- *      BL_GFF_FIELD_SEQUENCE
+ *      BL_GFF_FIELD_SEQID
  *      BL_GFF_FIELD_SOURCE
- *      BL_GFF_FIELD_FEATURE
+ *      BL_GFF_FIELD_TYPE
  *      BL_GFF_FIELD_START
  *      BL_GFF_FIELD_END
  *      BL_GFF_FIELD_SCORE
@@ -374,7 +377,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *  Examples:
  *      bl_gff_write(&gff_feature, stdout, BL_GFF_FIELD_ALL);
  *      bl_gff_write(&gff_feature, gff_stream,
- *          BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+ *          BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
  *      bl_gff_read(3)
@@ -391,7 +394,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     int     printed = 0;
     
     /* FIXME: Fully test and enable this
-    if ( field_mask & BL_GFF_FIELD_SEQUENCE )
+    if ( field_mask & BL_GFF_FIELD_SEQID )
 	printed += fprintf(gff_stream, "%s", gff_feature->seqid);
     else
 	printed += putc('.', gff_stream);
@@ -401,7 +404,7 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     else
 	printed += fprintf(gff_stream, "\t.");
 
-    if ( field_mask & BL_GFF_FIELD_FEATURE )
+    if ( field_mask & BL_GFF_FIELD_TYPE )
 	printed += fprintf(gff_stream, "\t%s", gff_feature->type);
     else
 	printed += fprintf(gff_stream, "\t.");

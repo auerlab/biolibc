@@ -46,9 +46,9 @@ typedef struct
 
 typedef unsigned int            gff_field_mask_t;
 
-#define BL_GFF_FIELD_SEQUENCE   0x001
+#define BL_GFF_FIELD_SEQID      0x001
 #define BL_GFF_FIELD_SOURCE     0x002
-#define BL_GFF_FIELD_FEATURE    0x004
+#define BL_GFF_FIELD_TYPE       0x004
 #define BL_GFF_FIELD_START      0x008
 #define BL_GFF_FIELD_END        0x010
 #define BL_GFF_FIELD_SCORE      0x020

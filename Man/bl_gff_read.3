@@ -34,15 +34,26 @@ field_mask      Bit mask indicating which fields to store in gff_feature
 
 Read next feature (line) from a GFF file.
 
+gff_feature must be initialized using BL_GFF_INIT or bl_gff_init()
+before being passed to this function.
+
+bl_gff_read() will allocate memory for string fields as needed.
+The object should be passed to bl_gff_free() as soon as possible
+after the data are no longer needed.
+
+If passed an object that is not in an initialized state,
+bl_gff_read() will free and initialize it before repopulating it
+with a new feature.
+
 If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
 in the bit mask are discarded rather than stored in gff_feature.
 That field in the structure is then populated with an appropriate
 marker, such as '.'.  Possible mask values are:
 
 BL_GFF_FIELD_ALL
-BL_GFF_FIELD_SEQUENCE
+BL_GFF_FIELD_SEQID
 BL_GFF_FIELD_SOURCE
-BL_GFF_FIELD_FEATURE
+BL_GFF_FIELD_TYPE
 BL_GFF_FIELD_START
 BL_GFF_FIELD_END
 BL_GFF_FIELD_SCORE
@@ -60,9 +71,12 @@ BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
 .nf
 .na
 
+bl_gff_skip_header(stdin);
+bl_gff_init(&gff_feature);
+
 bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
 bl_gff_read(&gff_feature, gff_stream,
-    BL_GFF_FIELD_SEQUENCE|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
+    BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi
 

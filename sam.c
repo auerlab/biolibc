@@ -75,7 +75,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 			BL_SAM_QNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
 	*sam_alignment->qname = '\0';
     }
     if ( delim == EOF )
@@ -85,7 +85,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     if ( field_mask & BL_SAM_FIELD_FLAG )
 	delim = tsv_read_field(sam_stream, flag_str, BL_SAM_FLAG_MAX_DIGITS, &len);
     else
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading flag: %s.\n",
@@ -114,7 +114,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
 	*sam_alignment->rname = '\0';
     }
     if ( delim == EOF )
@@ -129,7 +129,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading pos: %s.\n",
@@ -158,7 +158,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 	delim = tsv_read_field(sam_stream, mapq_str, BL_SAM_MAPQ_MAX_CHARS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading mapq: %s.\n",
@@ -188,7 +188,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 			       BL_SAM_CIGAR_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
 	*sam_alignment->cigar = '\0';
     }
     if ( delim == EOF )
@@ -204,7 +204,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
 	*sam_alignment->rnext = '\0';
     }
     if ( delim == EOF )
@@ -219,7 +219,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading pnext: %s.\n",
@@ -247,7 +247,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading tlen: %s.\n",
@@ -276,7 +276,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 		    &sam_alignment->seq_array_size, &sam_alignment->seq_len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &sam_alignment->seq_len);
 	// sam_alignment->seq = NULL;   Mem leak if allocated elsewhere
     }
     if ( delim == EOF )
@@ -307,7 +307,7 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 		    &sam_alignment->qual_len);
     else
     {
-	delim = tsv_skip_field(sam_stream);
+	delim = tsv_skip_field(sam_stream, &sam_alignment->qual_len);
 	// sam_alignment->qual = NULL; Mem leak if allocated elsewhere
     }
     if ( delim == EOF )

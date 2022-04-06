@@ -140,11 +140,11 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
-	tsv_skip_field(vcf_stream);
+	tsv_skip_field(vcf_stream, &len);
     
     // Skip sample IDs before first_col
     for (c = 1; c < first_col; ++c)
-	tsv_skip_field(vcf_stream);
+	tsv_skip_field(vcf_stream, &len);
     
     for (; (c <= last_col) &&
 	   (delimiter = tsv_read_field(vcf_stream, temp_sample_id,
@@ -239,7 +239,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 			BL_CHROM_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->chrom, ".", 2);
     }
     if ( status == EOF )
@@ -254,7 +254,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 			BL_POSITION_MAX_DIGITS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(pos_str, "0", 2);
     }
     if ( status == EOF )
@@ -281,7 +281,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 			BL_VCF_ID_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->id, ".", 2);
     }
     if ( status == EOF )
@@ -296,7 +296,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 			BL_VCF_REF_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->ref, ".", 2);
     }
     if ( status == EOF )
@@ -311,7 +311,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 		   BL_VCF_ALT_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->alt, ".", 2);
     }
     if ( status == EOF )
@@ -326,7 +326,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 		   BL_VCF_QUAL_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->qual, ".", 2);
     }
     if ( status == EOF )
@@ -341,7 +341,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 		   BL_VCF_FILTER_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->filter, ".", 2);
     }
     if ( status == EOF )
@@ -356,7 +356,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 		   vcf_call->info_max, &vcf_call->info_len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &vcf_call->info_len);
 	vcf_call->info = strdup(".");
 	vcf_call->info_len = 1;
     }
@@ -372,7 +372,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 		   vcf_call->format_max, &vcf_call->format_len);
     else
     {
-	status = tsv_skip_field(vcf_stream);
+	status = tsv_skip_field(vcf_stream, &vcf_call->format_len);
 	strlcpy(vcf_call->format, ".", 2);
 	vcf_call->format_len = 1;
     }
