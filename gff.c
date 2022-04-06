@@ -202,6 +202,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 
     gff_feature->file_pos = ftell(gff_stream);
     
+    // FIXME: Respect field_mask
+    
     // 1 Chromosome
     if ( tsv_read_field(gff_stream, gff_feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
