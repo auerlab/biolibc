@@ -22,15 +22,29 @@
 typedef struct
 {
     /* SAM specification fields.  Meet or exceed published ranges. */
+    // Query template (DNA fragment):
+    // Same name means likely from the same template
     char            qname[BL_SAM_QNAME_MAX_CHARS + 1];
+    
+    // Bit flags indicating mapping results
     unsigned        flag;
+    
+    // Sequence to which mapped (e.g. chromosome)
     char            rname[BL_SAM_RNAME_MAX_CHARS + 1];
     int64_t         pos;
+    
+    // Mapping quality
     unsigned char   mapq;
+    
+    // Alignment report (more detailed info than flag)
     char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
+    
+    // Seq and pos of next read in the template
     char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
     int64_t         pnext;
-    long            tlen;   // Max size?
+    
+    long            tlen;   // Template length.  FIXME: Max size?
+    
     char            *seq;   // This can be large, so malloc() it
     char            *qual;  // PHRED scores, same length as seq if present
     
