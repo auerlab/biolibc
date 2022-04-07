@@ -35,10 +35,12 @@ typedef struct
     
     // Mapping quality
     unsigned char   mapq;
-    
+
+    // Be sure to update bl_sam_free if changed to dynamic allocation
     // Alignment report (more detailed info than flag)
     char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
     
+    // Be sure to update bl_sam_free if changed to dynamic allocation
     // Seq and pos of next read in the template
     char            rnext[BL_SAM_RNAME_MAX_CHARS + 1];
     int64_t         pnext;
@@ -80,7 +82,7 @@ void bl_sam_copy(bl_sam_t *dest, bl_sam_t *src);
 void bl_sam_free(bl_sam_t *sam_alignment);
 void bl_sam_init(bl_sam_t *sam_alignment);
 int bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
-FILE *bl_sam_fopen(const char *filename, const char *mode);
+FILE *bl_sam_fopen(const char *filename, const char *mode, char *samtools_flags);
 int bl_sam_fclose(FILE *stream);
 
 #endif // _BIOLIBC_SAM_H_

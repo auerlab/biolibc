@@ -436,7 +436,6 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
 	free(sam_alignment->seq);
     if ( sam_alignment->qual != NULL )
 	free(sam_alignment->qual);
-    // FIXME: Cigar and rnext?
 }
 
 
@@ -561,14 +560,23 @@ int     bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream,
  *
  *  Description:
  *      Open a raw SAM file using fopen() or a gzipped, bzipped, or
- *      xzipped SAM file or BAM or CRAM file using popen().
- *      Must be used in conjunction with
+ *      xzipped SAM file or BAM or CRAM file using popen().  If the
+ *      file extension is .bam or .cram, or samtools_args is not
+ *      NULL or "", data will be piped through "samtools view" with
+ *      the given samtools_args as arguments.  The flag --with-header
+ *      is always added for consistency with the case of reading a
+ *      raw SAM file without piping through samtools.  Programs that
+ *      don't want the header can filter it out by other means, such
+ *      as bl_sam_skip_header(3).
+ *
+ *      bl_sam_fopen() must be used in conjunction with
  *      bl_sam_fclose() to ensure that fclose() or pclose() is called where
  *      appropriate.
  *
  *  Arguments:
- *      filename:   Name of the file to be opened
- *      mode:       "r" or "w", passed to fopen() or popen()
+ *      filename:       Name of the file to be opened
+ *      mode:           "r" or "w", passed to fopen() or popen()
+ *      samtools_args   Flags to pass to samtools view
  *
  *  Returns:
  *      A pointer to the FILE structure or NULL if open failed
@@ -581,11 +589,15 @@ int     bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream,
  *  2022-04-05  Jason Bacon Derived from xt_fclose()
  ***************************************************************************/
 
-FILE    *bl_sam_fopen(const char *filename, const char *mode)
+FILE    *bl_sam_fopen(const char *filename, const char *mode,
+		      char *samtools_args)
 
 {
     char    *ext = strrchr(filename, '.'),
 	    cmd[XT_CMD_MAX_CHARS + 1];
+    
+    if ( samtools_args == NULL )
+	samtools_args = "";
     
     if ( (strcmp(mode, "r") != 0 ) && (strcmp(mode, "w") != 0) )
     {
@@ -621,9 +633,11 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode)
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "xzcat %s", filename);
 	    return popen(cmd, mode);
 	}
-	else if ( (strcmp(ext, ".bam") == 0) || (strcmp(ext, ".cram") == 0) )
+	else if ( (strcmp(ext, ".bam") == 0) || (strcmp(ext, ".cram") == 0) 
+		  || ! strblank(samtools_args) )
 	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --with-header %s", filename);
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --with-header %s %s",
+		    samtools_args, filename);
 	    return popen(cmd, mode);
 	}
 	else
@@ -648,12 +662,14 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode)
 	}
 	else if ( strcmp(ext, ".bam") == 0 )
 	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --bam %s", filename);
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --bam --with-header %s %s",
+		    samtools_args, filename);
 	    return popen(cmd, mode);
 	}
 	else if ( strcmp(ext, ".cram") == 0 )
 	{
-	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --cram %s", filename);
+	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --cram --with-header %s %s",
+		    samtools_args, filename);
 	    return popen(cmd, mode);
 	}
 	else
