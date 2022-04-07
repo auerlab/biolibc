@@ -17,9 +17,6 @@
 #define BL_GFF_SCORE_UNAVAILABLE    -1.0
 #define BL_GFF_PHASE_UNAVAILABLE    '.'
 
-//#define BL_GFF_INIT \
-//        { "", "", "", 0, 0, 0.0, '.', '.', NULL, NULL, NULL }
-
 typedef struct
 {
     char            seqid[BL_CHROM_MAX_CHARS + 1];
