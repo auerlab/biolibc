@@ -76,7 +76,14 @@ typedef unsigned int        sam_field_mask_t;
 #include "sam-accessors.h"
 #include "sam-mutators.h"
 
+// After bl_sam_t def due to mutual recursion
+#ifndef _BIOLIBC_GFF_H_
+#include "gff.h"
+#endif
+
 /* sam.c */
+FILE *bl_sam_skip_header(FILE *sam_stream);
+int bl_sam_copy_header(FILE *header_stream, FILE *sam_stream);
 int bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
 void bl_sam_copy(bl_sam_t *dest, bl_sam_t *src);
 void bl_sam_free(bl_sam_t *sam_alignment);
@@ -84,5 +91,7 @@ void bl_sam_init(bl_sam_t *sam_alignment);
 int bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream, sam_field_mask_t field_mask);
 FILE *bl_sam_fopen(const char *filename, const char *mode, char *samtools_flags);
 int bl_sam_fclose(FILE *stream);
+int64_t bl_sam_gff_overlap(bl_sam_t *alignment, bl_gff_t *feature);
+int bl_sam_gff_cmp(bl_sam_t *alignment, bl_gff_t *feature);
 
 #endif // _BIOLIBC_SAM_H_

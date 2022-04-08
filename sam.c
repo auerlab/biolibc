@@ -8,6 +8,115 @@
 #include <xtend/file.h>
 #include "sam.h"
 #include "biolibc.h"
+#include "biostring.h"
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Skip over header lines in SAM input stream.  The FILE pointer
+ *      sam_stream is advanced to the first character of the first line
+ *      after the header.  The header is copied to a temporary file and and
+ *      the function returns a FILE pointer to the header stream.
+ *
+ *  Arguments:
+ *      sam_stream  FILE pointer to the open sam file
+ *
+ *  Returns:
+ *      A FILE pointer to a temporary file containing a copy of the header
+ *
+ *  See also:
+ *      bl_sam_read(3), bl_sam_copy_header(3)
+ *  
+ *  Arguments:
+ *
+ *  Returns:
+ *
+ *  Examples:
+ *
+ *  Files:
+ *
+ *  Environment
+ *
+ *  See also:
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-08  Jason Bacon Begin
+ ***************************************************************************/
+
+FILE    *bl_sam_skip_header(FILE *sam_stream)
+
+{
+    int     ch;
+    FILE    *header_stream = tmpfile();
+
+    /*
+     *  Copy header to a nameless temp file and return the FILE *.
+     *  This can be used by tools like peak-classifier to replicate the
+     *  header in output files.
+     */
+    
+    while ( (ch = getc(sam_stream)) == '@' )
+    {
+	putc(ch, header_stream);
+	do
+	{
+	    ch = getc(sam_stream);
+	    putc(ch, header_stream);
+	}   while ( (ch != '\n') && (ch != EOF) );
+    }
+    
+    // Rewind to start of first non-header line
+    if ( ch != EOF )
+	ungetc(ch, sam_stream);
+    rewind(header_stream);
+    return header_stream;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Copy SAM header from one FILE stream to another.  This is meant to
+ *      be used in conjunction with bl_sam_skip_header(), which stores the
+ *      header in a temporary file.
+ *
+ *  Arguments:
+ *      header_stream   Open FILE stream of SAM header
+ *      sam_stream      FILE stream to which header is copied
+ *
+ *  Returns:
+ *      BL_WRITE_OK upon success, BL_WRITE_FAILURE or BL_READ_* on failure
+ *
+ *  See also:
+ *      bl_sam_skip_header(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-02-03  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
+
+{
+    int     ch;
+    
+    rewind(header_stream);
+    while ( (ch = getc(header_stream)) != EOF )
+	if ( putc(ch, sam_stream) == EOF )
+	    return BL_WRITE_FAILURE;
+    rewind(header_stream);
+    return BL_WRITE_OK;
+}
+
 
 /***************************************************************************
  *  Library:
@@ -706,5 +815,102 @@ int     bl_sam_fclose(FILE *stream)
 
 {
     return xt_fclose(stream);
+}
+
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Return the amount of overlap between a GFF feature and a SAM
+ *      alignment.
+ *  
+ *  Arguments:
+ *      alignment   Pointer to a bl_sam_t object
+ *      feature     Pointer to a bl_gff_t object
+ *
+ *  Returns:
+ *      The number of bases of overlap between the feature and alignment.
+ *      A zero or negative return value indicates no overlap.
+ *
+ *  See also:
+ *      bl_gff_sam_overlap(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-07  Jason Bacon Begin
+ ***************************************************************************/
+
+int64_t bl_sam_gff_overlap(bl_sam_t *alignment, bl_gff_t *feature)
+
+{
+    return bl_gff_sam_overlap(feature, alignment);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Compare the positions of a SAM alignment and a GFF feature and
+ *      return a status value much like strcmp().  0 is returned if the
+ *      alignment and feature overlap.  A value < 0 is returned if the
+ *      alignment is entirely "before" the feature, i.e. it is on an
+ *      earlier chromosome according to bl_chrom_name_cmp(3), or on the
+ *      same chromosome at a lower position.  A value > 0 is returned
+ *      if the alignment is entirely "after" the feature, i.e. on a later
+ *      chromosome or same chromosome and higher position.
+ *
+ *      This function is mainly intended for programs that sweep properly
+ *      sorted GFF and SAM files locating overlaps in a single pass.
+ *  
+ *      A converse function, bl_gff_sam_cmp(3) is also provided so that
+ *      the programmer can choose the more intuitive interface.
+ *  
+ *  Arguments:
+ *      alignment   Pointer to a bl_sam_t object
+ *      feature     Pointer to a bl_gff_t object
+ *
+ *  Returns:
+ *      A value < 0 if the the alignment is entirely before the feature
+ *      A value > 0 if the the alignment is entirely after the feature
+ *      0 if the alignment and the feature overlap
+ *
+ *  See also:
+ *      bl_gff_sam_cmp(3), bl_chrom_name_cmp(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-06  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bl_sam_gff_cmp(bl_sam_t *alignment, bl_gff_t *feature)
+
+{
+    int     status = bl_chrom_name_cmp(BL_SAM_RNAME(alignment),
+					    BL_GFF_SEQID(feature));
+    
+    if ( status != 0 )
+	// Different chromosomes
+	return status;
+    else if ( BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) - 1
+		< BL_GFF_START(feature) )
+	// Alignment ends before the start of feature
+	return -1;
+    else if ( BL_SAM_POS(alignment) > BL_GFF_END(feature) )
+	// Alignment starts after the end of feature
+	return 1;
+    else
+	// Overlap
+	return 0;
 }
 

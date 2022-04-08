@@ -4,6 +4,7 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <inttypes.h>       // PRId64
+#include <sys/param.h>      // MIN(), MAX()
 #include <xtend/string.h>   // strlcpy() on Linux
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
@@ -16,7 +17,7 @@
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Skip over header lines in gff input stream.  The FILE pointer
+ *      Skip over header lines in GFF input stream.  The FILE pointer
  *      gff_stream is advanced to the first character of the first line
  *      after the header.  The header is copied to a temporary file and and
  *      the function returns a FILE pointer to the header stream.
@@ -769,3 +770,91 @@ bl_gff_t    *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature)
     
     return copy;
 }
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Compare the positions of a GFF feature and a SAM alignment and
+ *      return a status value much like strcmp().  0 is returned if the
+ *      feature and alignment overlap.  A value < 0 is returned if the
+ *      feature is entirely "before" the alignment, i.e. it is on an
+ *      earlier chromosome according to bl_chrom_name_cmp(3), or on the
+ *      same chromosome at a lower position.  A value > 0 is returned
+ *      if the feature is entirely "after" the alignment, i.e. on a later
+ *      chromosome or same chromosome and higher position.
+ *
+ *      This function is mainly intended for programs that sweep properly
+ *      sorted GFF and SAM files locating overlaps in a single pass.
+ *
+ *      A converse function, bl_sam_gff_cmp(3) is also provided so that
+ *      the programmer can choose the more intuitive interface.
+ *  
+ *  Arguments:
+ *      feature     Pointer to a bl_gff_t object
+ *      alignment   Pointer to a bl_sam_t object
+ *
+ *  Returns:
+ *      A value < 0 if the the feature is entirely before the alignment
+ *      A value > 0 if the the feature is entirely after the alignment
+ *      0 if the feature and the alignment overlap
+ *
+ *  See also:
+ *      bl_gff_sam_cmp(3), bl_chrom_name_cmp(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-06  Jason Bacon Begin
+ ***************************************************************************/
+
+int     bl_gff_sam_cmp(bl_gff_t *feature, bl_sam_t *alignment)
+
+{
+    return -bl_sam_gff_cmp(alignment, feature);
+}
+
+
+/***************************************************************************
+ *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Library:
+ *      #include <biolibc/gff.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Return the amount of overlap between a GFF feature and a SAM
+ *      alignment.
+ *  
+ *  Arguments:
+ *      feature     Pointer to a bl_gff_t object
+ *      alignment   Pointer to a bl_sam_t object
+ *
+ *  Returns:
+ *      The number of bases of overlap between the feature and alignment.
+ *      A zero or negative return value indicates no overlap.
+ *
+ *  See also:
+ *      bl_sam_gff_overlap(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-07  Jason Bacon Begin
+ ***************************************************************************/
+
+int64_t bl_gff_sam_overlap(bl_gff_t *feature, bl_sam_t *alignment)
+
+{
+    int64_t alignment_end = BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment),
+	    overlap_start = MAX(BL_GFF_START(feature), BL_SAM_POS(alignment)),
+	    overlap_end = MIN(BL_GFF_END(feature), alignment_end);
+    
+    //fprintf(stderr, "%" PRId64 " %" PRId64 "\n", overlap_start, overlap_end);
+    //fprintf(stderr, "Coverage = %" PRId64 "\n", overlap_end - overlap_start + 1);
+    return overlap_end - overlap_start + 1;
+}
+

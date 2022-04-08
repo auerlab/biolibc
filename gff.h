@@ -63,6 +63,11 @@ typedef unsigned int            gff_field_mask_t;
 #include "gff-accessors.h"
 #include "gff-mutators.h"
 
+// After bl_sam_t def due to mutual recursion
+#ifndef _BIOLIBC_SAM_H_
+#include "sam.h"
+#endif
+
 /* gff.c */
 FILE *bl_gff_skip_header(FILE *gff_stream);
 int bl_gff_copy_header(FILE *header_stream, FILE *gff_stream);
@@ -72,7 +77,9 @@ void bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature);
 void bl_gff_free(bl_gff_t *gff_feature);
 char *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name);
 void bl_gff_init(bl_gff_t *feature);
-bl_gff_t    *bl_gff_dup(bl_gff_t *feature);
-bl_gff_t    *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature);
+bl_gff_t *bl_gff_dup(bl_gff_t *feature);
+bl_gff_t *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature);
+int bl_gff_sam_cmp(bl_gff_t *feature, bl_sam_t *alignment);
+int64_t bl_gff_sam_overlap(bl_gff_t *feature, bl_sam_t *alignment);
 
 #endif  // _BIOLIBC_GFF_H_
