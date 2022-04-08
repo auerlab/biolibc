@@ -16,23 +16,33 @@
 .PP
 .nf
 .na
-FILE    *bl_sam_fopen(const char *filename, const char *mode)
+FILE    *bl_sam_fopen(const char *filename, const char *mode,
+char *samtools_args)
 .ad
 .fi
 
 .SH ARGUMENTS
 .nf
 .na
-filename:   Name of the file to be opened
-mode:       "r" or "w", passed to fopen() or popen()
+filename:       Name of the file to be opened
+mode:           "r" or "w", passed to fopen() or popen()
+samtools_args   Flags to pass to samtools view
 .ad
 .fi
 
 .SH DESCRIPTION
 
 Open a raw SAM file using fopen() or a gzipped, bzipped, or
-xzipped SAM file or BAM or CRAM file using popen().
-Must be used in conjunction with
+xzipped SAM file or BAM or CRAM file using popen().  If the
+file extension is .bam or .cram, or samtools_args is not
+NULL or "", data will be piped through "samtools view" with
+the given samtools_args as arguments.  The flag --with-header
+is always added for consistency with the case of reading a
+raw SAM file without piping through samtools.  Programs that
+don't want the header can filter it out by other means, such
+as bl_sam_skip_header(3).
+
+bl_sam_fopen() must be used in conjunction with
 bl_sam_fclose() to ensure that fclose() or pclose() is called where
 appropriate.
 
