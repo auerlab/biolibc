@@ -36,7 +36,8 @@ typedef struct
     char            *feature_id;    // In every feature of Ensemble GFFs
     char            *feature_name;  // Extract from gene features and look
 				    // up using Ensemble ID for others
-
+    char            *feature_parent;    // Transcripts, exons, etc.
+    
     // Offset of the feature in the GFF file for indexing
     long            file_pos;
 }   bl_gff_t;

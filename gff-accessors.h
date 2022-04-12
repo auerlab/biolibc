@@ -26,4 +26,6 @@
 #define BL_GFF_FEATURE_ID_AE(ptr,c)     ((ptr)->feature_id[c])
 #define BL_GFF_FEATURE_NAME(ptr)        ((ptr)->feature_name)
 #define BL_GFF_FEATURE_NAME_AE(ptr,c)   ((ptr)->feature_name[c])
+#define BL_GFF_FEATURE_PARENT(ptr)      ((ptr)->feature_parent)
+#define BL_GFF_FEATURE_PARENT_AE(ptr,c) ((ptr)->feature_parent[c])
 #define BL_GFF_FILE_POS(ptr)            ((ptr)->file_pos)

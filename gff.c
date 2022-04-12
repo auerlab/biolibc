@@ -332,12 +332,20 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     // Extract feature ID from attributes
     gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID");
 
-    // Extract feature ID from attributes
+    // Extract feature name from attributes
     gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name");
     if ( gff_feature->feature_name == NULL )
     {
 	if ( (gff_feature->feature_name = strdup("unnamed")) == NULL )
 	    fprintf(stderr, "bl_gff_read(): Could not strdup() feature_name.\n");
+    }
+
+    // Extract feature parent from attributes
+    gff_feature->feature_parent = bl_gff_extract_attribute(gff_feature, "Parent");
+    if ( gff_feature->feature_parent == NULL )
+    {
+	if ( (gff_feature->feature_parent = strdup("noparent")) == NULL )
+	    fprintf(stderr, "bl_gff_read(): Could not strdup() feature_parent.\n");
     }
     return BL_READ_OK;
 }
