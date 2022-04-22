@@ -14,7 +14,11 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
+.nf
+.na
 int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -34,7 +38,7 @@ file whose FILE pointer is returned.
 
 .SH RETURN VALUES
 
-A FILE pointer to the temporary file with a copy of the header
+BL_READ_OK upon success, BL_READ_TRUNCATED if read fails
 
 .SH SEE ALSO
 

@@ -14,8 +14,12 @@
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
 .PP
+.nf
+.na
 void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 size_t first_col, size_t last_col)
+.ad
+.fi
 
 .SH ARGUMENTS
 .nf
@@ -30,7 +34,7 @@ last_col    Last column from which a sample ID should be saved
 .SH DESCRIPTION
 
 Extract sample IDs from a VCF input header line.  This is typically
-done following bl_vcf_skip_header(3), which will leave the FILE
+done following bl_vcf_skip_meta_data(3), which will leave the FILE
 pointer pointing to the beginning of the header line, if one is
 present.
 
@@ -45,5 +49,5 @@ with 150,000 samples can be processed in 15 separate passes.
 
 .SH SEE ALSO
 
-bl_vcf_skip_header(3)
+bl_vcf_skip_meta_data(3)
 

@@ -26,7 +26,7 @@
  *      vcf_stream  FILE pointer of VCF stream to be read
  *
  *  Returns:
- *      A FILE pointer to the temporary file with a copy of the header
+ *      BL_READ_OK upon success, BL_READ_TRUNCATED if read fails
  *
  *  See also:
  *      bl_vcf_get_sample_ids(3), bl_vcf_read_static_fields(3), bl_vcf_read_ss_call(3)
@@ -82,14 +82,14 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
 	    if ( ch == EOF )
 	    {
 		fprintf(stderr,
-		    "bl_vcf_skip_header(): EOF reached reading meta-data.\n");
+		    "bl_vcf_skip_meta_data(): EOF reached reading meta-data.\n");
 		rewind(*meta_stream);
 		return BL_READ_TRUNCATED;
 	    }
 	}
     }
     
-    fprintf(stderr, "bl_vcf_skip_header(): Warning: No #CHROM found in header.\n");
+    fprintf(stderr, "bl_vcf_skip_meta_data(): Warning: No #CHROM found in header.\n");
     rewind(*meta_stream);
     return BL_READ_OK;
 }
@@ -102,7 +102,7 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
  *
  *  Description:
  *      Extract sample IDs from a VCF input header line.  This is typically
- *      done following bl_vcf_skip_header(3), which will leave the FILE
+ *      done following bl_vcf_skip_meta_data(3), which will leave the FILE
  *      pointer pointing to the beginning of the header line, if one is
  *      present.
  *
@@ -122,7 +122,7 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
  *      last_col    Last column from which a sample ID should be saved
  *
  *  See also:
- *      bl_vcf_skip_header(3)
+ *      bl_vcf_skip_meta_data(3)
  *
  *  History: 
  *  Date        Name        Modification
