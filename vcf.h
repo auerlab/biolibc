@@ -43,19 +43,22 @@ typedef struct
 		filter[BL_VCF_FILTER_MAX_CHARS + 1],
 		*info,
 		*format,
-		*single_sample; // Avoid using multi_samples
-    int64_t    pos;
-    size_t      info_len,
-		info_max,
-		format_max,
+		*single_sample,     // Simpler than using multi_samples
+		**multi_samples;
+    int64_t     pos;
+    size_t      info_array_size,
+		info_len,
+		format_array_size,
 		format_len,
-		sample_max;
+		single_sample_array_size,
+		single_sample_len,
+		multi_sample_pointer_array_size,
+		multi_sample_count,
+		*multi_sample_array_sizes,
+		*multi_sample_lens;
     unsigned    ref_count,
 		alt_count,
 		other_count;
-    
-    // Use bl_vcf_sample_alloc() to initialize this for multi-sample VCFs
-    char        **multi_samples;
     
     // Apps can buffer phred scores from reads to collect stats
     unsigned char   *phreds;
@@ -63,7 +66,7 @@ typedef struct
     size_t          phred_buff_size;
 }   bl_vcf_t;
 
-typedef unsigned int            vcf_field_mask_t;
+typedef unsigned int vcf_field_mask_t;
 
 #define BL_VCF_FIELD_ALL        0xfff
 #define BL_VCF_FIELD_CHROM      0x001
@@ -82,7 +85,8 @@ typedef unsigned int            vcf_field_mask_t;
 #include "vcf-mutators.h"
 
 /* vcf.c */
-int bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **header_stream);
+FILE *bl_vcf_skip_meta_data(FILE *vcf_stream);
+FILE *bl_vcf_skip_header(FILE *vcf_stream);
 void bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[], size_t first_col, size_t last_col);
 int bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
 int bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
@@ -90,7 +94,7 @@ int bl_vcf_write_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_m
 int bl_vcf_write_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream, vcf_field_mask_t field_mask);
 char **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples);
 void bl_vcf_free(bl_vcf_t *vcf_call);
-void bl_vcf_init(bl_vcf_t *vcf_call, size_t info_max, size_t format_max, size_t sample_max);
+void bl_vcf_init(bl_vcf_t *vcf_call);
 vcf_field_mask_t bl_vcf_parse_field_spec(char *spec);
 _Bool bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment);
 _Bool bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call, bl_sam_t *alignment);

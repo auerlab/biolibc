@@ -180,7 +180,9 @@ int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
     }
     else
 	bl_sam_free(sam_buff->alignments[sam_buff->buffered_count]);
-    
+
+    //fprintf(stderr, "Adding alignment #%zu...\n", sam_buff->buffered_count);
+    //fprintf(stderr, "buff_size = %zu\n", sam_buff->buff_size);
     bl_sam_copy(sam_buff->alignments[sam_buff->buffered_count], sam_alignment);
     
     ++sam_buff->buffered_count;

@@ -48,14 +48,10 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_chrom_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_chrom_element
-	)
+int     bl_vcf_set_chrom_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_chrom_element)
 
 {
     if ( false )
@@ -103,14 +99,10 @@ int     bl_vcf_set_chrom_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_chrom_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_chrom[],
-	    size_t array_size
-	)
+int     bl_vcf_set_chrom_cpy(bl_vcf_t *bl_vcf_ptr, char new_chrom[], size_t array_size)
 
 {
     if ( new_chrom == NULL )
@@ -158,14 +150,10 @@ int     bl_vcf_set_chrom_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_id_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_id_element
-	)
+int     bl_vcf_set_id_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_id_element)
 
 {
     if ( false )
@@ -213,14 +201,10 @@ int     bl_vcf_set_id_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_id_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_id[],
-	    size_t array_size
-	)
+int     bl_vcf_set_id_cpy(bl_vcf_t *bl_vcf_ptr, char new_id[], size_t array_size)
 
 {
     if ( new_id == NULL )
@@ -268,14 +252,10 @@ int     bl_vcf_set_id_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_ref_element
-	)
+int     bl_vcf_set_ref_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_ref_element)
 
 {
     if ( false )
@@ -323,14 +303,10 @@ int     bl_vcf_set_ref_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_ref[],
-	    size_t array_size
-	)
+int     bl_vcf_set_ref_cpy(bl_vcf_t *bl_vcf_ptr, char new_ref[], size_t array_size)
 
 {
     if ( new_ref == NULL )
@@ -378,14 +354,10 @@ int     bl_vcf_set_ref_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_alt_element
-	)
+int     bl_vcf_set_alt_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_alt_element)
 
 {
     if ( false )
@@ -433,14 +405,10 @@ int     bl_vcf_set_alt_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_alt[],
-	    size_t array_size
-	)
+int     bl_vcf_set_alt_cpy(bl_vcf_t *bl_vcf_ptr, char new_alt[], size_t array_size)
 
 {
     if ( new_alt == NULL )
@@ -488,14 +456,10 @@ int     bl_vcf_set_alt_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_qual_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_qual_element
-	)
+int     bl_vcf_set_qual_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_qual_element)
 
 {
     if ( false )
@@ -543,14 +507,10 @@ int     bl_vcf_set_qual_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_qual_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_qual[],
-	    size_t array_size
-	)
+int     bl_vcf_set_qual_cpy(bl_vcf_t *bl_vcf_ptr, char new_qual[], size_t array_size)
 
 {
     if ( new_qual == NULL )
@@ -598,14 +558,10 @@ int     bl_vcf_set_qual_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_filter_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char new_filter_element
-	)
+int     bl_vcf_set_filter_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char new_filter_element)
 
 {
     if ( false )
@@ -653,14 +609,10 @@ int     bl_vcf_set_filter_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_filter_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char new_filter[],
-	    size_t array_size
-	)
+int     bl_vcf_set_filter_cpy(bl_vcf_t *bl_vcf_ptr, char new_filter[], size_t array_size)
 
 {
     if ( new_filter == NULL )
@@ -710,13 +662,10 @@ int     bl_vcf_set_filter_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_info
-	)
+int     bl_vcf_set_info(bl_vcf_t *bl_vcf_ptr, char * new_info)
 
 {
     if ( new_info == NULL )
@@ -763,14 +712,10 @@ int     bl_vcf_set_info(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char  new_info_element
-	)
+int     bl_vcf_set_info_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_info_element)
 
 {
     if ( false )
@@ -818,14 +763,10 @@ int     bl_vcf_set_info_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_info,
-	    size_t array_size
-	)
+int     bl_vcf_set_info_cpy(bl_vcf_t *bl_vcf_ptr, char * new_info, size_t array_size)
 
 {
     if ( new_info == NULL )
@@ -875,13 +816,10 @@ int     bl_vcf_set_info_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_format
-	)
+int     bl_vcf_set_format(bl_vcf_t *bl_vcf_ptr, char * new_format)
 
 {
     if ( new_format == NULL )
@@ -928,14 +866,10 @@ int     bl_vcf_set_format(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char  new_format_element
-	)
+int     bl_vcf_set_format_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_format_element)
 
 {
     if ( false )
@@ -983,14 +917,10 @@ int     bl_vcf_set_format_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_format,
-	    size_t array_size
-	)
+int     bl_vcf_set_format_cpy(bl_vcf_t *bl_vcf_ptr, char * new_format, size_t array_size)
 
 {
     if ( new_format == NULL )
@@ -1040,13 +970,10 @@ int     bl_vcf_set_format_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_single_sample
-	)
+int     bl_vcf_set_single_sample(bl_vcf_t *bl_vcf_ptr, char * new_single_sample)
 
 {
     if ( new_single_sample == NULL )
@@ -1093,14 +1020,10 @@ int     bl_vcf_set_single_sample(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char  new_single_sample_element
-	)
+int     bl_vcf_set_single_sample_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char  new_single_sample_element)
 
 {
     if ( false )
@@ -1148,14 +1071,10 @@ int     bl_vcf_set_single_sample_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_single_sample_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char * new_single_sample,
-	    size_t array_size
-	)
+int     bl_vcf_set_single_sample_cpy(bl_vcf_t *bl_vcf_ptr, char * new_single_sample, size_t array_size)
 
 {
     if ( new_single_sample == NULL )
@@ -1164,6 +1083,163 @@ int     bl_vcf_set_single_sample_cpy(
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_vcf_ptr->single_sample, new_single_sample, array_size);
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_samples member in a bl_vcf_t structure.
+ *      Use this function to set multi_samples in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      multi_samples is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_samples The new value for multi_samples
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      char **         new_multi_samples;
+ *
+ *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_samples(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples)
+
+{
+    if ( new_multi_samples == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_samples = new_multi_samples;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for an array element of multi_samples member in a bl_vcf_t
+ *      structure. Use this function to set bl_vcf_ptr->multi_samples[c]
+ *      in a bl_vcf_t object from non-member functions.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      c               Subscript to the multi_samples array
+ *      new_multi_samples_element The new value for multi_samples[c]
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          c;
+ *      char **         new_multi_samples_element;
+ *
+ *      if ( bl_vcf_set_multi_samples_ae(&bl_vcf, c, new_multi_samples_element)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLES_AE(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_samples_ae(bl_vcf_t *bl_vcf_ptr, size_t c, char * new_multi_samples_element)
+
+{
+    if ( new_multi_samples_element == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_samples[c] = new_multi_samples_element;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_samples member in a bl_vcf_t structure.
+ *      Use this function to set multi_samples in a bl_vcf_t object
+ *      from non-member functions.  This function copies the array pointed to
+ *      by new_multi_samples to bl_vcf_ptr->multi_samples.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_samples The new value for multi_samples
+ *      array_size      Size of the multi_samples array.
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      char **         new_multi_samples;
+ *      size_t          array_size;
+ *
+ *      if ( bl_vcf_set_multi_samples_cpy(&bl_vcf, new_multi_samples, array_size)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLES(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_samples_cpy(bl_vcf_t *bl_vcf_ptr, char ** new_multi_samples, size_t array_size)
+
+{
+    if ( new_multi_samples == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_vcf_ptr->multi_samples[c] = new_multi_samples[c];
 	return BL_VCF_DATA_OK;
     }
 }
@@ -1193,7 +1269,7 @@ int     bl_vcf_set_single_sample_cpy(
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
- *      int64_t        new_pos;
+ *      int64_t         new_pos;
  *
  *      if ( bl_vcf_set_pos(&bl_vcf, new_pos)
  *              == BL_VCF_DATA_OK )
@@ -1205,13 +1281,10 @@ int     bl_vcf_set_single_sample_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_pos(
-	    bl_vcf_t *bl_vcf_ptr,
-	    int64_t new_pos
-	)
+int     bl_vcf_set_pos(bl_vcf_t *bl_vcf_ptr, int64_t new_pos)
 
 {
     if ( false )
@@ -1219,6 +1292,58 @@ int     bl_vcf_set_pos(
     else
     {
 	bl_vcf_ptr->pos = new_pos;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for info_array_size member in a bl_vcf_t structure.
+ *      Use this function to set info_array_size in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      info_array_size is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_info_array_size The new value for info_array_size
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          new_info_array_size;
+ *
+ *      if ( bl_vcf_set_info_array_size(&bl_vcf, new_info_array_size)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_info_array_size(bl_vcf_t *bl_vcf_ptr, size_t new_info_array_size)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->info_array_size = new_info_array_size;
 	return BL_VCF_DATA_OK;
     }
 }
@@ -1260,13 +1385,10 @@ int     bl_vcf_set_pos(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_len(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_info_len
-	)
+int     bl_vcf_set_info_len(bl_vcf_t *bl_vcf_ptr, size_t new_info_len)
 
 {
     if ( false )
@@ -1285,17 +1407,17 @@ int     bl_vcf_set_info_len(
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for info_max member in a bl_vcf_t structure.
- *      Use this function to set info_max in a bl_vcf_t object
+ *      Mutator for format_array_size member in a bl_vcf_t structure.
+ *      Use this function to set format_array_size in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
- *      info_max is a pointer, data previously pointed to should
+ *      format_array_size is a pointer, data previously pointed to should
  *      be freed before calling this function to avoid memory
  *      leaks.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
- *      new_info_max    The new value for info_max
+ *      new_format_array_size The new value for format_array_size
  *
  *  Returns:
  *      BL_VCF_DATA_OK if the new value is acceptable and assigned
@@ -1303,9 +1425,9 @@ int     bl_vcf_set_info_len(
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
- *      size_t          new_info_max;
+ *      size_t          new_format_array_size;
  *
- *      if ( bl_vcf_set_info_max(&bl_vcf, new_info_max)
+ *      if ( bl_vcf_set_format_array_size(&bl_vcf, new_format_array_size)
  *              == BL_VCF_DATA_OK )
  *      {
  *      }
@@ -1315,75 +1437,17 @@ int     bl_vcf_set_info_len(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_info_max(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_info_max
-	)
+int     bl_vcf_set_format_array_size(bl_vcf_t *bl_vcf_ptr, size_t new_format_array_size)
 
 {
     if ( false )
 	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
-	bl_vcf_ptr->info_max = new_info_max;
-	return BL_VCF_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for format_max member in a bl_vcf_t structure.
- *      Use this function to set format_max in a bl_vcf_t object
- *      from non-member functions.  This function performs a direct
- *      assignment for scalar or pointer structure members.  If
- *      format_max is a pointer, data previously pointed to should
- *      be freed before calling this function to avoid memory
- *      leaks.
- *
- *  Arguments:
- *      bl_vcf_ptr      Pointer to the structure to set
- *      new_format_max  The new value for format_max
- *
- *  Returns:
- *      BL_VCF_DATA_OK if the new value is acceptable and assigned
- *      BL_VCF_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_vcf_t        bl_vcf;
- *      size_t          new_format_max;
- *
- *      if ( bl_vcf_set_format_max(&bl_vcf, new_format_max)
- *              == BL_VCF_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      (3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
- ***************************************************************************/
-
-int     bl_vcf_set_format_max(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_format_max
-	)
-
-{
-    if ( false )
-	return BL_VCF_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_vcf_ptr->format_max = new_format_max;
+	bl_vcf_ptr->format_array_size = new_format_array_size;
 	return BL_VCF_DATA_OK;
     }
 }
@@ -1425,13 +1489,10 @@ int     bl_vcf_set_format_max(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_format_len(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_format_len
-	)
+int     bl_vcf_set_format_len(bl_vcf_t *bl_vcf_ptr, size_t new_format_len)
 
 {
     if ( false )
@@ -1450,17 +1511,17 @@ int     bl_vcf_set_format_len(
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Mutator for sample_max member in a bl_vcf_t structure.
- *      Use this function to set sample_max in a bl_vcf_t object
+ *      Mutator for single_sample_array_size member in a bl_vcf_t structure.
+ *      Use this function to set single_sample_array_size in a bl_vcf_t object
  *      from non-member functions.  This function performs a direct
  *      assignment for scalar or pointer structure members.  If
- *      sample_max is a pointer, data previously pointed to should
+ *      single_sample_array_size is a pointer, data previously pointed to should
  *      be freed before calling this function to avoid memory
  *      leaks.
  *
  *  Arguments:
  *      bl_vcf_ptr      Pointer to the structure to set
- *      new_sample_max  The new value for sample_max
+ *      new_single_sample_array_size The new value for single_sample_array_size
  *
  *  Returns:
  *      BL_VCF_DATA_OK if the new value is acceptable and assigned
@@ -1468,9 +1529,9 @@ int     bl_vcf_set_format_len(
  *
  *  Examples:
  *      bl_vcf_t        bl_vcf;
- *      size_t          new_sample_max;
+ *      size_t          new_single_sample_array_size;
  *
- *      if ( bl_vcf_set_sample_max(&bl_vcf, new_sample_max)
+ *      if ( bl_vcf_set_single_sample_array_size(&bl_vcf, new_single_sample_array_size)
  *              == BL_VCF_DATA_OK )
  *      {
  *      }
@@ -1480,20 +1541,487 @@ int     bl_vcf_set_format_len(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_sample_max(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_sample_max
-	)
+int     bl_vcf_set_single_sample_array_size(bl_vcf_t *bl_vcf_ptr, size_t new_single_sample_array_size)
 
 {
     if ( false )
 	return BL_VCF_DATA_OUT_OF_RANGE;
     else
     {
-	bl_vcf_ptr->sample_max = new_sample_max;
+	bl_vcf_ptr->single_sample_array_size = new_single_sample_array_size;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for single_sample_len member in a bl_vcf_t structure.
+ *      Use this function to set single_sample_len in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      single_sample_len is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_single_sample_len The new value for single_sample_len
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          new_single_sample_len;
+ *
+ *      if ( bl_vcf_set_single_sample_len(&bl_vcf, new_single_sample_len)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_single_sample_len(bl_vcf_t *bl_vcf_ptr, size_t new_single_sample_len)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->single_sample_len = new_single_sample_len;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_pointer_array_size member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_pointer_array_size in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      multi_sample_pointer_array_size is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_pointer_array_size The new value for multi_sample_pointer_array_size
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          new_multi_sample_pointer_array_size;
+ *
+ *      if ( bl_vcf_set_multi_sample_pointer_array_size(&bl_vcf, new_multi_sample_pointer_array_size)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_pointer_array_size(bl_vcf_t *bl_vcf_ptr, size_t new_multi_sample_pointer_array_size)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_pointer_array_size = new_multi_sample_pointer_array_size;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_count member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_count in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      multi_sample_count is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_count The new value for multi_sample_count
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          new_multi_sample_count;
+ *
+ *      if ( bl_vcf_set_multi_sample_count(&bl_vcf, new_multi_sample_count)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_count(bl_vcf_t *bl_vcf_ptr, size_t new_multi_sample_count)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_count = new_multi_sample_count;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_array_sizes member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_array_sizes in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      multi_sample_array_sizes is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_array_sizes The new value for multi_sample_array_sizes
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t *        new_multi_sample_array_sizes;
+ *
+ *      if ( bl_vcf_set_multi_sample_array_sizes(&bl_vcf, new_multi_sample_array_sizes)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_array_sizes(bl_vcf_t *bl_vcf_ptr, size_t * new_multi_sample_array_sizes)
+
+{
+    if ( new_multi_sample_array_sizes == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_array_sizes = new_multi_sample_array_sizes;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for an array element of multi_sample_array_sizes member in a bl_vcf_t
+ *      structure. Use this function to set bl_vcf_ptr->multi_sample_array_sizes[c]
+ *      in a bl_vcf_t object from non-member functions.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      c               Subscript to the multi_sample_array_sizes array
+ *      new_multi_sample_array_sizes_element The new value for multi_sample_array_sizes[c]
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          c;
+ *      size_t *        new_multi_sample_array_sizes_element;
+ *
+ *      if ( bl_vcf_set_multi_sample_array_sizes_ae(&bl_vcf, c, new_multi_sample_array_sizes_element)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLE_ARRAY_SIZES_AE(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_array_sizes_ae(bl_vcf_t *bl_vcf_ptr, size_t c, size_t  new_multi_sample_array_sizes_element)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_array_sizes[c] = new_multi_sample_array_sizes_element;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_array_sizes member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_array_sizes in a bl_vcf_t object
+ *      from non-member functions.  This function copies the array pointed to
+ *      by new_multi_sample_array_sizes to bl_vcf_ptr->multi_sample_array_sizes.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_array_sizes The new value for multi_sample_array_sizes
+ *      array_size      Size of the multi_sample_array_sizes array.
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t *        new_multi_sample_array_sizes;
+ *      size_t          array_size;
+ *
+ *      if ( bl_vcf_set_multi_sample_array_sizes_cpy(&bl_vcf, new_multi_sample_array_sizes, array_size)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLE_ARRAY_SIZES(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_array_sizes_cpy(bl_vcf_t *bl_vcf_ptr, size_t * new_multi_sample_array_sizes, size_t array_size)
+
+{
+    if ( new_multi_sample_array_sizes == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_vcf_ptr->multi_sample_array_sizes[c] = new_multi_sample_array_sizes[c];
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_lens member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_lens in a bl_vcf_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      multi_sample_lens is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_lens The new value for multi_sample_lens
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t *        new_multi_sample_lens;
+ *
+ *      if ( bl_vcf_set_multi_sample_lens(&bl_vcf, new_multi_sample_lens)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_lens(bl_vcf_t *bl_vcf_ptr, size_t * new_multi_sample_lens)
+
+{
+    if ( new_multi_sample_lens == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_lens = new_multi_sample_lens;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for an array element of multi_sample_lens member in a bl_vcf_t
+ *      structure. Use this function to set bl_vcf_ptr->multi_sample_lens[c]
+ *      in a bl_vcf_t object from non-member functions.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      c               Subscript to the multi_sample_lens array
+ *      new_multi_sample_lens_element The new value for multi_sample_lens[c]
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t          c;
+ *      size_t *        new_multi_sample_lens_element;
+ *
+ *      if ( bl_vcf_set_multi_sample_lens_ae(&bl_vcf, c, new_multi_sample_lens_element)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLE_LENS_AE(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_lens_ae(bl_vcf_t *bl_vcf_ptr, size_t c, size_t  new_multi_sample_lens_element)
+
+{
+    if ( false )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_vcf_ptr->multi_sample_lens[c] = new_multi_sample_lens_element;
+	return BL_VCF_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for multi_sample_lens member in a bl_vcf_t structure.
+ *      Use this function to set multi_sample_lens in a bl_vcf_t object
+ *      from non-member functions.  This function copies the array pointed to
+ *      by new_multi_sample_lens to bl_vcf_ptr->multi_sample_lens.
+ *
+ *  Arguments:
+ *      bl_vcf_ptr      Pointer to the structure to set
+ *      new_multi_sample_lens The new value for multi_sample_lens
+ *      array_size      Size of the multi_sample_lens array.
+ *
+ *  Returns:
+ *      BL_VCF_DATA_OK if the new value is acceptable and assigned
+ *      BL_VCF_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_vcf_t        bl_vcf;
+ *      size_t *        new_multi_sample_lens;
+ *      size_t          array_size;
+ *
+ *      if ( bl_vcf_set_multi_sample_lens_cpy(&bl_vcf, new_multi_sample_lens, array_size)
+ *              == BL_VCF_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      BL_VCF_SET_MULTI_SAMPLE_LENS(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
+ ***************************************************************************/
+
+int     bl_vcf_set_multi_sample_lens_cpy(bl_vcf_t *bl_vcf_ptr, size_t * new_multi_sample_lens, size_t array_size)
+
+{
+    if ( new_multi_sample_lens == NULL )
+	return BL_VCF_DATA_OUT_OF_RANGE;
+    else
+    {
+	size_t  c;
+	
+	// FIXME: Assuming all elements should be copied
+	for (c = 0; c < array_size; ++c)
+	    bl_vcf_ptr->multi_sample_lens[c] = new_multi_sample_lens[c];
 	return BL_VCF_DATA_OK;
     }
 }
@@ -1535,13 +2063,10 @@ int     bl_vcf_set_sample_max(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_ref_count(
-	    bl_vcf_t *bl_vcf_ptr,
-	    unsigned new_ref_count
-	)
+int     bl_vcf_set_ref_count(bl_vcf_t *bl_vcf_ptr, unsigned new_ref_count)
 
 {
     if ( false )
@@ -1590,13 +2115,10 @@ int     bl_vcf_set_ref_count(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_alt_count(
-	    bl_vcf_t *bl_vcf_ptr,
-	    unsigned new_alt_count
-	)
+int     bl_vcf_set_alt_count(bl_vcf_t *bl_vcf_ptr, unsigned new_alt_count)
 
 {
     if ( false )
@@ -1645,13 +2167,10 @@ int     bl_vcf_set_alt_count(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_other_count(
-	    bl_vcf_t *bl_vcf_ptr,
-	    unsigned new_other_count
-	)
+int     bl_vcf_set_other_count(bl_vcf_t *bl_vcf_ptr, unsigned new_other_count)
 
 {
     if ( false )
@@ -1659,174 +2178,6 @@ int     bl_vcf_set_other_count(
     else
     {
 	bl_vcf_ptr->other_count = new_other_count;
-	return BL_VCF_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for multi_samples member in a bl_vcf_t structure.
- *      Use this function to set multi_samples in a bl_vcf_t object
- *      from non-member functions.  This function performs a direct
- *      assignment for scalar or pointer structure members.  If
- *      multi_samples is a pointer, data previously pointed to should
- *      be freed before calling this function to avoid memory
- *      leaks.
- *
- *  Arguments:
- *      bl_vcf_ptr      Pointer to the structure to set
- *      new_multi_samples The new value for multi_samples
- *
- *  Returns:
- *      BL_VCF_DATA_OK if the new value is acceptable and assigned
- *      BL_VCF_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_vcf_t        bl_vcf;
- *      char **         new_multi_samples;
- *
- *      if ( bl_vcf_set_multi_samples(&bl_vcf, new_multi_samples)
- *              == BL_VCF_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      (3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
- ***************************************************************************/
-
-int     bl_vcf_set_multi_samples(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char ** new_multi_samples
-	)
-
-{
-    if ( new_multi_samples == NULL )
-	return BL_VCF_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_vcf_ptr->multi_samples = new_multi_samples;
-	return BL_VCF_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for an array element of multi_samples member in a bl_vcf_t
- *      structure. Use this function to set bl_vcf_ptr->multi_samples[c]
- *      in a bl_vcf_t object from non-member functions.
- *
- *  Arguments:
- *      bl_vcf_ptr      Pointer to the structure to set
- *      c               Subscript to the multi_samples array
- *      new_multi_samples_element The new value for multi_samples[c]
- *
- *  Returns:
- *      BL_VCF_DATA_OK if the new value is acceptable and assigned
- *      BL_VCF_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_vcf_t        bl_vcf;
- *      size_t          c;
- *      char **         new_multi_samples_element;
- *
- *      if ( bl_vcf_set_multi_samples_ae(&bl_vcf, c, new_multi_samples_element)
- *              == BL_VCF_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      BL_VCF_SET_MULTI_SAMPLES_AE(3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
- ***************************************************************************/
-
-int     bl_vcf_set_multi_samples_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    char * new_multi_samples_element
-	)
-
-{
-    if ( new_multi_samples_element == NULL )
-	return BL_VCF_DATA_OUT_OF_RANGE;
-    else
-    {
-	bl_vcf_ptr->multi_samples[c] = new_multi_samples_element;
-	return BL_VCF_DATA_OK;
-    }
-}
-
-
-/***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Mutator for multi_samples member in a bl_vcf_t structure.
- *      Use this function to set multi_samples in a bl_vcf_t object
- *      from non-member functions.  This function copies the array pointed to
- *      by new_multi_samples to bl_vcf_ptr->multi_samples.
- *
- *  Arguments:
- *      bl_vcf_ptr      Pointer to the structure to set
- *      new_multi_samples The new value for multi_samples
- *      array_size      Size of the multi_samples array.
- *
- *  Returns:
- *      BL_VCF_DATA_OK if the new value is acceptable and assigned
- *      BL_VCF_DATA_OUT_OF_RANGE otherwise
- *
- *  Examples:
- *      bl_vcf_t        bl_vcf;
- *      char **         new_multi_samples;
- *      size_t          array_size;
- *
- *      if ( bl_vcf_set_multi_samples_cpy(&bl_vcf, new_multi_samples, array_size)
- *              == BL_VCF_DATA_OK )
- *      {
- *      }
- *
- *  See also:
- *      BL_VCF_SET_MULTI_SAMPLES(3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
- ***************************************************************************/
-
-int     bl_vcf_set_multi_samples_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    char ** new_multi_samples,
-	    size_t array_size
-	)
-
-{
-    if ( new_multi_samples == NULL )
-	return BL_VCF_DATA_OUT_OF_RANGE;
-    else
-    {
-	size_t  c;
-	
-	// FIXME: Assuming all elements should be copied
-	for (c = 0; c < array_size; ++c)
-	    bl_vcf_ptr->multi_samples[c] = new_multi_samples[c];
 	return BL_VCF_DATA_OK;
     }
 }
@@ -1868,13 +2219,10 @@ int     bl_vcf_set_multi_samples_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds(
-	    bl_vcf_t *bl_vcf_ptr,
-	    unsigned char * new_phreds
-	)
+int     bl_vcf_set_phreds(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds)
 
 {
     if ( new_phreds == NULL )
@@ -1921,14 +2269,10 @@ int     bl_vcf_set_phreds(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds_ae(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t c,
-	    unsigned char  new_phreds_element
-	)
+int     bl_vcf_set_phreds_ae(bl_vcf_t *bl_vcf_ptr, size_t c, unsigned char  new_phreds_element)
 
 {
     if ( false )
@@ -1976,14 +2320,10 @@ int     bl_vcf_set_phreds_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phreds_cpy(
-	    bl_vcf_t *bl_vcf_ptr,
-	    unsigned char * new_phreds,
-	    size_t array_size
-	)
+int     bl_vcf_set_phreds_cpy(bl_vcf_t *bl_vcf_ptr, unsigned char * new_phreds, size_t array_size)
 
 {
     if ( new_phreds == NULL )
@@ -2036,13 +2376,10 @@ int     bl_vcf_set_phreds_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phred_count(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_phred_count
-	)
+int     bl_vcf_set_phred_count(bl_vcf_t *bl_vcf_ptr, size_t new_phred_count)
 
 {
     if ( false )
@@ -2091,13 +2428,10 @@ int     bl_vcf_set_phred_count(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from vcf.h
+ *  2022-04-24  gen-get-set Auto-generated from vcf.h
  ***************************************************************************/
 
-int     bl_vcf_set_phred_buff_size(
-	    bl_vcf_t *bl_vcf_ptr,
-	    size_t new_phred_buff_size
-	)
+int     bl_vcf_set_phred_buff_size(bl_vcf_t *bl_vcf_ptr, size_t new_phred_buff_size)
 
 {
     if ( false )

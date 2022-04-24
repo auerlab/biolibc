@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
+FILE    *bl_vcf_skip_meta_data(FILE *vcf_stream)
 .ad
 .fi
 
@@ -29,12 +29,12 @@ vcf_stream  FILE pointer of VCF stream to be read
 
 .SH DESCRIPTION
 
-Skip over header lines in VCF input stream, leaving the FILE
+Skip over meta-data lines in VCF input stream, leaving the FILE
 structure pointing to the first character in the first line of data
 or the first character of the header line starting with #CHROM if
 one is present.  The header line is typically read using
-bl_vcf_get_sample_ids(3). The skipped header is copied to a temporary
-file whose FILE pointer is returned.
+bl_vcf_get_sample_ids(3). The skipped meta-data is copied to a
+temporary file whose FILE pointer is returned.
 
 .SH RETURN VALUES
 

@@ -53,11 +53,11 @@ typedef struct
     bl_sam_t    **alignments;
     size_t      buffered_count;
     size_t      max_count;
-    int64_t    previous_pos;
+    int64_t     previous_pos;
     char        previous_rname[BL_SAM_RNAME_MAX_CHARS + 1];
     
     // Use 64 bits to accommodate large sums
-    int64_t    mapq_min,
+    int64_t     mapq_min,
 		mapq_low,
 		mapq_high,
 		mapq_sum,

@@ -15,12 +15,12 @@
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Skip over header lines in VCF input stream, leaving the FILE
+ *      Skip over meta-data lines in VCF input stream, leaving the FILE
  *      structure pointing to the first character in the first line of data
  *      or the first character of the header line starting with #CHROM if
  *      one is present.  The header line is typically read using
- *      bl_vcf_get_sample_ids(3). The skipped header is copied to a temporary
- *      file whose FILE pointer is returned.
+ *      bl_vcf_get_sample_ids(3). The skipped meta-data is copied to a
+ *      temporary file whose FILE pointer is returned.
  *
  *  Arguments:
  *      vcf_stream  FILE pointer of VCF stream to be read
@@ -36,13 +36,14 @@
  *  2019-12-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
+FILE    *bl_vcf_skip_meta_data(FILE *vcf_stream)
 
 {
     int     ch,
 	    c,
 	    count;
     char    start[6];
+    FILE    *meta_stream;
 
     /*
      *  Copy header to a nameless temp file and return the FILE *.
@@ -50,7 +51,7 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
      *  header in output files.
      */
 
-    *meta_stream = tmpfile();
+    meta_stream = tmpfile();
     
     while ( (ch = getc(vcf_stream)) == '#' )
     {
@@ -61,37 +62,101 @@ int     bl_vcf_skip_meta_data(FILE *vcf_stream, FILE **meta_stream)
 	    ungetc(start[c], vcf_stream);
 	// Something is seriously wrong if we don't find at least 5 chars
 	if ( count != 5 )
-	    return BL_READ_TRUNCATED;
+	{
+	    fclose(meta_stream);
+	    return NULL;
+	}
 	
 	if ( memcmp(start, "CHROM", 5) == 0 )
 	{
 	    // After return, read should start with #CHROM
 	    ungetc(ch, vcf_stream);
-	    rewind(*meta_stream);
-	    return BL_READ_OK;
+	    rewind(meta_stream);
+	    return meta_stream;
 	}
 	else
 	{
 	    // No #CHROM, transfer entire line to temp file
-	    putc('#', *meta_stream);
+	    putc('#', meta_stream);
 	    do
 	    {
 		ch = getc(vcf_stream);
-		putc(ch, *meta_stream);
+		putc(ch, meta_stream);
 	    }   while ( (ch != '\n') && (ch != EOF) );
 	    if ( ch == EOF )
 	    {
 		fprintf(stderr,
 		    "bl_vcf_skip_meta_data(): EOF reached reading meta-data.\n");
-		rewind(*meta_stream);
-		return BL_READ_TRUNCATED;
+		fclose(meta_stream);
+		return NULL;
 	    }
 	}
     }
     
     fprintf(stderr, "bl_vcf_skip_meta_data(): Warning: No #CHROM found in header.\n");
-    rewind(*meta_stream);
-    return BL_READ_OK;
+    rewind(meta_stream);
+    return meta_stream;
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/vcf.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Skip over meta-data lines and header line (beginning with #CHROM)
+ *      in a VCF input stream, leaving the FILE structure pointing to the
+ *      first character in the first line of data.
+ *      The skipped meta-data and header are copied to a temporary
+ *      file whose FILE pointer is returned.
+ *
+ *      Note that the header line (beginning with #CHROM and containing
+ *      sample IDs) is typically read using bl_vcf_get_sample_ids(3).
+ *      If you wish to do this, call bl_vcf_skip_meta_data() instead of
+ *      bl_vcf_skip_header().
+ *
+ *  Arguments:
+ *      vcf_stream  FILE pointer of VCF stream to be read
+ *
+ *  Returns:
+ *      BL_READ_OK upon success, BL_READ_TRUNCATED if read fails
+ *
+ *  See also:
+ *      bl_vcf_get_sample_ids(3), bl_vcf_read_static_fields(3), bl_vcf_read_ss_call(3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2019-12-06  Jason Bacon Begin
+ ***************************************************************************/
+
+FILE    *bl_vcf_skip_header(FILE *vcf_stream)
+
+{
+    int     ch;
+    FILE    *meta_stream;
+
+    /*
+     *  Copy header to a nameless temp file and return the FILE *.
+     *  This can be used by tools like vcf-split to replicate the
+     *  header in output files.
+     */
+
+    meta_stream = bl_vcf_skip_meta_data(vcf_stream);
+    if ( meta_stream != NULL )
+    {
+	if ( getc(vcf_stream) == '#' )  // #CHROM line?
+	{
+	    fseek(meta_stream, 0L, SEEK_END);   // Append header line
+	    putc('#', meta_stream);
+	    while ( ((ch = getc(vcf_stream)) != '\n') && (ch != EOF) )
+		putc(ch, meta_stream);
+	    rewind(meta_stream);
+	}
+	else
+	    ungetc('#', vcf_stream);
+    }
+    return meta_stream;
 }
 
 
@@ -352,8 +417,8 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Info
     if ( field_mask & BL_VCF_FIELD_INFO )
-	status = tsv_read_field(vcf_stream, vcf_call->info,
-		   vcf_call->info_max, &vcf_call->info_len);
+	status = tsv_read_field_malloc(vcf_stream, &vcf_call->info,
+		   &vcf_call->info_array_size, &vcf_call->info_len);
     else
     {
 	status = tsv_skip_field(vcf_stream, &vcf_call->info_len);
@@ -368,8 +433,8 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Format
     if ( field_mask & BL_VCF_FIELD_FORMAT )
-	status = tsv_read_field(vcf_stream, vcf_call->format,
-		   vcf_call->format_max, &vcf_call->format_len);
+	status = tsv_read_field_malloc(vcf_stream, &vcf_call->format,
+		   &vcf_call->format_array_size, &vcf_call->format_len);
     else
     {
 	status = tsv_skip_field(vcf_stream, &vcf_call->format_len);
@@ -434,14 +499,14 @@ int     bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
 	    vcf_field_mask_t field_mask)
 
 {
-    size_t  len;
     int     status;
     
     status = bl_vcf_read_static_fields(vcf_call, vcf_stream, field_mask);
     if ( status == BL_READ_OK )
     {
-	if ( tsv_read_field(vcf_stream, vcf_call->single_sample,
-			vcf_call->sample_max, &len) != EOF )
+	if ( tsv_read_field_malloc(vcf_stream, &vcf_call->single_sample,
+			&vcf_call->single_sample_array_size,
+			&vcf_call->single_sample_len) != EOF )
 	    return BL_READ_OK;
 	else
 	{
@@ -587,29 +652,9 @@ int     bl_vcf_write_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
 }
 
 
-/***************************************************************************
- *  Library:
- *      #include <biolibc/vcf.h>
- *      -lbiolibc -lxtend
- *
- *  Description:
- *      Allocate an array for multiple samples in a VCF call.
- *
- *  Arguments:
- *      vcf_call    Pointer to a bl_vcf_t structure with multiple samples
- *      samples     The number of samples that must be accommodated
- *
- *  Returns:
- *      Address of the allocated array (NULL if malloc failed)
- *
- *  See also:
- *      bl_vcf_init(3), bl_vcf_read_static_fields(3)
- *
- *  History: 
- *  Date        Name        Modification
- *  2020-01-22  Jason Bacon Begin
- ***************************************************************************/
-
+// FIXME: Write a new function bl_vcf_read_multi-samples() that uses
+// tsv_read_field_malloc() and extends the pointer array on-the-fly
+#if 0
 char    **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples)
 
 {
@@ -622,13 +667,14 @@ char    **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples)
 	for (c = 0; c < samples; ++c)
 	{
 	    if ( (vcf_call->multi_samples[c] =
-		 (char *)xt_malloc(vcf_call->sample_max + 1,
+		 (char *)xt_malloc(vcf_call->single_sample_array_size,
 				sizeof(*vcf_call->multi_samples[c]))) == NULL )
 		return NULL;
 	}
     }
     return vcf_call->multi_samples;
 }
+#endif
 
 
 /***************************************************************************
@@ -727,9 +773,19 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
 void    bl_vcf_free(bl_vcf_t *vcf_call)
 
 {
+    int     c;
+    
     free(vcf_call->info);
     free(vcf_call->format);
     free(vcf_call->single_sample);
+    if ( vcf_call->multi_samples != NULL )
+    {
+	for (c = 0; c < vcf_call->multi_sample_count; ++c)
+	    free(vcf_call->multi_samples[c]);
+	free(vcf_call->multi_sample_array_sizes);
+	free(vcf_call->multi_sample_lens);
+	free(vcf_call->multi_samples);
+    }
 }
 
 
@@ -743,10 +799,10 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
  *      sizes for some fields.
  *
  *  Arguments:
- *      vcf_call    Pointer to the bl_vcf_t structure to initialize
- *      info_max    Maximum size of INFO field in bytes
- *      format_max  Maximum size of FORMAT field in bytes
- *      sample_max  Maxixum size of SAMPLE field in bytes
+ *      vcf_call            Pointer to the bl_vcf_t structure to initialize
+ *      info_array_size     Maximum size of INFO field in bytes
+ *      format_array_size   Maximum size of FORMAT field in bytes
+ *      single_sample_array_size   Maxixum size of SAMPLE field in bytes
  *
  *  See also:
  *      bl_vcf_free(3), vcf_read_call(3), bl_vcf_sample_alloc(3)
@@ -756,8 +812,7 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
  *  2020-01-22  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_vcf_init(bl_vcf_t *vcf_call,
-	    size_t info_max, size_t format_max, size_t sample_max)
+void    bl_vcf_init(bl_vcf_t *vcf_call)
 
 {
     vcf_call->chrom[0] = '\0';
@@ -771,34 +826,22 @@ void    bl_vcf_init(bl_vcf_t *vcf_call,
     vcf_call->ref_count = 0;
     vcf_call->alt_count = 0;
     vcf_call->other_count = 0;
-
-    if ( (vcf_call->info = xt_malloc(info_max + 1,
-	    sizeof(*vcf_call->info))) == NULL )
-    {
-	fprintf(stderr, "bl_vcf_init(): Could not allocate info field.\n");
-	exit(EX_UNAVAILABLE);
-    }
-    if ( (vcf_call->format = xt_malloc(format_max + 1,
-	    sizeof(*vcf_call->format))) == NULL )
-    {
-	fprintf(stderr, "bl_vcf_init(): Could not allocate format field.\n");
-	exit(EX_UNAVAILABLE);
-    }
-    if ( (vcf_call->single_sample = xt_malloc(sample_max + 1,
-	    sizeof(*vcf_call->single_sample))) == NULL )
-    {
-	fprintf(stderr, "bl_vcf_init(): Could not allocate single_sample field.\n");
-	exit(EX_UNAVAILABLE);
-    }
     
-    vcf_call->info_max = info_max;
-    vcf_call->format_max = format_max;
-    vcf_call->sample_max = sample_max;
+    vcf_call->info_array_size = 0;
+    vcf_call->info_len = 0;
+    vcf_call->info = NULL;
     
-    vcf_call->info[0] = '\0';
-    vcf_call->format[0] = '\0';
-    vcf_call->single_sample[0] = '\0';
+    vcf_call->format_array_size = 0;
+    vcf_call->format_len = 0;
+    vcf_call->format = NULL;
+    
+    vcf_call->single_sample_array_size = 0;
+    vcf_call->single_sample_len = 0;
+    vcf_call->single_sample = NULL;
+    
     vcf_call->multi_samples = NULL;
+    vcf_call->multi_sample_count = 0;
+    vcf_call->multi_sample_pointer_array_size = 0;
 }
 
 

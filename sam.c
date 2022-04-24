@@ -411,9 +411,11 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     
     // 11 QUAL, should be last field
     if ( field_mask & BL_SAM_FIELD_QUAL )
+    {
 	delim = tsv_read_field_malloc(sam_stream, &sam_alignment->qual,
 		    &sam_alignment->qual_array_size,
 		    &sam_alignment->qual_len);
+    }
     else
     {
 	delim = tsv_skip_field(sam_stream, &sam_alignment->qual_len);
@@ -502,15 +504,20 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
     }
     memcpy(dest->seq, src->seq, src->seq_len + 1);
     
-    if ( (dest->qual = xt_malloc(src->seq_len + 1,
+    //fprintf(stderr, "src->seq = %s %zu\n", src->seq, src->seq_len);
+    //fprintf(stderr, "src->qual = %s %zu\n", src->qual, src->qual_len);
+    if ( (dest->qual = xt_malloc(src->qual_len + 1,
 	    sizeof(*dest->qual))) == NULL )
     {
 	fprintf(stderr, "bl_sam_copy(): Could not allocate qual.\n");
 	exit(EX_UNAVAILABLE);
     }
     
-    /* qual is an optional field */
-    if ( src->qual_len > 0 )
+    /*
+     *  qual is an optional field.  If skipped using tsv_skip_field()
+     *  qual_len will be non-zero, but qual will be NULL.
+     */
+    if ( src->qual != NULL )
 	memcpy(dest->qual, src->qual, src->qual_len + 1);
     
     dest->seq_len = src->seq_len;
