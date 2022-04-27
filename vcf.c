@@ -294,20 +294,20 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     char    *end,
 	    pos_str[BL_POSITION_MAX_DIGITS + 1];
     size_t  len;
-    int     status;
+    int     delim;
     
     vcf_call->ref_count = vcf_call->alt_count = vcf_call->other_count = 0;
     
     // Chromosome
     if ( field_mask & BL_VCF_FIELD_CHROM )
-	status = tsv_read_field(vcf_stream, vcf_call->chrom,
+	delim = tsv_read_field(vcf_stream, vcf_call->chrom,
 			BL_CHROM_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->chrom, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	// fputs("bl_vcf_read_static_fields(): Info: Got EOF reading CHROM, as expected.\n", stderr);
 	return BL_READ_EOF;
@@ -315,14 +315,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Call position
     if ( field_mask & BL_VCF_FIELD_POS )
-	status = tsv_read_field(vcf_stream, pos_str,
+	delim = tsv_read_field(vcf_stream, pos_str,
 			BL_POSITION_MAX_DIGITS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(pos_str, "0", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading POS: %s.\n",
 		pos_str);
@@ -342,14 +342,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // ID
     if ( field_mask & BL_VCF_FIELD_ID )
-	status = tsv_read_field(vcf_stream, vcf_call->id,
+	delim = tsv_read_field(vcf_stream, vcf_call->id,
 			BL_VCF_ID_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->id, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading ID.\n");
 	return BL_READ_TRUNCATED;
@@ -357,14 +357,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Ref
     if ( field_mask & BL_VCF_FIELD_REF )
-	status = tsv_read_field(vcf_stream, vcf_call->ref,
+	delim = tsv_read_field(vcf_stream, vcf_call->ref,
 			BL_VCF_REF_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->ref, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading REF.\n");
 	return BL_READ_TRUNCATED;
@@ -372,14 +372,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Alt
     if ( field_mask & BL_VCF_FIELD_ALT )
-	status = tsv_read_field(vcf_stream, vcf_call->alt,
+	delim = tsv_read_field(vcf_stream, vcf_call->alt,
 		   BL_VCF_ALT_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->alt, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading ALT.\n");
 	return BL_READ_TRUNCATED;
@@ -387,14 +387,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
     // Qual
     if ( field_mask & BL_VCF_FIELD_QUAL )
-	status = tsv_read_field(vcf_stream, vcf_call->qual,
+	delim = tsv_read_field(vcf_stream, vcf_call->qual,
 		   BL_VCF_QUAL_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->qual, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading QUAL.\n");
 	return BL_READ_TRUNCATED;
@@ -402,14 +402,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Filter
     if ( field_mask & BL_VCF_FIELD_FILTER )
-	status = tsv_read_field(vcf_stream, vcf_call->filter,
+	delim = tsv_read_field(vcf_stream, vcf_call->filter,
 		   BL_VCF_FILTER_MAX_CHARS, &len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &len);
+	delim = tsv_skip_field(vcf_stream, &len);
 	strlcpy(vcf_call->filter, ".", 2);
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading FILTER.\n");
 	return BL_READ_TRUNCATED;
@@ -417,15 +417,15 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Info
     if ( field_mask & BL_VCF_FIELD_INFO )
-	status = tsv_read_field_malloc(vcf_stream, &vcf_call->info,
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->info,
 		   &vcf_call->info_array_size, &vcf_call->info_len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &vcf_call->info_len);
+	delim = tsv_skip_field(vcf_stream, &vcf_call->info_len);
 	vcf_call->info = strdup(".");
 	vcf_call->info_len = 1;
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading INFO.\n");
 	return BL_READ_TRUNCATED;
@@ -433,15 +433,15 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Format
     if ( field_mask & BL_VCF_FIELD_FORMAT )
-	status = tsv_read_field_malloc(vcf_stream, &vcf_call->format,
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->format,
 		   &vcf_call->format_array_size, &vcf_call->format_len);
     else
     {
-	status = tsv_skip_field(vcf_stream, &vcf_call->format_len);
+	delim = tsv_skip_field(vcf_stream, &vcf_call->format_len);
 	strlcpy(vcf_call->format, ".", 2);
 	vcf_call->format_len = 1;
     }
-    if ( status == EOF )
+    if ( delim == EOF )
     {
 	fprintf(stderr, "bl_vcf_read_static_fields(): Got EOF reading FORMAT.\n");
 	return BL_READ_TRUNCATED;
