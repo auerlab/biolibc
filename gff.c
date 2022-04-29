@@ -113,7 +113,7 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *  Description:
  *      Read next feature (line) from a GFF file.
  *
- *      gff_feature must be initialized using BL_GFF_INIT or bl_gff_init()
+ *      feature must be initialized using BL_GFF_INIT or bl_gff_init()
  *      before being passed to this function.
  *
  *      bl_gff_read() will allocate memory for string fields as needed.
@@ -125,7 +125,7 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *      with a new feature.
  *
  *      If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
- *      in the bit mask are discarded rather than stored in gff_feature.
+ *      in the bit mask are discarded rather than stored in feature.
  *      That field in the structure is then populated with an appropriate
  *      marker, such as '.'.  Possible mask values are:
  *
@@ -141,9 +141,9 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_feature     Pointer to a bl_gff_t structure
+ *      feature         Pointer to a bl_gff_t structure
  *      gff_stream      A FILE stream from which to read the line
- *      field_mask      Bit mask indicating which fields to store in gff_feature
+ *      field_mask      Bit mask indicating which fields to store in feature
  *
  *  Returns:
  *      BL_READ_OK on successful read
@@ -152,10 +152,10 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *
  *  Examples:
  *      bl_gff_skip_header(stdin);
- *      bl_gff_init(&gff_feature);
+ *      bl_gff_init(&feature);
  *
- *      bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
- *      bl_gff_read(&gff_feature, gff_stream,
+ *      bl_gff_read(&feature, stdin, BL_GFF_FIELD_ALL);
+ *      bl_gff_read(&feature, gff_stream,
  *          BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
@@ -166,13 +166,12 @@ int     bl_gff_copy_header(FILE *header_stream, FILE *gff_stream)
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
+int     bl_gff_read(bl_gff_t *feature, FILE *gff_stream,
 	    gff_field_mask_t field_mask)
 
 {
     char    *end,
 	    line[BL_GFF_LINE_MAX_CHARS + 1],
-	    temp_attributes[BL_GFF_ATTRIBUTES_MAX_CHARS + 1],
 	    strand_str[BL_GFF_STRAND_MAX_CHARS + 1],
 	    phase_str[BL_GFF_PHASE_MAX_DIGITS + 1],
 	    start_str[BL_POSITION_MAX_DIGITS + 1],
@@ -184,8 +183,8 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     
     // Use this as a model for other _read() functions?
     // Makes reusing a structure easy without risk of memory leaks
-    if ( gff_feature->attributes != NULL )
-	bl_gff_free(gff_feature);
+    if ( feature->attributes != NULL )
+	bl_gff_free(feature);
     
     // Check for group terminators (Line with just ###)
     // FIXME: Rely on parent ID instead of ###?
@@ -194,39 +193,39 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	fgets(line, BL_GFF_LINE_MAX_CHARS, gff_stream);
 	if ( strcmp(line, "##\n") == 0 )
 	{
-	    strlcpy(gff_feature->type, "###", BL_GFF_TYPE_MAX_CHARS);
+	    strlcpy(feature->type, "###", BL_GFF_TYPE_MAX_CHARS);
 	    return BL_READ_OK;
 	}
     }
     else if ( ch != EOF )
 	ungetc(ch, gff_stream);
 
-    gff_feature->file_pos = ftell(gff_stream);
+    feature->file_pos = ftell(gff_stream);
     
     // FIXME: Respect field_mask
     
     // 1 Chromosome
-    if ( tsv_read_field(gff_stream, gff_feature->seqid,
+    if ( tsv_read_field(gff_stream, feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	return BL_READ_EOF;
     }
     
     // 2 Source
-    if ( tsv_read_field(gff_stream, gff_feature->source,
+    if ( tsv_read_field(gff_stream, feature->source,
 			BL_GFF_SOURCE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading SOURCE: %s.\n",
-		gff_feature->source);
+		feature->source);
 	return BL_READ_TRUNCATED;
     }
 
     // 3 Feature
-    if ( tsv_read_field(gff_stream, gff_feature->type,
+    if ( tsv_read_field(gff_stream, feature->type,
 			BL_GFF_TYPE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading feature: %s.\n",
-		gff_feature->type);
+		feature->type);
 	return BL_READ_TRUNCATED;
     }
     
@@ -240,7 +239,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
     else
     {
-	gff_feature->start = strtoul(start_str, &end, 10);
+	feature->start = strtoul(start_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
@@ -260,7 +259,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
     else
     {
-	gff_feature->end = strtoul(end_str, &end, 10);
+	feature->end = strtoul(end_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr,
@@ -280,9 +279,9 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
     }
     else
     {
-	gff_feature->score = strtod(score_str, &end);
+	feature->score = strtod(score_str, &end);
 	if ( *end != '\0' )
-	    gff_feature->score = BL_GFF_SCORE_UNAVAILABLE;
+	    feature->score = BL_GFF_SCORE_UNAVAILABLE;
     }
     
     
@@ -295,7 +294,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	return BL_READ_TRUNCATED;
     }
     else
-	gff_feature->strand = *strand_str;
+	feature->strand = *strand_str;
     
     // 8 Phase (bases to start of next codon: 0, 1, or 2. "." if unavailable)
     if ( tsv_read_field(gff_stream, phase_str,
@@ -306,45 +305,40 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
 	return BL_READ_TRUNCATED;
     }
     else
-	gff_feature->phase = *phase_str;
+	feature->phase = *phase_str;
 
     // 9 Attributes
-    if ( (delim = tsv_read_field(gff_stream, temp_attributes,
-			BL_GFF_ATTRIBUTES_MAX_CHARS, &len)) == EOF )
+    if ( (delim = tsv_read_field_malloc(gff_stream, &feature->attributes,
+			&feature->attributes_array_size,
+			&feature->attributes_len)) == EOF )
     {
 	fprintf(stderr, "bl_gff_read(): Got EOF reading ATTRIBUTES: %s.\n",
-		temp_attributes);
+		feature->attributes);
 	return BL_READ_TRUNCATED;
     }
-    if ( (gff_feature->attributes = strdup(temp_attributes)) == NULL )
-    {
-	fprintf(stderr, "bl_gff_read(): Could not strdup attributes: %s.\n",
-		temp_attributes);
-	return BL_READ_TRUNCATED;
-    }
-    //fprintf(stderr, "%s %zu\n", gff_feature->attributes,
-    //        strlen(gff_feature->attributes));
+    //fprintf(stderr, "%s %zu\n", feature->attributes,
+    //        strlen(feature->attributes));
     
     // printf("delim = %u\n", delim);
     if ( delim != '\n' )
 	dsv_skip_rest_of_line(gff_stream);
 
     // Extract feature ID from attributes
-    gff_feature->feature_id = bl_gff_extract_attribute(gff_feature, "ID");
+    feature->feature_id = bl_gff_extract_attribute(feature, "ID");
 
     // Extract feature name from attributes
-    gff_feature->feature_name = bl_gff_extract_attribute(gff_feature, "Name");
-    if ( gff_feature->feature_name == NULL )
+    feature->feature_name = bl_gff_extract_attribute(feature, "Name");
+    if ( feature->feature_name == NULL )
     {
-	if ( (gff_feature->feature_name = strdup("unnamed")) == NULL )
+	if ( (feature->feature_name = strdup("unnamed")) == NULL )
 	    fprintf(stderr, "bl_gff_read(): Could not strdup() feature_name.\n");
     }
 
     // Extract feature parent from attributes
-    gff_feature->feature_parent = bl_gff_extract_attribute(gff_feature, "Parent");
-    if ( gff_feature->feature_parent == NULL )
+    feature->feature_parent = bl_gff_extract_attribute(feature, "Parent");
+    if ( feature->feature_parent == NULL )
     {
-	if ( (gff_feature->feature_parent = strdup("noparent")) == NULL )
+	if ( (feature->feature_parent = strdup("noparent")) == NULL )
 	    fprintf(stderr, "bl_gff_read(): Could not strdup() feature_parent.\n");
     }
     return BL_READ_OK;
@@ -377,17 +371,17 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *      BL_GFF_FIELD_ATTRIBUTES
  *
  *  Arguments:
- *      gff_feature     Pointer to the bl_gff_t structure to output
- *      gff_stream      FILE stream to which TSV gff line is written
- *      field_mask      Bit mask indicating which fields to output
+ *      feature     Pointer to the bl_gff_t structure to output
+ *      gff_stream  FILE stream to which TSV gff line is written
+ *      field_mask  Bit mask indicating which fields to output
  *
  *  Returns:
  *      BL_WRITE_OK on success
  *      BL_WRITE_ERROR on failure (errno may provide more information)
  *
  *  Examples:
- *      bl_gff_write(&gff_feature, stdout, BL_GFF_FIELD_ALL);
- *      bl_gff_write(&gff_feature, gff_stream,
+ *      bl_gff_write(&feature, stdout, BL_GFF_FIELD_ALL);
+ *      bl_gff_write(&feature, gff_stream,
  *          BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
  *
  *  See also:
@@ -398,7 +392,7 @@ int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
  *  2021-04-05  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
+int     bl_gff_write(bl_gff_t *feature, FILE *gff_stream,
 	    gff_field_mask_t field_mask)
 
 {
@@ -406,56 +400,56 @@ int     bl_gff_write(bl_gff_t *gff_feature, FILE *gff_stream,
     
     /* FIXME: Fully test and enable this
     if ( field_mask & BL_GFF_FIELD_SEQID )
-	printed += fprintf(gff_stream, "%s", gff_feature->seqid);
+	printed += fprintf(gff_stream, "%s", feature->seqid);
     else
 	printed += putc('.', gff_stream);
 	
     if ( field_mask & BL_GFF_FIELD_SOURCE )
-	printed += fprintf(gff_stream, "\t%s", gff_feature->source);
+	printed += fprintf(gff_stream, "\t%s", feature->source);
     else
 	printed += fprintf(gff_stream, "\t.");
 
     if ( field_mask & BL_GFF_FIELD_TYPE )
-	printed += fprintf(gff_stream, "\t%s", gff_feature->type);
+	printed += fprintf(gff_stream, "\t%s", feature->type);
     else
 	printed += fprintf(gff_stream, "\t.");
 
     if ( field_mask & BL_GFF_FIELD_START )
-	printed += fprintf(gff_stream, "\t%" PRId64, gff_feature->start);
+	printed += fprintf(gff_stream, "\t%" PRId64, feature->start);
     else
 	printed += fprintf(gff_stream, "\t-1");
     
     if ( field_mask & BL_GFF_FIELD_END )
-	printed += fprintf(gff_stream, "\t%" PRId64, gff_feature->end);
+	printed += fprintf(gff_stream, "\t%" PRId64, feature->end);
     else
 	printed += fprintf(gff_stream, "\t-1");
     
     if ( field_mask & BL_GFF_FIELD_SCORE )
-	printed += fprintf(gff_stream, "\t%f", gff_feature->score);
+	printed += fprintf(gff_stream, "\t%f", feature->score);
     else
 	printed += fprintf(gff_stream, "\t.");
     
     if ( field_mask & BL_GFF_FIELD_STRAND )
-	printed += fprintf(gff_stream, "\t%c", gff_feature->strand);
+	printed += fprintf(gff_stream, "\t%c", feature->strand);
     else
 	printed += fprintf(gff_stream, "\t.");
     
     if ( field_mask & BL_GFF_FIELD_PHASE )
-	printed += fprintf(gff_stream, "\t%c", gff_feature->phase);
+	printed += fprintf(gff_stream, "\t%c", feature->phase);
     else
 	printed += fprintf(gff_stream, "\t.");
     
     if ( field_mask & BL_GFF_FIELD_ATTRIBUTES )
-	printed += fprintf(gff_stream, "\t%s", gff_feature->attributes);
+	printed += fprintf(gff_stream, "\t%s", feature->attributes);
     else
 	printed += fprintf(gff_stream, "\t.");
     putc('\n', gff_stream);
     */
     fprintf(gff_stream,
 	"%s\t%s\t%s\t%" PRId64 "\t%" PRId64 "\t%f\t%c\t%c\t%s\n",
-	gff_feature->seqid, gff_feature->source, gff_feature->type,
-	gff_feature->start, gff_feature->end, gff_feature->score,
-	gff_feature->strand, gff_feature->phase, gff_feature->attributes);
+	feature->seqid, feature->source, feature->type,
+	feature->start, feature->end, feature->score,
+	feature->strand, feature->phase, feature->attributes);
     return printed;
 }
 
@@ -525,7 +519,7 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
  *      Free memory allocated for a bl_gff_t object
  *  
  *  Arguments:
- *      gff_feature     Pointer to the bl_gff_t object
+ *      feature     Pointer to the bl_gff_t object
  *
  *  Examples:
  *      bl_gff_t    feature;
@@ -540,23 +534,23 @@ void    bl_gff_to_bed(bl_gff_t *gff_feature, bl_bed_t *bed_feature)
  *  2022-02-01  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_gff_free(bl_gff_t *gff_feature)
+void    bl_gff_free(bl_gff_t *feature)
 
 {
-    if ( gff_feature->attributes != NULL )
+    if ( feature->attributes != NULL )
     {
 	/*fprintf(stderr, "Freeing %s %p %zu %s\n",
-		gff_feature->type, gff_feature->attributes,
-		strlen(gff_feature->attributes), gff_feature->attributes);
+		feature->type, feature->attributes,
+		strlen(feature->attributes), feature->attributes);
 	fflush(stderr);
 	*/
-	free(gff_feature->attributes);
+	free(feature->attributes);
     }
-    if ( gff_feature->feature_id != NULL )
-	free(gff_feature->feature_id);
-    if ( gff_feature->feature_name != NULL )
-	free(gff_feature->feature_name);
-    bl_gff_init(gff_feature);
+    if ( feature->feature_id != NULL )
+	free(feature->feature_id);
+    if ( feature->feature_name != NULL )
+	free(feature->feature_name);
+    bl_gff_init(feature);
 }
 
 
@@ -580,9 +574,9 @@ void    bl_gff_free(bl_gff_t *gff_feature)
  *      Attribute value (text after '='), or NULL if name is not found
  *
  *  Examples:
- *      bl_gff_t    gff_feature;
+ *      bl_gff_t    feature;
  *
- *      if ( bl_gff_extract_attribute(&gff_feature, "Name") != NULL )
+ *      if ( bl_gff_extract_attribute(&feature, "Name") != NULL )
  *      {
  *      }
  *
@@ -594,7 +588,7 @@ void    bl_gff_free(bl_gff_t *gff_feature)
  *  2022-02-05  Jason Bacon Begin
  ***************************************************************************/
 
-char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
+char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 
 {
     char    *attribute = NULL,
@@ -604,7 +598,7 @@ char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
     size_t  len = strlen(attr_name);
 
     // Find attribute beginning with "attr_name="
-    for (start = gff_feature->attributes; (*start != '\0'); ++start)
+    for (start = feature->attributes; (*start != '\0'); ++start)
     {
 	if ( (memcmp(start, attr_name, len) == 0) && (start[len] == '=') )
 	{
@@ -662,6 +656,7 @@ void    bl_gff_init(bl_gff_t *feature)
     feature->score = 0.0;
     feature->strand = feature->phase = '.';
     feature->attributes = feature->feature_id = feature->feature_name = NULL;
+    feature->attributes_array_size = feature->attributes_len = 0;
     feature->file_pos = 0;
 }
 

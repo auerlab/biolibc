@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     bl_gff_read(bl_gff_t *gff_feature, FILE *gff_stream,
+int     bl_gff_read(bl_gff_t *feature, FILE *gff_stream,
 gff_field_mask_t field_mask)
 .ad
 .fi
@@ -24,9 +24,9 @@ gff_field_mask_t field_mask)
 .SH ARGUMENTS
 .nf
 .na
-gff_feature     Pointer to a bl_gff_t structure
+feature         Pointer to a bl_gff_t structure
 gff_stream      A FILE stream from which to read the line
-field_mask      Bit mask indicating which fields to store in gff_feature
+field_mask      Bit mask indicating which fields to store in feature
 .ad
 .fi
 
@@ -34,7 +34,7 @@ field_mask      Bit mask indicating which fields to store in gff_feature
 
 Read next feature (line) from a GFF file.
 
-gff_feature must be initialized using BL_GFF_INIT or bl_gff_init()
+feature must be initialized using BL_GFF_INIT or bl_gff_init()
 before being passed to this function.
 
 bl_gff_read() will allocate memory for string fields as needed.
@@ -46,7 +46,7 @@ bl_gff_read() will free and initialize it before repopulating it
 with a new feature.
 
 If field_mask is not BL_GFF_FIELD_ALL, fields not indicated by a 1
-in the bit mask are discarded rather than stored in gff_feature.
+in the bit mask are discarded rather than stored in feature.
 That field in the structure is then populated with an appropriate
 marker, such as '.'.  Possible mask values are:
 
@@ -72,10 +72,10 @@ BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
 .na
 
 bl_gff_skip_header(stdin);
-bl_gff_init(&gff_feature);
+bl_gff_init(&feature);
 
-bl_gff_read(&gff_feature, stdin, BL_GFF_FIELD_ALL);
-bl_gff_read(&gff_feature, gff_stream,
+bl_gff_read(&feature, stdin, BL_GFF_FIELD_ALL);
+bl_gff_read(&feature, gff_stream,
     BL_GFF_FIELD_SEQID|BL_GFF_FIELD_START|BL_GFF_FIELD_END);
 .ad
 .fi

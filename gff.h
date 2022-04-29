@@ -28,6 +28,8 @@ typedef struct
     char            strand;         // '+' or '-' or '.'
     char            phase;          // 0, 1, 2, or '.' (bases to condon start)
     char            *attributes;    // Ensembl ID, Name, etc.
+    size_t          attributes_array_size;
+    size_t          attributes_len;
     
     /*
      *  Fields below are not part of GFF.  They are extracted from attributes

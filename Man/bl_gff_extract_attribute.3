@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-char    *bl_gff_extract_attribute(bl_gff_t *gff_feature, const char *attr_name)
+char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 .ad
 .fi
 
@@ -42,9 +42,9 @@ Attribute value (text after '='), or NULL if name is not found
 .nf
 .na
 
-bl_gff_t    gff_feature;
+bl_gff_t    feature;
 
-if ( bl_gff_extract_attribute(&gff_feature, "Name") != NULL )
+if ( bl_gff_extract_attribute(&feature, "Name") != NULL )
 {
 }
 .ad
