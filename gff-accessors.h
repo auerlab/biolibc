@@ -22,6 +22,8 @@
 #define BL_GFF_PHASE(ptr)               ((ptr)->phase)
 #define BL_GFF_ATTRIBUTES(ptr)          ((ptr)->attributes)
 #define BL_GFF_ATTRIBUTES_AE(ptr,c)     ((ptr)->attributes[c])
+#define BL_GFF_ATTRIBUTES_ARRAY_SIZE(ptr) ((ptr)->attributes_array_size)
+#define BL_GFF_ATTRIBUTES_LEN(ptr)      ((ptr)->attributes_len)
 #define BL_GFF_FEATURE_ID(ptr)          ((ptr)->feature_id)
 #define BL_GFF_FEATURE_ID_AE(ptr,c)     ((ptr)->feature_id[c])
 #define BL_GFF_FEATURE_NAME(ptr)        ((ptr)->feature_name)

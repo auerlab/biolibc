@@ -28,6 +28,8 @@ int bl_gff_set_phase(bl_gff_t *bl_gff_ptr, char new_phase);
 int bl_gff_set_attributes(bl_gff_t *bl_gff_ptr, char *new_attributes);
 int bl_gff_set_attributes_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_attributes_element);
 int bl_gff_set_attributes_cpy(bl_gff_t *bl_gff_ptr, char *new_attributes, size_t array_size);
+int bl_gff_set_attributes_array_size(bl_gff_t *bl_gff_ptr, size_t new_attributes_array_size);
+int bl_gff_set_attributes_len(bl_gff_t *bl_gff_ptr, size_t new_attributes_len);
 int bl_gff_set_feature_id(bl_gff_t *bl_gff_ptr, char *new_feature_id);
 int bl_gff_set_feature_id_ae(bl_gff_t *bl_gff_ptr, size_t c, char new_feature_id_element);
 int bl_gff_set_feature_id_cpy(bl_gff_t *bl_gff_ptr, char *new_feature_id, size_t array_size);
