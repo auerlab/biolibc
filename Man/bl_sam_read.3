@@ -16,7 +16,7 @@
 .PP
 .nf
 .na
-int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
+int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
 sam_field_mask_t field_mask)
 .ad
 .fi
@@ -24,9 +24,9 @@ sam_field_mask_t field_mask)
 .SH ARGUMENTS
 .nf
 .na
-sam_stream      A FILE stream from which to read the line
-sam_alignment   Pointer to a bl_sam_t structure
-field_mask      Bit mask indicating which fields to store in sam_alignment
+sam_stream  A FILE stream from which to read the line
+alignment   Pointer to a bl_sam_t structure
+field_mask  Bit mask indicating which fields to store in alignment
 .ad
 .fi
 
@@ -35,7 +35,7 @@ field_mask      Bit mask indicating which fields to store in sam_alignment
 Read next alignment (line) from a SAM stream.
 
 If field_mask is not BL_SAM_FIELD_ALL, fields not indicated by a 1
-in the bit mask are discarded rather than stored in sam_alignment.
+in the bit mask are discarded rather than stored in alignment.
 That field in the structure is then populated with an appropriate
 marker, such as '.'.  Possible mask values are:
 
@@ -62,8 +62,8 @@ BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
 .nf
 .na
 
-bl_sam_read(stdin, &sam_alignment, BL_SAM_FIELD_ALL);
-bl_sam_read(sam_stream, &sam_alignment,
+bl_sam_read(stdin, &alignment, BL_SAM_FIELD_ALL);
+bl_sam_read(sam_stream, &alignment,
                    BL_SAM_FIELD_QNAME|BL_SAM_FIELD_POS|BL_SAM_FIELD_TLEN);
 .ad
 .fi

@@ -26,18 +26,18 @@ typedef struct
      *
      *      chr1 0 5
      */
-    int64_t        chrom_start,
+    int64_t         chrom_start,
 		    chrom_end;
     char            name[BL_BED_NAME_MAX_CHARS + 1];
     unsigned short  score;      // aggs:0:1000
     char            strand;
-    int64_t        thick_start,
+    int64_t         thick_start,
 		    thick_end;
     // FIXME: Store RGB in a more compact format
     char            item_rgb[BL_BED_ITEM_RGB_MAX_CHARS+1];
     unsigned short  block_count;
-    int64_t        *block_sizes;
-    int64_t        *block_starts;
+    int64_t         *block_sizes;
+    int64_t         *block_starts;
 
     // Not part of BED spec
     unsigned short  fields;     // aggs:3:9

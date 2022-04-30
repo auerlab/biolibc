@@ -16,10 +16,7 @@
 .PP
 .nf
 .na
-int     bl_sam_set_pnext(
-            bl_sam_t *bl_sam_ptr,
-            uint64_t new_pnext
-            )
+int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, int64_t new_pnext)
 .ad
 .fi
 
@@ -51,7 +48,7 @@ BL_SAM_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_sam_t        bl_sam;
-uint64_t        new_pnext;
+int64_t         new_pnext;
 
 if ( bl_sam_set_pnext(&bl_sam, new_pnext)
         == BL_SAM_DATA_OK )

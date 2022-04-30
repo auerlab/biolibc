@@ -48,14 +48,10 @@
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qname_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char new_qname_element
-	)
+int     bl_sam_set_qname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_qname_element)
 
 {
     if ( false )
@@ -103,14 +99,10 @@ int     bl_sam_set_qname_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qname_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char new_qname[],
-	    size_t array_size
-	)
+int     bl_sam_set_qname_cpy(bl_sam_t *bl_sam_ptr, char new_qname[], size_t array_size)
 
 {
     if ( new_qname == NULL )
@@ -160,13 +152,10 @@ int     bl_sam_set_qname_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_flag(
-	    bl_sam_t *bl_sam_ptr,
-	    unsigned new_flag
-	)
+int     bl_sam_set_flag(bl_sam_t *bl_sam_ptr, unsigned new_flag)
 
 {
     if ( false )
@@ -213,14 +202,10 @@ int     bl_sam_set_flag(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rname_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char new_rname_element
-	)
+int     bl_sam_set_rname_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rname_element)
 
 {
     if ( false )
@@ -268,14 +253,10 @@ int     bl_sam_set_rname_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rname_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char new_rname[],
-	    size_t array_size
-	)
+int     bl_sam_set_rname_cpy(bl_sam_t *bl_sam_ptr, char new_rname[], size_t array_size)
 
 {
     if ( new_rname == NULL )
@@ -313,7 +294,7 @@ int     bl_sam_set_rname_cpy(
  *
  *  Examples:
  *      bl_sam_t        bl_sam;
- *      int64_t        new_pos;
+ *      int64_t         new_pos;
  *
  *      if ( bl_sam_set_pos(&bl_sam, new_pos)
  *              == BL_SAM_DATA_OK )
@@ -325,13 +306,10 @@ int     bl_sam_set_rname_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_pos(
-	    bl_sam_t *bl_sam_ptr,
-	    int64_t new_pos
-	)
+int     bl_sam_set_pos(bl_sam_t *bl_sam_ptr, int64_t new_pos)
 
 {
     if ( false )
@@ -380,13 +358,10 @@ int     bl_sam_set_pos(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_mapq(
-	    bl_sam_t *bl_sam_ptr,
-	    unsigned char new_mapq
-	)
+int     bl_sam_set_mapq(bl_sam_t *bl_sam_ptr, unsigned char new_mapq)
 
 {
     if ( false )
@@ -394,6 +369,58 @@ int     bl_sam_set_mapq(
     else
     {
 	bl_sam_ptr->mapq = new_mapq;
+	return BL_SAM_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for cigar member in a bl_sam_t structure.
+ *      Use this function to set cigar in a bl_sam_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      cigar is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_sam_ptr      Pointer to the structure to set
+ *      new_cigar       The new value for cigar
+ *
+ *  Returns:
+ *      BL_SAM_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_t        bl_sam;
+ *      char *          new_cigar;
+ *
+ *      if ( bl_sam_set_cigar(&bl_sam, new_cigar)
+ *              == BL_SAM_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
+ ***************************************************************************/
+
+int     bl_sam_set_cigar(bl_sam_t *bl_sam_ptr, char * new_cigar)
+
+{
+    if ( new_cigar == NULL )
+	return BL_SAM_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_ptr->cigar = new_cigar;
 	return BL_SAM_DATA_OK;
     }
 }
@@ -421,7 +448,7 @@ int     bl_sam_set_mapq(
  *  Examples:
  *      bl_sam_t        bl_sam;
  *      size_t          c;
- *      char            new_cigar_element;
+ *      char *          new_cigar_element;
  *
  *      if ( bl_sam_set_cigar_ae(&bl_sam, c, new_cigar_element)
  *              == BL_SAM_DATA_OK )
@@ -433,14 +460,10 @@ int     bl_sam_set_mapq(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_cigar_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char new_cigar_element
-	)
+int     bl_sam_set_cigar_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_cigar_element)
 
 {
     if ( false )
@@ -475,7 +498,7 @@ int     bl_sam_set_cigar_ae(
  *
  *  Examples:
  *      bl_sam_t        bl_sam;
- *      char            new_cigar;
+ *      char *          new_cigar;
  *      size_t          array_size;
  *
  *      if ( bl_sam_set_cigar_cpy(&bl_sam, new_cigar, array_size)
@@ -488,14 +511,10 @@ int     bl_sam_set_cigar_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_cigar_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char new_cigar[],
-	    size_t array_size
-	)
+int     bl_sam_set_cigar_cpy(bl_sam_t *bl_sam_ptr, char * new_cigar, size_t array_size)
 
 {
     if ( new_cigar == NULL )
@@ -543,14 +562,10 @@ int     bl_sam_set_cigar_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rnext_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char new_rnext_element
-	)
+int     bl_sam_set_rnext_ae(bl_sam_t *bl_sam_ptr, size_t c, char new_rnext_element)
 
 {
     if ( false )
@@ -598,14 +613,10 @@ int     bl_sam_set_rnext_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_rnext_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char new_rnext[],
-	    size_t array_size
-	)
+int     bl_sam_set_rnext_cpy(bl_sam_t *bl_sam_ptr, char new_rnext[], size_t array_size)
 
 {
     if ( new_rnext == NULL )
@@ -643,7 +654,7 @@ int     bl_sam_set_rnext_cpy(
  *
  *  Examples:
  *      bl_sam_t        bl_sam;
- *      int64_t        new_pnext;
+ *      int64_t         new_pnext;
  *
  *      if ( bl_sam_set_pnext(&bl_sam, new_pnext)
  *              == BL_SAM_DATA_OK )
@@ -655,13 +666,10 @@ int     bl_sam_set_rnext_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_pnext(
-	    bl_sam_t *bl_sam_ptr,
-	    int64_t new_pnext
-	)
+int     bl_sam_set_pnext(bl_sam_t *bl_sam_ptr, int64_t new_pnext)
 
 {
     if ( false )
@@ -710,13 +718,10 @@ int     bl_sam_set_pnext(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_tlen(
-	    bl_sam_t *bl_sam_ptr,
-	    long new_tlen
-	)
+int     bl_sam_set_tlen(bl_sam_t *bl_sam_ptr, long new_tlen)
 
 {
     if ( false )
@@ -765,13 +770,10 @@ int     bl_sam_set_tlen(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq(
-	    bl_sam_t *bl_sam_ptr,
-	    char * new_seq
-	)
+int     bl_sam_set_seq(bl_sam_t *bl_sam_ptr, char * new_seq)
 
 {
     if ( new_seq == NULL )
@@ -818,14 +820,10 @@ int     bl_sam_set_seq(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char  new_seq_element
-	)
+int     bl_sam_set_seq_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_seq_element)
 
 {
     if ( false )
@@ -873,14 +871,10 @@ int     bl_sam_set_seq_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char * new_seq,
-	    size_t array_size
-	)
+int     bl_sam_set_seq_cpy(bl_sam_t *bl_sam_ptr, char * new_seq, size_t array_size)
 
 {
     if ( new_seq == NULL )
@@ -930,13 +924,10 @@ int     bl_sam_set_seq_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual(
-	    bl_sam_t *bl_sam_ptr,
-	    char * new_qual
-	)
+int     bl_sam_set_qual(bl_sam_t *bl_sam_ptr, char * new_qual)
 
 {
     if ( new_qual == NULL )
@@ -983,14 +974,10 @@ int     bl_sam_set_qual(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_ae(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t c,
-	    char  new_qual_element
-	)
+int     bl_sam_set_qual_ae(bl_sam_t *bl_sam_ptr, size_t c, char  new_qual_element)
 
 {
     if ( false )
@@ -1038,14 +1025,10 @@ int     bl_sam_set_qual_ae(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_cpy(
-	    bl_sam_t *bl_sam_ptr,
-	    char * new_qual,
-	    size_t array_size
-	)
+int     bl_sam_set_qual_cpy(bl_sam_t *bl_sam_ptr, char * new_qual, size_t array_size)
 
 {
     if ( new_qual == NULL )
@@ -1054,6 +1037,162 @@ int     bl_sam_set_qual_cpy(
     {
 	// FIXME: Assuming char array is a null-terminated string
 	strlcpy(bl_sam_ptr->qual, new_qual, array_size);
+	return BL_SAM_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for cigar_array_size member in a bl_sam_t structure.
+ *      Use this function to set cigar_array_size in a bl_sam_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      cigar_array_size is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_sam_ptr      Pointer to the structure to set
+ *      new_cigar_array_size The new value for cigar_array_size
+ *
+ *  Returns:
+ *      BL_SAM_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_t        bl_sam;
+ *      size_t          new_cigar_array_size;
+ *
+ *      if ( bl_sam_set_cigar_array_size(&bl_sam, new_cigar_array_size)
+ *              == BL_SAM_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
+ ***************************************************************************/
+
+int     bl_sam_set_cigar_array_size(bl_sam_t *bl_sam_ptr, size_t new_cigar_array_size)
+
+{
+    if ( false )
+	return BL_SAM_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_ptr->cigar_array_size = new_cigar_array_size;
+	return BL_SAM_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for cigar_len member in a bl_sam_t structure.
+ *      Use this function to set cigar_len in a bl_sam_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      cigar_len is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_sam_ptr      Pointer to the structure to set
+ *      new_cigar_len   The new value for cigar_len
+ *
+ *  Returns:
+ *      BL_SAM_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_t        bl_sam;
+ *      size_t          new_cigar_len;
+ *
+ *      if ( bl_sam_set_cigar_len(&bl_sam, new_cigar_len)
+ *              == BL_SAM_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
+ ***************************************************************************/
+
+int     bl_sam_set_cigar_len(bl_sam_t *bl_sam_ptr, size_t new_cigar_len)
+
+{
+    if ( false )
+	return BL_SAM_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_ptr->cigar_len = new_cigar_len;
+	return BL_SAM_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for seq_array_size member in a bl_sam_t structure.
+ *      Use this function to set seq_array_size in a bl_sam_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      seq_array_size is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_sam_ptr      Pointer to the structure to set
+ *      new_seq_array_size The new value for seq_array_size
+ *
+ *  Returns:
+ *      BL_SAM_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_t        bl_sam;
+ *      size_t          new_seq_array_size;
+ *
+ *      if ( bl_sam_set_seq_array_size(&bl_sam, new_seq_array_size)
+ *              == BL_SAM_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
+ ***************************************************************************/
+
+int     bl_sam_set_seq_array_size(bl_sam_t *bl_sam_ptr, size_t new_seq_array_size)
+
+{
+    if ( false )
+	return BL_SAM_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_ptr->seq_array_size = new_seq_array_size;
 	return BL_SAM_DATA_OK;
     }
 }
@@ -1095,13 +1234,10 @@ int     bl_sam_set_qual_cpy(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_seq_len(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t new_seq_len
-	)
+int     bl_sam_set_seq_len(bl_sam_t *bl_sam_ptr, size_t new_seq_len)
 
 {
     if ( false )
@@ -1109,6 +1245,58 @@ int     bl_sam_set_seq_len(
     else
     {
 	bl_sam_ptr->seq_len = new_seq_len;
+	return BL_SAM_DATA_OK;
+    }
+}
+
+
+/***************************************************************************
+ *  Library:
+ *      #include <biolibc/sam.h>
+ *      -lbiolibc -lxtend
+ *
+ *  Description:
+ *      Mutator for qual_array_size member in a bl_sam_t structure.
+ *      Use this function to set qual_array_size in a bl_sam_t object
+ *      from non-member functions.  This function performs a direct
+ *      assignment for scalar or pointer structure members.  If
+ *      qual_array_size is a pointer, data previously pointed to should
+ *      be freed before calling this function to avoid memory
+ *      leaks.
+ *
+ *  Arguments:
+ *      bl_sam_ptr      Pointer to the structure to set
+ *      new_qual_array_size The new value for qual_array_size
+ *
+ *  Returns:
+ *      BL_SAM_DATA_OK if the new value is acceptable and assigned
+ *      BL_SAM_DATA_OUT_OF_RANGE otherwise
+ *
+ *  Examples:
+ *      bl_sam_t        bl_sam;
+ *      size_t          new_qual_array_size;
+ *
+ *      if ( bl_sam_set_qual_array_size(&bl_sam, new_qual_array_size)
+ *              == BL_SAM_DATA_OK )
+ *      {
+ *      }
+ *
+ *  See also:
+ *      (3)
+ *
+ *  History: 
+ *  Date        Name        Modification
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
+ ***************************************************************************/
+
+int     bl_sam_set_qual_array_size(bl_sam_t *bl_sam_ptr, size_t new_qual_array_size)
+
+{
+    if ( false )
+	return BL_SAM_DATA_OUT_OF_RANGE;
+    else
+    {
+	bl_sam_ptr->qual_array_size = new_qual_array_size;
 	return BL_SAM_DATA_OK;
     }
 }
@@ -1150,13 +1338,10 @@ int     bl_sam_set_seq_len(
  *
  *  History: 
  *  Date        Name        Modification
- *  2022-02-07  gen-get-set Auto-generated from sam.h
+ *  2022-04-30  gen-get-set Auto-generated from sam.h
  ***************************************************************************/
 
-int     bl_sam_set_qual_len(
-	    bl_sam_t *bl_sam_ptr,
-	    size_t new_qual_len
-	)
+int     bl_sam_set_qual_len(bl_sam_t *bl_sam_ptr, size_t new_qual_len)
 
 {
     if ( false )

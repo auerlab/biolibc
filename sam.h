@@ -13,7 +13,6 @@
 #define BL_SAM_QNAME_MAX_CHARS 4096
 #define BL_SAM_RNAME_MAX_CHARS 4096
 #define BL_SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
-#define BL_SAM_CIGAR_MAX_CHARS 4096
 
 // Keep this for initializing static objects, where we don't want to
 // call bl_sam_init() every time.
@@ -38,7 +37,7 @@ typedef struct
 
     // Be sure to update bl_sam_free if changed to dynamic allocation
     // Alignment report (more detailed info than flag)
-    char            cigar[BL_SAM_CIGAR_MAX_CHARS + 1];
+    char            *cigar;
     
     // Be sure to update bl_sam_free if changed to dynamic allocation
     // Seq and pos of next read in the template
@@ -51,7 +50,9 @@ typedef struct
     char            *qual;  // PHRED scores, same length as seq if present
     
     /* Additional data */
-    size_t          seq_array_size,
+    size_t          cigar_array_size,
+		    cigar_len,
+		    seq_array_size,
 		    seq_len,
 		    qual_array_size,
 		    qual_len;

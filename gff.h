@@ -11,8 +11,6 @@
 #define BL_GFF_STRAND_MAX_CHARS     2
 #define BL_GFF_LINE_MAX_CHARS       32768
 #define BL_GFF_PHASE_MAX_DIGITS     2
-#define BL_GFF_ATTRIBUTES_MAX_CHARS 8192     // For temp vars only.
-					     // Structure uses malloc()
 
 #define BL_GFF_SCORE_UNAVAILABLE    -1.0
 #define BL_GFF_PHASE_UNAVAILABLE    '.'
@@ -33,7 +31,7 @@ typedef struct
     
     /*
      *  Fields below are not part of GFF.  They are extracted from attributes
-     *  and may be useful.
+     *  because they are frequently useful.
      */
     char            *feature_id;    // In every feature of Ensemble GFFs
     char            *feature_name;  // Extract from gene features and look

@@ -127,7 +127,7 @@ int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
  *      Read next alignment (line) from a SAM stream.
  *
  *      If field_mask is not BL_SAM_FIELD_ALL, fields not indicated by a 1
- *      in the bit mask are discarded rather than stored in sam_alignment.
+ *      in the bit mask are discarded rather than stored in alignment.
  *      That field in the structure is then populated with an appropriate
  *      marker, such as '.'.  Possible mask values are:
  *
@@ -145,9 +145,9 @@ int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
  *      BL_SAM_FIELD_QUAL
  *
  *  Arguments:
- *      sam_stream      A FILE stream from which to read the line
- *      sam_alignment   Pointer to a bl_sam_t structure
- *      field_mask      Bit mask indicating which fields to store in sam_alignment
+ *      sam_stream  A FILE stream from which to read the line
+ *      alignment   Pointer to a bl_sam_t structure
+ *      field_mask  Bit mask indicating which fields to store in alignment
  *
  *  Returns:
  *      BL_READ_OK on successful read
@@ -155,8 +155,8 @@ int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
  *      BL_READ_TRUNCATED if EOF or bad data is encountered elsewhere
  *
  *  Examples:
- *      bl_sam_read(stdin, &sam_alignment, BL_SAM_FIELD_ALL);
- *      bl_sam_read(sam_stream, &sam_alignment,
+ *      bl_sam_read(stdin, &alignment, BL_SAM_FIELD_ALL);
+ *      bl_sam_read(sam_stream, &alignment,
  *                         BL_SAM_FIELD_QNAME|BL_SAM_FIELD_POS|BL_SAM_FIELD_TLEN);
  *
  *  See also:
@@ -167,7 +167,7 @@ int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
+int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
 			   sam_field_mask_t field_mask)
 
 {
@@ -180,12 +180,12 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     int     delim;
     
     if ( field_mask & BL_SAM_FIELD_QNAME )
-	delim = tsv_read_field(sam_stream, sam_alignment->qname,
+	delim = tsv_read_field(sam_stream, alignment->qname,
 			BL_SAM_QNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream, &len);
-	*sam_alignment->qname = '\0';
+	*alignment->qname = '\0';
     }
     if ( delim == EOF )
 	return BL_READ_EOF;
@@ -203,33 +203,33 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     }
     if ( field_mask & BL_SAM_FIELD_FLAG )
     {
-	sam_alignment->flag = strtoul(flag_str, &end, 10);
+	alignment->flag = strtoul(flag_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "bl_sam_read(): Invalid position: %s\n",
 		    flag_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
-		    sam_alignment->qname, sam_alignment->rname);
+		    alignment->qname, alignment->rname);
 	    fprintf(stderr, "previous_pos = %" PRId64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
     else
-	sam_alignment->flag = 0;    // FIXME: Is there a better choice?
+	alignment->flag = 0;    // FIXME: Is there a better choice?
     
     // 3 RNAME
     if ( field_mask & BL_SAM_FIELD_RNAME )
-	delim = tsv_read_field(sam_stream, sam_alignment->rname,
+	delim = tsv_read_field(sam_stream, alignment->rname,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream, &len);
-	*sam_alignment->rname = '\0';
+	*alignment->rname = '\0';
     }
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading rname: %s.\n",
-		sam_alignment->rname);
+		alignment->rname);
 	return BL_READ_TRUNCATED;
     }
     
@@ -247,20 +247,20 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     }
     if ( field_mask & BL_SAM_FIELD_POS )
     {
-	sam_alignment->pos = strtoul(pos_str, &end, 10);
+	alignment->pos = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "bl_sam_read(): Invalid position: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
-		    sam_alignment->qname, sam_alignment->rname);
+		    alignment->qname, alignment->rname);
 	    fprintf(stderr, "previous_pos = %" PRId64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
-	previous_pos = sam_alignment->pos;
+	previous_pos = alignment->pos;
     }
     else
-	sam_alignment->pos = 0;
+	alignment->pos = 0;
     
     // 5 MAPQ
     if ( field_mask & BL_SAM_FIELD_MAPQ )
@@ -277,49 +277,52 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 
     if ( field_mask & BL_SAM_FIELD_MAPQ )
     {
-	sam_alignment->mapq = strtoul(mapq_str, &end, 10);
+	alignment->mapq = strtoul(mapq_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "bl_sam_read(): Invalid mapq: %s\n",
 		    mapq_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
-		    sam_alignment->qname, sam_alignment->rname);
+		    alignment->qname, alignment->rname);
 	    fprintf(stderr, "previous_pos = %" PRId64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
     else
-	sam_alignment->mapq = 0;
+	alignment->mapq = 0;
     
     // 6 CIGAR
     if ( field_mask & BL_SAM_FIELD_CIGAR )
-	delim = tsv_read_field(sam_stream, sam_alignment->cigar,
-			       BL_SAM_CIGAR_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(sam_stream, &alignment->cigar,
+			       &alignment->cigar_array_size,
+			       &alignment->cigar_len);
     else
     {
 	delim = tsv_skip_field(sam_stream, &len);
-	*sam_alignment->cigar = '\0';
+	alignment->cigar_len = 0;
+	// Do not set to NULL or set array_size to 0.  Leave buffer
+	// allocated for reuse.
     }
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading cigar: %s.\n",
-		sam_alignment->cigar);
+		alignment->cigar);
 	return BL_READ_TRUNCATED;
     }
     
     // 7 RNEXT
     if ( field_mask & BL_SAM_FIELD_RNEXT )
-	delim = tsv_read_field(sam_stream, sam_alignment->rnext,
+	delim = tsv_read_field(sam_stream, alignment->rnext,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
 	delim = tsv_skip_field(sam_stream, &len);
-	*sam_alignment->rnext = '\0';
+	*alignment->rnext = '\0';
     }
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading rnext: %s.\n",
-		sam_alignment->rnext);
+		alignment->rnext);
 	return BL_READ_TRUNCATED;
     }
     
@@ -337,19 +340,19 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     }
     if ( field_mask & BL_SAM_FIELD_PNEXT )
     {
-	sam_alignment->pnext = strtoul(pos_str, &end, 10);
+	alignment->pnext = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "bl_sam_read(): Invalid pnext: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
-		    sam_alignment->qname, sam_alignment->rname);
+		    alignment->qname, alignment->rname);
 	    fprintf(stderr, "previous_pos = %" PRId64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
     else
-	sam_alignment->pnext = 0;
+	alignment->pnext = 0;
     
     // 9 TLEN
     if ( field_mask & BL_SAM_FIELD_TLEN )
@@ -365,43 +368,45 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     }
     if ( field_mask & BL_SAM_FIELD_TLEN )
     {
-	sam_alignment->tlen = strtoul(pos_str, &end, 10);
+	alignment->tlen = strtoul(pos_str, &end, 10);
 	if ( *end != '\0' )
 	{
 	    fprintf(stderr, "bl_sam_read(): Invalid tlen: %s\n",
 		    pos_str);
 	    fprintf(stderr, "qname = %s rname = %s\n",
-		    sam_alignment->qname, sam_alignment->rname);
+		    alignment->qname, alignment->rname);
 	    fprintf(stderr, "previous_pos = %" PRId64 "\n", previous_pos);
 	    exit(EX_DATAERR);
 	}
     }
     else
-	sam_alignment->tlen = 0;
+	alignment->tlen = 0;
     
     // 10 SEQ
     if ( field_mask & BL_SAM_FIELD_SEQ )
-	delim = tsv_read_field_malloc(sam_stream, &sam_alignment->seq,
-		    &sam_alignment->seq_array_size, &sam_alignment->seq_len);
+	delim = tsv_read_field_malloc(sam_stream, &alignment->seq,
+		    &alignment->seq_array_size, &alignment->seq_len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &sam_alignment->seq_len);
-	// sam_alignment->seq = NULL;   Mem leak if allocated elsewhere
+	delim = tsv_skip_field(sam_stream, &alignment->seq_len);
+	alignment->seq_len = 0;
+	// Do not set to NULL or set array_size to 0.  Leave buffer
+	// allocated for reuse.
     }
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading seq: %s.\n",
-		sam_alignment->seq);
+		alignment->seq);
 	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & BL_SAM_FIELD_SEQ )
     {
 	// May be allocated by bl_sam_init() or bl_sam_copy()
-	if ( sam_alignment->seq == NULL )
+	if ( alignment->seq == NULL )
 	{
-	    if ( (sam_alignment->seq = xt_malloc(sam_alignment->seq_len + 1,
-		    sizeof(*sam_alignment->seq))) == NULL )
+	    if ( (alignment->seq = xt_malloc(alignment->seq_len + 1,
+		    sizeof(*alignment->seq))) == NULL )
 	    {
 		fprintf(stderr, "bl_sam_read(): Could not allocate seq.\n");
 		exit(EX_UNAVAILABLE);
@@ -412,39 +417,41 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
     // 11 QUAL, should be last field
     if ( field_mask & BL_SAM_FIELD_QUAL )
     {
-	delim = tsv_read_field_malloc(sam_stream, &sam_alignment->qual,
-		    &sam_alignment->qual_array_size,
-		    &sam_alignment->qual_len);
+	delim = tsv_read_field_malloc(sam_stream, &alignment->qual,
+		    &alignment->qual_array_size,
+		    &alignment->qual_len);
     }
     else
     {
-	delim = tsv_skip_field(sam_stream, &sam_alignment->qual_len);
-	// sam_alignment->qual = NULL; Mem leak if allocated elsewhere
+	delim = tsv_skip_field(sam_stream, &alignment->qual_len);
+	alignment->qual_len = 0;
+	// Do not set to NULL or set array_size to 0.  Leave buffer
+	// allocated for reuse.
     }
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading qual: %s.\n",
-		sam_alignment->qual);
+		alignment->qual);
 	return BL_READ_TRUNCATED;
     }
 
     if ( field_mask & BL_SAM_FIELD_QUAL )
     {
 	// May be allocated by bl_sam_init() or bl_sam_copy()
-	if ( sam_alignment->qual == NULL )
+	if ( alignment->qual == NULL )
 	{
-	    if ( (sam_alignment->qual = xt_malloc(sam_alignment->qual_len + 1,
-		    sizeof(*sam_alignment->qual))) == NULL )
+	    if ( (alignment->qual = xt_malloc(alignment->qual_len + 1,
+		    sizeof(*alignment->qual))) == NULL )
 	    {
 		fprintf(stderr, "bl_sam_read(): Could not allocate qual.\n");
 		exit(EX_UNAVAILABLE);
 	    }
 	}
     
-	if ( (sam_alignment->qual_len != 1) &&
-	     (sam_alignment->seq_len != sam_alignment->qual_len) )
+	if ( (alignment->qual_len != 1) &&
+	     (alignment->seq_len != alignment->qual_len) )
 	    fprintf(stderr, "bl_sam_read(): Warning: qual_len != seq_len for %s,%" PRId64 "\n",
-		    sam_alignment->rname, sam_alignment->pos);
+		    alignment->rname, alignment->pos);
     }
     
     // Some SRA CRAMs have 11 fields, most have 12
@@ -454,8 +461,8 @@ int     bl_sam_read(bl_sam_t *sam_alignment, FILE *sam_stream,
 	    ;
 
     /*fprintf(stderr,"bl_sam_read(): %s,%" PRId64 ",%zu\n",
-	    BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
-	    BL_SAM_SEQ_LEN(sam_alignment));*/
+	    BL_SAM_RNAME(alignment), BL_SAM_POS(alignment),
+	    BL_SAM_SEQ_LEN(alignment));*/
     
     return BL_READ_OK;
 }
@@ -490,37 +497,56 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
     strlcpy(dest->rname, src->rname, BL_SAM_RNAME_MAX_CHARS + 1);
     dest->pos = src->pos;
     dest->mapq = src->mapq;
-    // FIXME: Add cigar and RNEXT
-    strlcpy(dest->cigar, src->cigar, BL_SAM_CIGAR_MAX_CHARS + 1);
+
+    if ( src->cigar != NULL )
+    {
+	dest->cigar = strdup(src->cigar);
+	if ( dest->cigar == NULL )
+	{
+	    fprintf(stderr, "bl_sam_copy(): Could not allocate cigar.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+	dest->cigar_array_size = src->cigar_len + 1;
+	dest->cigar_len = src->cigar_len;
+    }
+    dest->cigar_array_size = src->cigar_array_size;
+    dest->cigar_len = src->cigar_len;
+    
     strlcpy(dest->rnext, src->rnext, BL_SAM_RNAME_MAX_CHARS + 1);
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
-    
-    if ( (dest->seq = xt_malloc(src->seq_len + 1,
-	    sizeof(*dest->seq))) == NULL )
+
+    if ( src->seq != NULL )
     {
-	fprintf(stderr, "bl_sam_copy(): Could not allocate seq.\n");
-	exit(EX_UNAVAILABLE);
+	if ( (dest->seq = strdup(src->seq)) == NULL )
+	{
+	    fprintf(stderr, "bl_sam_copy(): Could not allocate seq.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+	dest->seq_array_size = src->seq_len + 1;
+	dest->seq_len = src->seq_len;
     }
-    memcpy(dest->seq, src->seq, src->seq_len + 1);
+    dest->seq_array_size = src->seq_array_size;
+    dest->seq_len = src->seq_len;
     
     //fprintf(stderr, "src->seq = %s %zu\n", src->seq, src->seq_len);
     //fprintf(stderr, "src->qual = %s %zu\n", src->qual, src->qual_len);
-    if ( (dest->qual = xt_malloc(src->qual_len + 1,
-	    sizeof(*dest->qual))) == NULL )
-    {
-	fprintf(stderr, "bl_sam_copy(): Could not allocate qual.\n");
-	exit(EX_UNAVAILABLE);
-    }
     
     /*
      *  qual is an optional field.  If skipped using tsv_skip_field()
      *  qual_len will be non-zero, but qual will be NULL.
      */
     if ( src->qual != NULL )
-	memcpy(dest->qual, src->qual, src->qual_len + 1);
-    
-    dest->seq_len = src->seq_len;
+    {
+	if ( (dest->qual = strdup(src->qual)) == NULL )
+	{
+	    fprintf(stderr, "bl_sam_copy(): Could not allocate qual.\n");
+	    exit(EX_UNAVAILABLE);
+	}
+	dest->qual_array_size = src->qual_len + 1;
+	dest->qual_len = src->qual_len;
+    }
+    dest->qual_array_size = src->qual_array_size;
     dest->qual_len = src->qual_len;
 }
 
@@ -535,7 +561,7 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
  *      bl_sam_init().
  *
  *  Arguments:
- *      sam_alignment   Pointer to bl_sam_t structure to be freed.
+ *      alignment   Pointer to bl_sam_t structure to be freed.
  *
  *  See also:
  *      bl_sam_read(3), bl_sam_init(3), bl_sam_copy(3)
@@ -545,13 +571,15 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_free(bl_sam_t *sam_alignment)
+void    bl_sam_free(bl_sam_t *alignment)
 
 {
-    if ( sam_alignment->seq != NULL )
-	free(sam_alignment->seq);
-    if ( sam_alignment->qual != NULL )
-	free(sam_alignment->qual);
+    if ( alignment->cigar != NULL )
+	free(alignment->cigar);
+    if ( alignment->seq != NULL )
+	free(alignment->seq);
+    if ( alignment->qual != NULL )
+	free(alignment->qual);
 }
 
 
@@ -570,9 +598,9 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
  *      other fields are unconditionally initialized to 0, NULL, or blank.
  *
  *  Arguments:
- *      sam_alignment   Pointer to bl_sam_t structure to initialize
- *      seq_len         Length of sequence and quality strings
- *      field_mask      Bit mask indicating which fields will be used
+ *      alignment   Pointer to bl_sam_t structure to initialize
+ *      seq_len     Length of sequence and quality strings
+ *      field_mask  Bit mask indicating which fields will be used
  *
  *  See also:
  *      bl_sam_read(3), bl_sam_free(3), bl_sam_copy(3)
@@ -582,24 +610,24 @@ void    bl_sam_free(bl_sam_t *sam_alignment)
  *  2020-05-29  Jason Bacon Begin
  ***************************************************************************/
 
-void    bl_sam_init(bl_sam_t *sam_alignment)
+void    bl_sam_init(bl_sam_t *alignment)
 
 {
-    *sam_alignment->qname = '\0';
-    sam_alignment->flag = 0;
-    *sam_alignment->rname = '\0';
-    sam_alignment->pos = 0;
-    sam_alignment->mapq = 0;
-    *sam_alignment->cigar = '\0';
-    *sam_alignment->rnext = '\0';
-    sam_alignment->pnext = 0;
-    sam_alignment->tlen = 0;
-    sam_alignment->seq = NULL;
-    sam_alignment->qual = NULL;
-    sam_alignment->seq_array_size = 0;
-    sam_alignment->seq_len = 0;
-    sam_alignment->qual_array_size = 0;
-    sam_alignment->qual_len = 0;
+    *alignment->qname = '\0';
+    alignment->flag = 0;
+    *alignment->rname = '\0';
+    alignment->pos = 0;
+    alignment->mapq = 0;
+    alignment->cigar = NULL;
+    *alignment->rnext = '\0';
+    alignment->pnext = 0;
+    alignment->tlen = 0;
+    alignment->seq = NULL;
+    alignment->qual = NULL;
+    alignment->seq_array_size = 0;
+    alignment->seq_len = 0;
+    alignment->qual_array_size = 0;
+    alignment->qual_len = 0;
 }
 
 
@@ -613,7 +641,7 @@ void    bl_sam_init(bl_sam_t *sam_alignment)
  *
  *      If field_mask is not BL_SAM_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are written as an appropriate placeholder such as '.'
- *      rather than stored in sam_alignment.  Possible mask values are:
+ *      rather than stored in alignment.  Possible mask values are:
  *
  *      BL_SAM_FIELD_ALL
  *      BL_SAM_FIELD_QNAME
@@ -629,9 +657,9 @@ void    bl_sam_init(bl_sam_t *sam_alignment)
  *      BL_SAM_FIELD_QUAL
  *
  *  Arguments:
- *      sam_stream      A FILE stream to which to write the line
- *      sam_alignment   Pointer to a bl_sam_t structure
- *      field_mask      Bit mask indicating which fields to store in sam_alignment
+ *      sam_stream  A FILE stream to which to write the line
+ *      alignment   Pointer to a bl_sam_t structure
+ *      field_mask  Bit mask indicating which fields to store in alignment
  *
  *  Returns:
  *      Number of items written (per fprintf() output)
@@ -644,27 +672,28 @@ void    bl_sam_init(bl_sam_t *sam_alignment)
  *  2019-12-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_write(bl_sam_t *sam_alignment, FILE *sam_stream,
+int     bl_sam_write(bl_sam_t *alignment, FILE *sam_stream,
 			   sam_field_mask_t field_mask)
 
 {
     int     count;
     
+    // FIXME: Respect field_mask
     count = fprintf(sam_stream, "%s\t%u\t%s\t%" PRId64
 		    "\t%u\t%s\t%s\t%" PRId64 "zu\t%zu\t%s\t%s\t%zu\t%zu\n",
-		    sam_alignment->qname,
-		    sam_alignment->flag,
-		    sam_alignment->rname,
-		    sam_alignment->pos,
-		    sam_alignment->mapq,
-		    sam_alignment->cigar,
-		    sam_alignment->rnext,
-		    sam_alignment->pnext,
-		    sam_alignment->tlen,
-		    sam_alignment->seq,
-		    sam_alignment->qual,
-		    sam_alignment->seq_len,
-		    sam_alignment->qual_len);
+		    alignment->qname,
+		    alignment->flag,
+		    alignment->rname,
+		    alignment->pos,
+		    alignment->mapq,
+		    alignment->cigar,
+		    alignment->rnext,
+		    alignment->pnext,
+		    alignment->tlen,
+		    alignment->seq,
+		    alignment->qual,
+		    alignment->seq_len,
+		    alignment->qual_len);
     return count;
 }
 
