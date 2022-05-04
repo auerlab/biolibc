@@ -740,6 +740,7 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode,
 {
     char    *ext = strrchr(filename, '.'),
 	    cmd[XT_CMD_MAX_CHARS + 1];
+    struct stat sb;
     
     if ( samtools_args == NULL )
 	samtools_args = "";
@@ -756,6 +757,10 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode,
 	return NULL;
     }
 
+    // popen() does not return NULL when the file does not exist
+    if ( stat(filename, &sb) != 0 )
+	return NULL;
+    
     if ( *mode == 'r' )
     {
 	if ( strcmp(ext, ".gz") == 0 )
