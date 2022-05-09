@@ -151,6 +151,7 @@ FILE    *bl_vcf_skip_header(FILE *vcf_stream)
 	    putc('#', meta_stream);
 	    while ( ((ch = getc(vcf_stream)) != '\n') && (ch != EOF) )
 		putc(ch, meta_stream);
+	    putc(ch, meta_stream);
 	    rewind(meta_stream);
 	}
 	else
