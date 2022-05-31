@@ -60,6 +60,7 @@ typedef struct
 
 typedef unsigned int        sam_field_mask_t;
 
+/* Bit flags to select fields in bl_sam_read() or bl_sam_write() */
 #define BL_SAM_FIELD_ALL    0xfff
 #define BL_SAM_FIELD_QNAME  0x001
 #define BL_SAM_FIELD_FLAG   0x002
@@ -72,6 +73,20 @@ typedef unsigned int        sam_field_mask_t;
 #define BL_SAM_FIELD_TLEN   0x100
 #define BL_SAM_FIELD_SEQ    0x200
 #define BL_SAM_FIELD_QUAL   0x400
+
+/* Bit flags from SAM specification */
+#define BL_SAM_FLAG_PAIRED          0x001
+#define BL_SAM_FLAG_PROPER_PAIR     0x002
+#define BL_SAM_FLAG_UNMAP           0x004
+#define BL_SAM_FLAG_MUNMAP          0x008
+#define BL_SAM_FLAG_REVERSE         0x010
+#define BL_SAM_FLAG_MREVERSE        0x020
+#define BL_SAM_FLAG_READ1           0x040
+#define BL_SAM_FLAG_READ2           0x080
+#define BL_SAM_FLAG_SECONDARY       0x100
+#define BL_SAM_FLAG_QCFAIL          0x200
+#define BL_SAM_FLAG_DUP             0x400
+#define BL_SAM_FLAG_SUPPLEMENTARY   0x800
 
 #include "sam-rvs.h"
 #include "sam-accessors.h"
