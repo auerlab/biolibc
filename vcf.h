@@ -28,7 +28,7 @@
 // will point to a specific field.  Eventually should have dsv_read_field()
 // return an error code rather than exit with an error message
 #define BL_VCF_REF_MAX_CHARS        32
-#define BL_VCF_ALT_MAX_CHARS        33
+//#define BL_VCF_ALT_MAX_CHARS        33
 #define BL_VCF_QUAL_MAX_CHARS       34
 #define BL_VCF_FILTER_MAX_CHARS     64
 
@@ -38,7 +38,7 @@ typedef struct
     char        chrom[BL_CHROM_MAX_CHARS + 1],
 		id[BL_VCF_ID_MAX_CHARS + 1],
 		ref[BL_VCF_REF_MAX_CHARS + 1],
-		alt[BL_VCF_ALT_MAX_CHARS + 1],
+		*alt,
 		qual[BL_VCF_QUAL_MAX_CHARS + 1],
 		filter[BL_VCF_FILTER_MAX_CHARS + 1],
 		*info,
@@ -46,7 +46,9 @@ typedef struct
 		*single_sample,     // Simpler than using multi_samples
 		**multi_samples;
     int64_t     pos;
-    size_t      info_array_size,
+    size_t      alt_array_size,
+		alt_len,
+		info_array_size,
 		info_len,
 		format_array_size,
 		format_len,

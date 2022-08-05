@@ -373,12 +373,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Alt
     if ( field_mask & BL_VCF_FIELD_ALT )
-	delim = tsv_read_field(vcf_stream, vcf_call->alt,
-		   BL_VCF_ALT_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->alt,
+		   &vcf_call->alt_array_size, &vcf_call->alt_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->alt, ".", 2);
+	vcf_call->alt = strdup(".");
+	vcf_call->alt_array_size = 2;
+	vcf_call->alt_len = 1;
     }
     if ( delim == EOF )
     {
@@ -424,6 +426,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     {
 	delim = tsv_skip_field(vcf_stream, &vcf_call->info_len);
 	vcf_call->info = strdup(".");
+	vcf_call->info_array_size = 2;
 	vcf_call->info_len = 1;
     }
     if ( delim == EOF )
@@ -776,6 +779,7 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 {
     int     c;
     
+    free(vcf_call->alt);
     free(vcf_call->info);
     free(vcf_call->format);
     free(vcf_call->single_sample);
@@ -787,6 +791,9 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 	free(vcf_call->multi_sample_lens);
 	free(vcf_call->multi_samples);
     }
+    
+    // Is this necessary?
+    //bl_vcf_init(vcf_call);
 }
 
 
@@ -819,7 +826,11 @@ void    bl_vcf_init(bl_vcf_t *vcf_call)
     vcf_call->chrom[0] = '\0';
     vcf_call->id[0] = '\0';
     vcf_call->ref[0] = '\0';
-    vcf_call->alt[0] = '\0';
+
+    vcf_call->alt_array_size = 0;
+    vcf_call->alt_len = 0;
+    vcf_call->alt = NULL;
+    
     vcf_call->qual[0] = '\0';
     vcf_call->filter[0] = '\0';
     vcf_call->pos = 0;
