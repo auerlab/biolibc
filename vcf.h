@@ -22,32 +22,45 @@
  *  is not for you.
  */
 
-#define BL_VCF_ID_MAX_CHARS         256 // FIXME: Arbitrary guess
+// FIXME: Arbitrary guess
+// Only used for temp variables.  Replace with read_field_malloc().
+#define BL_VCF_SAMPLE_ID_MAX_CHARS    4096
+
 // Hack:
 // Use different sizes for each so dsv_read_field() buffer overflow errors
 // will point to a specific field.  Eventually should have dsv_read_field()
 // return an error code rather than exit with an error message
-#define BL_VCF_REF_MAX_CHARS        32
+//#define BL_VCF_REF_MAX_CHARS        32
 //#define BL_VCF_ALT_MAX_CHARS        33
-#define BL_VCF_QUAL_MAX_CHARS       34
-#define BL_VCF_FILTER_MAX_CHARS     64
+//#define BL_VCF_QUAL_MAX_CHARS       34
+//#define BL_VCF_FILTER_MAX_CHARS     64
 
 // We actually saw INFO fields over 512k in some dbGap BCFs
 typedef struct
 {
-    char        chrom[BL_CHROM_MAX_CHARS + 1],
-		id[BL_VCF_ID_MAX_CHARS + 1],
-		ref[BL_VCF_REF_MAX_CHARS + 1],
+    char        *chrom,
+		*id,
+		*ref,
 		*alt,
-		qual[BL_VCF_QUAL_MAX_CHARS + 1],
-		filter[BL_VCF_FILTER_MAX_CHARS + 1],
+		*qual,
+		*filter,
 		*info,
 		*format,
 		*single_sample,     // Simpler than using multi_samples
 		**multi_samples;
     int64_t     pos;
-    size_t      alt_array_size,
+    size_t      chrom_array_size,
+		chrom_len,
+		id_array_size,
+		id_len,
+		ref_array_size,
+		ref_len,
+		alt_array_size,
 		alt_len,
+		qual_array_size,
+		qual_len,
+		filter_array_size,
+		filter_len,
 		info_array_size,
 		info_len,
 		format_array_size,

@@ -201,7 +201,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 {
     size_t  c,
 	    len;
-    char    temp_sample_id[BL_VCF_ID_MAX_CHARS + 1];
+    char    temp_sample_id[BL_VCF_SAMPLE_ID_MAX_CHARS + 1];
     int     delimiter = 0;
     
     // Skip standard header tags to get to sample IDs
@@ -214,7 +214,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
     
     for (; (c <= last_col) &&
 	   (delimiter = tsv_read_field(vcf_stream, temp_sample_id,
-				     BL_VCF_ID_MAX_CHARS, &len)) != EOF; ++c)
+				     BL_VCF_SAMPLE_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
 	// fprintf(stderr, "'%s'\n", temp_sample_id);
@@ -301,12 +301,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Chromosome
     if ( field_mask & BL_VCF_FIELD_CHROM )
-	delim = tsv_read_field(vcf_stream, vcf_call->chrom,
-			BL_CHROM_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->chrom,
+			&vcf_call->chrom_array_size, &vcf_call->chrom_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->chrom, ".", 2);
+	vcf_call->chrom = strdup(".");
+	vcf_call->chrom_array_size = 2;
+	vcf_call->chrom_len = 1;
     }
     if ( delim == EOF )
     {
@@ -343,12 +345,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // ID
     if ( field_mask & BL_VCF_FIELD_ID )
-	delim = tsv_read_field(vcf_stream, vcf_call->id,
-			BL_VCF_ID_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->id,
+			&vcf_call->id_array_size, &vcf_call->id_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->id, ".", 2);
+	vcf_call->id = strdup(".");
+	vcf_call->id_array_size = 2;
+	vcf_call->id_len = 1;
     }
     if ( delim == EOF )
     {
@@ -358,12 +362,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Ref
     if ( field_mask & BL_VCF_FIELD_REF )
-	delim = tsv_read_field(vcf_stream, vcf_call->ref,
-			BL_VCF_REF_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->ref,
+			&vcf_call->ref_array_size, &vcf_call->ref_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->ref, ".", 2);
+	vcf_call->ref = strdup(".");
+	vcf_call->ref_array_size = 2;
+	vcf_call->ref_len = 1;
     }
     if ( delim == EOF )
     {
@@ -390,12 +396,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
     // Qual
     if ( field_mask & BL_VCF_FIELD_QUAL )
-	delim = tsv_read_field(vcf_stream, vcf_call->qual,
-		   BL_VCF_QUAL_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->qual,
+		   &vcf_call->qual_array_size, &vcf_call->qual_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->qual, ".", 2);
+	vcf_call->qual = strdup(".");
+	vcf_call->qual_array_size = 2;
+	vcf_call->qual_len = 1;
     }
     if ( delim == EOF )
     {
@@ -405,12 +413,14 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Filter
     if ( field_mask & BL_VCF_FIELD_FILTER )
-	delim = tsv_read_field(vcf_stream, vcf_call->filter,
-		   BL_VCF_FILTER_MAX_CHARS, &len);
+	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->filter,
+		   &vcf_call->filter_array_size, &vcf_call->filter_len);
     else
     {
 	delim = tsv_skip_field(vcf_stream, &len);
-	strlcpy(vcf_call->filter, ".", 2);
+	vcf_call->filter = strdup(".");
+	vcf_call->filter_array_size = 2;
+	vcf_call->filter_len = 1;
     }
     if ( delim == EOF )
     {
@@ -779,7 +789,12 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 {
     int     c;
     
+    free(vcf_call->chrom);
+    free(vcf_call->id);
+    free(vcf_call->ref);
     free(vcf_call->alt);
+    free(vcf_call->qual);
+    free(vcf_call->filter);
     free(vcf_call->info);
     free(vcf_call->format);
     free(vcf_call->single_sample);
@@ -823,16 +838,30 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 void    bl_vcf_init(bl_vcf_t *vcf_call)
 
 {
-    vcf_call->chrom[0] = '\0';
-    vcf_call->id[0] = '\0';
-    vcf_call->ref[0] = '\0';
+    vcf_call->chrom_array_size = 0;
+    vcf_call->chrom_len = 0;
+    vcf_call->chrom = NULL;
+
+    vcf_call->id_array_size = 0;
+    vcf_call->id_len = 0;
+    vcf_call->id = NULL;
+
+    vcf_call->ref_array_size = 0;
+    vcf_call->ref_len = 0;
+    vcf_call->ref = NULL;
 
     vcf_call->alt_array_size = 0;
     vcf_call->alt_len = 0;
     vcf_call->alt = NULL;
     
-    vcf_call->qual[0] = '\0';
-    vcf_call->filter[0] = '\0';
+    vcf_call->qual_array_size = 0;
+    vcf_call->qual_len = 0;
+    vcf_call->qual = NULL;
+    
+    vcf_call->filter_array_size = 0;
+    vcf_call->filter_len = 0;
+    vcf_call->filter = NULL;
+    
     vcf_call->pos = 0;
     vcf_call->info_len = 0;
     vcf_call->ref_count = 0;
