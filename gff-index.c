@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/param.h>  // MIN()
 #include <xtend/mem.h>
 #include <xtend/math.h>
 #include "gff-index.h"
@@ -153,7 +152,7 @@ int     bl_gff_index_seek_reverse(bl_gff_index_t *gi, FILE *stream,
     ssize_t     c;
     char        *ref_seqid = BL_GFF_SEQID(feature);
     int64_t     ref_start = BL_GFF_START(feature),
-		end = MAX(ref_start - max_nt, 0),
+		end = XT_MAX(ref_start - max_nt, 0),
 		f;
 
     // First find the reference feature where the search begins

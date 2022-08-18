@@ -33,8 +33,8 @@
  *          bed_len = bed_end - bed_start;
  *          gff_len = gff_end - gff_start + 1;
  *          bl_overlap_set_all(overlap, bed_len, gff_len,
- *                          MAX(bed_start+1, gff_start),
- *                          MIN(bed_end, gff_end));
+ *                          XT_MAX(bed_start+1, gff_start),
+ *                          XT_MIN(bed_end, gff_end));
  *
  *  See also:
  *      bl_overlap_print(3)

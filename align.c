@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <sys/param.h>  // MIN()
+#include <xtend/math.h> // XT_MIN()
 #include "align.h"
 
 /***************************************************************************
@@ -121,7 +121,7 @@ size_t  bl_align_map_seq_sub(const bl_align_t *params,
     {
 	// Terminate loop as soon as max_mismatch is reached, before
 	// checking other conditions
-	max_mismatch = MIN((big_len - start) / md, little_mm);
+	max_mismatch = XT_MIN((big_len - start) / md, little_mm);
 	for (bc = start, lc = 0, mismatch = 0;
 	     (mismatch <= max_mismatch) &&
 	     (lc < little_len) && (bc < big_len); ++bc, ++lc)

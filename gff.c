@@ -4,10 +4,10 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <inttypes.h>       // PRId64
-#include <sys/param.h>      // MIN(), MAX()
 #include <xtend/string.h>   // strlcpy() on Linux
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
+#include <xtend/math.h>     // XT_MIN()
 #include "gff.h"
 #include "bed.h"
 
@@ -853,8 +853,8 @@ int64_t bl_gff_sam_overlap(bl_gff_t *feature, bl_sam_t *alignment)
 
 {
     int64_t alignment_end = BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment),
-	    overlap_start = MAX(BL_GFF_START(feature), BL_SAM_POS(alignment)),
-	    overlap_end = MIN(BL_GFF_END(feature), alignment_end);
+	    overlap_start = XT_MAX(BL_GFF_START(feature), BL_SAM_POS(alignment)),
+	    overlap_end = XT_MIN(BL_GFF_END(feature), alignment_end);
     
     //fprintf(stderr, "%" PRId64 " %" PRId64 "\n", overlap_start, overlap_end);
     //fprintf(stderr, "Coverage = %" PRId64 "\n", overlap_end - overlap_start + 1);

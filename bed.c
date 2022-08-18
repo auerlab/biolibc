@@ -4,7 +4,7 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <inttypes.h>   // PRId64
-#include <sys/param.h>  // MAX(), MIN()
+#include <xtend/math.h> // XT_MAX(), XT_MIN()
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
 #include "bed.h"
@@ -645,8 +645,8 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	    bed_len = bed_end - bed_start;
 	    gff_len = gff_end - gff_start + 1;
 	    bl_overlap_set_all(overlap, bed_len, gff_len,
-			    MAX(bed_start+1, gff_start),
-			    MIN(bed_end, gff_end));
+			    XT_MAX(bed_start+1, gff_start),
+			    XT_MIN(bed_end, gff_end));
 	    return 0;
 	}
     }

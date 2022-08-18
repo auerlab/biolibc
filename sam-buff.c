@@ -1,10 +1,10 @@
 #include <sysexits.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/param.h>  // MIN()
-#include <xtend/string.h>      // strlcpy() on Linux
-#include <xtend/mem.h>
 #include <inttypes.h>
+#include <xtend/string.h>   // strlcpy() on Linux
+#include <xtend/mem.h>
+#include <xtend/math.h>     // XT_MIN()
 #include "sam-buff.h"
 #include "biostring.h"
 
@@ -159,8 +159,8 @@ int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 
     bl_sam_buff_check_order(sam_buff, sam_alignment);
     
-    sam_buff->mapq_low = MIN(sam_buff->mapq_low, BL_SAM_MAPQ(sam_alignment));
-    sam_buff->mapq_high = MAX(sam_buff->mapq_high, BL_SAM_MAPQ(sam_alignment));
+    sam_buff->mapq_low = XT_MIN(sam_buff->mapq_low, BL_SAM_MAPQ(sam_alignment));
+    sam_buff->mapq_high = XT_MAX(sam_buff->mapq_high, BL_SAM_MAPQ(sam_alignment));
     sam_buff->mapq_sum += BL_SAM_MAPQ(sam_alignment);
     ++sam_buff->reads_used;
 
