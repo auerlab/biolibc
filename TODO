@@ -1,1 +1,0 @@
-str_multi_cmp(string, "string1|string2|...");
