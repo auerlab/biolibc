@@ -44,13 +44,11 @@
 int     bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream)
 
 {
-    switch(BL_FASTX_FORMAT(record))
+    switch(record->format)
     {
 	case BL_FASTX_FORMAT_FASTA:
-	    record->format = BL_FASTX_FORMAT_FASTA;
 	    return bl_fasta_read(&record->fasta, fastx_stream);
 	case BL_FASTX_FORMAT_FASTQ:
-	    record->format = BL_FASTX_FORMAT_FASTQ;
 	    return bl_fastq_read(&record->fastq, fastx_stream);
     }
     fprintf(stderr, "bl_fastx_read(): Input format is unknown.  Call bl_fastx_init() first.\n");
@@ -207,6 +205,7 @@ void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
     while ( ((ch = getc(fastx_stream)) == ';') && (ch != EOF) )
 	while ( ((ch = getc(fastx_stream)) != '\n') && (ch != EOF) )
 	    ;
+    
     if ( ch == EOF )
     {
 	fputs("bl_fastq_init(): EOF encountered.\n", stderr);
@@ -216,15 +215,17 @@ void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
     switch(ch)
     {
 	case '>':
-	    fputs("File format is FASTA.\n", stderr);
 	    record->format = BL_FASTX_FORMAT_FASTA;
 	    bl_fasta_init(&record->fasta);
 	    break;
 	case '@':
-	    fputs("File format is FASTQ.\n", stderr);
 	    record->format = BL_FASTX_FORMAT_FASTQ;
 	    bl_fastq_init(&record->fastq);
 	    break;
+	default:
+	    fprintf(stderr, "bl_fastx_init(): Unexpected first char: %c\n", ch);
+	    fputs("Should be '>' or '@'.\n", stderr);
+	    exit(EX_DATAERR);
     }
 }
 
