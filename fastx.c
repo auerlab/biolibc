@@ -216,12 +216,10 @@ void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
     switch(ch)
     {
 	case '>':
-	    fputs("File format is FASTA.\n", stderr);
 	    record->format = BL_FASTX_FORMAT_FASTA;
 	    bl_fasta_init(&record->fasta);
 	    break;
 	case '@':
-	    fputs("File format is FASTQ.\n", stderr);
 	    record->format = BL_FASTX_FORMAT_FASTQ;
 	    bl_fastq_init(&record->fastq);
 	    break;
