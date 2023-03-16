@@ -680,7 +680,7 @@ int     bl_sam_write(bl_sam_t *alignment, FILE *sam_stream,
     
     // FIXME: Respect field_mask
     count = fprintf(sam_stream, "%s\t%u\t%s\t%" PRId64
-		    "\t%u\t%s\t%s\t%" PRId64 "zu\t%zu\t%s\t%s\t%zu\t%zu\n",
+		    "\t%u\t%s\t%s\t%" PRId64 "zu\t%lu\t%s\t%s\t%zu\t%zu\n",
 		    alignment->qname,
 		    alignment->flag,
 		    alignment->rname,

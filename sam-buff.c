@@ -380,7 +380,7 @@ bool    bl_sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
     {
 	++sam_buff->unmapped_alignments;
 #ifdef DEBUG
-	fprintf(stderr, "Discarding unmapped read: %s,%zu,0x%04x\n",
+	fprintf(stderr, "Discarding unmapped read: %s,%" PRId64 ",0x%04x\n",
 		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 		BL_SAM_FLAG(sam_alignment));
 #endif
@@ -396,7 +396,7 @@ bool    bl_sam_buff_alignment_ok(bl_sam_buff_t *sam_buff,
 	    sam_buff->max_discarded_score = BL_SAM_MAPQ(sam_alignment);
 
 #ifdef DEBUG
-	fprintf(stderr, "bl_sam_buff_alignment_ok(): Discarding low quality alignment: %s,%zu MAPQ=%u\n",
+	fprintf(stderr, "bl_sam_buff_alignment_ok(): Discarding low quality alignment: %s,%" PRId64 " MAPQ=%u\n",
 		BL_SAM_RNAME(sam_alignment), BL_SAM_POS(sam_alignment),
 		BL_SAM_MAPQ(sam_alignment));
 #endif
