@@ -1,6 +1,10 @@
 #ifndef _BIOLIBC_GFF_INDEX_H_
 #define _BIOLIBC_GFF_INDEX_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _STDIO_H_
 #include <stdio.h>
 #endif
@@ -35,5 +39,9 @@ typedef struct
 
 int bl_gff_index_add(bl_gff_index_t *gi, bl_gff_t *feature);
 int bl_gff_index_seek_reverse(bl_gff_index_t *gi, FILE *stream, bl_gff_t *feature, int64_t gene_count, int64_t max_nt);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _BIOLIBC_GFF_INDEX_H_

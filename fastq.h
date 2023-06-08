@@ -1,6 +1,9 @@
-
 #ifndef _BIOLIBC_FASTQ_H_
 #define _BIOLIBC_FASTQ_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef _BIOLIBC_H_
 #include "biolibc.h"
@@ -41,5 +44,9 @@ size_t bl_fastq_find_adapter_exact(const bl_fastq_t *read, const char *adapter, 
 size_t bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len);
 size_t bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual, unsigned phred_base);
 size_t bl_fastq_name_cmp(bl_fastq_t *read1, bl_fastq_t *read2);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _BIOLIBC_FASTQ_H_

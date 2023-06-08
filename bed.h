@@ -1,6 +1,10 @@
 #ifndef _BIOLIBC_BED_H_
 #define _BIOLIBC_BED_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
@@ -75,5 +79,9 @@ int bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_
 int bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_mask);
 void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], int64_t last_start);
 int bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _BIOLIBC_BED_H_

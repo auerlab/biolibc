@@ -1,3 +1,9 @@
+#ifndef _BIOLIBC_FASTX_H_
+#define _BIOLIBC_FASTX_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef _BIOLIBC_FASTA_H_
 #include "fasta.h"
@@ -42,3 +48,9 @@ char *bl_fastx_plus(bl_fastx_t *record);
 size_t bl_fastx_plus_len(bl_fastx_t *record);
 char *bl_fastx_qual(bl_fastx_t *record);
 size_t bl_fastx_qual_len(bl_fastx_t *record);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // _FASTX_H_

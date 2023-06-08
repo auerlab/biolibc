@@ -1,6 +1,9 @@
-
 #ifndef _BIOLIBC_FASTA_H_
 #define _BIOLIBC_FASTA_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef _BIOLIBC_H_
 #include "biolibc.h"
@@ -28,5 +31,9 @@ int bl_fasta_read(bl_fasta_t *record, FILE *fasta_stream);
 int bl_fasta_write(bl_fasta_t *record, FILE *fasta_stream, size_t chars_per_line);
 void bl_fasta_free(bl_fasta_t *record);
 void bl_fasta_init(bl_fasta_t *record);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _BIOLIBC_FASTA_H_

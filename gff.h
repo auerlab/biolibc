@@ -1,6 +1,10 @@
 #ifndef _BIOLIBC_GFF_H_
 #define _BIOLIBC_GFF_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _BIOLIBC_H_
 #include "biolibc.h"
 #endif
@@ -82,5 +86,9 @@ bl_gff_t *bl_gff_dup(bl_gff_t *feature);
 bl_gff_t *bl_gff_copy(bl_gff_t *copy, bl_gff_t *feature);
 int bl_gff_sam_cmp(bl_gff_t *feature, bl_sam_t *alignment);
 int64_t bl_gff_sam_overlap(bl_gff_t *feature, bl_sam_t *alignment);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _BIOLIBC_GFF_H_
