@@ -114,6 +114,7 @@ MANDIR      ?= ${MANPREFIX}/man
 # Defaults that should work with GCC and Clang.
 CC          ?= cc
 CFLAGS      ?= -Wall -g -O
+CFLAGS      += -Wno-char-subscripts     # NetBSD 10, gcc 10
 
 # Link command:
 # Use ${FC} to link when mixing C and Fortran
