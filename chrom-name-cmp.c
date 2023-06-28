@@ -43,7 +43,7 @@ int     bl_chrom_name_cmp(const char *name1, const char *name2)
 
 {
     const char      *p1 = name1, *p2 = name2;
-    char            *end;
+    char            *end1, *end2;
     unsigned long   c1, c2;
 
     /* Skip identical portions of strings, e.g. "chr" prefix */
@@ -62,20 +62,17 @@ int     bl_chrom_name_cmp(const char *name1, const char *name2)
     if ( !isdigit(*p1) || !isdigit(*p2) )
 	return *p1 - *p2;
 
-    /* Both IDs are numeric, so perform an integer compare */
-    c1 = strtoul(p1, &end, 10);
-    if ( *end != '\0' )
+    c1 = strtoul(p1, &end1, 10);
+    c2 = strtoul(p2, &end2, 10);
+    
+    if ( (*end1 == '\0') && (*end2 == '\0') )
+	// Both IDs are numeric (e.g. chr10), so perform an integer compare
+	return c1 - c2;
+    else
     {
-	fprintf(stderr,
-		"bl_chrom_name_cmp(): Invalid chrom ID: %s\n", name1);
-	exit(EX_DATAERR);
+	// More text after the numbers (e.g. chr10p), do a lexical comparison
+	while ( (*p1 == *p2) && (*p1 != '\0') )
+	    ++p1, ++p2;
+	return *p1 - *p2;
     }
-    c2 = strtoul(p2, &end, 10);
-    if ( *end != '\0' )
-    {
-	fprintf(stderr,
-		"bl_chrom_name_cmp(): Invalid chrom ID: %s\n", name2);
-	exit(EX_DATAERR);
-    }
-    return c1 - c2;
 }

@@ -597,21 +597,48 @@ char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 	    *end;
     size_t  len = strlen(attr_name);
 
+    //fprintf(stderr, "bl_gff_extract_attribute: Finding %s\n", attr_name);
     // Find attribute beginning with "attr_name="
-    for (start = feature->attributes; (*start != '\0'); ++start)
+    for (start = feature->attributes; (*start != '\0'); )
     {
+	// Need this whether or not there's a match
+	val_start = start + len + 1;
+	end = strchr(val_start, ';');
+	
+	//fprintf(stderr, "bl_gff_extract_attribute: %s %c %s %zu\n",
+	//        start, start[len], attr_name, len);
 	if ( (memcmp(start, attr_name, len) == 0) && (start[len] == '=') )
 	{
-	    val_start = start + len + 1;
+	    
 	    // ; separates attributes, last one terminated by null byte
-	    if ( (end = strchr(val_start, ';')) != NULL )
-		*end = '\0';    // Not thread safe
+	    // Temporarily null-terminate for strdup()
+	    // FIXME: Maybe add strdup_delim() to libxtend?
+	    if ( end != NULL )
+		*end = '\0';        // FIXME: Not thread safe
+
 	    if ( (attribute = strdup(val_start)) == NULL )
+	    {
 		fprintf(stderr, "%s: strdup() failed.\n", __FUNCTION__);
+		exit(EX_UNAVAILABLE);
+	    }
+	    
+	    // Restore clobbered ;
 	    if ( end != NULL )
 		*end = ';';
+	    
+	    // Only 1 match should be found
+	    break;
 	}
+	
+	// ; separates attributes, last one terminated by null byte
+	if ( end != NULL )
+	    start = end + 1;    // Next attribute starts after ;
+	else
+	    break;              // Last attribute, no ;
     }
+    
+    //fprintf(stderr, "bl_gff_extract_attribute: %s = %s\n",
+    //        attr_name, attribute);
     return attribute;
 }
 
