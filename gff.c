@@ -609,8 +609,8 @@ char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 	//        start, start[len], attr_name, len);
 	if ( (memcmp(start, attr_name, len) == 0) && (start[len] == '=') )
 	{
-	    
-	    // ; separates attributes, last one terminated by null byte
+	    //fprintf(stderr, "bl_gff_extract_attribute: match at %s\n", start);
+	    // ';' separates attributes, last one terminated by null byte
 	    // Temporarily null-terminate for strdup()
 	    // FIXME: Maybe add strdup_delim() to libxtend?
 	    if ( end != NULL )
@@ -622,7 +622,7 @@ char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 		exit(EX_UNAVAILABLE);
 	    }
 	    
-	    // Restore clobbered ;
+	    // Restore clobbered ';'
 	    if ( end != NULL )
 		*end = ';';
 	    
@@ -632,13 +632,14 @@ char    *bl_gff_extract_attribute(bl_gff_t *feature, const char *attr_name)
 	
 	// ; separates attributes, last one terminated by null byte
 	if ( end != NULL )
-	    start = end + 1;    // Next attribute starts after ;
+	    start = end + 1;    // Next attribute starts after ';'
 	else
-	    break;              // Last attribute, no ;
+	    break;              // Last attribute, no ';'
     }
     
     //fprintf(stderr, "bl_gff_extract_attribute: %s = %s\n",
     //        attr_name, attribute);
+    
     return attribute;
 }
 
