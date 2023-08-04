@@ -864,7 +864,7 @@ int     bl_sam_fclose(FILE *stream)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Library:
- *      #include <biolibc/gff.h>
+ *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
  *
  *  Description:
@@ -873,24 +873,24 @@ int     bl_sam_fclose(FILE *stream)
  *  
  *  Arguments:
  *      alignment   Pointer to a bl_sam_t object
- *      feature     Pointer to a bl_gff_t object
+ *      feature     Pointer to a bl_gff3_t object
  *
  *  Returns:
  *      The number of bases of overlap between the feature and alignment.
  *      A zero or negative return value indicates no overlap.
  *
  *  See also:
- *      bl_gff_sam_overlap(3)
+ *      bl_gff3_sam_overlap(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-04-07  Jason Bacon Begin
  ***************************************************************************/
 
-int64_t bl_sam_gff_overlap(bl_sam_t *alignment, bl_gff_t *feature)
+int64_t bl_sam_gff3_overlap(bl_sam_t *alignment, bl_gff3_t *feature)
 
 {
-    return bl_gff_sam_overlap(feature, alignment);
+    return bl_gff3_sam_overlap(feature, alignment);
 }
 
 
@@ -914,12 +914,12 @@ int64_t bl_sam_gff_overlap(bl_sam_t *alignment, bl_gff_t *feature)
  *      This function is mainly intended for programs that sweep properly
  *      sorted GFF and SAM files locating overlaps in a single pass.
  *  
- *      A converse function, bl_gff_sam_cmp(3) is also provided so that
+ *      A converse function, bl_gff3_sam_cmp(3) is also provided so that
  *      the programmer can choose the more intuitive interface.
  *  
  *  Arguments:
  *      alignment   Pointer to a bl_sam_t object
- *      feature     Pointer to a bl_gff_t object
+ *      feature     Pointer to a bl_gff3_t object
  *
  *  Returns:
  *      A value < 0 if the the alignment is entirely before the feature
@@ -927,27 +927,27 @@ int64_t bl_sam_gff_overlap(bl_sam_t *alignment, bl_gff_t *feature)
  *      0 if the alignment and the feature overlap
  *
  *  See also:
- *      bl_gff_sam_cmp(3), bl_chrom_name_cmp(3)
+ *      bl_gff3_sam_cmp(3), bl_chrom_name_cmp(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2022-04-06  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_sam_gff_cmp(bl_sam_t *alignment, bl_gff_t *feature)
+int     bl_sam_gff3_cmp(bl_sam_t *alignment, bl_gff3_t *feature)
 
 {
     int     status = bl_chrom_name_cmp(BL_SAM_RNAME(alignment),
-					    BL_GFF_SEQID(feature));
+					    BL_GFF3_SEQID(feature));
     
     if ( status != 0 )
 	// Different chromosomes
 	return status;
     else if ( BL_SAM_POS(alignment) + BL_SAM_SEQ_LEN(alignment) - 1
-		< BL_GFF_START(feature) )
+		< BL_GFF3_START(feature) )
 	// Alignment ends before the start of feature
 	return -1;
-    else if ( BL_SAM_POS(alignment) > BL_GFF_END(feature) )
+    else if ( BL_SAM_POS(alignment) > BL_GFF3_END(feature) )
 	// Alignment starts after the end of feature
 	return 1;
     else

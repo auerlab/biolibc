@@ -5,19 +5,19 @@ align-mutators.o: align-mutators.c align.h align-rvs.h align-accessors.h \
 align.o: align.c align.h align-rvs.h align-accessors.h align-mutators.h
 	${CC} -c ${CFLAGS} align.c
 
-bed-mutators.o: bed-mutators.c bed.h biolibc.h gff.h gff-rvs.h \
-  gff-accessors.h gff-mutators.h overlap.h overlap-rvs.h \
-  overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
-  bed-mutators.h
+bed-mutators.o: bed-mutators.c bed.h biolibc.h gff3.h gff3-rvs.h \
+  gff3-accessors.h gff3-mutators.h sam.h sam-rvs.h sam-accessors.h \
+  sam-mutators.h overlap.h overlap-rvs.h overlap-accessors.h \
+  overlap-mutators.h bed-rvs.h bed-accessors.h bed-mutators.h
 	${CC} -c ${CFLAGS} bed-mutators.c
 
-bed.o: bed.c bed.h biolibc.h gff.h gff-rvs.h gff-accessors.h \
-  gff-mutators.h overlap.h overlap-rvs.h overlap-accessors.h \
-  overlap-mutators.h bed-rvs.h bed-accessors.h bed-mutators.h \
-  biostring.h
+bed.o: bed.c bed.h biolibc.h gff3.h gff3-rvs.h gff3-accessors.h \
+  gff3-mutators.h sam.h sam-rvs.h sam-accessors.h sam-mutators.h \
+  overlap.h overlap-rvs.h overlap-accessors.h overlap-mutators.h \
+  bed-rvs.h bed-accessors.h bed-mutators.h biostring.h
 	${CC} -c ${CFLAGS} bed.c
 
-chrom-name-cmp.o: chrom-name-cmp.c biolibc.h
+chrom-name-cmp.o: chrom-name-cmp.c biostring.h
 	${CC} -c ${CFLAGS} chrom-name-cmp.c
 
 fasta-mutators.o: fasta-mutators.c fasta.h biolibc.h fasta-rvs.h \
@@ -47,25 +47,32 @@ fastx.o: fastx.c fastx.h fasta.h biolibc.h fasta-rvs.h fasta-accessors.h \
   fastq-mutators.h fastx-rvs.h fastx-accessors.h fastx-mutators.h
 	${CC} -c ${CFLAGS} fastx.c
 
-gff-index-mutators.o: gff-index-mutators.c gff-index.h gff.h biolibc.h \
-  bed.h overlap.h overlap-rvs.h overlap-accessors.h overlap-mutators.h \
-  bed-rvs.h bed-accessors.h bed-mutators.h gff-rvs.h gff-accessors.h \
-  gff-mutators.h
-	${CC} -c ${CFLAGS} gff-index-mutators.c
+gff3-index-mutators.o: gff3-index-mutators.c gff3-index.h gff3.h \
+  biolibc.h bed.h overlap.h overlap-rvs.h overlap-accessors.h \
+  overlap-mutators.h bed-rvs.h bed-accessors.h bed-mutators.h gff3-rvs.h \
+  gff3-accessors.h gff3-mutators.h sam.h sam-rvs.h sam-accessors.h \
+  sam-mutators.h gff3-index-rvs.h gff3-index-accessors.h \
+  gff3-index-mutators.h
+	${CC} -c ${CFLAGS} gff3-index-mutators.c
 
-gff-index.o: gff-index.c gff-index.h
-	${CC} -c ${CFLAGS} gff-index.c
-
-gff-mutators.o: gff-mutators.c gff.h biolibc.h bed.h overlap.h \
+gff3-index.o: gff3-index.c gff3-index.h gff3.h biolibc.h bed.h overlap.h \
   overlap-rvs.h overlap-accessors.h overlap-mutators.h bed-rvs.h \
-  bed-accessors.h bed-mutators.h gff-rvs.h gff-accessors.h \
-  gff-mutators.h
-	${CC} -c ${CFLAGS} gff-mutators.c
+  bed-accessors.h bed-mutators.h gff3-rvs.h gff3-accessors.h \
+  gff3-mutators.h sam.h sam-rvs.h sam-accessors.h sam-mutators.h \
+  gff3-index-rvs.h gff3-index-accessors.h gff3-index-mutators.h
+	${CC} -c ${CFLAGS} gff3-index.c
 
-gff.o: gff.c gff.h biolibc.h bed.h overlap.h overlap-rvs.h \
+gff3-mutators.o: gff3-mutators.c gff3.h biolibc.h bed.h overlap.h \
+  overlap-rvs.h overlap-accessors.h overlap-mutators.h bed-rvs.h \
+  bed-accessors.h bed-mutators.h gff3-rvs.h gff3-accessors.h \
+  gff3-mutators.h sam.h sam-rvs.h sam-accessors.h sam-mutators.h
+	${CC} -c ${CFLAGS} gff3-mutators.c
+
+gff3.o: gff3.c gff3.h biolibc.h bed.h overlap.h overlap-rvs.h \
   overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
-  bed-mutators.h gff-rvs.h gff-accessors.h gff-mutators.h
-	${CC} -c ${CFLAGS} gff.c
+  bed-mutators.h gff3-rvs.h gff3-accessors.h gff3-mutators.h sam.h \
+  sam-rvs.h sam-accessors.h sam-mutators.h
+	${CC} -c ${CFLAGS} gff3.c
 
 orf.o: orf.c translate.h
 	${CC} -c ${CFLAGS} orf.c
@@ -87,28 +94,43 @@ pos-list.o: pos-list.c pos-list.h biolibc.h pos-list-rvs.h \
 	${CC} -c ${CFLAGS} pos-list.c
 
 sam-buff-mutators.o: sam-buff-mutators.c sam-buff.h sam.h biolibc.h \
-  sam-rvs.h sam-accessors.h sam-mutators.h sam-buff-rvs.h \
-  sam-buff-accessors.h sam-buff-mutators.h
+  sam-rvs.h sam-accessors.h sam-mutators.h gff3.h bed.h overlap.h \
+  overlap-rvs.h overlap-accessors.h overlap-mutators.h bed-rvs.h \
+  bed-accessors.h bed-mutators.h gff3-rvs.h gff3-accessors.h \
+  gff3-mutators.h sam-buff-rvs.h sam-buff-accessors.h \
+  sam-buff-mutators.h
 	${CC} -c ${CFLAGS} sam-buff-mutators.c
 
 sam-buff.o: sam-buff.c sam-buff.h sam.h biolibc.h sam-rvs.h \
-  sam-accessors.h sam-mutators.h sam-buff-rvs.h sam-buff-accessors.h \
-  sam-buff-mutators.h biostring.h
+  sam-accessors.h sam-mutators.h gff3.h bed.h overlap.h overlap-rvs.h \
+  overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
+  bed-mutators.h gff3-rvs.h gff3-accessors.h gff3-mutators.h \
+  sam-buff-rvs.h sam-buff-accessors.h sam-buff-mutators.h biostring.h
 	${CC} -c ${CFLAGS} sam-buff.c
 
 sam-mutators.o: sam-mutators.c sam.h biolibc.h sam-rvs.h sam-accessors.h \
-  sam-mutators.h
+  sam-mutators.h gff3.h bed.h overlap.h overlap-rvs.h \
+  overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
+  bed-mutators.h gff3-rvs.h gff3-accessors.h gff3-mutators.h
 	${CC} -c ${CFLAGS} sam-mutators.c
 
-sam.o: sam.c sam.h biolibc.h sam-rvs.h sam-accessors.h sam-mutators.h
+sam.o: sam.c sam.h biolibc.h sam-rvs.h sam-accessors.h sam-mutators.h \
+  gff3.h bed.h overlap.h overlap-rvs.h overlap-accessors.h \
+  overlap-mutators.h bed-rvs.h bed-accessors.h bed-mutators.h gff3-rvs.h \
+  gff3-accessors.h gff3-mutators.h biostring.h
 	${CC} -c ${CFLAGS} sam.c
 
 vcf-mutators.o: vcf-mutators.c vcf.h sam.h biolibc.h sam-rvs.h \
-  sam-accessors.h sam-mutators.h vcf-rvs.h vcf-accessors.h \
-  vcf-mutators.h
+  sam-accessors.h sam-mutators.h gff3.h bed.h overlap.h overlap-rvs.h \
+  overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
+  bed-mutators.h gff3-rvs.h gff3-accessors.h gff3-mutators.h vcf-rvs.h \
+  vcf-accessors.h vcf-mutators.h
 	${CC} -c ${CFLAGS} vcf-mutators.c
 
 vcf.o: vcf.c vcf.h sam.h biolibc.h sam-rvs.h sam-accessors.h \
-  sam-mutators.h vcf-rvs.h vcf-accessors.h vcf-mutators.h biostring.h
+  sam-mutators.h gff3.h bed.h overlap.h overlap-rvs.h \
+  overlap-accessors.h overlap-mutators.h bed-rvs.h bed-accessors.h \
+  bed-mutators.h gff3-rvs.h gff3-accessors.h gff3-mutators.h vcf-rvs.h \
+  vcf-accessors.h vcf-mutators.h biostring.h
 	${CC} -c ${CFLAGS} vcf.c
 

@@ -17,7 +17,7 @@
 #define BL_READ_EOF             -1
 #define BL_READ_OVERFLOW        -2
 #define BL_READ_TRUNCATED       -3
-#define BL_READ_GFF_TERMINATOR  -4
+#define BL_READ_GFF3_TERMINATOR  -4
 #define BL_READ_EXTRA_COLS      -5
 #define BL_READ_MISMATCH        -6
 #define BL_READ_BAD_DATA        -7

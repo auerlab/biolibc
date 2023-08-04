@@ -8,7 +8,7 @@
 #include <xtend/dsv.h>
 #include <xtend/mem.h>
 #include "bed.h"
-#include "gff.h"
+#include "gff3.h"
 #include "biostring.h"
 
 /***************************************************************************
@@ -588,7 +588,7 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
  *
  *  Arguments:
  *      bed_feature     Pointer to the bl_bed_t structure to compare
- *      gff_feature     Pointer to the bl_gff_t structure to compare
+ *      gff3_feature     Pointer to the bl_gff3_t structure to compare
  *      overlap         Pointer to the bl_overlap_t structure to receive
  *                      comparison results
  *
@@ -598,26 +598,26 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
  *      0 if the BED feature overlaps the GFF feature
  *
  *  Examples:
- *      if ( bl_bed_gff_cmp(&bed_feature, &gff_feature, *overlap) == 0 )
+ *      if ( bl_bed_gff3_cmp(&bed_feature, &gff3_feature, *overlap) == 0 )
  *
  *  See also:
- *      bl_bed_read(3), bl_gff_read(3)
+ *      bl_bed_read(3), bl_gff3_read(3)
  *
  *  History: 
  *  Date        Name        Modification
  *  2021-04-09  Jason Bacon Begin
  ***************************************************************************/
 
-int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
+int     bl_bed_gff3_cmp(bl_bed_t *bed_feature, bl_gff3_t *gff3_feature,
 		       bl_overlap_t *overlap)
 
 {
     int         chrom_cmp;
     int64_t    bed_start, bed_end, bed_len,
-		gff_start, gff_end, gff_len;
+		gff3_start, gff3_end, gff3_len;
     
     chrom_cmp = bl_chrom_name_cmp(BL_BED_CHROM(bed_feature),
-					 BL_GFF_SEQID(gff_feature));
+					 BL_GFF3_SEQID(gff3_feature));
     if ( chrom_cmp == 0 )
     {
 	/*
@@ -626,12 +626,12 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	 *  GFF is 1-based, both ends inclusive
 	 */
 	
-	if ( BL_BED_CHROM_END(bed_feature) < BL_GFF_START(gff_feature) )
+	if ( BL_BED_CHROM_END(bed_feature) < BL_GFF3_START(gff3_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return -1;
 	}
-	else if ( BL_BED_CHROM_START(bed_feature) + 1 > BL_GFF_END(gff_feature) )
+	else if ( BL_BED_CHROM_START(bed_feature) + 1 > BL_GFF3_END(gff3_feature) )
 	{
 	    bl_overlap_set_all(overlap, 0, 0, 0, 0);
 	    return 1;
@@ -640,13 +640,13 @@ int     bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature,
 	{
 	    bed_start = BL_BED_CHROM_START(bed_feature);
 	    bed_end = BL_BED_CHROM_END(bed_feature);
-	    gff_start = BL_GFF_START(gff_feature);
-	    gff_end = BL_GFF_END(gff_feature);
+	    gff3_start = BL_GFF3_START(gff3_feature);
+	    gff3_end = BL_GFF3_END(gff3_feature);
 	    bed_len = bed_end - bed_start;
-	    gff_len = gff_end - gff_start + 1;
-	    bl_overlap_set_all(overlap, bed_len, gff_len,
-			    XT_MAX(bed_start+1, gff_start),
-			    XT_MIN(bed_end, gff_end));
+	    gff3_len = gff3_end - gff3_start + 1;
+	    bl_overlap_set_all(overlap, bed_len, gff3_len,
+			    XT_MAX(bed_start+1, gff3_start),
+			    XT_MIN(bed_end, gff3_end));
 	    return 0;
 	}
     }

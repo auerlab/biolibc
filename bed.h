@@ -61,8 +61,8 @@ typedef unsigned int            bed_field_mask_t;
 #define BL_BED_FIELD_ALL       0xff
 
 // After bl_bed_t def for prototypes
-#ifndef _BIOLIBC_GFF_H_
-#include "gff.h"
+#ifndef _BIOLIBC_GFF3_H_
+#include "gff3.h"
 #endif
 
 #ifndef _bl_overlap_h
@@ -78,7 +78,7 @@ FILE *bl_bed_skip_header(FILE *bed_stream);
 int bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_mask);
 int bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream, bed_field_mask_t field_mask);
 void bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[], int64_t last_start);
-int bl_bed_gff_cmp(bl_bed_t *bed_feature, bl_gff_t *gff_feature, bl_overlap_t *overlap);
+int bl_bed_gff3_cmp(bl_bed_t *bed_feature, bl_gff3_t *gff3_feature, bl_overlap_t *overlap);
 
 #ifdef __cplusplus
 }

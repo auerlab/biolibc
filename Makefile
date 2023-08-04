@@ -77,8 +77,8 @@ OBJS    = align.o align-mutators.o \
 	  fasta.o fasta-mutators.o \
 	  fastq.o fastq-mutators.o \
 	  fastx.o fastx-mutators.o \
-	  gff.o gff-mutators.o \
-	  gff-index.o gff-index-mutators.o \
+	  gff3.o gff3-mutators.o \
+	  gff3-index.o gff3-index-mutators.o \
 	  orf.o \
 	  overlap.o overlap-mutators.o \
 	  pos-list.o pos-list-mutators.o \

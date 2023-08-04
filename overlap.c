@@ -28,13 +28,13 @@
  *  Examples:
  *          bed_start = BL_BED_CHROM_START(bed_feature);
  *          bed_end = BL_BED_CHROM_END(bed_feature);
- *          gff_start = BL_GFF_CHROM_START(gff_feature);
- *          gff_end = BL_GFF_CHROM_END(gff_feature);
+ *          gff3_start = BL_GFF3_CHROM_START(gff3_feature);
+ *          gff3_end = BL_GFF3_CHROM_END(gff3_feature);
  *          bed_len = bed_end - bed_start;
- *          gff_len = gff_end - gff_start + 1;
- *          bl_overlap_set_all(overlap, bed_len, gff_len,
- *                          XT_MAX(bed_start+1, gff_start),
- *                          XT_MIN(bed_end, gff_end));
+ *          gff3_len = gff3_end - gff3_start + 1;
+ *          bl_overlap_set_all(overlap, bed_len, gff3_len,
+ *                          XT_MAX(bed_start+1, gff3_start),
+ *                          XT_MIN(bed_end, gff3_end));
  *
  *  See also:
  *      bl_overlap_print(3)
