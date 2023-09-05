@@ -67,7 +67,7 @@ for a comparison of language performance.
 
 ## Summary list of functions
 
-This [summary man page](./functions.html) lists available functions.
+This [summary man page](./biolibc.man) lists available functions.
 It is also available via "man biolibc" when biolibc is properly installed
 via a package manager.  Each function listed has its own man page with
 a more detailed description.
