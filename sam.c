@@ -13,6 +13,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_sam_skip_header() - Read past SAM header
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -32,18 +35,6 @@
  *  See also:
  *      bl_sam_read(3), bl_sam_copy_header(3)
  *  
- *  Arguments:
- *
- *  Returns:
- *
- *  Examples:
- *
- *  Files:
- *
- *  Environment
- *
- *  See also:
- *
  *  History: 
  *  Date        Name        Modification
  *  2022-04-08  Jason Bacon Begin
@@ -80,6 +71,9 @@ FILE    *bl_sam_skip_header(FILE *sam_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_copy_header() - Copy SAM header to another stream
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -119,6 +113,9 @@ int     bl_sam_copy_header(FILE *header_stream, FILE *sam_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_read() - Read one SAM record
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -469,6 +466,9 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_copy() - Copy a SAM object
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -552,6 +552,9 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_free() - Destroy a SAM object
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -584,6 +587,9 @@ void    bl_sam_free(bl_sam_t *alignment)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_init() - Initialize all fields of a SAM object
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -632,6 +638,9 @@ void    bl_sam_init(bl_sam_t *alignment)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_write() - Write a SAM object to a file stream
+ *
  *  Library:
  *      #include <biolibc/sam.h>
  *      -lbiolibc -lxtend
@@ -699,13 +708,16 @@ int     bl_sam_write(bl_sam_t *alignment, FILE *sam_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_fopen() - Open a SAM/BAM/CRAM file
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
  *
  *  Description:
- *      Open a raw SAM file using fopen() or a gzipped, bzipped, or
- *      xzipped SAM file or BAM or CRAM file using popen().  If the
+ *      Open a raw SAM file using fopen() or a compressed
+ *      SAM file, or BAM or CRAM file using popen().  If the
  *      file extension is .bam or .cram, or samtools_args is not
  *      NULL or "", data will be piped through "samtools view" with
  *      the given samtools_args as arguments.  The flag --with-header
@@ -829,6 +841,9 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_fclose() - Close a stream opened by bl_sam_fopen(3)
+ *
  *  Library:
  *      #include <xtend/file.h>
  *      -lxtend
@@ -863,12 +878,16 @@ int     bl_sam_fclose(FILE *stream)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_sam_gff3_overlap() - Return the amount of overlap between a
+ *      SAM alignment and a GFF3 feature
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Return the amount of overlap between a GFF feature and a SAM
+ *      Return the amount of overlap between a GFF3 feature and a SAM
  *      alignment.
  *  
  *  Arguments:
@@ -896,6 +915,9 @@ int64_t bl_sam_gff3_overlap(bl_sam_t *alignment, bl_gff3_t *feature)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_sam_gff3_cmp() - Compare positions of SAM and GFF3 records
  *
  *  Library:
  *      #include <sam.h>

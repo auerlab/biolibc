@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_bed_set_block_starts(
-            bl_bed_t *bl_bed_ptr,
-            uint64_t * new_block_starts
-            )
+bl_bed_t *bl_bed_ptr,
+int64_t * new_block_starts
+)
 .ad
 .fi
 
@@ -51,7 +50,7 @@ BL_BED_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_bed_t        bl_bed;
-uint64_t *      new_block_starts;
+int64_t *      new_block_starts;
 
 if ( bl_bed_set_block_starts(&bl_bed, new_block_starts)
         == BL_BED_DATA_OK )

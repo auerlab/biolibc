@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <biolibc/gff-index.h>
+#include <biolibc/gff3-index.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -13,14 +13,13 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_gff3_index_set_file_pos_ae(
-            bl_gff3_index_t *bl_gff3_index_ptr,
-            size_t c,
-            long  new_file_pos_element
-            )
+bl_gff3_index_t *bl_gff3_index_ptr,
+size_t c,
+long  new_file_pos_element
+)
 .ad
 .fi
 

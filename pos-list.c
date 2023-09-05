@@ -7,6 +7,9 @@
 #include "biolibc.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_pos_list_allocate() - Initialize position list object
+ *
  *  Library:
  *      #include <biolibc/pos-list.h>
  *      -lbiolibc -lxtend
@@ -51,6 +54,9 @@ void    bl_pos_list_allocate(bl_pos_list_t *pos_list, size_t array_size)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_pos_list_free() - Free a position list object
+ *
  *  Library:
  *      #include <biolibc/pos-list.h>
  *      -lbiolibc -lxtend
@@ -88,6 +94,9 @@ void    bl_pos_list_free(bl_pos_list_t *pos_list)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_pos_list_add_position() - Add a position to a list
+ *
  *  Library:
  *      #include <biolibc/pos-list.h>
  *      -lbiolibc -lxtend
@@ -128,6 +137,10 @@ int     bl_pos_list_add_position(bl_pos_list_t *pos_list, int64_t position)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_pos_list_from_csv() - Convert from comma-separated data to
+ *      position list
+ *
  *  Library:
  *      #include <biolibc/pos-list.h>
  *      -lbiolibc -lxtend
@@ -211,6 +224,9 @@ int     position_cmp_descending(const int64_t *pos1, const int64_t *pos2)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_pos_list_sort() - Sort a position list
+ *
  *  Library:
  *      #include <biolibc/pos-list.h>
  *      -lbiolibc -lxtend

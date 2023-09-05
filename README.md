@@ -65,6 +65,13 @@ See the
 [Compiled vs Interpreted Languages section](https://acadix.biz/RCUG/HTML/lang-selection.html#compiled-interpreted)
 for a comparison of language performance.
 
+## Summary list of functions
+
+This [summary man page](./functions.html) lists available functions.
+It is also available via "man biolibc" when biolibc is properly installed
+via a package manager.  Each function listed has its own man page with
+a more detailed description.
+
 ## Design and Implementation
 
 The code is organized following basic object-oriented design principals, but

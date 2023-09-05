@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <biolibc/gff-index.h>
+#include <biolibc/gff3-index.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -13,14 +13,13 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_gff3_index_set_end_ae(
-            bl_gff3_index_t *bl_gff3_index_ptr,
-            size_t c,
-            uint64_t  new_end_element
-            )
+bl_gff3_index_t *bl_gff3_index_ptr,
+size_t c,
+int64_t  new_end_element
+)
 .ad
 .fi
 
@@ -50,7 +49,7 @@ BL_GFF3_INDEX_DATA_OUT_OF_RANGE otherwise
 
 bl_gff3_index_t  bl_gff3_index;
 size_t          c;
-uint64_t *      new_end_element;
+int64_t *      new_end_element;
 
 if ( bl_gff3_index_set_end_ae(&bl_gff3_index, c, new_end_element)
         == BL_GFF3_INDEX_DATA_OK )

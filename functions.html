@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<meta name="generator" content="Manpage converted by man2html - see https://invisible-island.net/scripts/readme.html#others_scripts">
+</HEAD>
+<BODY>
+<PRE>
+
+</PRE><H2>SYNOPSIS</H2><PRE>
+       #include &lt;biolibc/bed.h&gt;
+       #include &lt;biolibc/biolibc.h&gt;
+       #include &lt;biolibc/biostring.h&gt;
+       #include &lt;biolibc/gff.h&gt;
+       #include &lt;biolibc/overlap.h&gt;
+       #include &lt;biolibc/pos-list.h&gt;
+       #include &lt;biolibc/sam.h&gt;
+       #include &lt;biolibc/sam-buff.h&gt;
+       #include &lt;biolibc/vcf.h&gt;
+
+       cc -I&lt;prefix&gt;/include program.c -L&lt;prefix&gt;/lib -lbiolibc -lxtend
+
+
+
+</PRE><H2>PURPOSE</H2><PRE>
+       Biolibc is a library of fast, memory-efficient, low-level functions for
+       processing biological data.
+
+       Like libc, it consists of numerous disparate, general-purpose functions
+       which could be used by a wide variety of applications.
+
+       These include functions for streaming common file formats such as SAM
+       and VCF, string functions specific to bioinformatics, etc.
+
+       Documentation on individual functions should be available soon.
+
+
+
+</PRE><H2>FUNCTIONS</H2><PRE>
+       <B>bl_align_map_seq_exact(3)</B> - Locate little sequence within big sequence
+       <B>bl_align_map_seq_sub(3)</B> - Locate little sequence within big sequence
+       <B>bl_bed_check_order(3)</B> - Compare positions of two bed records
+       <B>bl_bed_gff3_cmp(3)</B> - Compare positions of BED and GFF3 objects
+       <B>bl_bed_read(3)</B> - Read a BED record
+       <B>bl_bed_skip_header(3)</B> - Read past BED header
+       <B>bl_bed_write(3)</B> - Write a BED record
+       <B>bl_chrom_name_cmp(3)</B> - Compare chromosome names numerically or lexically
+       <B>bl_fasta_free(3)</B> - Free memory for a FASTA object
+       <B>bl_fasta_init(3)</B> - Initialize all fields of a FASTA object
+       <B>bl_fasta_read(3)</B> - Read a FASTA record
+       <B>bl_fasta_write(3)</B> - Write a FASTA object
+       <B>bl_fastq_3p_trim(3)</B> - Trim 3' end of a FASTQ object
+       <B>bl_fastq_find_3p_low_qual(3)</B> - Find start of low-quality 3' end
+       <B>bl_fastq_free(3)</B> - Free memory for a FASTQ object
+       <B>bl_fastq_init(3)</B> - Initialize all fields in a FASTQ object
+       <B>bl_fastq_name_cmp(3)</B> - Compare read names of two FASTQ objects
+       <B>bl_fastq_read(3)</B> - Read a FASTQ record
+       <B>bl_fastq_write(3)</B> - Write a FASTQ record
+       <B>bl_fastx_desc(3)</B> - Return  description of a FASTX (FASTA or FASTQ) object
+       <B>bl_fastx_desc_len(3)</B> - Return length of a FASTX (FASTA or FASTQ)
+       <B>bl_fastx_free(3)</B> - Free memory for a FASTX (FASTA or FASTQ) object
+       <B>bl_fastx_init(3)</B> - Initialize a FASTX (FASTA or FASTQ) object
+       <B>bl_fastx_plus(3)</B> - Return '+' line of a FASTQ object, NULL if FASTA
+       <B>bl_gff3_init(3)</B> - Initialize all fields in a GFF3 object
+       <B>bl_gff3_read(3)</B> - Read a GFF3 feature
+       <B>bl_gff3_sam_cmp(3)</B> - Compare positions of a SAM alignment and GFF3
+       <B>bl_gff3_sam_overlap(3)</B> - Compute overlap between a SAM alignment
+       and a GFF3 feature
+       <B>bl_gff3_skip_header(3)</B> - Read past header in a GFF3 file
+       <B>bl_gff3_to_bed(3)</B> - Convert a GFF3 featuer to a BED object
+       <B>bl_gff3_write(3)</B> - Write a GFF3 feature
+       <B>bl_next_start_codon(3)</B> - Find next start codon
+       <B>bl_next_stop_codon(3)</B> - Find next stop codon
+       <B>bl_overlap_print(3)</B> - Print overlap summary for two features
+       <B>bl_overlap_set_all(3)</B> - Set overlap fields for two features
+       <B>bl_pos_list_add_position(3)</B> - Add a position to a list
+       <B>bl_pos_list_allocate(3)</B> - Initialize position list object
+       <B>bl_pos_list_free(3)</B> - Free a position list object
+       <B>bl_pos_list_from_csv(3)</B> - Convert from comma-separated data to
+       <B>bl_pos_list_sort(3)</B> - Sort a position list
+       <B>bl_sam_buff_add_alignment(3)</B> - Add alignment to SAM buffer
+       <B>bl_sam_buff_alignment_ok(3)</B> - Verify alignment quality
+       <B>bl_sam_buff_check_order(3)</B> - Check sort order of SAM records
+       <B>bl_sam_buff_free_alignment(3)</B> - Free an alignment in a SAM buffer
+       <B>bl_sam_buff_init(3)</B> - Initialize a SAM buffer object
+       <B>bl_sam_buff_out_of_order(3)</B> - Print sort order message and exit
+       <B>bl_sam_buff_shift(3)</B> - Close gap after removing a SAM alignment
+       <B>bl_sam_copy(3)</B> - Copy a SAM object
+       <B>bl_sam_copy_header(3)</B> - Copy SAM header to another stream
+       <B>bl_sam_fclose(3)</B> - Close a stream opened by <B>bl_sam_fopen(3)</B>
+       <B>bl_sam_fopen(3)</B> - Open a SAM/BAM/CRAM file
+       <B>bl_sam_free(3)</B> - Destroy a SAM object
+       <B>bl_sam_gff3_cmp(3)</B> - Compare positions of SAM and GFF3 records
+       <B>bl_sam_gff3_overlap(3)</B> - Return the amount of overlap between a
+       SAM alignment and a GFF3 feature
+       <B>bl_sam_init(3)</B> - Initialize all fields of a SAM object
+       <B>bl_sam_read(3)</B> - Read one SAM record
+       <B>bl_sam_skip_header(3)</B> - Read past SAM header
+       <B>bl_sam_write(3)</B> - Write a SAM object to a file stream
+       <B>bl_vcf_call_downstream_of_alignment(3)</B> - Return true if the location
+       of a VCF call is downstream of an alignment
+       <B>bl_vcf_call_in_alignment(3)</B> - Return true if location of VCF call is
+       <B>bl_vcf_call_out_of_order(3)</B> - Terminate with VCF sort error message
+       <B>bl_vcf_free(3)</B> - Destroy a VCF object
+       <B>bl_vcf_get_sample_ids(3)</B> - Extract sample IDs from a VCF header
+       <B>bl_vcf_init(3)</B> - Initialize fields in a VCF object
+       <B>bl_vcf_parse_field_spec(3)</B> - Convert comma-separated fields to bitmask
+       <B>bl_vcf_read_ss_call(3)</B> - Read a single-sample VCF call
+       <B>bl_vcf_read_static_fields(3)</B> - Read static VCF fields
+       <B>bl_vcf_skip_header(3)</B> - Read past VCF header
+       <B>bl_vcf_skip_meta_data(3)</B> - Read past VCF metadata
+       <B>bl_vcf_write_ss_call(3)</B> - Write a single-sample VCF call
+       <B>bl_vcf_write_static_fields(3)</B> - Write VCF static fields
+
+
+</PRE>
+</BODY>
+</HTML>

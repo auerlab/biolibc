@@ -8,6 +8,9 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_index_add() - Add a GFF3 feature to an in-memory index
+ *
  *  Library:
  *      #include <biolibc/gff3-index.h>
  *      -lbiolibc -lxtend
@@ -90,6 +93,9 @@ int     bl_gff3_index_add(bl_gff3_index_t *gi, bl_gff3_t *feature)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_gff3_index_seek_reverse() - Search backward through GFF3 index
  *
  *  Library:
  *      #include <biolibc/gff3-index.h>

@@ -10,6 +10,9 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_skip_meta_data() - Read past VCF metadata
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -100,6 +103,9 @@ FILE    *bl_vcf_skip_meta_data(FILE *vcf_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_skip_header() - Read past VCF header
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -162,6 +168,9 @@ FILE    *bl_vcf_skip_header(FILE *vcf_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_get_sample_ids() - Extract sample IDs from a VCF header
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -234,6 +243,9 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_read_static_fields() - Read static VCF fields
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -466,6 +478,9 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_read_ss_call() - Read a single-sample VCF call
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -534,6 +549,9 @@ int     bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_write_static_fields() - Write VCF static fields
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -616,6 +634,9 @@ int     bl_vcf_write_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_write_ss_call() - Write a single-sample VCF call
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -766,6 +787,9 @@ void    vcf_phred_free(bl_vcf_t *vcf_call)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_free() - Destroy a VCF object
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -813,6 +837,9 @@ void    bl_vcf_free(bl_vcf_t *vcf_call)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_init() - Initialize fields in a VCF object
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -887,6 +914,9 @@ void    bl_vcf_init(bl_vcf_t *vcf_call)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_parse_field_spec() - Convert comma-separated fields to bitmask
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -950,6 +980,10 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_call_in_alignment() - Return true if location of VCF call is
+ *      within an alignment
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -990,6 +1024,10 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_call_downstream_of_alignment() - Return true if the location
+ *      of a VCF call is downstream of an alignment
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend
@@ -1034,6 +1072,9 @@ bool    bl_vcf_call_downstream_of_alignment(bl_vcf_t *vcf_call,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_vcf_call_out_of_order() - Terminate with VCF sort error message
+ *
  *  Library:
  *      #include <biolibc/vcf.h>
  *      -lbiolibc -lxtend

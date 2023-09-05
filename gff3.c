@@ -12,6 +12,9 @@
 #include "bed.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_gff3_skip_header() - Read past header in a GFF3 file
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -67,6 +70,9 @@ FILE    *bl_gff3_skip_header(FILE *gff3_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_gff3_copy_header() - Read and copy a GFF3 header
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -106,6 +112,9 @@ int     bl_gff3_copy_header(FILE *header_stream, FILE *gff3_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_gff3_read() - Read a GFF3 feature
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -346,6 +355,9 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_gff3_write() - Write a GFF3 feature
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -455,6 +467,9 @@ int     bl_gff3_write(bl_gff3_t *feature, FILE *gff3_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_gff3_to_bed() - Convert a GFF3 featuer to a BED object
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -511,6 +526,9 @@ void    bl_gff3_to_bed(bl_gff3_t *gff3_feature, bl_bed_t *bed_feature)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_free() - Free memory for a GFF3 object
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -556,6 +574,9 @@ void    bl_gff3_free(bl_gff3_t *feature)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_gff3_extract_attribute() - Extract GFF3 attribute by name
  *
  *  Library:
  *      #include <biolibc/gff3.h>
@@ -647,6 +668,9 @@ char    *bl_gff3_extract_attribute(bl_gff3_t *feature, const char *attr_name)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_init() - Initialize all fields in a GFF3 object
+ *
  *  Library:
  *      #include <biolibc/gff3.h>
  *      -lbiolibc -lxtend
@@ -692,23 +716,24 @@ void    bl_gff3_init(bl_gff3_t *feature)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_dup() - Duplicate a GFF3 object
+ *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <biolibc/gff3.h>
+ *      -lbiolibc
  *
  *  Description:
+ *      Duplicate a GFF3 object, allocating memory as needed
  *  
  *  Arguments:
+ *      feature     Original GFF3 object
  *
  *  Returns:
- *
- *  Examples:
- *
- *  Files:
- *
- *  Environment
+ *      Address of duplicate GFF3 object, or NULL on failure
  *
  *  See also:
+ *      bl_gff_read(3), bl_gff3_copy(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -734,23 +759,25 @@ bl_gff3_t    *bl_gff3_dup(bl_gff3_t *feature)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_copy() - Copy a GFF3 object
+ *
  *  Library:
- *      #include <>
- *      -l
+ *      #include <biolibc/gff3.h>
+ *      -lbiolibc
  *
  *  Description:
+ *      Copy a GFF3 object to another that it already initilized.
  *  
  *  Arguments:
+ *      copy    Target GFF3 object
+ *      feature Source GFF3 object
  *
  *  Returns:
- *
- *  Examples:
- *
- *  Files:
- *
- *  Environment
+ *      Address of copy
  *
  *  See also:
+ *      bl_gff3_read(3), bl_gff3_dup(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -806,6 +833,10 @@ bl_gff3_t    *bl_gff3_copy(bl_gff3_t *copy, bl_gff3_t *feature)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_gff3_sam_cmp() - Compare positions of a SAM alignment and GFF3
+ *      feature
+ *
  *  Library:
  *      #include <gff3.h>
  *      -lbiolibc -lxtend
@@ -852,6 +883,10 @@ int     bl_gff3_sam_cmp(bl_gff3_t *feature, bl_sam_t *alignment)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_gff3_sam_overlap() - Compute overlap between a SAM alignment
+ *      and a GFF3 feature
  *
  *  Library:
  *      #include <biolibc/gff3.h>

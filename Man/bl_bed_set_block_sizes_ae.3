@@ -13,14 +13,13 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_bed_set_block_sizes_ae(
-            bl_bed_t *bl_bed_ptr,
-            size_t c,
-            uint64_t  new_block_sizes_element
-            )
+bl_bed_t *bl_bed_ptr,
+size_t c,
+int64_t  new_block_sizes_element
+)
 .ad
 .fi
 
@@ -50,7 +49,7 @@ BL_BED_DATA_OUT_OF_RANGE otherwise
 
 bl_bed_t        bl_bed;
 size_t          c;
-uint64_t *      new_block_sizes_element;
+int64_t *      new_block_sizes_element;
 
 if ( bl_bed_set_block_sizes_ae(&bl_bed, c, new_block_sizes_element)
         == BL_BED_DATA_OK )

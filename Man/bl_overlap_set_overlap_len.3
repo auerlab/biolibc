@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_overlap_set_overlap_len(
-            bl_overlap_t *bl_overlap_ptr,
-            uint64_t new_overlap_len
-            )
+bl_overlap_t *bl_overlap_ptr,
+int64_t new_overlap_len
+)
 .ad
 .fi
 
@@ -51,7 +50,7 @@ BL_OVERLAP_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_overlap_t    bl_overlap;
-uint64_t        new_overlap_len;
+int64_t        new_overlap_len;
 
 if ( bl_overlap_set_overlap_len(&bl_overlap, new_overlap_len)
         == BL_OVERLAP_DATA_OK )

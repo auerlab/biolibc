@@ -3,6 +3,9 @@
 #include "translate.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_next_start_codon() - Find next start codon
+ *
  *  Library:
  *      #include <biolibc/translate.h>
  *      -lbiolibc
@@ -100,6 +103,9 @@ long    bl_next_start_codon(FILE *rna_stream, char codon[4])
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_next_stop_codon() - Find next stop codon
+ *
  *  Library:
  *      #include <biolibc/translate.h>
  *      -lbiolibc

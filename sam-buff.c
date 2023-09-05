@@ -9,6 +9,9 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_check_order() - Check sort order of SAM records
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -59,6 +62,9 @@ void    bl_sam_buff_check_order(bl_sam_buff_t *sam_buff,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_init() - Initialize a SAM buffer object
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -130,6 +136,9 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_add_alignment() - Add alignment to SAM buffer
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -225,6 +234,9 @@ int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_out_of_order() - Print sort order message and exit
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -259,6 +271,9 @@ void    bl_sam_buff_out_of_order(bl_sam_buff_t *sam_buff, bl_sam_t *sam_alignmen
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_free_alignment() - Free an alignment in a SAM buffer
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -294,6 +309,9 @@ void    bl_sam_buff_free_alignment(bl_sam_buff_t *sam_buff, size_t c)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_shift() - Close gap after removing a SAM alignment
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend
@@ -344,6 +362,9 @@ void    bl_sam_buff_shift(bl_sam_buff_t *sam_buff, size_t nelem)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_sam_buff_alignment_ok() - Verify alignment quality
+ *
  *  Library:
  *      #include <biolibc/sam-buff.h>
  *      -lbiolibc -lxtend

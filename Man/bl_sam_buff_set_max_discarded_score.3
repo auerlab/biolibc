@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_sam_buff_set_max_discarded_score(
-            bl_sam_buff_t *bl_sam_buff_ptr,
-            uint64_t new_max_discarded_score
-            )
+bl_sam_buff_t *bl_sam_buff_ptr,
+int64_t new_max_discarded_score
+)
 .ad
 .fi
 
@@ -51,7 +50,7 @@ BL_SAM_BUFF_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_sam_buff_t   bl_sam_buff;
-uint64_t        new_max_discarded_score;
+int64_t        new_max_discarded_score;
 
 if ( bl_sam_buff_set_max_discarded_score(&bl_sam_buff, new_max_discarded_score)
         == BL_SAM_BUFF_DATA_OK )

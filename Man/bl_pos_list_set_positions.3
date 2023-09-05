@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_pos_list_set_positions(
-            bl_pos_list_t *bl_pos_list_ptr,
-            uint64_t * new_positions
-            )
+bl_pos_list_t *bl_pos_list_ptr,
+int64_t * new_positions
+)
 .ad
 .fi
 
@@ -51,7 +50,7 @@ BL_POS_LIST_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_pos_list_t   bl_pos_list;
-uint64_t *      new_positions;
+int64_t *      new_positions;
 
 if ( bl_pos_list_set_positions(&bl_pos_list, new_positions)
         == BL_POS_LIST_DATA_OK )

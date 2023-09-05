@@ -8,6 +8,9 @@
 #include "biolibc.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastq_read() - Read a FASTQ record
+ *
  *  Library:
  *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
@@ -263,6 +266,9 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastq_write() - Write a FASTQ record
+ *
  *  Library:
  *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
@@ -366,6 +372,9 @@ int     bl_fastq_write(bl_fastq_t *record, FILE *fastq_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastq_free() - Free memory for a FASTQ object
+ *
  *  Library:
  *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
@@ -408,6 +417,9 @@ void    bl_fastq_free(bl_fastq_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastq_init() - Initialize all fields in a FASTQ object
+ *
  *  Library:
  *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
@@ -448,12 +460,15 @@ void    bl_fastq_init(bl_fastq_t *record)
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_fastq_3p_trim() - Trim 3' end of a FASTQ object
+ *
  *  Library:
  *      #include <biolibc/fastq.h>
  *      -lbiolibc -lxtend
  *
  *  Description:
- *      Trim the 3' end of a FASTQ sequence and qualit string at location
+ *      Trim the 3' end of a FASTQ sequence and quality string at location
  *      new_len.
  *  
  *  Arguments:
@@ -498,6 +513,9 @@ size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len)
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_fastq_find_3p_low_qual() - Find start of low-quality 3' end
  *
  *  Library:
  *      #include <biolibc/fastq.h>
@@ -590,6 +608,9 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_fastq_name_cmp() - Compare read names of two FASTQ objects
  *
  *  Library:
  *      #include <biolibc/fastq.h>

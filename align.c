@@ -6,6 +6,10 @@
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
  *
+ *  Name:
+ *      bl_align_map_seq_sub() - Locate little sequence within big sequence
+ *      tolerating some substitutions
+ *
  *  Library:
  *      #include <biolibc/align.h>
  *      -lbiolibc -lxtend
@@ -141,6 +145,9 @@ size_t  bl_align_map_seq_sub(const bl_align_t *params,
 
 /***************************************************************************
  *  Use auto-c2man to generate a man page from this comment
+ *
+ *  Name:
+ *      bl_align_map_seq_exact() - Locate little sequence within big sequence
  *
  *  Library:
  *      #include <biolibc/align.h>

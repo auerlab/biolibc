@@ -12,6 +12,9 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_bed_skip_header() - Read past BED header
+ *
  *  Library:
  *      #include <biolibc/bed.h>
  *      -lbiolibc -lxtend
@@ -77,6 +80,9 @@ FILE    *bl_bed_skip_header(FILE *bed_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_bed_read() - Read a BED record
+ *
  *  Library:
  *      #include <biolibc/bed.h>
  *      -lbiolibc -lxtend
@@ -437,6 +443,9 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_bed_write() - Write a BED record
+ *
  *  Library:
  *      #include <biolibc/bed.h>
  *      -lbiolibc -lxtend
@@ -525,6 +534,9 @@ int     bl_bed_write(bl_bed_t *bed_feature, FILE *bed_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_bed_check_order() - Compare positions of two bed records
+ *
  *  Library:
  *      #include <biolibc/bed.h>
  *      -lbiolibc -lxtend
@@ -569,6 +581,9 @@ void    bl_bed_check_order(bl_bed_t *bed_feature, char last_chrom[],
 }
 
 /***************************************************************************
+ *  Name:
+ *      bl_bed_gff3_cmp() - Compare positions of BED and GFF3 objects
+ *
  *  Library:
  *      #include <biolibc/bed.h>
  *      -lbiolibc -lxtend

@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_bed_set_chrom_start(
-            bl_bed_t *bl_bed_ptr,
-            uint64_t new_chrom_start
-            )
+bl_bed_t *bl_bed_ptr,
+int64_t new_chrom_start
+)
 .ad
 .fi
 
@@ -51,7 +50,7 @@ BL_BED_DATA_OUT_OF_RANGE otherwise
 .na
 
 bl_bed_t        bl_bed;
-uint64_t        new_chrom_start;
+int64_t        new_chrom_start;
 
 if ( bl_bed_set_chrom_start(&bl_bed, new_chrom_start)
         == BL_BED_DATA_OK )

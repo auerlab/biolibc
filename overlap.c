@@ -5,6 +5,9 @@
 #include "overlap.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_overlap_set_all() - Set overlap fields for two features
+ *
  *  Library:
  *      #include <biolibc/overlap.h>
  *      -lbiolibc -lxtend
@@ -61,6 +64,9 @@ int     bl_overlap_set_all(bl_overlap_t *overlap,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_overlap_print() - Print overlap summary for two features
+ *
  *  Library:
  *      #include <biolibc/overlap.h>
  *      -lbiolibc -lxtend

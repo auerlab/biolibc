@@ -6,6 +6,9 @@
 #include "biostring.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_chrom_name_cmp() - Compare chromosome names numerically or lexically
+ *
  *  Library:
  *      #include <biolibc/biostring.h>
  *      -lbiolibc -lxtend

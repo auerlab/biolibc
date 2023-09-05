@@ -4,6 +4,9 @@
 #include "fastx.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_read() - Read FASTA or FASTQ record
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -57,6 +60,9 @@ int     bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_write() - Write FASTA or FASTQ record
+ *
  *  Library:
  *      #include <biolibc/fasta.h>
  *      -lbiolibc -lxtend
@@ -114,6 +120,9 @@ int     bl_fastx_write(bl_fastx_t *record, FILE *fastx_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_free() - Free memory for a FASTX (FASTA or FASTQ) object
+ *
  *  Library:
  *      #include <biolibc/fast.h>
  *      -lbiolibc -lxtend
@@ -157,6 +166,9 @@ void    bl_fastx_free(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_init() - Initialize a FASTX (FASTA or FASTQ) object
+ *
  *  Library:
  *      #include <biolibc/fasta.h>
  *      -lbiolibc -lxtend
@@ -231,6 +243,9 @@ void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_desc() - Return  description of a FASTX (FASTA or FASTQ) object
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -281,6 +296,10 @@ char    *bl_fastx_desc(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_desc_len() - Return length of a FASTX (FASTA or FASTQ)
+ *      description line
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -331,6 +350,9 @@ size_t  bl_fastx_desc_len(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_seq() - Return sequence of a FASTX (FASTA or FASTQ) object
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -381,6 +403,10 @@ char    *bl_fastx_seq(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_seq_len() - Return sequence length of a FASTX (FASTA or FASTQ)
+ *      object
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -431,6 +457,9 @@ size_t  bl_fastx_seq_len(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_plus() - Return '+' line of a FASTQ object, NULL if FASTA
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -484,6 +513,9 @@ char    *bl_fastx_plus(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_plus_len() - Return length of FASTQ '+' line, 0 if FASTA
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -537,6 +569,9 @@ size_t  bl_fastx_plus_len(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_qual() - Return FASTQ quality line, NULL if FASTA
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend
@@ -590,6 +625,9 @@ char    *bl_fastx_qual(bl_fastx_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fastx_qual_len() - Return length of FASTQ quality line, 0 if FASTA
+ *
  *  Library:
  *      #include <biolibc/fastx.h>
  *      -lbiolibc -lxtend

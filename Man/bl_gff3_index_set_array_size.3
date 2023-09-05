@@ -5,7 +5,7 @@
 \" Indicate #includes, library name, -L and -l flags
 .nf
 .na
-#include <biolibc/gff-index.h>
+#include <biolibc/gff3-index.h>
 -lbiolibc -lxtend
 .ad
 .fi
@@ -13,13 +13,12 @@
 \" Convention:
 \" Underline anything that is typed verbatim - commands, etc.
 .SH SYNOPSIS
-.PP
 .nf
 .na
 int     bl_gff3_index_set_array_size(
-            bl_gff3_index_t *bl_gff3_index_ptr,
-            size_t new_array_size
-            )
+bl_gff3_index_t *bl_gff3_index_ptr,
+size_t new_array_size
+)
 .ad
 .fi
 

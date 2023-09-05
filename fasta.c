@@ -7,6 +7,9 @@
 #include "biolibc.h"
 
 /***************************************************************************
+ *  Name:
+ *      bl_fasta_read() - Read a FASTA record
+ *
  *  Library:
  *      #include <biolibc/fasta.h>
  *      -lbiolibc -lxtend
@@ -150,6 +153,9 @@ int     bl_fasta_read(bl_fasta_t *record, FILE *fasta_stream)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fasta_write() - Write a FASTA object
+ *
  *  Library:
  *      #include <biolibc/fasta.h>
  *      -lbiolibc -lxtend
@@ -215,6 +221,9 @@ int     bl_fasta_write(bl_fasta_t *record, FILE *fasta_stream,
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fasta_free() - Free memory for a FASTA object
+ *
  *  Library:
  *      #include <biolibc/fast.h>
  *      -lbiolibc -lxtend
@@ -253,6 +262,9 @@ void    bl_fasta_free(bl_fasta_t *record)
 
 
 /***************************************************************************
+ *  Name:
+ *      bl_fasta_init() - Initialize all fields of a FASTA object
+ *
  *  Library:
  *      #include <biolibc/fasta.h>
  *      -lbiolibc -lxtend
