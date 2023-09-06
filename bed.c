@@ -157,7 +157,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // FIXME: Respect field_mask
     
     // Chromosome
-    if ( tsv_read_field(bed_stream, bed_feature->chrom,
+    if ( xt_tsv_read_field(bed_stream, bed_feature->chrom,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	// fputs("bl_bed_read(): Info: Got EOF reading CHROM, as expected.\n", stderr);
@@ -165,7 +165,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     }
     
     // Feature start position
-    if ( tsv_read_field(bed_stream, chrom_start_str,
+    if ( xt_tsv_read_field(bed_stream, chrom_start_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_bed_read(): Got EOF reading start position: %s.\n",
@@ -186,7 +186,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     
     // Feature end position
     // FIXME: Check for > or < start if strand + or -
-    if ( (delim = tsv_read_field(bed_stream, chrom_end_str,
+    if ( (delim = xt_tsv_read_field(bed_stream, chrom_end_str,
 			BL_POSITION_MAX_DIGITS, &len)) == EOF )
     {
 	fprintf(stderr, "bl_bed_read(): Got EOF reading end position: %s.\n",
@@ -210,7 +210,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // Read NAME field if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, bed_feature->name,
+	if ( (delim = xt_tsv_read_field(bed_stream, bed_feature->name,
 			    BL_BED_NAME_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading name: %s.\n",
@@ -223,7 +223,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // Read SCORE if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, score_str,
+	if ( (delim = xt_tsv_read_field(bed_stream, score_str,
 			    BL_POSITION_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading score: %s.\n",
@@ -247,7 +247,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // Read strand if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, strand,
+	if ( (delim = xt_tsv_read_field(bed_stream, strand,
 			    BL_BED_STRAND_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading strand: %s.\n",
@@ -269,7 +269,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // Feature start position
     if ( delim != '\n' )
     {
-	if ( tsv_read_field(bed_stream, thick_start_str,
+	if ( xt_tsv_read_field(bed_stream, thick_start_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading thick start "
@@ -295,7 +295,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
 	    return BL_READ_TRUNCATED;
 	}
     
-	if ( tsv_read_field(bed_stream, thick_end_str,
+	if ( xt_tsv_read_field(bed_stream, thick_end_str,
 			    BL_POSITION_MAX_DIGITS, &len) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading thick end "
@@ -320,7 +320,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
     // Read RGB string field if present
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, bed_feature->item_rgb,
+	if ( (delim = xt_tsv_read_field(bed_stream, bed_feature->item_rgb,
 			    BL_BED_ITEM_RGB_MAX_CHARS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading RGB: %s.\n",
@@ -337,7 +337,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
      */
     if ( delim != '\n' )
     {
-	if ( (delim = tsv_read_field(bed_stream, block_count_str,
+	if ( (delim = xt_tsv_read_field(bed_stream, block_count_str,
 			    BL_BED_BLOCK_COUNT_MAX_DIGITS, &len)) == EOF )
 	{
 	    fprintf(stderr, "bl_bed_read(): Got EOF reading block count: %s.\n",
@@ -380,7 +380,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
 	c = 0;
 	do
 	{
-	    delim = dsv_read_field(bed_stream, block_size_str,
+	    delim = xt_dsv_read_field(bed_stream, block_size_str,
 			    BL_BED_BLOCK_SIZE_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_sizes[c++] = strtoul(block_size_str, &end, 10);
 	    //fprintf(stderr, "Block size[%u] = %s\n", c-1, block_size_str);
@@ -407,7 +407,7 @@ int     bl_bed_read(bl_bed_t *bed_feature, FILE *bed_stream,
 	c = 0;
 	do
 	{
-	    delim = dsv_read_field(bed_stream, block_start_str,
+	    delim = xt_dsv_read_field(bed_stream, block_start_str,
 			    BL_BED_BLOCK_START_MAX_DIGITS, ",\t", &len);
 	    bed_feature->block_starts[c++] = strtoul(block_start_str, &end, 10);
 	    //fprintf(stderr, "Block start[%u] = %s\n", c-1, block_start_str);

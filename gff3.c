@@ -214,14 +214,14 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     // FIXME: Respect field_mask
     
     // 1 Chromosome
-    if ( tsv_read_field(gff3_stream, feature->seqid,
+    if ( xt_tsv_read_field(gff3_stream, feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
     {
 	return BL_READ_EOF;
     }
     
     // 2 Source
-    if ( tsv_read_field(gff3_stream, feature->source,
+    if ( xt_tsv_read_field(gff3_stream, feature->source,
 			BL_GFF3_SOURCE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading SOURCE: %s.\n",
@@ -230,7 +230,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     }
 
     // 3 Feature
-    if ( tsv_read_field(gff3_stream, feature->type,
+    if ( xt_tsv_read_field(gff3_stream, feature->type,
 			BL_GFF3_TYPE_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading feature: %s.\n",
@@ -239,7 +239,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     }
     
     // 4 Feature start position
-    if ( tsv_read_field(gff3_stream, start_str,
+    if ( xt_tsv_read_field(gff3_stream, start_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading start POS: %s.\n",
@@ -259,7 +259,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     }
     
     // 5 Feature end position
-    if ( tsv_read_field(gff3_stream, end_str,
+    if ( xt_tsv_read_field(gff3_stream, end_str,
 			BL_POSITION_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading end POS: %s.\n",
@@ -279,7 +279,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     }
 
     // 6 Score
-    if ( tsv_read_field(gff3_stream, score_str,
+    if ( xt_tsv_read_field(gff3_stream, score_str,
 			BL_GFF3_SCORE_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading SCORE: %s.\n",
@@ -295,7 +295,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     
     
     // 7 Strand
-    if ( tsv_read_field(gff3_stream, strand_str,
+    if ( xt_tsv_read_field(gff3_stream, strand_str,
 			BL_GFF3_STRAND_MAX_CHARS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading STRAND: %s.\n",
@@ -306,7 +306,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
 	feature->strand = *strand_str;
     
     // 8 Phase (bases to start of next codon: 0, 1, or 2. "." if unavailable)
-    if ( tsv_read_field(gff3_stream, phase_str,
+    if ( xt_tsv_read_field(gff3_stream, phase_str,
 			BL_GFF3_PHASE_MAX_DIGITS, &len) == EOF )
     {
 	fprintf(stderr, "bl_gff3_read(): Got EOF reading PHASE: %s.\n",
@@ -317,7 +317,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
 	feature->phase = *phase_str;
 
     // 9 Attributes
-    if ( (delim = tsv_read_field_malloc(gff3_stream, &feature->attributes,
+    if ( (delim = xt_tsv_read_field_malloc(gff3_stream, &feature->attributes,
 			&feature->attributes_array_size,
 			&feature->attributes_len)) == EOF )
     {
@@ -330,7 +330,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     
     // printf("delim = %u\n", delim);
     if ( delim != '\n' )
-	dsv_skip_rest_of_line(gff3_stream);
+	xt_dsv_skip_rest_of_line(gff3_stream);
 
     // Extract feature ID from attributes
     feature->feature_id = bl_gff3_extract_attribute(feature, "ID");

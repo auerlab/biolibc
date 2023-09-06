@@ -4,7 +4,7 @@
 #include <sysexits.h>
 #include <stdbool.h>
 #include <xtend/dsv.h>
-#include <xtend/string.h>   // ltostrn()
+#include <xtend/string.h>   // xt_ltostrn()
 #include <xtend/mem.h>
 #include "vcf.h"
 #include "biostring.h"
@@ -215,14 +215,14 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
     
     // Skip standard header tags to get to sample IDs
     for (c = 0; c < 9; ++c)
-	tsv_skip_field(vcf_stream, &len);
+	xt_tsv_skip_field(vcf_stream, &len);
     
     // Skip sample IDs before first_col
     for (c = 1; c < first_col; ++c)
-	tsv_skip_field(vcf_stream, &len);
+	xt_tsv_skip_field(vcf_stream, &len);
     
     for (; (c <= last_col) &&
-	   (delimiter = tsv_read_field(vcf_stream, temp_sample_id,
+	   (delimiter = xt_tsv_read_field(vcf_stream, temp_sample_id,
 				     BL_VCF_SAMPLE_ID_MAX_CHARS, &len)) != EOF; ++c)
     {
 	sample_ids[c - first_col] = strdup(temp_sample_id);
@@ -238,7 +238,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
     
     // Skip any remaining fields after last_col
     if ( delimiter != '\n' )
-	tsv_skip_rest_of_line(vcf_stream);
+	xt_tsv_skip_rest_of_line(vcf_stream);
 }
 
 
@@ -253,7 +253,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *  Description:
  *      Read static fields (columns 1 to 9) from one line of a VCF file.
  *      This function does not read any of the sample data in columns 10
- *      and on.  Samples can be read using a loop with tsv_read_field(3).
+ *      and on.  Samples can be read using a loop with xt_tsv_read_field(3).
  *
  *      If field_mask is not BL_VCF_FIELD_ALL, fields not indicated by a 1
  *      in the bit mask are discarded rather than stored in bed_feature.
@@ -287,7 +287,7 @@ void    bl_vcf_get_sample_ids(FILE *vcf_stream, char *sample_ids[],
  *      size_t      len;
  *
  *      bl_vcf_read_static_fields(stream, &vcf_call, BL_VCF_FIELD_ALL);
- *      while ( tsv_read_field(stream, sample_data, MAX_CHARS, &len) != '\n' )
+ *      while ( xt_tsv_read_field(stream, sample_data, MAX_CHARS, &len) != '\n' )
  *      {
  *          ...
  *      }
@@ -313,11 +313,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Chromosome
     if ( field_mask & BL_VCF_FIELD_CHROM )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->chrom,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->chrom,
 			&vcf_call->chrom_array_size, &vcf_call->chrom_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->chrom = strdup(".");
 	vcf_call->chrom_array_size = 2;
 	vcf_call->chrom_len = 1;
@@ -330,11 +330,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Call position
     if ( field_mask & BL_VCF_FIELD_POS )
-	delim = tsv_read_field(vcf_stream, pos_str,
+	delim = xt_tsv_read_field(vcf_stream, pos_str,
 			BL_POSITION_MAX_DIGITS, &len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	strlcpy(pos_str, "0", 2);
     }
     if ( delim == EOF )
@@ -357,11 +357,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // ID
     if ( field_mask & BL_VCF_FIELD_ID )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->id,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->id,
 			&vcf_call->id_array_size, &vcf_call->id_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->id = strdup(".");
 	vcf_call->id_array_size = 2;
 	vcf_call->id_len = 1;
@@ -374,11 +374,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Ref
     if ( field_mask & BL_VCF_FIELD_REF )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->ref,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->ref,
 			&vcf_call->ref_array_size, &vcf_call->ref_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->ref = strdup(".");
 	vcf_call->ref_array_size = 2;
 	vcf_call->ref_len = 1;
@@ -391,11 +391,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Alt
     if ( field_mask & BL_VCF_FIELD_ALT )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->alt,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->alt,
 		   &vcf_call->alt_array_size, &vcf_call->alt_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->alt = strdup(".");
 	vcf_call->alt_array_size = 2;
 	vcf_call->alt_len = 1;
@@ -408,11 +408,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
     // Qual
     if ( field_mask & BL_VCF_FIELD_QUAL )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->qual,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->qual,
 		   &vcf_call->qual_array_size, &vcf_call->qual_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->qual = strdup(".");
 	vcf_call->qual_array_size = 2;
 	vcf_call->qual_len = 1;
@@ -425,11 +425,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Filter
     if ( field_mask & BL_VCF_FIELD_FILTER )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->filter,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->filter,
 		   &vcf_call->filter_array_size, &vcf_call->filter_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &len);
+	delim = xt_tsv_skip_field(vcf_stream, &len);
 	vcf_call->filter = strdup(".");
 	vcf_call->filter_array_size = 2;
 	vcf_call->filter_len = 1;
@@ -442,11 +442,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Info
     if ( field_mask & BL_VCF_FIELD_INFO )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->info,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->info,
 		   &vcf_call->info_array_size, &vcf_call->info_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &vcf_call->info_len);
+	delim = xt_tsv_skip_field(vcf_stream, &vcf_call->info_len);
 	vcf_call->info = strdup(".");
 	vcf_call->info_array_size = 2;
 	vcf_call->info_len = 1;
@@ -459,11 +459,11 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     
     // Format
     if ( field_mask & BL_VCF_FIELD_FORMAT )
-	delim = tsv_read_field_malloc(vcf_stream, &vcf_call->format,
+	delim = xt_tsv_read_field_malloc(vcf_stream, &vcf_call->format,
 		   &vcf_call->format_array_size, &vcf_call->format_len);
     else
     {
-	delim = tsv_skip_field(vcf_stream, &vcf_call->format_len);
+	delim = xt_tsv_skip_field(vcf_stream, &vcf_call->format_len);
 	strlcpy(vcf_call->format, ".", 2);
 	vcf_call->format_len = 1;
     }
@@ -517,7 +517,7 @@ int     bl_vcf_read_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
  *      BL_READ_EOF if EOF is encountered between calls as it should be
  *
  *  See also:
- *      bl_vcf_read_static_fields(3), tsv_read_field(3)
+ *      bl_vcf_read_static_fields(3), xt_tsv_read_field(3)
  *
  *  History: 
  *  Date        Name        Modification
@@ -533,7 +533,7 @@ int     bl_vcf_read_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
     status = bl_vcf_read_static_fields(vcf_call, vcf_stream, field_mask);
     if ( status == BL_READ_OK )
     {
-	if ( tsv_read_field_malloc(vcf_stream, &vcf_call->single_sample,
+	if ( xt_tsv_read_field_malloc(vcf_stream, &vcf_call->single_sample,
 			&vcf_call->single_sample_array_size,
 			&vcf_call->single_sample_len) != EOF )
 	    return BL_READ_OK;
@@ -608,7 +608,7 @@ int     bl_vcf_write_static_fields(bl_vcf_t *vcf_call, FILE *vcf_stream,
     if ( field_mask & BL_VCF_FIELD_CHROM )
 	chrom = vcf_call->chrom;
     if ( field_mask & BL_VCF_FIELD_POS )
-	ltostrn(pos_str, vcf_call->pos, 10, BL_POSITION_MAX_DIGITS);
+	xt_ltostrn(pos_str, vcf_call->pos, 10, BL_POSITION_MAX_DIGITS);
     if ( field_mask & BL_VCF_FIELD_ID )
 	id = vcf_call->id;
     if ( field_mask & BL_VCF_FIELD_REF )
@@ -688,7 +688,7 @@ int     bl_vcf_write_ss_call(bl_vcf_t *vcf_call, FILE *vcf_stream,
 
 
 // FIXME: Write a new function bl_vcf_read_multi-samples() that uses
-// tsv_read_field_malloc() and extends the pointer array on-the-fly
+// xt_tsv_read_field_malloc() and extends the pointer array on-the-fly
 #if 0
 char    **bl_vcf_sample_alloc(bl_vcf_t *vcf_call, size_t samples)
 

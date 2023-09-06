@@ -27,8 +27,8 @@
 #define BL_VCF_SAMPLE_ID_MAX_CHARS    4096
 
 // Hack:
-// Use different sizes for each so dsv_read_field() buffer overflow errors
-// will point to a specific field.  Eventually should have dsv_read_field()
+// Use different sizes for each so xt_dsv_read_field() buffer overflow errors
+// will point to a specific field.  Eventually should have xt_dsv_read_field()
 // return an error code rather than exit with an error message
 //#define BL_VCF_REF_MAX_CHARS        32
 //#define BL_VCF_ALT_MAX_CHARS        33

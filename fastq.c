@@ -82,7 +82,7 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 	 */
 
 	ungetc(ch, fastq_stream);
-	ch = dsv_read_field_malloc(fastq_stream, &record->desc,
+	ch = xt_dsv_read_field_malloc(fastq_stream, &record->desc,
 			    &record->desc_array_size, "", &record->desc_len);
 	if ( record->desc == NULL )
 	{
@@ -106,7 +106,7 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 
 	/*
 	 *  Read sequence lines.  May span multiple lines so can't use
-	 *  dsv_read_field_malloc().
+	 *  xt_dsv_read_field_malloc().
 	 */
 	
 	if ( record->seq_array_size == 0 )
@@ -179,7 +179,7 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 	 *  Read + separator
 	 */
 	
-	ch = dsv_read_field_malloc(fastq_stream, &record->plus,
+	ch = xt_dsv_read_field_malloc(fastq_stream, &record->plus,
 			    &record->plus_array_size, "", &record->plus_len);
 	if ( record->plus == NULL )
 	{
@@ -204,7 +204,7 @@ int     bl_fastq_read(bl_fastq_t *record, FILE *fastq_stream)
 
 	/*
 	 *  Read quality string.  May span multiple lines so can't use
-	 *  dsv_read_field_malloc().
+	 *  xt_dsv_read_field_malloc().
 	 */
 
 	// FIXME: This could be problematic with bad data where qual len

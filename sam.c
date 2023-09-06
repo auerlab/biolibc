@@ -177,11 +177,11 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     int     delim;
     
     if ( field_mask & BL_SAM_FIELD_QNAME )
-	delim = tsv_read_field(sam_stream, alignment->qname,
+	delim = xt_tsv_read_field(sam_stream, alignment->qname,
 			BL_SAM_QNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
 	*alignment->qname = '\0';
     }
     if ( delim == EOF )
@@ -189,9 +189,9 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
 
     // 2 Flag
     if ( field_mask & BL_SAM_FIELD_FLAG )
-	delim = tsv_read_field(sam_stream, flag_str, BL_SAM_FLAG_MAX_DIGITS, &len);
+	delim = xt_tsv_read_field(sam_stream, flag_str, BL_SAM_FLAG_MAX_DIGITS, &len);
     else
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading flag: %s.\n",
@@ -216,11 +216,11 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 3 RNAME
     if ( field_mask & BL_SAM_FIELD_RNAME )
-	delim = tsv_read_field(sam_stream, alignment->rname,
+	delim = xt_tsv_read_field(sam_stream, alignment->rname,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
 	*alignment->rname = '\0';
     }
     if ( delim == EOF )
@@ -232,10 +232,10 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 4 POS
     if ( field_mask & BL_SAM_FIELD_POS )
-	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
+	delim = xt_tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading pos: %s.\n",
@@ -261,10 +261,10 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 5 MAPQ
     if ( field_mask & BL_SAM_FIELD_MAPQ )
-	delim = tsv_read_field(sam_stream, mapq_str, BL_SAM_MAPQ_MAX_CHARS,
+	delim = xt_tsv_read_field(sam_stream, mapq_str, BL_SAM_MAPQ_MAX_CHARS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading mapq: %s.\n",
@@ -290,12 +290,12 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 6 CIGAR
     if ( field_mask & BL_SAM_FIELD_CIGAR )
-	delim = tsv_read_field_malloc(sam_stream, &alignment->cigar,
+	delim = xt_tsv_read_field_malloc(sam_stream, &alignment->cigar,
 			       &alignment->cigar_array_size,
 			       &alignment->cigar_len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
 	alignment->cigar_len = 0;
 	// Do not set to NULL or set array_size to 0.  Leave buffer
 	// allocated for reuse.
@@ -309,11 +309,11 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 7 RNEXT
     if ( field_mask & BL_SAM_FIELD_RNEXT )
-	delim = tsv_read_field(sam_stream, alignment->rnext,
+	delim = xt_tsv_read_field(sam_stream, alignment->rnext,
 			       BL_SAM_RNAME_MAX_CHARS, &len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
 	*alignment->rnext = '\0';
     }
     if ( delim == EOF )
@@ -325,10 +325,10 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 8 PNEXT
     if ( field_mask & BL_SAM_FIELD_PNEXT )
-	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
+	delim = xt_tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading pnext: %s.\n",
@@ -353,10 +353,10 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 9 TLEN
     if ( field_mask & BL_SAM_FIELD_TLEN )
-	delim = tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
+	delim = xt_tsv_read_field(sam_stream, pos_str, BL_POSITION_MAX_DIGITS,
 			       &len);
     else
-	delim = tsv_skip_field(sam_stream, &len);
+	delim = xt_tsv_skip_field(sam_stream, &len);
     if ( delim == EOF )
     {
 	fprintf(stderr, "bl_sam_read(): Got EOF reading tlen: %s.\n",
@@ -381,11 +381,11 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     
     // 10 SEQ
     if ( field_mask & BL_SAM_FIELD_SEQ )
-	delim = tsv_read_field_malloc(sam_stream, &alignment->seq,
+	delim = xt_tsv_read_field_malloc(sam_stream, &alignment->seq,
 		    &alignment->seq_array_size, &alignment->seq_len);
     else
     {
-	delim = tsv_skip_field(sam_stream, &alignment->seq_len);
+	delim = xt_tsv_skip_field(sam_stream, &alignment->seq_len);
 	alignment->seq_len = 0;
 	// Do not set to NULL or set array_size to 0.  Leave buffer
 	// allocated for reuse.
@@ -414,13 +414,13 @@ int     bl_sam_read(bl_sam_t *alignment, FILE *sam_stream,
     // 11 QUAL, should be last field
     if ( field_mask & BL_SAM_FIELD_QUAL )
     {
-	delim = tsv_read_field_malloc(sam_stream, &alignment->qual,
+	delim = xt_tsv_read_field_malloc(sam_stream, &alignment->qual,
 		    &alignment->qual_array_size,
 		    &alignment->qual_len);
     }
     else
     {
-	delim = tsv_skip_field(sam_stream, &alignment->qual_len);
+	delim = xt_tsv_skip_field(sam_stream, &alignment->qual_len);
 	alignment->qual_len = 0;
 	// Do not set to NULL or set array_size to 0.  Leave buffer
 	// allocated for reuse.
@@ -533,7 +533,7 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
     //fprintf(stderr, "src->qual = %s %zu\n", src->qual, src->qual_len);
     
     /*
-     *  qual is an optional field.  If skipped using tsv_skip_field()
+     *  qual is an optional field.  If skipped using xt_tsv_skip_field()
      *  qual_len will be non-zero, but qual will be NULL.
      */
     if ( src->qual != NULL )
@@ -796,7 +796,7 @@ FILE    *bl_sam_fopen(const char *filename, const char *mode,
 	    return popen(cmd, mode);
 	}
 	else if ( (strcmp(ext, ".bam") == 0) || (strcmp(ext, ".cram") == 0) 
-		  || ! strblank(samtools_args) )
+		  || ! xt_strblank(samtools_args) )
 	{
 	    snprintf(cmd, XT_CMD_MAX_CHARS, "samtools view --with-header %s %s",
 		    samtools_args, filename);
