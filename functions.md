@@ -1,8 +1,11 @@
 # Biolibc function list
 
+Each function below is documented by a man page.  To view the documentation,
+install biolibc using your chosen package manager and run `man function`
+(e.g. `man bl_fastq_read`).
+
 | Function | Purpose |
 |----------|---------|
-| BIOLIBC  |  Library of high |
 | bl_align_map_seq_exact(3)  |  Locate little sequence in big sequence |
 | bl_align_map_seq_sub(3)  |  Locate little sequence in big sequence |
 | bl_bed_check_order(3)  |  Compare positions of two bed records |
