@@ -834,8 +834,7 @@ bl_gff3_t    *bl_gff3_copy(bl_gff3_t *copy, bl_gff3_t *feature)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      bl_gff3_sam_cmp() - Compare positions of a SAM alignment and GFF3
- *      feature
+ *      bl_gff3_sam_cmp() - Compare SAM/GFF3 positions
  *
  *  Library:
  *      #include <gff3.h>
@@ -885,8 +884,7 @@ int     bl_gff3_sam_cmp(bl_gff3_t *feature, bl_sam_t *alignment)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      bl_gff3_sam_overlap() - Compute overlap between a SAM alignment
- *      and a GFF3 feature
+ *      bl_gff3_sam_overlap() - Compute SAM/GFF3 overlap
  *
  *  Library:
  *      #include <biolibc/gff3.h>

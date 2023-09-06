@@ -138,8 +138,7 @@ int     bl_pos_list_add_position(bl_pos_list_t *pos_list, int64_t position)
 
 /***************************************************************************
  *  Name:
- *      bl_pos_list_from_csv() - Convert from comma-separated data to
- *      position list
+ *      bl_pos_list_from_csv() - Convert comma-separated data to position list
  *
  *  Library:
  *      #include <biolibc/pos-list.h>

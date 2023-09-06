@@ -879,8 +879,7 @@ int     bl_sam_fclose(FILE *stream)
  *  Use auto-c2man to generate a man page from this comment
  *
  *  Name:
- *      bl_sam_gff3_overlap() - Return the amount of overlap between a
- *      SAM alignment and a GFF3 feature
+ *      bl_sam_gff3_overlap() - Compute SAM/GFF3 overlap
  *
  *  Library:
  *      #include <biolibc/gff3.h>

@@ -5,7 +5,7 @@
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_read() - Read FASTA or FASTQ record
+ *      bl_fastx_read() - Read a FASTX record
  *
  *  Library:
  *      #include <biolibc/fastx.h>
@@ -61,7 +61,7 @@ int     bl_fastx_read(bl_fastx_t *record, FILE *fastx_stream)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_write() - Write FASTA or FASTQ record
+ *      bl_fastx_write() - Write a FASTX record
  *
  *  Library:
  *      #include <biolibc/fasta.h>
@@ -121,7 +121,7 @@ int     bl_fastx_write(bl_fastx_t *record, FILE *fastx_stream,
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_free() - Free memory for a FASTX (FASTA or FASTQ) object
+ *      bl_fastx_free() - Free memory for a FASTX object
  *
  *  Library:
  *      #include <biolibc/fast.h>
@@ -167,7 +167,7 @@ void    bl_fastx_free(bl_fastx_t *record)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_init() - Initialize a FASTX (FASTA or FASTQ) object
+ *      bl_fastx_init() - Initialize a FASTX object
  *
  *  Library:
  *      #include <biolibc/fasta.h>
@@ -244,7 +244,7 @@ void    bl_fastx_init(bl_fastx_t *record, FILE *fastx_stream)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_desc() - Return  description of a FASTX (FASTA or FASTQ) object
+ *      bl_fastx_desc() - Return  description of a FASTX object
  *
  *  Library:
  *      #include <biolibc/fastx.h>
@@ -297,8 +297,7 @@ char    *bl_fastx_desc(bl_fastx_t *record)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_desc_len() - Return length of a FASTX (FASTA or FASTQ)
- *      description line
+ *      bl_fastx_desc_len() - Return length of FASTX description
  *
  *  Library:
  *      #include <biolibc/fastx.h>
@@ -351,7 +350,7 @@ size_t  bl_fastx_desc_len(bl_fastx_t *record)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_seq() - Return sequence of a FASTX (FASTA or FASTQ) object
+ *      bl_fastx_seq() - Return sequence of a FASTX object
  *
  *  Library:
  *      #include <biolibc/fastx.h>
@@ -404,8 +403,7 @@ char    *bl_fastx_seq(bl_fastx_t *record)
 
 /***************************************************************************
  *  Name:
- *      bl_fastx_seq_len() - Return sequence length of a FASTX (FASTA or FASTQ)
- *      object
+ *      bl_fastx_seq_len() - Return length of a FASTX sequence object
  *
  *  Library:
  *      #include <biolibc/fastx.h>
@@ -468,7 +466,7 @@ size_t  bl_fastx_seq_len(bl_fastx_t *record)
  *      Return a pointer to the + string of a FASTQ
  *      record.  The record must be initialized with bl_fastx_init(3)
  *      and populated by bl_fastx_read(3) or other means.  If the format
- *      if the fastx stream is FASTA, a warning is generated and NULL
+ *      if the FASTX stream is FASTA, a warning is generated and NULL
  *      is returned.  Previously used
  *      variables may be reused to process another record in the same
  *      format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);
@@ -524,7 +522,7 @@ char    *bl_fastx_plus(bl_fastx_t *record)
  *      Return the length of the + string of a FASTQ
  *      record.  The record must be initialized with bl_fastx_init(3)
  *      and populated by bl_fastx_read(3) or other means.  If the format
- *      if the fastx stream is FASTA, a warning is generated and 0
+ *      if the FASTX  stream is FASTA, a warning is generated and 0
  *      is returned.  Previously used
  *      variables may be reused to process another record in the same
  *      format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);
@@ -580,7 +578,7 @@ size_t  bl_fastx_plus_len(bl_fastx_t *record)
  *      Return a pointer to the qual string of a FASTQ
  *      record.  The record must be initialized with bl_fastx_init(3)
  *      and populated by bl_fastx_read(3) or other means.  If the format
- *      if the fastx stream is FASTA, a warning is generated and NULL
+ *      if the FASTX  stream is FASTA, a warning is generated and NULL
  *      is returned.  Previously used
  *      variables may be reused to process another record in the same
  *      format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);
@@ -636,7 +634,7 @@ char    *bl_fastx_qual(bl_fastx_t *record)
  *      Return the length of the qual string of a FASTQ
  *      record.  The record must be initialized with bl_fastx_init(3)
  *      and populated by bl_fastx_read(3) or other means.  If the format
- *      if the fastx stream is FASTA, a warning is generated and 0
+ *      if the FASTX  stream is FASTA, a warning is generated and 0
  *      is returned.  Previously used
  *      variables may be reused to process another record in the same
  *      format (FASTA or FASTQ) or reinitialized by bl_fastx_free(3);

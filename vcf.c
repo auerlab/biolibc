@@ -981,8 +981,7 @@ vcf_field_mask_t    bl_vcf_parse_field_spec(char *spec)
 
 /***************************************************************************
  *  Name:
- *      bl_vcf_call_in_alignment() - Return true if location of VCF call is
- *      within an alignment
+ *      bl_vcf_call_in_alignment() - Return true if VCF call is within alignment
  *
  *  Library:
  *      #include <biolibc/vcf.h>
@@ -1025,8 +1024,7 @@ bool    bl_vcf_call_in_alignment(bl_vcf_t *vcf_call, bl_sam_t *sam_alignment)
 
 /***************************************************************************
  *  Name:
- *      bl_vcf_call_downstream_of_alignment() - Return true if the location
- *      of a VCF call is downstream of an alignment
+ *      bl_vcf_call_downstream_of_alignment() - Return true if VCF call is downstream of alignment
  *
  *  Library:
  *      #include <biolibc/vcf.h>
