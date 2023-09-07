@@ -6,8 +6,8 @@ install biolibc using your chosen package manager and run `man function`
 
 This list does not include the numerous accessor and mutator functions
 and macros available for classes (bl_sam_t, bl_gff3_t, etc.).  See
-<prefix>/include/biolibc/*-accessors.h and
-<prefix>/include/biolibc/*-mutators.h for a current list.
+$PREFIX/include/biolibc/*-accessors.h and
+$PREFIX/include/biolibc/*-mutators.h for a current list.
 
 | Function | Purpose |
 |----------|---------|
