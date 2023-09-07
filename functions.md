@@ -4,6 +4,11 @@ Each function below is documented by a man page.  To view the documentation,
 install biolibc using your chosen package manager and run `man function`
 (e.g. `man bl_fastq_read`).
 
+This list does not include the numerous accessor and mutator functions
+and macros available for classes (bl_sam_t, bl_gff3_t, etc.).  See
+<prefix>/include/biolibc/*-accessors.h and
+<prefix>/include/biolibc/*-mutators.h for a current list.
+
 | Function | Purpose |
 |----------|---------|
 | bl_align_map_seq_exact(3)  |  Locate little sequence in big sequence |

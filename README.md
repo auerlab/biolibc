@@ -67,7 +67,8 @@ for a comparison of language performance.
 
 ## Summary of available functions
 
-This [function summary](./functions.md) lists currently available functions.
+This [function summary](./functions.md) lists currently available API
+functions.
 It is also available via "man biolibc" when biolibc is properly installed
 via a package manager.  Each function listed has its own man page with
 a more detailed description.
