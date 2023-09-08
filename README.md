@@ -37,17 +37,18 @@ For some examples, see
 [haploh-vcf-depths](https://github.com/auerlab/haploh-vcf-depths),
 [peak-classifier](https://github.com/auerlab/peak-classifier),
 [generand](https://github.com/auerlab/generand),
-[ad-matrix](https://github.com/auerlab/ad-matrix), and
-[fastq-trim](https://github.com/auerlab/fastq-trim).
+[ad-matrix](https://github.com/auerlab/ad-matrix),
+[fastq-trim](https://github.com/auerlab/fastq-trim) and
+[FASDA](https://github.com/auerlab/fasda).
 
 In more technical terms, biolibc is a library of fast, memory-efficient C
 functions for processing biological data.  Like libc, it consists of numerous
 disparate, general-purpose functions that can be used by a wide variety of
 applications.
 
-These include functions for reading and writing common file formats such as
+These include classes for reading, writing, and manipulating common file formats such as
 BED, GFF, FASTA, FASTQ, SAM and VCF, string functions specific to
-bioinformatics such as chromosome_name_cmp(), detecting feature overlaps,
+bioinformatics such as chromosome_name_cmp(), functions to detect feature overlaps,
 etc.
 
 Biolibc, and the more generic [libxtend](https://github.com/outpaddling/libxtend),
