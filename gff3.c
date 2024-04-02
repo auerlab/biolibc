@@ -199,11 +199,13 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     // FIXME: Rely on parent ID instead of ###?
     if ( (ch = getc(gff3_stream)) == '#' )
     {
-	fgets(line, BL_GFF3_LINE_MAX_CHARS, gff3_stream);
-	if ( strcmp(line, "##\n") == 0 )
+	if ( fgets(line, BL_GFF3_LINE_MAX_CHARS, gff3_stream) != NULL )
 	{
-	    strlcpy(feature->type, "###", BL_GFF3_TYPE_MAX_CHARS);
-	    return BL_READ_OK;
+	    if ( strcmp(line, "##\n") == 0 )
+	    {
+		strlcpy(feature->type, "###", BL_GFF3_TYPE_MAX_CHARS);
+		return BL_READ_OK;
+	    }
 	}
     }
     else if ( ch != EOF )
@@ -216,9 +218,7 @@ int     bl_gff3_read(bl_gff3_t *feature, FILE *gff3_stream,
     // 1 Chromosome
     if ( xt_tsv_read_field(gff3_stream, feature->seqid,
 			BL_CHROM_MAX_CHARS, &len) == EOF )
-    {
 	return BL_READ_EOF;
-    }
     
     // 2 Source
     if ( xt_tsv_read_field(gff3_stream, feature->source,
