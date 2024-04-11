@@ -171,7 +171,7 @@ Then, assuming you selected current packages and the default prefix
 
 ```
 source ~/Pkgsrc/pkg/etc/pkgsrc.sh   # Or pkgsrc.csh for csh or tcsh
-cd ~/Pkgsrc/biology/biolibc
+cd ~/Pkgsrc/pkgsrc/biology/biolibc
 sbmake install clean clean-depends
 ```
 
