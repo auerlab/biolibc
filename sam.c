@@ -509,13 +509,14 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 	dest->cigar_array_size = src->cigar_len + 1;
 	dest->cigar_len = src->cigar_len;
     }
-    dest->cigar_array_size = src->cigar_array_size;
-    dest->cigar_len = src->cigar_len;
+    else
+	dest->cigar = NULL;
     
     strlcpy(dest->rnext, src->rnext, BL_SAM_RNAME_MAX_CHARS + 1);
     dest->pnext = src->pnext;
     dest->tlen = src->tlen;
 
+    // seq should never be NULL, but just in case
     if ( src->seq != NULL )
     {
 	if ( (dest->seq = strdup(src->seq)) == NULL )
@@ -526,9 +527,8 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 	dest->seq_array_size = src->seq_len + 1;
 	dest->seq_len = src->seq_len;
     }
-    dest->seq_array_size = src->seq_array_size;
-    dest->seq_len = src->seq_len;
-    
+    else
+	dest->seq = NULL;
     //fprintf(stderr, "src->seq = %s %zu\n", src->seq, src->seq_len);
     //fprintf(stderr, "src->qual = %s %zu\n", src->qual, src->qual_len);
     
@@ -546,6 +546,13 @@ void    bl_sam_copy(bl_sam_t *dest, bl_sam_t *src)
 	dest->qual_array_size = src->qual_len + 1;
 	dest->qual_len = src->qual_len;
     }
+    else
+	dest->qual = NULL;
+
+    dest->cigar_array_size = src->cigar_array_size;
+    dest->cigar_len = src->cigar_len;
+    dest->seq_array_size = src->seq_array_size;
+    dest->seq_len = src->seq_len;
     dest->qual_array_size = src->qual_array_size;
     dest->qual_len = src->qual_len;
 }

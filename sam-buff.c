@@ -99,6 +99,21 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min,
     
     sam_buff->buff_size = BL_SAM_BUFF_START_SIZE;
     sam_buff->max_alignments = max_alignments;
+    
+    /*
+     *  Dynamically allocating the pointers is probably senseless since they
+     *  take very little space compared to the alignment data.  By the time
+     *  the pointer array takes a significant amount of RAM, you're probably
+     *  already thrashing to accomodate the sequence data.  The pointer array
+     *  size is capped by BL_SAM_BUFF_MAX_SIZE to prevent memory exhaustion.
+     *  We may save a few megabytes with this, though.
+     */
+    sam_buff->alignments =
+	(bl_sam_t **)xt_malloc(sam_buff->buff_size,
+				   sizeof(bl_sam_t **));
+    for (c = 0; c < sam_buff->buff_size; ++c)
+	sam_buff->alignments[c] = NULL;
+
     sam_buff->buffered_count = 0;
     sam_buff->max_count = 0;
     sam_buff->previous_pos = 0;
@@ -114,24 +129,10 @@ void    bl_sam_buff_init(bl_sam_buff_t *sam_buff, unsigned int mapq_min,
     sam_buff->trailing_alignments = 0;
     sam_buff->discarded_alignments = 0;
     sam_buff->discarded_score_sum = 0;
+    sam_buff->discarded_trailing = 0;
     sam_buff->min_discarded_score = SIZE_MAX;
     sam_buff->max_discarded_score = 0;
-    sam_buff->discarded_trailing = 0;
     sam_buff->unmapped_alignments = 0;
-    
-    /*
-     *  Dynamically allocating the pointers is probably senseless since they
-     *  take very little space compared to the alignment data.  By the time
-     *  the pointer array takes a significant amount of RAM, you're probably
-     *  already thrashing to accomodate the sequence data.  The pointer array
-     *  size is capped by BL_SAM_BUFF_MAX_SIZE to prevent memory exhaustion.
-     *  We may save a few megabytes with this, though.
-     */
-    sam_buff->alignments =
-	(bl_sam_t **)xt_malloc(sam_buff->buff_size,
-				   sizeof(bl_sam_t **));
-    for (c = 0; c < sam_buff->buff_size; ++c)
-	sam_buff->alignments[c] = NULL;
 }
 
 
@@ -184,8 +185,8 @@ int     bl_sam_buff_add_alignment(bl_sam_buff_t *sam_buff,
 	    fprintf(stderr, "bl_sam_buff_add_alignment(): Could not allocate alignments.\n");
 	    exit(EX_UNAVAILABLE);
 	}
-	// Redundant to bl_sam_copy()
-	// bl_sam_init(sam_buff->alignments[sam_buff->buffered_count], 0);
+	// FIXME: Should be redundant to bl_sam_copy()
+	// bl_sam_init(sam_buff->alignments[sam_buff->buffered_count]);
     }
     else
 	bl_sam_free(sam_buff->alignments[sam_buff->buffered_count]);

@@ -12,11 +12,11 @@
 #define BL_SAM_MAPQ_MAX_CHARS  5
 #define BL_SAM_QNAME_MAX_CHARS 4096
 #define BL_SAM_RNAME_MAX_CHARS 4096
-#define BL_SAM_FLAG_MAX_DIGITS 4096    // What should this really be?
+#define BL_SAM_FLAG_MAX_DIGITS 32    // What should this really be?
 
 // Keep this for initializing static objects, where we don't want to
 // call bl_sam_init() every time.
-#define BL_SAM_INIT { "", 0, "", 0, 0, "", "", 0, 0, NULL, NULL, 0, 0, 0, 0 }
+#define BL_SAM_INIT { "", 0, "", 0, 0, NULL, "", 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0 }
 
 typedef struct
 {
