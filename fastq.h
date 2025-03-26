@@ -43,6 +43,8 @@ size_t bl_fastq_find_adapter_smart(const bl_fastq_t *read, const char *adapter, 
 size_t bl_fastq_find_adapter_exact(const bl_fastq_t *read, const char *adapter, size_t min_match, unsigned max_mismatch_percent);
 size_t bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len);
 size_t bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual, unsigned phred_base);
+size_t bl_fastq_5p_trim(bl_fastq_t *read, size_t new_len);
+size_t bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual, unsigned phred_base);
 size_t bl_fastq_name_cmp(bl_fastq_t *read1, bl_fastq_t *read2);
 
 #ifdef __cplusplus
