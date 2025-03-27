@@ -469,14 +469,14 @@ void    bl_fastq_init(bl_fastq_t *record)
  *
  *  Description:
  *      Trim the 5' end of a FASTQ sequence and quality string at location
- *      new_len.
+ *      cut_pos.
  *  
  *  Arguments:
  *      read        FASTQ read to be trimmed
- *      new_len     New length and location of the null terminators
+ *      cut_pos     New length and location of the null terminators
  *
  *  Returns:
- *      BL_FASTQ_DATA_OK if new_len is between 0 and original length,
+ *      BL_FASTQ_DATA_OK if cut_pos is between 0 and original length,
  *      BL_FASTQ_DATA_INVALID otherwise.
  *
  *  Examples:
@@ -496,15 +496,16 @@ void    bl_fastq_init(bl_fastq_t *record)
  *  2022-01-02  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  bl_fastq_5p_trim(bl_fastq_t *read, size_t new_len)
+size_t  bl_fastq_5p_trim(bl_fastq_t *read, size_t cut_pos)
 
 {
-    if ( (new_len >= 0) && (new_len <= read->seq_len) )
+    if ( (cut_pos >= 0) && (cut_pos <= read->seq_len) )
     {
-	size_t  trimmed = read->seq_len - new_len;
-	read->seq_len = read->qual_len = new_len;
-	// Include null byte in move
-	memmove(read->seq, read->seq + trimmed, new_len + 1);
+	size_t  trimmed = read->seq_len - cut_pos;
+	read->seq_len -= (cut_pos + 1);
+	read->qual_len -= (cut_pos + 1);
+	memmove(read->seq, read->seq + cut_pos + 1, trimmed);
+	memmove(read->qual, read->qual + cut_pos + 1, trimmed);
 	// FIXME: realloc?
 	return BL_FASTQ_DATA_OK;
     }
@@ -530,7 +531,7 @@ size_t  bl_fastq_5p_trim(bl_fastq_t *read, size_t new_len)
  *      string and sums (base quality - minimum quality) while moving in
  *      the 3' direction.  This sum will be < 0 as long as the average
  *      base quality is < minimum quality.  It also keeps track of where
- *      the minimum of this sum occurs.  When the sum become > 0, we have
+ *      the minimum of this sum occurs.  When the sum becomes > 0, we have
  *      reached a point where the average quality of the 5' end is
  *      satisfactory, and it is assumed it will remain that way if we
  *      continue in the 3' direction.  ( Illumina reads tend to have low
@@ -595,13 +596,15 @@ size_t  bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual,
     {
 	// Revert promotions to unsigned
 	sum = (long)sum + read->qual[c] - phred_base - min_qual;
+	/* fprintf(stderr, "%zd base = %c qual = %c (%d) sum = %ld\n",
+		c, read->seq[c],
+		read->qual[c], read->qual[c] - phred_base, sum); */
 	if ( sum < min_sum )
 	{
-	    // fprintf(stderr, "%zu %c %c %ld\n", c, read->seq[c], read->qual[c], sum);
 	    min_sum = sum;
 	    cut_pos = c;
 	}
-	--c;
+	++c;
     }
     // fprintf(stderr, "Returning %zd\n", cut_pos);
     return cut_pos;
@@ -620,14 +623,14 @@ size_t  bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual,
  *
  *  Description:
  *      Trim the 3' end of a FASTQ sequence and quality string at location
- *      new_len.
+ *      cut_pos.
  *  
  *  Arguments:
  *      read        FASTQ read to be trimmed
- *      new_len     New length and location of the null terminators
+ *      cut_pos     New length and location of the null terminators
  *
  *  Returns:
- *      BL_FASTQ_DATA_OK if new_len is between 0 and original length,
+ *      BL_FASTQ_DATA_OK if cut_pos is between 0 and original length,
  *      BL_FASTQ_DATA_INVALID otherwise.
  *
  *  Examples:
@@ -647,13 +650,13 @@ size_t  bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual,
  *  2022-01-02  Jason Bacon Begin
  ***************************************************************************/
 
-size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len)
+size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t cut_pos)
 
 {
-    if ( (new_len >= 0) && (new_len <= read->seq_len) )
+    if ( (cut_pos >= 0) && (cut_pos <= read->seq_len) )
     {
-	read->seq_len = read->qual_len = new_len;
-	read->seq[new_len] = read->qual[new_len] = '\0';
+	read->seq_len = read->qual_len = cut_pos;
+	read->seq[cut_pos] = read->qual[cut_pos] = '\0';
 	// FIXME: realloc?
 	return BL_FASTQ_DATA_OK;
     }
@@ -679,7 +682,7 @@ size_t  bl_fastq_3p_trim(bl_fastq_t *read, size_t new_len)
  *      string and sums (base quality - minimum quality) while moving in
  *      the 5' direction.  This sum will be < 0 as long as the average
  *      base quality is < minimum quality.  It also keeps track of where
- *      the minimum of this sum occurs.  When the sum become > 0, we have
+ *      the minimum of this sum occurs.  When the sum becomes > 0, we have
  *      reached a point where the average quality of the 3' end is
  *      satisfactory, and it is assumed it will remain that way if we
  *      continue in the 5' direction.  ( Illumina reads tend to drop in
@@ -744,9 +747,11 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
     {
 	// Revert promotions to unsigned
 	sum = (long)sum + read->qual[c] - phred_base - min_qual;
+	/* fprintf(stderr, "%zd base = %c qual = %c (%d) sum = %ld\n",
+		c, read->seq[c],
+		read->qual[c], read->qual[c] - phred_base, sum); */
 	if ( sum < min_sum )
 	{
-	    // fprintf(stderr, "%zu %c %c %ld\n", c, read->seq[c], read->qual[c], sum);
 	    min_sum = sum;
 	    cut_pos = c;
 	}
