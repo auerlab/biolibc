@@ -589,7 +589,6 @@ size_t  bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 	exit(EX_DATAERR);
     }
     
-    sum = min_sum = 0;
     /*
      *  The normal algorithm will quit immediately if the first base
      *  is good.  There are situations where the first is good, but
@@ -600,8 +599,9 @@ size_t  bl_fastq_find_5p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 	if ( read->qual[c] - phred_base < min_qual )
 	    break;
     if ( c == 5 )   // No low-quality bases
-	return 0;
+	return -1;
     cut_pos = -1;
+    sum = min_sum = 0;
     while ( (c < read->seq_len) && (sum <= 0) )
     {
 	// Revert promotions to unsigned
@@ -750,9 +750,13 @@ size_t  bl_fastq_find_3p_low_qual(const bl_fastq_t *read, unsigned min_qual,
 	exit(EX_DATAERR);
     }
     
-    sum = min_sum = 0;
-    c = read->qual_len - 1;
+    for (c = read->seq_len - 1; c > read->seq_len - 6; --c)
+	if ( read->qual[c] - phred_base < min_qual )
+	    break;
+    if ( c == read->seq_len - 6 )  // No low quality bases in the last 5
+	return read->seq_len;
     cut_pos = read->seq_len;
+    sum = min_sum = 0;
     while ( (c >= 0) && (sum <= 0) )
     {
 	// Revert promotions to unsigned
