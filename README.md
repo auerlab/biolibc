@@ -182,7 +182,7 @@ sbmake install clean clean-depends
 
 ### Other package managers
 
-Packages for libxtend are known to exist in the following package managers.
+Packages for biolibc are known to exist in the following package managers.
 These are maintained by third parties and not directly supported here.
 
 [BioArchLinux](https://github.com/BioArchLinux/Packages)
